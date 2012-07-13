@@ -85,6 +85,18 @@ class Cms_Setup_Task {
 			
 			$query = $q . "')";
 
+			//MySQL ADAPTOR
+			if(Config::get('database.default') != 'sqlite') {
+
+				//NULL to 0
+				$query = str_replace(',NULL,', ',0,', $query);
+
+				//"table_name" to 'table_name'
+				$query = str_replace('INTO "', 'INTO \'', $query);
+				$query = str_replace('" VALUES', '\' VALUES', $query);
+
+			}
+
 			DB::query($query);
 
 		}
