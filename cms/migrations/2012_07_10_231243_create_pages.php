@@ -18,10 +18,10 @@ class Cms_Create_Pages {
 			$table->integer('author_id');
 			$table->string('slug', 255);
 			$table->string('name', 255);
-			$table->text('preview')->nullable();
+			$table->text('preview');
 			$table->string('title', 255);
-			$table->text('keyw')->nullable();
-			$table->text('descr')->nullable();
+			$table->text('keyw');
+			$table->text('descr');
 			$table->string('header', 100);
 			$table->string('layout', 100);
 			$table->string('footer', 100);
