@@ -1034,7 +1034,7 @@ class Marker {
 			$page = Cache::remember('menu_sub_'.md5(SLUG_FULL).'_'.SITE_LANG, function() use ($_zone) {
 				
 				return CmsPage::with(array('elements' => function($query) use ($_zone) {
-					$query->where_zone($_zone);
+					$query->where_zone($_zone)->where_is_valid(1);
 				}))
 						->where_slug(SLUG_FULL)
 						->where_lang(SITE_LANG)
@@ -1046,7 +1046,7 @@ class Marker {
 		} else {
 			
 			$page = CmsPage::with(array('elements' => function($query) use ($_zone) {
-					$query->where_zone($_zone);
+					$query->where_zone($_zone)->where_is_valid(1);
 			}))
 						->where_slug(SLUG_FULL)
 						->where_lang(SITE_LANG)
