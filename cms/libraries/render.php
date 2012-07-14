@@ -62,6 +62,8 @@ class CmsRender {
 					
 					if($page->lang == $lang) $pag = $pages[$key];
 
+					if($page->lang == SITE_LANG) $pag = $pages[$key];
+
 				}
 
 			}

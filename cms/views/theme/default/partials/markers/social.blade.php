@@ -2,7 +2,7 @@
 	@foreach($services as $service)
 
 		@if($service == 'facebook')
-		<a class="addthis_button_facebook_like" fb:like:layout="button_count" fb:like:width="105"></a>
+		<a class="addthis_button_facebook_like" fb:like:layout="button_count" fb:like:width="105" addthis:url="{{Config::get('application.url')}}"></a>
 		@endif
 
 		@if($service == 'twitter')
