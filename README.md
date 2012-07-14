@@ -21,9 +21,11 @@ multilingual and SEO optimized websites or blogs with ease and flexibility.
 
 1. Download **latest release** of PongoCMS from GitHub .
 
-2. Copy the `cms` bundle folder into Laravel `/bundles` folder.
+2. Create a `cms` folder inside Laravel `/bundles` folder.
 
-3. Config **cms** bundle in `/application/bundles.php` like this:
+3. Copy downloaded content into `/bundles/cms` folder.
+
+4. Config **cms** bundle in `/application/bundles.php` like this:
 
 
 ```php
