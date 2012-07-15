@@ -1055,6 +1055,7 @@ class Marker {
 
 		}
 
+		$elements = !empty($page->elements) ? $page->elements : array();
 
 		$options = array(
 			'id' => $_id,
@@ -1063,7 +1064,7 @@ class Marker {
 
 		$view = View::make('cms::theme.'.THEME.'.partials.markers.'.$_tpl);
 		$view['slug'] = SLUG_FULL;
-		$view['elements'] = $page->elements;
+		$view['elements'] = $elements;
 		$view['options'] = HTML::attributes($options);
 
 		return $view;
