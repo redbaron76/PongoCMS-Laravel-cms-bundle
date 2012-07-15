@@ -1,7 +1,10 @@
-INSERT INTO "pongo_pages" VALUES(1,0,1,50,1,'/home','Home','','A multilingual PHP CMS','','','default','home','default',0,0,1000000,'en',1,1,'2012-07-09 19:27:04','2012-07-10 19:15:26');
-INSERT INTO "pongo_pages" VALUES(2,0,1,50,1,'/about-us','About us','','About this PHP CMS','','','default','home','default',0,0,1000000,'en',0,1,'2012-07-10 15:00:38','2012-07-10 19:15:42');
-INSERT INTO "pongo_pages" VALUES(3,0,1,50,1,'/home','Home','','Un CMS in PHP per gestire siti multilingua','','','default','home','default',0,0,1000000,'it',1,1,'2012-07-10 15:12:36','2012-07-10 19:13:30');
-INSERT INTO "pongo_pages" VALUES(4,0,1,50,1,'/chi-siamo','Chi siamo','','Notizie su questo CMS in PHP','','','default','home','default',0,0,1000000,'it',0,1,'2012-07-10 18:48:18','2012-07-10 19:14:03');
+INSERT INTO "pongo_files" VALUES(1,'fabio_fumis.jpg','jpg',50647,480,480,'/files/img/fabio_fumis.jpg','/files/img/thumb/fabio_fumis_thumb.jpg',1,1,'2012-07-10 15:17:52','2012-07-10 15:17:52');
+INSERT INTO "pongo_files" VALUES(2,'pongoweb_logo.png','png',58934,500,300,'/files/img/pongoweb_logo.png','/files/img/thumb/pongoweb_logo_thumb.png',1,1,'2012-07-10 15:17:52','2012-07-10 15:17:52');
+
+INSERT INTO "pongo_files_pages" VALUES(1,1,2,'2012-07-10 15:17:52','2012-07-10 15:17:52');
+INSERT INTO "pongo_files_pages" VALUES(2,2,2,'2012-07-10 15:17:52','2012-07-10 15:17:52');
+INSERT INTO "pongo_files_pages" VALUES(3,1,4,'2012-07-10 18:48:18','2012-07-10 18:48:18');
+INSERT INTO "pongo_files_pages" VALUES(4,2,4,'2012-07-10 18:48:18','2012-07-10 18:48:18');
 
 INSERT INTO "pongo_elements" VALUES(1,1,'credits','credits','<h1>About us</h1>
 
@@ -83,6 +86,7 @@ INSERT INTO "pongo_elements" VALUES(8,1,'author','author','<h2>Note sull''autore
 <p>[$IMAGE[{"file":"fabio_fumis.jpg", "w":"90", "h":"90"}]]<strong>Fabio Fumis</strong> è uno sviluppatore web con base a <strong>Monfalcone</strong> - <strong>ITALY</strong>.<br>Si è interessato di sviluppo web fin dal 1996, quando aveva 20 anni.<br>Tra i suoi lavori, un sistema e-commerce per un''importante brand di abbigliamento italiano, una community social <strong>Bisiacaria.com</strong> e moltissimi siti aziendali e istituzionali.<br>Attualmente ama tenersi sempre informato riguardo le ultime novità web, giocare con il framework <strong>Laravel</strong>, sviluppare nuovi plugin <strong>jQuery</strong> e scorrazzare con la sua <strong>Ducati Monster 900.</strong></p>
 
 [$SOCIAL[{"what":"follow","user":"FFumis"}]]','ZONE2','it',1,'2012-07-10 18:48:18','2012-07-10 19:11:48');
+INSERT INTO "pongo_elements" VALUES(9,1,'blog_preview','blog','[$PREVIEW[{"source":"blogs","n":"2"}]]','ZONE1','en',1,'2012-07-15 10:43:13','2012-07-15 16:13:54');
 
 INSERT INTO "pongo_elements_pages" VALUES(1,1,2,'','2012-07-10 15:18:35','2012-07-10 15:18:35');
 INSERT INTO "pongo_elements_pages" VALUES(2,2,2,'','2012-07-10 15:23:10','2012-07-10 15:23:10');
@@ -92,22 +96,58 @@ INSERT INTO "pongo_elements_pages" VALUES(5,5,3,'','2012-07-10 18:00:25','2012-0
 INSERT INTO "pongo_elements_pages" VALUES(6,6,3,'','2012-07-10 18:01:03','2012-07-10 18:01:03');
 INSERT INTO "pongo_elements_pages" VALUES(7,7,4,'','2012-07-10 18:48:18','2012-07-10 18:48:18');
 INSERT INTO "pongo_elements_pages" VALUES(8,8,4,'','2012-07-10 18:48:18','2012-07-10 18:48:18');
-
-INSERT INTO "pongo_files" VALUES(1,'fabio_fumis.jpg','jpg',50647,480,480,'/files/img/fabio_fumis.jpg','/files/img/thumb/fabio_fumis_thumb.jpg',1,1,'2012-07-10 15:17:52','2012-07-10 15:17:52');
-INSERT INTO "pongo_files" VALUES(2,'pongoweb_logo.png','png',58934,500,300,'/files/img/pongoweb_logo.png','/files/img/thumb/pongoweb_logo_thumb.png',1,1,'2012-07-10 15:17:52','2012-07-10 15:17:52');
-
-INSERT INTO "pongo_files_pages" VALUES(1,1,2,'2012-07-10 15:17:52','2012-07-10 15:17:52');
-INSERT INTO "pongo_files_pages" VALUES(2,2,2,'2012-07-10 15:17:52','2012-07-10 15:17:52');
-INSERT INTO "pongo_files_pages" VALUES(3,1,4,'2012-07-10 18:48:18','2012-07-10 18:48:18');
-INSERT INTO "pongo_files_pages" VALUES(4,2,4,'2012-07-10 18:48:18','2012-07-10 18:48:18');
+INSERT INTO "pongo_elements_pages" VALUES(9,9,5,NULL,'2012-07-15 10:43:13','2012-07-15 10:43:13');
 
 INSERT INTO "pongo_translations" VALUES(1,'en','site language','scegli la lingua','it','2012-07-09 21:09:08','2012-07-10 16:03:51');
 INSERT INTO "pongo_translations" VALUES(2,'en','a CMS built upon Laravel 3.2 PHP Framework','un CMS basato su Laravel 3.2 PHP Framework','it','2012-07-10 15:10:24','2012-07-10 15:10:24');
 
-INSERT INTO "pongo_menus" VALUES(1,'nav','en',0,'2012-07-10 15:04:12','2012-07-10 15:04:12');
+INSERT INTO "pongo_menus" VALUES(1,'nav','en',0,'2012-07-10 15:04:12','2012-07-15 10:42:07');
 INSERT INTO "pongo_menus" VALUES(2,'nav','it',0,'2012-07-10 15:13:34','2012-07-10 18:49:29');
 
-INSERT INTO "pongo_menus_pages" VALUES(1,1,1,1000000,'2012-07-10 15:04:12','2012-07-10 15:04:12');
-INSERT INTO "pongo_menus_pages" VALUES(2,1,2,1000000,'2012-07-10 15:04:12','2012-07-10 15:04:12');
+INSERT INTO "pongo_menus_pages" VALUES(1,1,1,1,'2012-07-10 15:04:12','2012-07-10 15:04:12');
+INSERT INTO "pongo_menus_pages" VALUES(2,1,2,3,'2012-07-10 15:04:12','2012-07-10 15:04:12');
 INSERT INTO "pongo_menus_pages" VALUES(3,2,3,1000000,'2012-07-10 15:13:34','2012-07-10 15:13:34');
 INSERT INTO "pongo_menus_pages" VALUES(4,2,4,1000000,'2012-07-10 15:15:13','2012-07-10 15:15:13');
+INSERT INTO "pongo_menus_pages" VALUES(5,1,5,2,'2012-07-15 10:42:07','2012-07-15 10:42:07');
+
+INSERT INTO "pongo_blogs" VALUES(1,1,50,1,'/this-is-my-first-post','this is my first post','2012-05-15 12:25:00','2014-05-15 12:25:00','<p>
+	Aenean lacinia bibendum nulla sed consectetur. Vivamus sagittis lacus vel augue laoreet rutrum faucibus dolor auctor. Maecenas sed diam eget risus varius blandit sit amet non magna. Fusce dapibus, tellus ac cursus commodo, tortor mauris condimentum nibh, ut fermentum massa justo sit amet risus. Etiam porta sem malesuada magna mollis euismod.</p>
+','<p>
+	Morbi leo risus, porta ac consectetur ac, vestibulum at eros. Nullam quis risus eget urna mollis ornare vel eu leo. Cras justo odio, dapibus ac facilisis in, egestas eget quam. Duis mollis, est non commodo luctus, nisi erat porttitor ligula, eget lacinia odio sem nec elit. Vestibulum id ligula porta felis euismod semper. Sed posuere consectetur est at lobortis.<br />
+	<br />
+	Cras justo odio, dapibus ac facilisis in, egestas eget quam. Fusce dapibus, tellus ac cursus commodo, tortor mauris condimentum nibh, ut fermentum massa justo sit amet risus. Cras justo odio, dapibus ac facilisis in, egestas eget quam. Cras justo odio, dapibus ac facilisis in, egestas eget quam. Cum sociis natoque penatibus et magnis dis parturient montes, nascetur ridiculus mus. Praesent commodo cursus magna, vel scelerisque nisl consectetur et. Aenean lacinia bibendum nulla sed consectetur.<br />
+	<br />
+	Curabitur blandit tempus porttitor. Vestibulum id ligula porta felis euismod semper. Donec id elit non mi porta gravida at eget metus. Integer posuere erat a ante venenatis dapibus posuere velit aliquet. Lorem ipsum dolor sit amet, consectetur adipiscing elit. Maecenas sed diam eget risus varius blandit sit amet non magna.<br />
+	<br />
+	Morbi leo risus, porta ac consectetur ac, vestibulum at eros. Donec ullamcorper nulla non metus auctor fringilla. Maecenas faucibus mollis interdum. Lorem ipsum dolor sit amet, consectetur adipiscing elit. Vestibulum id ligula porta felis euismod semper. Etiam porta sem malesuada magna mollis euismod.</p>
+',NULL,NULL,NULL,'ZONE1','en',1,'2012-07-15 10:28:45','2012-07-15 10:30:33');
+INSERT INTO "pongo_blogs" VALUES(2,1,50,1,'/my-second-blog-post','my second blog post','2012-06-15 12:31:00','2014-06-15 12:31:00','Cras justo odio, dapibus ac facilisis in, egestas eget quam. Cum sociis natoque penatibus et magnis dis parturient montes, nascetur ridiculus mus. Nullam quis risus eget urna mollis ornare vel eu leo. Vivamus sagittis lacus vel augue laoreet rutrum faucibus dolor auctor.','<p>
+	Integer posuere erat a ante venenatis dapibus posuere velit aliquet. Nullam id dolor id nibh ultricies vehicula ut id elit. Sed posuere consectetur est at lobortis. Morbi leo risus, porta ac consectetur ac, vestibulum at eros. Donec sed odio dui. Nullam quis risus eget urna mollis ornare vel eu leo. Nullam id dolor id nibh ultricies vehicula ut id elit.<br />
+	<br />
+	Integer posuere erat a ante venenatis dapibus posuere velit aliquet. Cras justo odio, dapibus ac facilisis in, egestas eget quam. Maecenas sed diam eget risus varius blandit sit amet non magna. Etiam porta sem malesuada magna mollis euismod. Maecenas sed diam eget risus varius blandit sit amet non magna.<br />
+	<br />
+	Aenean eu leo quam. Pellentesque ornare sem lacinia quam venenatis vestibulum. Duis mollis, est non commodo luctus, nisi erat porttitor ligula, eget lacinia odio sem nec elit. Nullam id dolor id nibh ultricies vehicula ut id elit. Praesent commodo cursus magna, vel scelerisque nisl consectetur et.<br />
+	<br />
+	Aenean eu leo quam. Pellentesque ornare sem lacinia quam venenatis vestibulum. Aenean lacinia bibendum nulla sed consectetur. Etiam porta sem malesuada magna mollis euismod. Morbi leo risus, porta ac consectetur ac, vestibulum at eros. Aenean lacinia bibendum nulla sed consectetur.</p>
+',NULL,NULL,NULL,'ZONE1','en',1,'2012-07-15 10:32:33','2012-07-15 10:32:47');
+INSERT INTO "pongo_blogs" VALUES(3,1,50,1,'/this-is-a-demo-blog-post','this is a demo blog post','2012-07-15 12:33:00','2014-07-15 12:33:00','<p>
+	Fusce dapibus, tellus ac cursus commodo, tortor mauris condimentum nibh, ut fermentum massa justo sit amet risus. Curabitur blandit tempus porttitor. Cras mattis consectetur purus sit amet fermentum. Nullam id dolor id nibh ultricies vehicula ut id elit. Vivamus sagittis lacus vel augue laoreet rutrum faucibus dolor auctor.</p>
+','<p>
+	Donec ullamcorper nulla non metus auctor fringilla. Sed posuere consectetur est at lobortis. Maecenas faucibus mollis interdum. Donec ullamcorper nulla non metus auctor fringilla.<br />
+	<br />
+	Vivamus sagittis lacus vel augue laoreet rutrum faucibus dolor auctor. Curabitur blandit tempus porttitor. Vestibulum id ligula porta felis euismod semper. Curabitur blandit tempus porttitor.<br />
+	<br />
+	Maecenas sed diam eget risus varius blandit sit amet non magna. Cum sociis natoque penatibus et magnis dis parturient montes, nascetur ridiculus mus. Nulla vitae elit libero, a pharetra augue. Maecenas faucibus mollis interdum. Donec sed odio dui. Cras mattis consectetur purus sit amet fermentum. Nullam id dolor id nibh ultricies vehicula ut id elit.<br />
+	<br />
+	Etiam porta sem malesuada magna mollis euismod. Maecenas sed diam eget risus varius blandit sit amet non magna. Aenean lacinia bibendum nulla sed consectetur. Fusce dapibus, tellus ac cursus commodo, tortor mauris condimentum nibh, ut fermentum massa justo sit amet risus. Maecenas faucibus mollis interdum. Praesent commodo cursus magna, vel scelerisque nisl consectetur et.</p>
+',NULL,NULL,NULL,'ZONE1','en',1,'2012-07-15 10:34:16','2012-07-15 10:35:05');
+
+INSERT INTO "pongo_blogs_pages" VALUES(1,1,5,1,'2012-07-15 10:28:45','2012-07-15 10:28:45');
+INSERT INTO "pongo_blogs_pages" VALUES(2,2,5,1,'2012-07-15 10:32:33','2012-07-15 10:32:33');
+INSERT INTO "pongo_blogs_pages" VALUES(3,3,5,1,'2012-07-15 10:34:17','2012-07-15 10:34:17');
+
+INSERT INTO "pongo_pages" VALUES(1,0,1,50,1,'/home','Home','','A multilingual PHP CMS','','','default','home','default',0,0,1000000,'en',1,1,'2012-07-09 19:27:04','2012-07-10 19:15:26');
+INSERT INTO "pongo_pages" VALUES(2,0,1,50,1,'/about-us','About us','','About this PHP CMS','','','default','home','default',0,0,1000000,'en',0,1,'2012-07-10 15:00:38','2012-07-10 19:15:42');
+INSERT INTO "pongo_pages" VALUES(3,0,1,50,1,'/home','Home','','Un CMS in PHP per gestire siti multilingua','','','default','home','default',0,0,1000000,'it',1,1,'2012-07-10 15:12:36','2012-07-10 19:13:30');
+INSERT INTO "pongo_pages" VALUES(4,0,1,50,1,'/chi-siamo','Chi siamo','','Notizie su questo CMS in PHP','','','default','home','default',0,0,1000000,'it',0,1,'2012-07-10 18:48:18','2012-07-10 19:14:03');
+INSERT INTO "pongo_pages" VALUES(5,0,1,50,1,'/blog','Blog',NULL,'PongoCMS Blog','','','default','default','default',0,1,1000000,'en',0,1,'2012-07-15 09:46:28','2012-07-15 09:47:09');

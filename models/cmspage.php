@@ -49,6 +49,14 @@ class CmsPage extends Eloquent {
 		->order_by('blogs.created_at', 'asc');
 	}
 
+	//PREVIEW MARKER
+
+	public function blogs_preview()
+	{
+		return $this->has_many_and_belongs_to('CmsBlog', 'blogs_pages')
+		->order_by('blogs.datetime_on', 'desc');
+	}
+
 	//GETTERS
 
 	public function get_updated_date()
@@ -123,7 +131,7 @@ class CmsPage extends Eloquent {
 	}
 
 	//PAGE GENERAL POSITION DROPDOWN
-	public static function select_page_slug($lang, $self = 0, $first = true)
+	public static function select_page_slug($lang, $extra = 1, $self = 0, $first = true)
 	{
 		if($first) {
 			
@@ -139,6 +147,7 @@ class CmsPage extends Eloquent {
 					->where('id', '<>', $self)
                     ->where_lang($lang)
                     ->where_is_home(0)
+                    ->where_extra_id($extra)
                     ->where_is_valid(1)
                     ->order_by('is_home', 'desc')
                     ->order_by('order_id', 'asc')

@@ -1,17 +1,19 @@
 @if(!empty($list))
-<ul>
+<ul class="unstyled">
 	@foreach($list->results as $post)
 	<li>
-		<a href="{{SLUG_FULL.$post->slug}}">
-			{{$post->name}}
-		</a>
-		<p>
-			{{Marker::decode($post->preview)}}
-		</p>
+		<h2>
+			<a href="{{SLUG_FULL.$post->slug}}">{{$post->name}}</a>
+		</h2>
+		
+		<h6>{{$post->datetime_blog}} - {{$post->user->username}}</h6>
+
+		{{Marker::decode($post->preview)}}
+
 	</li>
 	@endforeach
 </ul>
-<div class="pagination">
-	{{$list->links()}}
-</div>
+
+{{$list->links()}}
+
 @endif

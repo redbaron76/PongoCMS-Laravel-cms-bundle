@@ -146,6 +146,11 @@ $.ck = {
 				return '[$MENU_SUB[{"zone":"1"}]]';
 				break;
 
+			case 'PREVIEW':
+				
+				return '[$PREVIEW[{"source":"blogs"}]]';
+				break;
+
 			case 'SOCIAL':
 				
 				return '[$SOCIAL[{"what":"facebook-twitter"}]]';

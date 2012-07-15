@@ -1111,24 +1111,42 @@ class Marker {
 
 		if(!empty($_source)) {
 
+			//SET MODEL RELATION
+
+			$_source = $_source . '_preview';
+
 			//CACHE DATA
 			if(CACHE) {
+
 				$page = Cache::remember('page_'.Str::slug(SLUG_LAST, '_').'_'.SITE_LANG, function() use ($_source) {
+
 					return CmsPage::where_lang(SITE_LANG)->where_slug(SLUG_FULL)->first();
+
 				}, 5);
+
 			} else {
+				
 				$page = CmsPage::where_lang(SITE_LANG)->where_slug(SLUG_FULL)->first();
+
 			}
 
 			if(!empty($page)) {
 
 				//CACHE DATA
 				if(CACHE) {
+
 					$list = Cache::remember($_source.'_'.$page->id.'_'.Input::get('page', 1), function() use ($_source, $page, $_n) {
-						return CmsPage::find($page->id)->$_source()->paginate($_n);
+						return CmsPage::find($page->id)
+								->$_source()
+								->paginate($_n);
 					}, 5);
+
 				} else {				
-					$list = CmsPage::find($page->id)->$_source()->paginate($_n);
+					
+					$list = CmsPage::find($page->id)
+							->$_source()
+							->paginate($_n);
+
 				}
 
 				$ul_options = array(

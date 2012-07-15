@@ -241,8 +241,13 @@ class CmsRender {
 				//Bindo $extra alla ZONA layout pagine se presente
 
 				if( ! empty($extra)) {
-					
-					$tmp_text = Marker::decode($extra->text);
+
+					//EXTRA VIEW
+
+					$extra_what = CONF('cms::settings.extra_id', $page->extra_id);
+
+					$tmp_text = View::make('cms::theme.'.THEME.'.partials.preview.'.$extra_what);
+					$tmp_text['text'] = $extra;
 
 					//Bindo text del pageitem a ZONE che diventa variabile nel layout						
 					$layout[strtoupper($extra->zone)] = trim(implode("\n", array($tmp_text)));

@@ -101,6 +101,10 @@ class Cms_Blog_Controller extends Cms_Base_Controller {
 			'lang' => $lang
 		);
 
+		//GET EXTRA ID
+
+		$extra_ids = Config::get('cms::settings.extra_id');
+
 		$this->layout->content = View::make('cms::interface.pages.blog_new_edit')
 		->with('role_fail', false)
 		->with('title', LL('cms::title.blog_new', CMSLANG))
@@ -108,7 +112,7 @@ class Cms_Blog_Controller extends Cms_Base_Controller {
 		->with('page_id', '')
 		->with('blog_lang', $lang)
 		->with('blog_name', '')
-		->with('blog_parent', CmsPage::select_page_slug($lang))
+		->with('blog_parent', CmsPage::select_page_slug($lang, array_search('blogs', $extra_ids)))
 		->with('blog_parent_selected', 0)
 		->with('blog_slug', '')
 		->with('blog_parent_slug', '/')
@@ -192,9 +196,14 @@ class Cms_Blog_Controller extends Cms_Base_Controller {
 			
 			if(!empty($blog)) {
 
+				//GET EXTRA ID
+
+				$extra_ids = Config::get('cms::settings.extra_id');
+
 				//GET PAGE DATA
 				$pagedata = CmsPage::where_lang($blog->lang)
 						->where_parent_id(0)
+						->where_extra_id(array_search('blogs', $extra_ids))
 						->order_by('lang', 'asc')
 						->order_by('is_home', 'desc')
 						->order_by('order_id', 'asc')
@@ -202,8 +211,10 @@ class Cms_Blog_Controller extends Cms_Base_Controller {
 
 				$new_data = array();
 
-				foreach ($pagedata as $value) {
-					$new_data[$value->id] = $value;
+				foreach ($pagedata as $obj) {
+					$new_data[$obj->id] = $obj;
+					$recursive = call_user_func_array('CmsPage::recursive_pages', array($obj->id));
+					$new_data = ($new_data + $recursive);
 				}
 
 				//GET BLOG DATA
@@ -214,23 +225,7 @@ class Cms_Blog_Controller extends Cms_Base_Controller {
 						->order_by('name', 'desc')
 						->paginate(Config::get('cms::theme.pag'));
 
-				//GET MENU ORDER
-				
-				$new_data = array();
-
-				foreach ($blogdata as $obj) {
-					$new_data[$obj->id] = $obj;
-					$recursive = call_user_func_array('CmsPage::recursive_pages', array($obj->id));
-					$new_data = ($new_data + $recursive);
-				}
-
-				/*foreach ($new_data as $item) {
-					$recursive = call_user_func_array('CmsPage::recursive_pages', array($item->id));
-					$new_data = array_insert($new_data, $item->id, $recursive);
-				}*/
-
 				if(empty($new_data)) $new_data = array();
-
 
 				$this->layout->content = View::make('cms::interface.pages.blog_new_edit')
 				->with('role_fail', CmsRole::role_fail($pivot->cmspage_id))
@@ -239,7 +234,7 @@ class Cms_Blog_Controller extends Cms_Base_Controller {
 				->with('page_id', $pivot->cmspage_id)
 				->with('blog_lang', $blog->lang)
 				->with('blog_name', $blog->name)
-				->with('blog_parent', CmsPage::select_page_slug($blog->lang))
+				->with('blog_parent', CmsPage::select_page_slug($blog->lang, array_search('blogs', $extra_ids)))
 				->with('blog_parent_selected', $pivot->cmspage_id)
 				->with('blog_slug', substr($blog->slug, 1))
 				->with('blog_parent_slug', CmsPage::get_page_slug($pivot->cmspage_id).'/')
