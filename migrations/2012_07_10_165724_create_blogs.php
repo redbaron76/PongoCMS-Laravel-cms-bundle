@@ -22,8 +22,8 @@ class Cms_Create_Blogs {
 			$table->text('preview');
 			$table->text('text');
 			$table->string('title', 255);
-			$table->text('keyw');
-			$table->text('descr');
+			$table->text('keyw')->nullable();
+			$table->text('descr')->nullable();
 			$table->string('zone', 5);
 			$table->string('lang', 5);
 			$table->boolean('is_valid');

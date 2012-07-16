@@ -20,8 +20,8 @@ class Cms_Create_Pages {
 			$table->string('name', 255);
 			$table->text('preview');
 			$table->string('title', 255);
-			$table->text('keyw');
-			$table->text('descr');
+			$table->text('keyw')->nullable();
+			$table->text('descr')->nullable();
 			$table->string('header', 100);
 			$table->string('layout', 100);
 			$table->string('footer', 100);
