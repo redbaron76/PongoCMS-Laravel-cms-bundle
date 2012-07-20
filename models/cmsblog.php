@@ -22,7 +22,7 @@ class CmsBlog extends Eloquent {
 	{
 		return $this->has_many_and_belongs_to('CmsPage', 'blogs_pages')
 		->order_by('is_default', 'desc')
-		->order_by('created_at', 'asc');
+		->order_by('blogs.created_at', 'asc');
 	}
 
 	public function blogrels()
