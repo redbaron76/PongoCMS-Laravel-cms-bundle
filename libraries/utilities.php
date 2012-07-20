@@ -225,11 +225,11 @@ class CmsUtility {
 
 		if($slug == SITE_HOMEPAGE) {
 
-			return '/';
+			return URL::to('/');
 			
 		}
 
-		return $slug;
+		return URL::to($slug);
 
 	}
 
