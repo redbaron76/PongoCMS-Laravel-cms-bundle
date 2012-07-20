@@ -11,7 +11,7 @@
 
 		<li{{CmsUtility::link_active($slug)}}>	
 
-			<a href="{{$slug}}">
+			<a href="{{SLUG($slug)}}">
 
 				{{$label}}
 

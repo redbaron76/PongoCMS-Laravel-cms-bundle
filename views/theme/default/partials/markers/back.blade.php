@@ -1,3 +1,3 @@
-<a href="{{$url}}"{{$options}}>
+<a href="{{SLUG($url)}}"{{$options}}>
 	{{$label}}
 </a>
