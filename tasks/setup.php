@@ -48,6 +48,14 @@ class Cms_Setup_Task {
 		
 		File::put($db_path, $db_conf);
 
+		//SET SESSION DRIVER
+		$session_path = path('app').'config/session'.EXT;
+
+		$session_conf = File::get($session_path);
+		$session_conf = str_replace("'driver' => 'cookie',", "'driver' => 'file',", $session_conf);
+		
+		File::put($session_path, $session_conf);
+
 		//DISABLE ROUTES AND FILTERS
 		$routes_file = path('app').'routes'.EXT;
 
