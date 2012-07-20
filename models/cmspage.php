@@ -54,7 +54,7 @@ class CmsPage extends Eloquent {
 	public function blogs_preview()
 	{
 		return $this->has_many_and_belongs_to('CmsBlog', 'blogs_pages')
-		->order_by('blogs.datetime_on', 'desc');
+		->order_by('blogs_pages.datetime_on', 'desc');
 	}
 
 	//GETTERS
