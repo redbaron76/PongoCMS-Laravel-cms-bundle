@@ -717,6 +717,66 @@ class Marker {
 
 
 	/**
+    * LINK Marker - Show a link to url
+	*
+	* [$LINK[{
+	*	"url":"<url slug>",		=> (default: base url)
+	*	"label":"<label>",		=> OPTIONAL (Overrides default label)
+	*	"target":"<target>",	=> OPTIONAL (default: null)
+	*	"id":"<id>",			=> OPTIONAL (id of <a>)
+	*	"class":"<class>",		=> OPTIONAL (class of <a>)
+	*	"tpl":"<tpl_name>"		=> OPTIONAL (in /partials/markers)
+	* }]]
+    *
+    * @param  array
+    * @return string
+    */
+	public static function LINK($vars = array())
+	{
+
+		//Get variables from array $vars
+		if( ! empty($vars)) extract($vars);
+
+		//Bind variables
+
+		$_url = URL::base();
+		if(isset($url) and !empty($url)) $_url = $url;
+
+		$_label = $_url;
+		if(isset($label) and !empty($label)) $_label = $label;
+
+		$_target = null;
+		if(isset($target) and !empty($target)) $_target = $target;
+
+		$_id = null;
+		if(isset($id) and !empty($id)) $_id = $id;
+
+		$_class = null;
+		if(isset($class) and !empty($class)) $_class = $class;
+
+		$_tpl = 'link';
+		if(isset($tpl) and !empty($tpl)) $_tpl = $tpl;
+
+		if(!empty($_url)) {
+
+			$options = array(
+				'id' => $_id,
+				'class' => $_class,
+				'target' => $_target,
+			);
+
+			$view = View::make('cms::theme.'.THEME.'.partials.markers.'.$_tpl);
+			$view['url'] 		= $_url;
+			$view['label'] 		= $_label;		
+			$view['options'] 	= HTML::attributes($options);
+
+			return $view;
+
+		}
+
+	}
+
+	/**
     * LOGIN Marker - Shows a login form
     *
 	* [$LOGIN[{

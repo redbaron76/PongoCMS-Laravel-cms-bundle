@@ -32,7 +32,7 @@ INSERT INTO "pongo_elements" VALUES(3,1,'intro','intro','<h1>Welcome to PongoCMS
 
 <h3>Time to play with the interface</h3>
 
-<p>To gain access to the PongoCMS admin interface, just add <code>/cms</code> slug to the end of your site base url or <a href="/cms">click here</a> to open it right now and use your first setup access credentials to log in: <code>admin // admin</code></p>
+<p>To gain access to the PongoCMS admin interface, just add <code>/cms</code> slug to the end of your site base url or [$LINK[{"url":"cms","label":"click here","target":"_blank"}]] to open it right now and use your first setup access credentials to log in: <code>admin // admin</code></p>
 
 <h3>Ready to build your own theme?</h3>
 
@@ -60,7 +60,7 @@ INSERT INTO "pongo_elements" VALUES(5,1,'intro','intro','<h1>Benvenuto in PongoC
 
 <h3>E'' ora di provare l''amministrazione</h3>
 
-<p>Per ottenere l''accesso all''interfaccia di amministrazione di PongoCMS, aggiungi semplicemente <code>/cms</code> alla fine del tuo indirizzo web base oppure <a href="/cms">clicca qui</a> per aprirla subito. Usa queste credenziali per eseguire il primo login: <code>admin // admin</code></p>
+<p>Per ottenere l''accesso all''interfaccia di amministrazione di PongoCMS, aggiungi semplicemente <code>/cms</code> alla fine del tuo indirizzo web base oppure [$LINK[{"url":"cms","label":"clicca qui","target":"_blank"}]] per aprirla subito. Usa queste credenziali per eseguire il primo login: <code>admin // admin</code></p>
 
 <h3>Pronto per costruire il tuo tema?</h3>
 
