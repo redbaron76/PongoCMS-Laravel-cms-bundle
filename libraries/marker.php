@@ -1515,11 +1515,11 @@ class Marker {
 
 
 	/**
-    * VIDEO Marker - Shows video embed from Youtube or Vimeo
+    * VIDEO Marker - Shows video embed from Youtube, Screenr or Vimeo
     *
 	* [$video[{
 	*	"code":"<video code>",	=> (video code)
-	*	"site":"youtube",		=> (available: youtube or vimeo)
+	*	"site":"youtube",		=> (available: youtube || screenr || vimeo)
 	*	"w":"420",				=> (video width)
 	*	"h":"315",				=> (video height)
 	*	"class":"<class>",		=> OPTIONAL (default: video)
