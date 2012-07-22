@@ -168,7 +168,7 @@ $.ck = {
 
 			case 'VIDEO':
 				
-				return '[$VIDEO[{"code":"", "site":"youtube | vimeo", "w":"420", "h":"315"}]]';
+				return '[$VIDEO[{"code":"W6cFGlzm1aE", "site":"youtube", "w":"420", "h":"315"}]]';
 				break;
 
 		}
