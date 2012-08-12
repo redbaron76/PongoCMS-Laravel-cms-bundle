@@ -298,8 +298,8 @@ class CmsRender {
 		$descr = (! empty($extra->descr)) ? $extra->descr : $descr;
 
 		//Set default header, footer, layout se non settati
-		$header = ( ! empty($pager->header)) ? $page->header : 'default';
-		$footer = ( ! empty($pager->footer)) ? $page->footer : 'default';
+		$header = ( ! empty($page->header)) ? $page->header : 'default';
+		$footer = ( ! empty($page->footer)) ? $page->footer : 'default';
 
 
 		//Prepare html buffer
