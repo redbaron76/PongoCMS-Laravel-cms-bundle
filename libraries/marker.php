@@ -50,6 +50,11 @@ class Marker {
 
 		}
 
+		//IMG PATH REPLACE
+		$img_path = '/' . Config::get('cms::settings.data');
+		$url = Config::get('application.url');
+		$tmp_text = str_replace('"'.$img_path, '"'.$url.$img_path, $tmp_text);
+
 		return $tmp_text;
 	}
 
@@ -113,6 +118,8 @@ class Marker {
     *
 	* [$BANNER[{
 	*	"name":"<banner name>",
+	*	"type":"<slider name>"	=> (default: none)
+	*	"theme":"<theme>"		=> (default: default)
 	*	"class":"<class>",		=> OPTIONAL
 	*	"tpl":"<tpl_name>"		=> OPTIONAL (in /partials/markers)
 	* }]]
@@ -131,6 +138,12 @@ class Marker {
 		$_name = '';
 		if(isset($name) and !empty($name)) $_name = $name;
 
+		$_type = '';
+		if(isset($type) and !empty($type)) $_type = $type;
+
+		$_theme = 'default';
+		if(isset($theme) and !empty($theme)) $_theme = $theme;
+
 		$_class = 'banner';
 		if(isset($class) and !empty($class)) $_class = $class;
 
@@ -138,6 +151,14 @@ class Marker {
 		if(isset($tpl) and !empty($tpl)) $_tpl = $tpl;
 
 		if(!empty($_name)) {
+
+			if($_type == 'nivo') {
+				//LOAD NIVOSLIDER LIBS
+				Asset::container('header')->add('nivoslidercss', 'bundles/cms/css/nivoslider.css', 'site_css');
+				Asset::container('header')->add('nivo'.$_theme, 'bundles/cms/nivoslider/themes/'.$_theme.'/'.$_theme.'.css', 'nivoslidercss');
+				Asset::container('footer')->add('nivosliderjs', 'bundles/cms/js/jquery.nivoslider.js', 'jquery_lib');
+				Asset::container('footer')->add('banner', 'js/markers/banner.js', 'site_js');
+			}
 
 			//CACHE DATA
 			if(CACHE) {
@@ -153,7 +174,7 @@ class Marker {
 							
 							$query->where('files_banners.date_off', '>=', date('Y-m-d H:i:s'));
 
-						}))->where_name($_file)->first();
+						}))->where_name($_name)->first();
 			}
 
 			//Load file lable and title
@@ -278,7 +299,14 @@ class Marker {
 					}
 
 				}
-				
+
+			}
+
+			if(count($slugs) > count($crumbs)) {
+
+				$last_slug = SLUG_FULL;
+				$crumbs[$last_slug] = LL('cms::marker.crumb_here', SITE_LANG)->get();
+
 			}
 
 		} else {
@@ -674,6 +702,9 @@ class Marker {
     * LANG Marker - Shows a change lang menu
     *
 	* [$LANG[{
+	*	"separator":"<char>", 	=> OPTIONAL	
+	*	"first":"false",		=> OPTIONAL (separator at start)
+	*	"last":"false",			=> OPTIONAL (separator at the end)	
 	*	"exclude":"<lang code-langcode-...>",	=> OPTIONAL (default: empty)
 	*	"id":"<id>"				=> (lang id container | default: lang_menu)
 	*	"class":"<class>",		=> OPTIONAL (default: lang)
@@ -688,6 +719,15 @@ class Marker {
 
 		//Get variables from array $vars
 		if( ! empty($vars)) extract($vars);
+
+		$_separator = '';
+		if(isset($separator) and !empty($separator)) $_separator = $separator;
+
+		$_first = false;
+		if(isset($first) and !empty($first) and $first == 'true') $_first = true;
+
+		$_last = false;
+		if(isset($last) and !empty($last) and $last == 'true') $_last = true;
 
 		$_exclude = '';
 		if(isset($exclude) and !empty($exclude)) $_exclude = $exclude;
@@ -708,6 +748,9 @@ class Marker {
 
 		$view = View::make('cms::theme.'.THEME.'.partials.markers.'.$_tpl);
 		$view['langs'] 		= Config::get('cms::settings.langs');
+		$view['separator'] 	= $_separator;
+		$view['first'] 		= $_first;
+		$view['last'] 		= $_last;
 		$view['exclude'] 	= $_exclude;		
 		$view['options'] 	= HTML::attributes($options);
 
@@ -809,7 +852,6 @@ class Marker {
 		);
 
 		$view = View::make('cms::theme.'.THEME.'.partials.markers.'.$_tpl);
-		$view['back']	 = $_back;		
 		$view['options'] = HTML::attributes($options);
 
 		return $view;
@@ -936,18 +978,27 @@ class Marker {
 							->first();
 			}
 
+
 			if(!empty($m)) {
 
 				$id = $m->id;
 
 				$nested = (bool) $m->is_nested;
 
+				$lower_parent = 0;
+
+				if($nested) {
+
+				 	$lower_parent = $m->parent_start;
+
+				}
+
 				//CACHE DATA
 				if(CACHE) {
-					$menu = Cache::remember('menu_pages_'.$_name.'_'.SITE_LANG, function() use ($_name, $nested) {
-						return CmsMenu::with(array('pages' => function($query) use ($nested) {
+					$menu = Cache::remember('menu_pages_'.$_name.'_'.SITE_LANG, function() use ($_name, $nested, $lower_parent) {
+						return CmsMenu::with(array('pages' => function($query) use ($nested, $lower_parent) {
 						
-							if($nested) $query->where('parent_id', '=', 0);
+							if($nested) $query->where('parent_id', '=', $lower_parent);
 
 						}))
 								->where_name($_name)
@@ -955,9 +1006,9 @@ class Marker {
 								->first();
 					}, 5);
 				} else {
-					$menu = CmsMenu::with(array('pages' => function($query) use ($nested) {
+					$menu = CmsMenu::with(array('pages' => function($query) use ($nested, $lower_parent) {
 						
-							if($nested) $query->where('parent_id', '=', 0);
+							if($nested) $query->where('parent_id', '=', $lower_parent);
 
 						}))
 								->where_name($_name)
@@ -969,7 +1020,8 @@ class Marker {
 				if(!empty($menu->pages)) {
 
 					$pages = $menu->pages;
-					$nested = (bool) $m->is_nested;
+					// $nested = (bool) $m->is_nested;
+					$nested = (bool) $nested;
 
 				} else {
 					
@@ -1242,6 +1294,51 @@ class Marker {
 
 
 	/**
+    * SEARCH Marker - Shows a search form
+    *
+	* [$SEARCH[{
+	*	"source":"<source-source>",				=> (available: pages, blogs - default: pages)
+	*	"id":"<id>"								=> OPTIONAL (form ID - default: search_form)
+	*	"class":"<class>",						=> OPTIONAL (default: search)
+	*	"tpl":"<tpl_name>"						=> OPTIONAL (in /partials/markers)
+	* }]]
+    *
+    * @param  array
+    * @return string
+    */
+	public static function SEARCH($vars = array())
+	{
+
+		//Get variables from array $vars
+		if( ! empty($vars)) extract($vars);
+
+		$_source = 'pages';
+		if(isset($source) and !empty($source)) $_source = $source;
+
+		$_id = 'search_form';
+		if(isset($id) and !empty($id)) $_id = $id;
+
+		$_class = 'search';
+		if(isset($class) and !empty($class)) $_class = $class;
+
+		$_tpl = 'search';
+		if(isset($tpl) and !empty($tpl)) $_tpl = $tpl;
+
+		$options = array(
+			'id' => $_id,
+			'class' => $_class,
+		);
+
+		$view = View::make('cms::theme.'.THEME.'.partials.markers.'.$_tpl);
+		$view['source'] = $_source;
+		$view['options'] = $options;
+
+		return $view;
+
+	}
+
+
+	/**
     * SOCIAL Marker - Shows a social toolbar
     *
 	* [$SOCIAL[{
@@ -1371,9 +1468,9 @@ class Marker {
 			if(!empty($file)) {
 
 				//LOAD FANCYBOX LIBS
-				Asset::container('header')->add('fancyboxcss', 'bundles/cms/css/fancybox.css', 'main');
-				Asset::container('footer')->add('fancybox', 'bundles/cms/js/jquery.fancybox.js', 'jquery');
-				Asset::container('footer')->add('thumb', 'js/markers/thumb.js', 'fancybox');
+				Asset::container('header')->add('fancyboxcss', 'bundles/cms/css/fancybox.css', 'site_css');
+				Asset::container('footer')->add('fancybox', 'bundles/cms/js/jquery.fancybox.js', 'jquery_lib');
+				Asset::container('footer')->add('thumb', 'js/markers/thumb.js', 'site_js');
 
 				if(empty($_w) and empty($_h)) {
 

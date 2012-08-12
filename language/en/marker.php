@@ -16,4 +16,8 @@ return array(
 	"translation_descr" => "Create a translated excerpt as saved in \"Services => Translation\".",
 	"video_descr" => "Create a YouTube or Vimeo video embed.",
 
+	//CRUMB
+
+	"crumb_here" => "here",
+
 );

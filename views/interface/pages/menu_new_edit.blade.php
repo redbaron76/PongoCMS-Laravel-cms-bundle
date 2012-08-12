@@ -48,6 +48,12 @@
 										</div>
 									</div>
 									<div class="control-group">
+										{{Form::label('parent_start', LL('cms::form.menu_parent_start', CMSLANG), array('class' => 'control-label')) . "\n"}}
+										<div class="controls">
+											{{Form::select('parent_start', $menu_parent_start, $menu_parent_start_selected, array('id' => 'menu_parent_start', 'class' => 'span7')) . "\n"}}
+										</div>
+									</div>
+									<div class="control-group">
 										<div class="controls">
 											<label class="checkbox">
 												{{Form::checkbox('is_nested', 1, $menu_is_nested, array('id' => 'menu_is_nested'))}}
@@ -55,6 +61,8 @@
 											</label>
 										</div>
 									</div>
+									
+
 
 									<ul class="unstyled page-list space">
 										

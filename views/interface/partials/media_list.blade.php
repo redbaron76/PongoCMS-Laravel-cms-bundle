@@ -2,7 +2,7 @@
 <tr>
 	<td>
 		<a href="#" class="thumbnail">
-			<img src="{{$file->thumb}}" width="50" width="50">
+			<img src="{{BASE.$file->thumb}}" width="50" width="50">
 		</a>
 	</td>
 	<td>

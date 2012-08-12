@@ -110,7 +110,7 @@ class Cms_Ajax_Page_Controller extends Cms_Base_Controller {
 			$page->slug = $slug;
 
 			//UPDATE ALL CHILD SLUGS
-			CmsPage::update_child_slugs($input['page_id'], $input['page_slug']);
+			CmsPage::update_child_slugs($input['page_id'], $input['page_parent_slug'], $input['page_slug']);
 
         	$page->role_id = $input['page_owner'];
 

@@ -9,7 +9,7 @@
 		<meta name="generator" content="{{Config::get('cms::settings.generator')}}" />
 		<meta name="robots" content="index,follow" />
 		<meta name="google-site-verification" content="{{Config::get('cms::settings.verification')}}" />
-		<link rel="shortcut icon" href="/favicon.ico" />
+		<link rel="shortcut icon" href="favicon.ico" />
 		{{Asset::container('header')->styles()}}
 		{{Asset::container('header')->scripts()}}
 		<!--[if IE]><script src="http://html5shiv.googlecode.com/svn/trunk/html5.js" type="text/javascript"></script><![endif]-->

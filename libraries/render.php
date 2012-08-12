@@ -185,8 +185,8 @@ class CmsRender {
 			//Verifico se SITE_ROLE < access_level -> to_login
 
 			if(SITE_ROLE < $page->access_level) {
-				return Redirect::to_action('user@login')
-				->with('back_url', URL::current());
+				return Redirect::to_action('site@login')
+				->with('back_url', SLUG_FULL);
 			}
 
 			//Imposto page_layout da DB o default se non settato
@@ -235,6 +235,21 @@ class CmsRender {
 					foreach($page->elements as $item) {							
 						$layout[strtoupper($item->zone)] = trim(implode("\n", $zone[$item->zone]));
 					} 
+
+				} 
+
+
+				//Se nessun elemento presente, vado al primo child in ordine
+
+				else {
+
+					$new_page = CmsPage::where_lang(SITE_LANG)
+					->where_parent_id($page->id)
+					->where_is_valid(1)
+					->order_by('order_id', 'asc')
+					->first();
+
+					if( ! empty($new_page)) return Redirect::to($new_page->slug);
 
 				}
 

@@ -75,6 +75,15 @@ View::composer('cms::theme.'.Config::get('cms::theme.name').'.templates.'.Config
 {
 	CmsRender::asset();
 
+	//BASE JS
+	Asset::container('header')->add('base_js', Config::get('application.url').'/site/js');
+
+	if(!isset($view->title)) $view->title = Config::get('cms::theme.title');
+
+	if(!isset($view->descr)) $view->descr = Config::get('cms::theme.descr');
+
+	if(!isset($view->keyw)) $view->keyw = Config::get('cms::theme.keyw');
+
 	if(!isset($view->header)) $view->header = '';
 
 	if(!isset($view->layout)) $view->layout = '';
@@ -176,14 +185,15 @@ Route::controller(Controller::detect('cms'));
 Route::filter('cms_no_auth', function()
 {
 	//FORCE LOGOUT IF NOT ROLE
-	//if (ROLE <= Config::get('cms::settings.roles.manager')) Auth::logout();
+	if (Auth::check() and (ROLE <= Config::get('cms::settings.roles.manager'))) return Redirect::to_action('cms::login');
 	if (Auth::guest()) return Redirect::to_action('cms::login');
+
 });
 
 
 Route::filter('cms_is_auth', function()
-{
-	if (Auth::check() and (URL::current() != URL::to_action('cms::logout'))) return Redirect::to_action('cms::dashboard');
+{	
+	if (Auth::check() and (URL::current() != URL::to_action('cms::logout')) and (ROLE >= Config::get('cms::settings.roles.manager'))) return Redirect::to_action('cms::dashboard');
 });
 
 

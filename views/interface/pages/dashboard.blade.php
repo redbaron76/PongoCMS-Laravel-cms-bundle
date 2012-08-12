@@ -34,7 +34,7 @@
 @if(CONF('cms::settings.analytics', 'profile_id'))
 <div class="row space">
 	<div class="span12">
-		<h4>{{LL('cms::title.analytics', CMSLANG)}}</h4>
+		<h4 class="toright">{{LL('cms::title.analytics', CMSLANG)}}</h4>
 		<div id="placeholder" style="width: 940px; height: 300px;" class="space"></div>
 	</div>
 </div>
@@ -42,7 +42,7 @@
 
 <div class="row space">
 	<div class="span12">
-		<h4>{{LL('cms::title.sitestats', CMSLANG)}}</h4>
+		<h4 class="toright">{{LL('cms::title.sitestats', CMSLANG)}}</h4>
 		<table class="table table-striped fixed v-middle space">
 			<col width="20%">
 			<col width="20%">
@@ -51,20 +51,62 @@
 			<col width="20%">
 			<thead>
 				<tr>
-					<th>{{LL('cms::label.file_size', CMSLANG)}}</th>
-					<th>{{LL('cms::label.image_size', CMSLANG)}}</th>
-					<th>{{LL('cms::label.thumb_size', CMSLANG)}}</th>
-					<th>{{LL('cms::label.cache_size', CMSLANG)}}</th>
-					<th>{{LL('cms::label.total_size', CMSLANG)}}</th>
+					<th class="toright">{{LL('cms::label.file_size', CMSLANG)}}</th>
+					<th class="toright">{{LL('cms::label.image_size', CMSLANG)}}</th>
+					<th class="toright">{{LL('cms::label.thumb_size', CMSLANG)}}</th>
+					<th class="toright">{{LL('cms::label.cache_size', CMSLANG)}}</th>
+					<th class="toright">{{LL('cms::label.total_size', CMSLANG)}}</th>
 				</tr>
 			</thead>
 			<tbody>
 				<tr>
-					<td>{{MEDIA_SIZE($files, 'MB')}}</td>
-					<td>{{MEDIA_SIZE($images, 'MB')}}</td>
-					<td>{{MEDIA_SIZE($thumbs, 'MB')}}</td>
-					<td>{{MEDIA_SIZE($cache, 'MB')}}</td>
-					<td>{{MEDIA_SIZE($total, 'MB')}}</td>
+					<td class="toright">{{MEDIA_SIZE($files, 'MB')}}</td>
+					<td class="toright">{{MEDIA_SIZE($images, 'MB')}}</td>
+					<td class="toright">{{MEDIA_SIZE($thumbs, 'MB')}}</td>
+					<td class="toright">{{MEDIA_SIZE($cache, 'MB')}}</td>
+					<td class="toright">{{MEDIA_SIZE($total, 'MB')}}</td>
+				</tr>
+			</tbody>
+		</table>
+	</div>
+</div>
+
+<div class="row space">
+	<div class="span12">
+		<h4 class="toright">{{LL('cms::title.siteflags', CMSLANG)}}</h4>
+		<table class="table table-striped fixed v-middle space">
+			<col width="20%">
+			<col width="20%">
+			<col width="20%">
+			<col width="20%">
+			<col width="20%">
+			<thead>
+				<tr>
+					<th class="toright">{{LL('cms::label.theme_name', CMSLANG)}}</th>
+					<th class="toright">{{LL('cms::label.image_compression', CMSLANG)}}</th>
+					<th class="toright">{{LL('cms::label.image_max_size', CMSLANG)}}</th>
+					<th class="toright">{{LL('cms::label.cache_engine', CMSLANG)}}</th>
+					<th class="toright">{{LL('cms::label.clear_engine', CMSLANG)}}</th>
+				</tr>
+			</thead>
+			<tbody>
+
+				<?php
+					$ca_eng = Config::get('cms::settings.cache_engine');
+					$ca_eng_label = ($ca_eng) ? 'ON' : 'OFF';
+					$ca_eng_class = ($ca_eng) ? 'success' : 'important';
+
+					$cl_eng = Config::get('cms::settings.clear_engine');
+					$cl_eng_label = ($cl_eng) ? 'ON' : 'OFF';
+					$cl_eng_class = ($cl_eng) ? 'success' : 'important';
+				?>
+
+				<tr>
+					<td class="toright">{{Config::get('cms::theme.name')}}</td>
+					<td class="toright">{{CONF('cms::settings.thumb_options', 'jpegQuality')}}%</td>
+					<td class="toright">{{MEDIA_SIZE(Config::get('cms::settings.max_size').'000', 'MB')}}</td class="toright">
+					<td class="toright"><span class="label label-{{$ca_eng_class}}">{{$ca_eng_label}}</span></td>
+					<td class="toright"><span class="label label-{{$cl_eng_class}}">{{$cl_eng_label}}</span></td>
 				</tr>
 			</tbody>
 		</table>

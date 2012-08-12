@@ -2,11 +2,11 @@
 	<div class="span1">
 		@if (MEDIA_TYPE($file_ext) == 'img')
 		<a href="{{$file_path}}" class="thumbnail fancy" rel="tooltip" data-original-title="{{$file_name}}">							
-			<img src="{{$file_thumb}}" width="50" heigth="50" alt="">							
+			<img src="{{BASE.$file_thumb}}" width="50" heigth="50" alt="">							
 		</a>
 		@else
 		<a href="{{$file_path}}" class="thumbnail" rel="tooltip" data-original-title="{{$file_name}}">							
-			<img src="/bundles/cms/img/{{$file_ext}}_ico.png" width="100" heigth="100" alt="">							
+			<img src="{{BASE}}/bundles/cms/img/{{$file_ext}}_ico.png" width="100" heigth="100" alt="">							
 		</a>
 		@endif
 	</div>

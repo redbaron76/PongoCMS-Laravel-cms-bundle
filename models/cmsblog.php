@@ -52,6 +52,11 @@ class CmsBlog extends Eloquent {
 		return strftime('%d %b %Y - %H:%M', strtotime($this->get_attribute('created_at')));
 	}
 
+	public function get_dmy()
+	{
+		return strftime('%d/%m/%Y', strtotime($this->get_attribute('datetime_on')));
+	}
+
 	public function get_datetime_blog()
 	{
 		return strftime('%A %d %B %H:%M', strtotime($this->get_attribute('datetime_on')));

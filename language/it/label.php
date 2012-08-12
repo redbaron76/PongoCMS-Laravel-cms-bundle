@@ -13,6 +13,12 @@ return array(
 	"cache_size" => "Peso della cache",
 	"total_size" => "Peso totale",
 
+	"theme_name" => "Nome del tema",
+	"image_compression" => "Compressione immagini",
+	"image_max_size" => "Max dimensione upload",
+	"cache_engine" => "Cache engine",
+	"clear_engine" => "ClearCode engine",
+
 	"cache_all" => "Tutta la cache",
 	"cache_blogs" => "Blog",
 	"cache_files" => "File",
@@ -93,5 +99,10 @@ return array(
 	//TAGS
 
 	"tagname" => "Nome del tag",
+
+	//TABLES
+
+	"pages" => "Pagina",
+	"blogs" => "Blog",
 
 );

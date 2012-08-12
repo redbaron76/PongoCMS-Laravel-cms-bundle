@@ -93,7 +93,7 @@ class Cms_Site_Controller extends Cms_Base_Controller {
 		if(Auth::attempt($credentials)) {
 
 			//SUCCESS LOGIN
-			return Redirect::to('/');
+			return Redirect::home();
 
 		} else {
 
@@ -111,7 +111,7 @@ class Cms_Site_Controller extends Cms_Base_Controller {
 		
 		Auth::logout();
 
-		return Redirect::to('/');
+		return Redirect::home();
 
 	}
 

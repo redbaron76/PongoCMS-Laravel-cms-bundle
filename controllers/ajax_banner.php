@@ -59,7 +59,7 @@ class Cms_Ajax_Banner_Controller extends Cms_Base_Controller {
 				$files = Input::get('file_id');
 				$url = Input::get('url');
 				$date_off = Input::get('date_off');
-				$is_blank = Input::get('is_blank');
+				$is_blank = Input::get('is_blank', array());
 
 				if(is_array($files)) {
 
@@ -67,13 +67,19 @@ class Cms_Ajax_Banner_Controller extends Cms_Base_Controller {
 
 						$check = $banner->files()->pivot()->where_cmsfile_id($fid)->where_cmsbanner_id($bid)->first();
 
-						$blank = (array_key_exists($key, $is_blank)) ? 1 : 0;
+						$blank = (array_key_exists($key, $is_blank)) ? 1 : 0;						
+
+						if(empty($date_off[$key])) {
+							$off_date = dateTimeFuture(date("Y-m-d H:i:s"), 'P5Y');
+						} else {
+							$off_date = date2Db($date_off[$key]);
+						}
 
 						if(empty($check)) {
 
 							$add_array = array(
 								'url' => $url[$key],
-								'date_off' => date2Db($date_off[$key]),
+								'date_off' => $off_date,
 								'is_blank' => $blank,
 								'order_id' => 1000000
 							);
@@ -84,7 +90,7 @@ class Cms_Ajax_Banner_Controller extends Cms_Base_Controller {
 
 							$update_array = array(
 								'url' => $url[$key],
-								'date_off' => date2Db($date_off[$key]),
+								'date_off' => $off_date,
 								'is_blank' => $blank,
 							);
 

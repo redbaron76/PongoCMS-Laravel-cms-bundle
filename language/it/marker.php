@@ -16,4 +16,8 @@ return array(
 	"translation_descr" => "Visualizza una parte di testo tradotta nella lingua attualmente in uso.",
 	"video_descr" => "Crea un embed video da YouTube o Vimeo.",
 
+	//CRUMB
+
+	"crumb_here" => "qui",
+
 );

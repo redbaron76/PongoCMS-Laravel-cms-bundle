@@ -85,6 +85,8 @@ class Cms_Menu_Controller extends Cms_Base_Controller {
 		->with('menu_lang', $lang)
 		->with('menu_name', '')
 		->with('menu_is_nested', false)
+		->with('menu_parent_start', CmsPage::select_top_slug($lang, 0, true))
+		->with('menu_parent_start_selected', 0)
 		->with('pages', $pages)
 		->with('menu_pages', $new_data);
 
@@ -141,6 +143,8 @@ class Cms_Menu_Controller extends Cms_Base_Controller {
 		->with('menu_name', $menu->name)
 		->with('menu_lang', $menu->lang)
 		->with('menu_is_nested', (bool) $menu->is_nested)
+		->with('menu_parent_start', CmsPage::select_top_slug($menu->lang, 0, true))
+		->with('menu_parent_start_selected', $menu->parent_start)
 		->with('pages', $pages)
 		->with('menu_pages', $new_data);
 

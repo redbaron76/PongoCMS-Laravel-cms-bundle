@@ -10,6 +10,7 @@ return array(
 	"dashboard"   => "Informazioni generali",
 	"analytics" => "Visite giornaliere negli ultimi 30 giorni <small>[ da Google Analytics ]</small>",
 	"sitestats" => "Statistiche di utilizzo",
+	"siteflags" => "Impostazioni principali",
 	"blogs" => "Gestione blogs",
 	"banners"   => "Gestione banner",
 	"downloads"   => "Gestione download",

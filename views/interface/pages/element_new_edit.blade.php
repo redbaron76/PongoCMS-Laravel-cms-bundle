@@ -222,11 +222,11 @@
 
 									@forelse ($media as $file)
 									<li class="span1 media-box-block">
-										<a href="{{$file->path}}" class="thumbnail fancy" rel="tooltip" data-original-title="{{$file->name}}">
+										<a href="{{BASE.$file->path}}" class="thumbnail fancy" rel="tooltip" data-original-title="{{$file->name}}">
 											@if (MEDIA_TYPE($file->ext) == 'img')
-											<img src="{{$file->thumb}}" width="100" heigth="100" alt="">
+											<img src="{{BASE.$file->thumb}}" width="100" heigth="100" alt="">
 											@else
-											<img src="/bundles/cms/img/{{$file->ext}}_ico.png" width="100" heigth="100" alt="">
+											<img src="{{BASE}}/bundles/cms/img/{{$file->ext}}_ico.png" width="100" heigth="100" alt="">
 											@endif
 										</a>
 									</li>
