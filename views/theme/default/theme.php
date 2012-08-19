@@ -146,6 +146,8 @@ $THEME_SETTINGS = array(
 	|--------------------------------------------------------------------------|
 	*/
 
+	'title' => 'Finestre per arredare',
+	
 	'keyw' => 'keyword1, keyword2, keyword3',
 
 	'descr' => 'This is the default description',
