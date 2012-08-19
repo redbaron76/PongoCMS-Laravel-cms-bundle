@@ -41,7 +41,7 @@ INSERT INTO "pongo_elements" VALUES(4,1,'guide','quick guide','<h2>Quick start g
 
 <ol>
 <li>Clone <strong>default</strong> theme in <code>/bundles/cms/views/theme</code> and give it a <strong>name without spaces</strong>.</li>
-<li>Open <strong>theme.php</strong> in <code>/bundles/cms/config</code> and set<br><code>name</code>, <code>template</code>, <code>header</code>, <code>footer</code> and <code>layout</code> array keys as <strong>/layouts</strong>, <strong>/partials</strong> and <strong>/templates</strong> theme filenames.</li>
+<li>Open theme's <strong>theme.php</strong> and set<br><code>name</code>, <code>template</code>, <code>header</code>, <code>footer</code> and <code>layout</code> array keys as <strong>/layouts</strong>, <strong>/partials</strong> and <strong>/templates</strong> theme filenames.</li>
 <li>Map <code>''ZONEXX'' => ''Zone_Name''</code> to your <strong>/layouts</strong> files placeholders for each <code>''layout_NAME''</code>.</li>
 <li>Set <code>asset</code> array key with all your asset details, then copy your asset fils into <strong>/public</strong> theme folder.</li>
 <li>Run <code>php artisan cms::setup:theme theme_name</code> to <strong>activate</strong> it.</li>	
@@ -69,7 +69,7 @@ INSERT INTO "pongo_elements" VALUES(6,1,'guida','guida','<h2>Per iniziare veloce
 
 <ol>
 <li>Duplica il tema <strong>default</strong> in <code>/bundles/cms/views/theme</code> e dagli un nome <strong>senza spazi</strong>.</li>
-<li>Apri <strong>theme.php</strong> in <code>/bundles/cms/config</code> e imposta le array keys <code>name</code>, <code>template</code>, <code>header</code>, <code>footer</code> <br>e <code>layout</code> con i nomi dei file del tema presenti in <strong>/layouts</strong>, <strong>/partials</strong> e <strong>/templates</strong>.</li>
+<li>Apri <strong>theme.php</strong> del tema e imposta le array keys <code>name</code>, <code>template</code>, <code>header</code>, <code>footer</code> <br>e <code>layout</code> con i nomi dei file del tema presenti in <strong>/layouts</strong>, <strong>/partials</strong> e <strong>/templates</strong>.</li>
 <li>Mappa un <code>''ZONEXX'' => ''Nome_Zona''</code> in ogni array<br><code>''layout_NAME''</code> e per ogni placeholder presente nei file di layout dentro a <strong>/layouts</strong>.</li>
 <li>Imposta l''array key <code>asset</code> con tutti i dettagli degli asset, poi copia i file degli asset nella cartella <strong>/public</strong> del tema.</li>
 <li>Avvia <code>php artisan cms::setup:theme theme_name</code> per <strong>attivare</strong> il tema.</li>	
