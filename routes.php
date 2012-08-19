@@ -63,7 +63,7 @@ Route::filter('init', function()
 	define('SITE_LANG', Session::get('SITE_LANG', Config::get('application.language')));
 	define('SITE_HOMEPAGE', CmsUtility::home_page());
 
-	define('THEME', Config::get('cms::theme.name'));
+	define('THEME', Config::get('cms::settings.theme'));
 	define('TEMPLATE', Config::get('cms::theme.template'));
 
 });
@@ -71,7 +71,7 @@ Route::filter('init', function()
 
 //APPLICATION COMPOSER
 
-View::composer('cms::theme.'.Config::get('cms::theme.name').'.templates.'.Config::get('cms::theme.template'), function($view)
+View::composer('cms::theme.'.Config::get('cms::settings.theme').'.templates.'.Config::get('cms::theme.template'), function($view)
 {
 	CmsRender::asset();
 

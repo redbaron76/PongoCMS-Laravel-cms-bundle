@@ -102,7 +102,7 @@
 				?>
 
 				<tr>
-					<td>{{Config::get('cms::theme.name')}}</td>
+					<td>{{Config::get('cms::settings.theme')}}</td>
 					<td>{{CONF('cms::settings.thumb_options', 'jpegQuality')}}%</td>
 					<td>{{Config::get('cms::settings.max_size').' MB'}}</td>
 					<td class="toright"><span class="label label-{{$ca_eng_class}}">{{$ca_eng_label}}</span></td>

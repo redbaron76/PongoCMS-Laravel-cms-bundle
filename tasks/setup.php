@@ -15,7 +15,7 @@ class Cms_Setup_Task {
 		$result = shell_exec('php artisan bundle:publish cms');
 
 		//COPY THEME ASSETS
-		$asset_path = path('bundle').'cms/views/theme/'.Config::get('cms::theme.name').'/public';
+		$asset_path = path('bundle').'cms/views/theme/'.Config::get('cms::settings.theme').'/public';
 		$public_path = path('public');
 		File::cpdir($asset_path, $public_path, false);
 
@@ -122,7 +122,7 @@ class Cms_Setup_Task {
 	public function theme($arguments = array())
 	{
 
-		$current_theme = Config::get('cms::theme.name');
+		$current_theme = Config::get('cms::settings.theme');
 
 		if (array_key_exists(0, $arguments)) {
 
@@ -134,67 +134,74 @@ class Cms_Setup_Task {
 
 		}
 
-		//SET NEW THEME NAME
-		$theme_path = path('bundle').'cms/config/theme'.EXT;
-		$theme_conf = File::get($theme_path);
-		$theme_conf = str_replace("$THEME_NAME = '".$current_theme."';", "$THEME_NAME = '{$theme}';", $theme_conf);
-		File::put($theme_path, $theme_conf);
+		//CHECK THEME FOLDER EXISTENCE
 
-		$theme_path = path('bundle').'cms/view/theme/'.$theme.'/theme'.EXT;
-		$theme_conf = File::get($theme_path);
-		$theme_conf = str_replace("'name' => '".$current_theme."',", "'name' => '{$theme}',", $theme_conf);
-		File::put($theme_path, $theme_conf);
+		$theme_settings = path('bundle').'cms/views/theme/'.$theme.'/theme'.EXT;
 
-		//COPY ASSETS
-		$asset_path = path('bundle').'cms/views/theme/'.$theme.'/public';
+		if(file_exists($theme_settings)) {
 
-		if(file_exists($asset_path)) {
+			//SET NEW THEME NAME IN SETTINGS
+			$theme_path = path('bundle').'cms/config/settings'.EXT;
+			$theme_conf = File::get($theme_path);
+			$theme_conf = str_replace("'theme' => '".$current_theme."',", "'theme' => '{$theme}',", $theme_conf);
+			File::put($theme_path, $theme_conf);
 
-			//EMPTY BLADE COMPILED FILES
-			$storage_path = path('storage').'views';
+			//COPY ASSETS
+			$asset_path = path('bundle').'cms/views/theme/'.$theme.'/public';
 
-			$files = glob($storage_path . '/*');
+			if(file_exists($asset_path)) {
 
-			foreach($files as $file) {
+				//EMPTY BLADE COMPILED FILES
+				$storage_path = path('storage').'views';
 
-				if($file != '.gitignore') unlink($file);
-				
-			}
-
-			//EMPTY PUBLIC PATH
-			$dirs = array('css', 'img', 'js');
-
-			$public_path = path('public');
-
-			foreach ($dirs as $dir) {
-				
-				$files = glob($public_path . $dir . '/*');
+				$files = glob($storage_path . '/*');
 
 				foreach($files as $file) {
 
-					if(is_dir($file)) {
+					if($file != '.gitignore') unlink($file);
+					
+				}
 
-						self::rrmdir($file);
+				//EMPTY PUBLIC PATH
+				$dirs = array('css', 'img', 'js');
 
-					} else {
+				$public_path = path('public');
 
-						if($file != '.gitignore') unlink($file);
+				foreach ($dirs as $dir) {
+					
+					$files = glob($public_path . $dir . '/*');
+
+					foreach($files as $file) {
+
+						if(is_dir($file)) {
+
+							self::rrmdir($file);
+
+						} else {
+
+							if($file != '.gitignore') unlink($file);
+
+						}
 
 					}
 
 				}
 
+				//COPY PUBLIC ASSETTS
+				$asset_path = path('bundle').'cms/views/theme/'.$theme.'/public';
+				File::cpdir($asset_path, $public_path, false);
+
+				echo 'Theme '.$theme.' ready!'.PHP_EOL;
+
+			} else {
+
+				echo 'Theme '.$theme.' doesn\'t exists!'.PHP_EOL;
+
 			}
-
-			//COPY PUBLIC ASSETTS
-			$asset_path = path('bundle').'cms/views/theme/'.$theme.'/public';
-			File::cpdir($asset_path, $public_path, false);
-
-			echo 'Theme '.$theme.' ready!'.PHP_EOL;
 
 		} else {
 
-			echo 'Theme '.$theme.' doesn\'t exists!'.PHP_EOL;
+			echo $theme.' theme folder doesn\'t exists!'.PHP_EOL;
 
 		}
 
