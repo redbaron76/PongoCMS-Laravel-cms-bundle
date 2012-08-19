@@ -41,7 +41,7 @@ INSERT INTO "pongo_elements" VALUES(4,1,'guide','quick guide','<h2>Quick start g
 
 <ol>
 <li>Clone <strong>default</strong> theme in <code>/bundles/cms/views/theme</code> and give it a <strong>name without spaces</strong>.</li>
-<li>Open theme's <strong>theme.php</strong> and set<br><code>name</code>, <code>template</code>, <code>header</code>, <code>footer</code> and <code>layout</code> array keys as <strong>/layouts</strong>, <strong>/partials</strong> and <strong>/templates</strong> theme filenames.</li>
+<li>Open theme''s <strong>theme.php</strong> and set<br><code>name</code>, <code>template</code>, <code>header</code>, <code>footer</code> and <code>layout</code> array keys as <strong>/layouts</strong>, <strong>/partials</strong> and <strong>/templates</strong> theme filenames.</li>
 <li>Map <code>''ZONEXX'' => ''Zone_Name''</code> to your <strong>/layouts</strong> files placeholders for each <code>''layout_NAME''</code>.</li>
 <li>Set <code>asset</code> array key with all your asset details, then copy your asset fils into <strong>/public</strong> theme folder.</li>
 <li>Run <code>php artisan cms::setup:theme theme_name</code> to <strong>activate</strong> it.</li>	
