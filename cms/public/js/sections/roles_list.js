@@ -1,7 +1,0 @@
-//ROLES
-
-$(function() {
-	
-
-
-});
