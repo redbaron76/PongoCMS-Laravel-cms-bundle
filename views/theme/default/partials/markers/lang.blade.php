@@ -1,18 +1,17 @@
 <ul{{$options}}>
 
-	<?php $c = 0 ?>
-
 	<?php
 
-	if(array_key_exists($exclude, $langs)) {
-		unset($langs[$exclude]);
-	}
+		$c = 0;
+
+		if(array_key_exists($exclude, $langs)) {
+			unset($langs[$exclude]);
+		}
 
 	?>
 
 	@foreach($langs as $code => $lang)
 
-		{{-- @if(substr_count($exclude, $code) == 0) --}}
 
 			@if(count($langs) > 1 and strlen($separator) > 0 and $c == 0 and $first)
 			<li class="separator">{{$separator}}</li>
@@ -24,7 +23,7 @@
 				</a>
 			</li>
 
-			<?php $c++ ?>
+			<?php $c++; ?>
 
 			@if(count($langs) > 1 and strlen($separator) > 0 and $c < count($langs))
 			<li class="separator">{{$separator}}</li>
@@ -34,7 +33,6 @@
 			<li class="separator">{{$separator}}</li>
 			@endif
 
-		{{-- @endif --}}
 
 	@endforeach
 </ul>
