@@ -72,7 +72,7 @@
 						</div>
 
 						<div class="modal hide" id="modal-delete-{{$blog->id}}">
-							{{Form::open(action('cms::blog@delete_blog'), 'POST')}}
+							{{Form::open(action('cms::blog@delete'), 'POST')}}
 							{{Form::hidden('blog_id', $blog->id)}}
 							<div class="modal-header">
 								<button class="close" data-dismiss="modal">×</button>

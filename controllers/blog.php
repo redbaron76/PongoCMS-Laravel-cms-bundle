@@ -262,7 +262,7 @@ class Cms_Blog_Controller extends Cms_Base_Controller {
 	}
 
 	//POST DELETE BLOG
-	public function post_delete_blog()
+	public function post_delete()
 	{
 		if(Input::has('blog_id')) {
 

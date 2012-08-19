@@ -133,40 +133,40 @@ class Cms_Banner_Controller extends Cms_Base_Controller {
 
     }
 
-    //DETELE FILE
+    //DETELE BANNER
     public function post_delete()
     {
-    	if(Input::has('gallery_id')) {
+    	if(Input::has('banner_id')) {
 
-			$gid = Input::get('gallery_id');
+			$bid = Input::get('banner_id');
 
-			$gallery = CmsGallery::find($gid);
+			$banner = CmsBanner::find($bid);
 
-			//CHECK IF GALLERY EXISTS
+			//CHECK IF BANNER EXISTS
 
-			if(!empty($gallery)) {
+			if(!empty($banner)) {
 
 				//DELETE FROM DB
-				$gallery->files()->delete();
-				$gallery->delete();
+				$banner->files()->delete();
+				$banner->delete();
 
-				Notification::success(LL('cms::alert.delete_gallery_success', CMSLANG, array('gallery' => $gallery->name)), 1500);
+				Notification::success(LL('cms::alert.delete_banner_success', CMSLANG, array('banner' => $banner->name)), 1500);
 
-				return Redirect::to_action('cms::gallery');
+				return Redirect::to_action('cms::banner');
 
 			} else {
 
-				Notification::error(LL('cms::alert.delete_gallery_error', CMSLANG), 2500);
+				Notification::error(LL('cms::alert.delete_banner_error', CMSLANG), 2500);
 
-				return Redirect::to_action('cms::gallery');				
+				return Redirect::to_action('cms::banner');				
 
 			}
 
 		} else {
 
-			Notification::error(LL('cms::alert.delete_gallery_error', CMSLANG), 1500);
+			Notification::error(LL('cms::alert.delete_banner_error', CMSLANG), 1500);
 
-			return Redirect::to_action('cms::gallery');
+			return Redirect::to_action('cms::banner');
 		}
     }
 

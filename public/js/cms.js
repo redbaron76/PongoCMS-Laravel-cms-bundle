@@ -19,7 +19,7 @@ $.cms = {
 		var content = '';
 		$.ajax({
 			type: "POST",
-			url: '/cms/'+what+'/popover_details',
+			url: BASE+'/cms/'+what+'/popover_details',
 			data: ({ id: id }),
 			dataType: 'html',
 			async: false,
@@ -50,7 +50,7 @@ $.cms = {
 		$('#change_lang').live('change', function() {
 			var lang = $(this).val();
 			if(lang.length > 0) {
-				window.location = '/cms/'+where+'/'+lang;
+				window.location = BASE+'/cms/'+where+'/'+lang;
 			}
 		});
 	},
@@ -58,25 +58,24 @@ $.cms = {
 	title2Slug:
 	function() {
 		$('#page_name').stringToSlug({getPut: '#page_slug'});
+		var $page_parent = $('#page_parent');
 		var $page_slug = $('#page_slug');
 		var $addon_slug = $('span[rel=page_slug]');
-		if($addon_slug.width() > 200) {
-			$page_slug.css('width', ($addon_slug.width() - 100));
-			//console.log($addon_slug.width());
-		}
+		var $ppw = $page_parent.width();
 		var $psw = $page_slug.width();
 		var $asw = $addon_slug.width();
-		var $tot = parseInt($psw + $asw);
+		$page_slug.css('width', parseInt($ppw - $asw - 10));
+		var $tot = $ppw;
 		$('#page_parent').live('change', function() {
 			var $parent = $(this).val();			
 			if($parent) {
-				$.post('/cms/ajax/get/page/parent/paths',{
+				$.post(BASE+'/cms/ajax/get/page/parent/paths',{
 					parent_id: $parent
 				},function(data) {
 					$('span.add-on[rel=page_slug]').html('/').prepend(data);
 					$('#page_parent_slug').val(data);
 					$diff = $tot - $('span[rel=page_slug]').width();			
-					$page_slug.css('width', $diff);
+					$page_slug.css('width', $diff - 10);
 				});
 			}
 		});
@@ -126,7 +125,7 @@ $.cms = {
 			item		: ".post",
 			pagination	: ".navigation",
 			next		: ".next_page",
-			loader		: "<img src='/bundles/cms/img/loader.gif'>",
+			loader		: "<img src='"+BASE+"/bundles/cms/img/loader.gif'>",
 			history		: false,
 			onRenderComplete: function(items) {
 				if(where) $.cms.popOver(where);
@@ -164,7 +163,7 @@ $.cms = {
 	processJson:
 	function(data) {
 		if(!data.auth && !data.messages && !data.noaccess) {
-			window.location = "/cms";
+			window.location = BASE+'/cms';
 		} else {
 
 			if(data.messages) {				
@@ -263,8 +262,8 @@ $.cms = {
 			runtimes : 'html5,html4',
 			browse_button : 'add_media',
 			container : 'media',
-			max_file_size : '10mb',
-			url : '/cms/ajax/upload/media',
+			max_file_size : MAX_UP,
+			url : BASE+'/cms/ajax/upload/media',
 			multipart_params : {
 				page_id: $page_id,
 			}
@@ -306,8 +305,8 @@ $.cms = {
 				$('.none').remove();
 
 				var thumb = '<li class="span1 media-box-block">' +
-								'<a href="'+obj.path+'" class="thumbnail fancy" rel="tooltip" data-original-title="'+obj.name+'">' +
-									'<img src="'+obj.thumb_path+'" width="50" height="50">' +
+								'<a href="'+BASE+obj.path+'" class="thumbnail fancy" rel="tooltip" data-original-title="'+obj.name+'">' +
+									'<img src="'+BASE+obj.thumb_path+'" width="50" height="50">' +
 								'</a>' +
 							'</li>';
 
@@ -332,7 +331,7 @@ $.cms = {
 
 				var $wrapper = $('#modal-media-list');
 				
-				$.post('/cms/ajax/media/list', {
+				$.post(BASE+'/cms/ajax/media/list', {
 					pid: $pid
 				}, function(data) {
 					$wrapper.empty().html(data, function() {
@@ -357,7 +356,7 @@ $.cms = {
 		$('#file_lang').live('change', function(){
 			$lang = $(this).val();
 			$fid = $('.file_id').val();
-			$.post('/cms/ajax/file/text/lang', {
+			$.post(BASE+'/cms/ajax/file/text/lang', {
 				file_lang: $lang,
 				file_id: $fid
 			}, function(data) {
@@ -375,7 +374,7 @@ $.cms = {
 	function() {
 
 		$('.sortable').sortable({'items':'li','update' : function () {
-			$.post('/cms/ajax/page/subpage/order',$(this).serializeTree('id', 'order'));		
+			$.post(BASE+'/cms/ajax/page/subpage/order',$(this).serializeTree('id', 'order'));		
 		}});
 
 	},
@@ -384,7 +383,7 @@ $.cms = {
 	function() {
 
 		$('.sortable').sortable({'items':'li','update' : function () {
-			$.post('/cms/ajax/page/element/order',$(this).serializeTree('id', 'order'));		
+			$.post(BASE+'/cms/ajax/page/element/order',$(this).serializeTree('id', 'order'));		
 		}});
 
 	},
@@ -393,7 +392,7 @@ $.cms = {
 	function() {
 
 		$('.sortable').sortable({'items':'li','update' : function () {
-			$.post('/cms/ajax/download/file/order',$(this).serializeTree('id', 'order'));		
+			$.post(BASE+'/cms/ajax/download/file/order',$(this).serializeTree('id', 'order'));		
 		}});
 
 	},
@@ -402,7 +401,7 @@ $.cms = {
 	function() {
 
 		$('.sortable').sortable({'items':'li','update' : function () {
-			$.post('/cms/ajax/banner/file/order',$(this).serializeTree('id', 'order'));		
+			$.post(BASE+'/cms/ajax/banner/file/order',$(this).serializeTree('id', 'order'));		
 		}});
 
 	},
@@ -411,7 +410,7 @@ $.cms = {
 	function() {
 
 		$('.sortable').sortable({'items':'li','update' : function () {
-			$.post('/cms/ajax/gallery/file/order',$(this).serializeTree('id', 'order'));		
+			$.post(BASE+'/cms/ajax/gallery/file/order',$(this).serializeTree('id', 'order'));		
 		}});
 
 	},
@@ -420,7 +419,7 @@ $.cms = {
 	function() {
 
 		$('.sortable').sortable({'items':'li','update' : function () {
-			$.post('/cms/ajax/menu/page/order',$(this).serializeTree('id', 'order'));		
+			$.post(BASE+'/cms/ajax/menu/page/order',$(this).serializeTree('id', 'order'));		
 		}});
 
 	},
@@ -450,7 +449,7 @@ $.cms = {
 			var id = $(this).attr('rel');
 			if(id) {
 
-				$.post('/cms/ajax/translation/delete', {
+				$.post(BASE+'/cms/ajax/translation/delete', {
 					id: id
 				}, function(data) {
 					
@@ -531,8 +530,6 @@ $.cms = {
 					$('#translation').prepend(tpl);
 					$('#word').val('');
 					$('#value').val('');
-					//$('#lang_from').val(data.from).attr('selected',true);
-					//$('#lang_to').val(data.to).attr('selected',true);
 				}
 			}
 		});
@@ -574,7 +571,7 @@ $.cms = {
 		$('#trans_to').live('change', function() {
 			var lang = $(this).val();
 			if(lang.length > 0) {
-				window.location = '/cms/translation/'+lang;
+				window.location = BASE+'/cms/translation/'+lang;
 			}
 		});
 	},
@@ -638,7 +635,7 @@ $.cms = {
 				$('#blog_zone').find('option[value!=0]').remove();
 				
 				//Get zones for parent layout
-				$.post('/cms/ajax/get/page/parent/zones', {
+				$.post(BASE+'/cms/ajax/get/page/parent/zones', {
 					parent_id: $parent
 				}, function(data) {
 					var sel = $('#blog_zone');
@@ -652,7 +649,7 @@ $.cms = {
 				//Set media button rel
 				$('.open-media-modal').attr('rel', $parent);
 
-				$.post('/cms/ajax/get/page/parent/paths',{
+				$.post(BASE+'/cms/ajax/get/page/parent/paths',{
 					parent_id: $parent
 				},function(data) {
 					$('span.add-on[rel=blog_slug]').html('/').prepend(data);
@@ -672,13 +669,13 @@ $.cms = {
 		var $id = $('.'+where+'_id').val();
 		var $populate = null;
 
-		$.post('/cms/ajax/populate/tags/'+where, {
+		$.post(BASE+'/cms/ajax/populate/tags/'+where, {
 			id: $id
 		}, function(data) {
 			
 			if(data.length>0) $populate = jQuery.parseJSON(data);
 
-			$('#tags_text').autoSuggest('/cms/ajax/get/tags', {
+			$('#tags_text').autoSuggest(BASE+'/cms/ajax/get/tags', {
 				preFill: $populate,
 				minChars: 2,
 				selectedItemProp: "name",
@@ -703,7 +700,7 @@ $.cms = {
 			var $lang = $('#'+where+'_lang').val();
 			var $tag = $('#new_tag').val();
 
-			$.post('/cms/ajax/add/tags', {
+			$.post(BASE+'/cms/ajax/add/tags', {
 				tag_lang: $lang,
 				tag_name: $tag
 			}, function(data) {
@@ -781,7 +778,7 @@ $.cms = {
 			grid: { markings: weekendAreas }
 		};
 		
-		$.getJSON('/cms/dashboard/analytics_data', function(data) {		
+		$.getJSON(BASE+'/cms/dashboard/analytics_data', function(data) {		
 			
 			$.plot(placeholder, [data], options);
 			

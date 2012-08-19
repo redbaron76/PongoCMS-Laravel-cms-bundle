@@ -1,2 +1,2 @@
 var BASE = '{{Config::get('application.url')}}';
-var MAX_UP = '{{strtolower(str_replace(' ','',MEDIA_SIZE(Config::get('cms::settings.max_size'),'KB')))}}';
+var MAX_UP = '{{strtolower(str_replace(' ','',Config::get('cms::settings.max_size'))).'mb'}}';

@@ -123,7 +123,7 @@ class Cms_Gallery_Controller extends Cms_Base_Controller {
 
     }
 
-    //DETELE FILE
+    //DETELE GALLERY
     public function post_delete()
     {
     	if(Input::has('gallery_id')) {

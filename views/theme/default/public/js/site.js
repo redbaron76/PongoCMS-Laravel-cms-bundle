@@ -11,4 +11,27 @@ $.site = {
 		$('a[rel=fancybox]').fancybox();
 	},
 
+	nivoSlider:
+	function() {
+		$('#slider').nivoSlider();
+	},
+
+	scrollTop:
+	function() {
+		$('a[href=#top]').click(function(){
+			$('html, body').animate({scrollTop:0}, 'slow');
+			return false;
+		});
+	},
+
 }
+
+
+//RUN
+
+$(function() {
+
+	//SCROLL TOP
+	$.site.scrollTop();
+
+});

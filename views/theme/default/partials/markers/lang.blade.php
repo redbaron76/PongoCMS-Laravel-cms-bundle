@@ -1,34 +1,40 @@
 <ul{{$options}}>
 
-	<?php 
+	<?php $c = 0 ?>
 
-		$c = 0;
-		if(array_key_exists($exclude, $langs)) {
-			unset($langs[$exclude]);
-		}
+	<?php
+
+	if(array_key_exists($exclude, $langs)) {
+		unset($langs[$exclude]);
+	}
+
 	?>
 
 	@foreach($langs as $code => $lang)
 
-		@if(count($langs) > 1 and strlen($separator) > 0 and $c == 0 and $first)
-		<li class="separator">{{$separator}}</li>
-		@endif
+		{{-- @if(substr_count($exclude, $code) == 0) --}}
 
-		<li{{CmsUtility::link_lang($code)}}>
-			<a href="{{action('site@lang', array($code))}}">
-				{{substr($lang, 0, 3)}}
-			</a>
-		</li>
+			@if(count($langs) > 1 and strlen($separator) > 0 and $c == 0 and $first)
+			<li class="separator">{{$separator}}</li>
+			@endif
 
-		<?php $c++; ?>
+			<li{{CmsUtility::link_lang($code)}}>
+				<a href="{{action('site@lang', array($code))}}">
+					{{substr($lang, 0, 3)}}
+				</a>
+			</li>
 
-		@if(count($langs) > 1 and strlen($separator) > 0 and $c < count($langs))
-		<li class="separator">{{$separator}}</li>
-		@endif
+			<?php $c++ ?>
 
-		@if(count($langs) > 1 and strlen($separator) > 0 and $c == count($langs) and $last)
-		<li class="separator">{{$separator}}</li>
-		@endif
+			@if(count($langs) > 1 and strlen($separator) > 0 and $c < count($langs))
+			<li class="separator">{{$separator}}</li>
+			@endif
+
+			@if(count($langs) > 1 and strlen($separator) > 0 and $c == count($langs) and $last)
+			<li class="separator">{{$separator}}</li>
+			@endif
+
+		{{-- @endif --}}
 
 	@endforeach
 </ul>

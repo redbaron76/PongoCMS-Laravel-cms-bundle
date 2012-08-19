@@ -120,7 +120,7 @@ ul.sortable li a.btn {
 
 .nobottom {
     margin-left: 0;
-    padding-left: 19px;
+    padding-left: 20px;
 }
 
 .nobottom form, .nobottom .form-actions {
@@ -283,6 +283,11 @@ ul.page-list li.divider:first-child {
 }
 
 /* TABLE FIX */
+
+.table th.toright,
+.table td.toright {
+    text-align: right;
+}
 
 .table .btn-toolbar {
     margin: 0;

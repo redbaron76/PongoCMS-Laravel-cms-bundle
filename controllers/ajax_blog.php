@@ -84,7 +84,7 @@ class Cms_Ajax_Blog_Controller extends Cms_Base_Controller {
         	if(Input::has('blog_date_off')) {
         		$blog->datetime_off = dateTime2Db($input['blog_date_off']);
         	} else {
-        		$blog->datetime_off = dateTimeFuture($input['blog_date_on'], 'P2Y');
+        		$blog->datetime_off = dateTimeFuture(dateTime2Db($input['blog_date_on']), 'P2Y');
         	}
 
         	$blog->zone = $input['blog_zone'];
