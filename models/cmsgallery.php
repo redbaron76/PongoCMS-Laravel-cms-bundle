@@ -18,7 +18,7 @@ class CmsGallery extends Eloquent {
 	public static function select_thumb()
 	{
 			
-		$arr = Config::get('cms::settings.thumb');
+		$arr = Config::get('cms::theme.thumb');
 
 		$thumbs = array();		
 

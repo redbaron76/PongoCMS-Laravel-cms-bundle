@@ -24,7 +24,7 @@
 						{{LL('cms::button.as_picture', CMSLANG)}}
 					</a>
 				</li>
-				@foreach(Config::get('cms::settings.thumb') as $key => $value)
+				@foreach(Config::get('cms::theme.thumb') as $key => $value)
 				<li>
 					<a href="#" class="as_html" data-path="{{MEDIA_NAME($file->path, $value['suffix'])}}" data-extension="{{$file->ext}}" data-filename="{{$file->name}}" data-tag="img">
 						<i class="icon-picture"></i>

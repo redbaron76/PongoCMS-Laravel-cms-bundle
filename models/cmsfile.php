@@ -51,7 +51,7 @@ class CmsFile extends Eloquent {
 
 		$path = $upload_path . $file_name;
 
-		$thumb_settings = Config::get('cms::settings.thumb');
+		$thumb_settings = Config::get('cms::theme.thumb');
 		$thumb_options = Config::get('cms::settings.thumb_options');
 		$thumb_path = $upload_path . Config::get('cms::settings.thumb_path');
 

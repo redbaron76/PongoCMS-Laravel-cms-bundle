@@ -1474,10 +1474,10 @@ class Marker {
 
 				if(empty($_w) and empty($_h)) {
 
-					$_filename = MEDIA_NAME($_file, Config::get('cms::settings.thumb.'.$_thumb.'.suffix'));
-					$dim['w'] = Config::get('cms::settings.thumb.'.$_thumb.'.width');
-					$dim['h'] = Config::get('cms::settings.thumb.'.$_thumb.'.height');
-					$url = MEDIA_NAME($file->path, Config::get('cms::settings.thumb.'.$_thumb.'.suffix'));
+					$_filename = MEDIA_NAME($_file, Config::get('cms::theme.thumb.'.$_thumb.'.suffix'));
+					$dim['w'] = Config::get('cms::theme.thumb.'.$_thumb.'.width');
+					$dim['h'] = Config::get('cms::theme.thumb.'.$_thumb.'.height');
+					$url = MEDIA_NAME($file->path, Config::get('cms::theme.thumb.'.$_thumb.'.suffix'));
 
 				} else {
 

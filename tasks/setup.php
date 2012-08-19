@@ -137,6 +137,11 @@ class Cms_Setup_Task {
 		//SET NEW THEME NAME
 		$theme_path = path('bundle').'cms/config/theme'.EXT;
 		$theme_conf = File::get($theme_path);
+		$theme_conf = str_replace("$THEME_NAME = '".$current_theme."';", "$THEME_NAME = '{$theme}';", $theme_conf);
+		File::put($theme_path, $theme_conf);
+
+		$theme_path = path('bundle').'cms/view/theme/'.$theme.'/theme'.EXT;
+		$theme_conf = File::get($theme_path);
 		$theme_conf = str_replace("'name' => '".$current_theme."',", "'name' => '{$theme}',", $theme_conf);
 		File::put($theme_path, $theme_conf);
 

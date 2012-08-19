@@ -243,7 +243,7 @@ class Cms_Ajax_File_Controller extends Cms_Base_Controller {
 				if(file_exists($path)) rename($path, str_replace($filename, $newname, $path));
 
 				//LOOP ALL THUMBS AND RENAME
-				foreach (Config::get('cms::settings.thumb') as $option) {
+				foreach (Config::get('cms::theme.thumb') as $option) {
 					
 					$thumb = MEDIA_NAME($path, $option['suffix']);
 					if(file_exists($thumb)) rename($thumb, str_replace($filename, $newname, $thumb));

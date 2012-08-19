@@ -1,7 +1,7 @@
 <!doctype html>
 <html>
 	<head>		
-		<title>{{$title}} | {{Config::get('cms::settings.project_name')}}</title>
+		<title>{{$title}} | {{Config::get('cms::theme.project_name')}}</title>
 		<meta http-equiv="Content-type" content="text/html; charset=utf-8" />
 		<meta http-equiv="Content-Language" content="{{SITE_LANG}}" />
 		<meta name="description" content="{{$descr}}" />
