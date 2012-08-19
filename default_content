@@ -101,8 +101,8 @@ INSERT INTO "pongo_elements_pages" VALUES(9,9,5,NULL,'2012-07-15 10:43:13','2012
 INSERT INTO "pongo_translations" VALUES(1,'en','site language','scegli la lingua','it','2012-07-09 21:09:08','2012-07-10 16:03:51');
 INSERT INTO "pongo_translations" VALUES(2,'en','a CMS built upon Laravel 3.2 PHP Framework','un CMS basato su Laravel 3.2 PHP Framework','it','2012-07-10 15:10:24','2012-07-10 15:10:24');
 
-INSERT INTO "pongo_menus" VALUES(1,'nav','en',0,'2012-07-10 15:04:12','2012-07-15 10:42:07');
-INSERT INTO "pongo_menus" VALUES(2,'nav','it',0,'2012-07-10 15:13:34','2012-07-10 18:49:29');
+INSERT INTO "pongo_menus" VALUES(1,'nav','en',0,0,'2012-07-10 15:04:12','2012-07-15 10:42:07');
+INSERT INTO "pongo_menus" VALUES(2,'nav','it',0,0,'2012-07-10 15:13:34','2012-07-10 18:49:29');
 
 INSERT INTO "pongo_menus_pages" VALUES(1,1,1,1,'2012-07-10 15:04:12','2012-07-10 15:04:12');
 INSERT INTO "pongo_menus_pages" VALUES(2,1,2,3,'2012-07-10 15:04:12','2012-07-10 15:04:12');
