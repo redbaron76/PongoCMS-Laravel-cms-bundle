@@ -132,6 +132,20 @@
 
 		<tr>
 			<td>
+				<strong>$PREVIEW</strong>
+			</td>
+			<td>
+				{{LL('cms::marker.preview_descr', CMSLANG)}}
+			</td>
+			<td class="toright">
+				<a href="#" class="btn btn-primary as_text" data-tag="PREVIEW">
+					{{LL('cms::button.insert', CMSLANG)}}
+				</a>
+			</td>
+		</tr>
+
+		<tr>
+			<td>
 				<strong>$SOCIAL</strong>
 			</td>
 			<td>

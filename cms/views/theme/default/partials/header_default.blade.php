@@ -2,7 +2,7 @@
 
 	<div class="span6">
 
-		<a href="/" id="logo">
+		<a href="{{URL::base()}}" id="logo">
 			<img src="{{MEDIA('img/pongocms_logo.png')}}" width="380" height="60">
 			<span>{{MARKER('[$TRANSLATION[{"key":"a CMS built upon Laravel 3.2 PHP Framework"}]]')}}</span>
 		</a>

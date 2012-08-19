@@ -29,7 +29,7 @@
 			<div class="span10 body">
 				
 				<div class="tab-content">
-					
+
 					<!-- SETTINGS FORM -->
 					<div class="tab-pane active" id="settings">
 						{{Form::open(action('cms::ajax_page@save_settings'), 'POST', array('class' => 'form-vertical', 'id' => 'form_settings')) . "\n"}}
@@ -242,12 +242,12 @@
 									@forelse ($files as $file)
 									<li class="span1 media-box-block">
 										@if (MEDIA_TYPE($file->ext) == 'img')
-										<a href="{{$file->path}}" class="thumbnail fancy" rel="tooltip" data-original-title="{{$file->name}}">							
-											<img src="{{$file->thumb}}" width="50" heigth="50" alt="">							
+										<a href="{{BASE.$file->path}}" class="thumbnail fancy" rel="tooltip" data-original-title="{{$file->name}}">							
+											<img src="{{BASE.$file->thumb}}" width="50" heigth="50" alt="">							
 										</a>
 										@else
-										<a href="{{$file->path}}" class="thumbnail" rel="tooltip" data-original-title="{{$file->name}}">							
-											<img src="/bundles/cms/img/{{$file->ext}}_ico.png" width="100" heigth="100" alt="">							
+										<a href="{{BASE.$file->path}}" class="thumbnail" rel="tooltip" data-original-title="{{$file->name}}">							
+											<img src="{{BASE}}/bundles/cms/img/{{$file->ext}}_ico.png" width="100" heigth="100" alt="">							
 										</a>
 										@endif
 									</li>

@@ -49,6 +49,14 @@ class CmsPage extends Eloquent {
 		->order_by('blogs.created_at', 'asc');
 	}
 
+	//PREVIEW MARKER
+
+	public function blogs_preview()
+	{
+		return $this->has_many_and_belongs_to('CmsBlog', 'blogs_pages')
+		->order_by('blogs.datetime_on', 'desc');
+	}
+
 	//GETTERS
 
 	public function get_updated_date()
@@ -100,8 +108,7 @@ class CmsPage extends Eloquent {
 
 		}
 
-		$rs = self::where_parent_id(0)
-					->where('id', '<>', $self)
+		$rs = self::where_parent_id(0)					
                     ->where_lang($lang)
                     ->where_is_home(0)
                     ->where_is_valid(1)
@@ -111,11 +118,15 @@ class CmsPage extends Eloquent {
                     ->get();
 
         foreach ($rs as $path) {
+
+			$slugs[$path->id] = $path->name;
+			$second = call_user_func_array('self::sub_slug', array($path->name, $path->id, $self));
+			$slugs = ($slugs + $second);
             
-            $slugs[$path->id] = $path->name;
-            $second = call_user_func_array('self::sub_slug', array($path->name, $path->id, $self));
-            $slugs = ($slugs + $second);
-            
+        }
+
+        if($self>0) {
+        	unset($slugs[$self]);
         }
 
 		return $slugs;
@@ -123,7 +134,7 @@ class CmsPage extends Eloquent {
 	}
 
 	//PAGE GENERAL POSITION DROPDOWN
-	public static function select_page_slug($lang, $self = 0, $first = true)
+	public static function select_page_slug($lang, $extra = 1, $self = 0, $first = true)
 	{
 		if($first) {
 			
@@ -139,6 +150,7 @@ class CmsPage extends Eloquent {
 					->where('id', '<>', $self)
                     ->where_lang($lang)
                     ->where_is_home(0)
+                    ->where_extra_id($extra)
                     ->where_is_valid(1)
                     ->order_by('is_home', 'desc')
                     ->order_by('order_id', 'asc')
@@ -196,32 +208,28 @@ class CmsPage extends Eloquent {
 
 	}
 
-	public static function update_child_slugs($page_id, $slug)
+	public static function update_child_slugs($page_id, $parent = '', $slug = '/')
 	{
 
 		if(!empty($page_id)) {
 
-			//GET OLD PAGE
-			$old_page = self::find($page_id);
-			$old_path = $old_page->slug;
-			$path = explode('/', $old_path);
-			//GET OLD SLUG
-			$old_slug = end($path);
-
-			$pages = self::where_lang($old_page->lang)
-							->where('slug', 'LIKE', '%/'.$old_slug.'/%')
-							->order_by('order_id', 'asc')
-							->get();
+			//GET PAGE DATA
+			$pages = self::where_parent_id($page_id)->get();
 
 			foreach ($pages as $page) {
-				
-				$item = self::find($page->id);
-				$item->slug = str_replace('/'.$old_slug.'/', '/'.$slug.'/', $page->slug);
-				$item->save();
+
+				$pag = self::find($page->id);
+
+				$slg = $parent . '/' . $slug . '/' . Str::slug($page->name);
+				$slg = str_replace('//', '/', $slg);
+				$slg = str_replace('//', '/', $slg);
+
+				$pag->slug = $slg;
+				$pag->save();
+
+				call_user_func_array('self::update_child_slugs', array($page->id, $slg));
 
 			}
-
-			return true;
 
 		}
 

@@ -46,6 +46,7 @@ class Cms_Ajax_Menu_Controller extends Cms_Base_Controller {
 
 			$menu->name = strtolower($input['menu_name']);
 			$menu->lang = strtolower($input['menu_lang']);
+			$menu->parent_start = $input['parent_start'];
 			$menu->is_nested = Input::has('is_nested') ? 1 : 0;
 
 			//DELETE CACHE

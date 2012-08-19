@@ -124,6 +124,7 @@ return array(
 	"user_role" => "Livello di accesso",
 	"user_lang" => "Lingua utente",
 	"user_is_valid" => "Utente attivo?",
+	"user_remember" => "Ricorda i miei dati",
 
 	"user_password" => "Nuova password",
 	"user_password_confirmation" => "Conferma password",
@@ -158,6 +159,7 @@ return array(
 	"menu_legend_order" => "Ordine di visualizzazione delle voci di menu",
 	"menu_legend" => "Associa le pagine al menu",
 	"menu_is_nested" => "Crea un menu gerarchico?",
+	"menu_parent_start" => "Elemento di partenza",
 	"modal_title_menu" => "Eliminare questo menu?",
 
 	//BANNER

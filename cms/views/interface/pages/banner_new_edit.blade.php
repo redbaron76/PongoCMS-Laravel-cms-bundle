@@ -86,8 +86,8 @@
 												?>
 
 												<td>
-													<a href="{{$file->path}}" class="thumbnail fancy" rel="tooltip" data-original-title="{{$file->name}}">							
-														<img src="{{$file->thumb}}" width="50" heigth="50" alt="">							
+													<a href="{{BASE.$file->path}}" class="thumbnail fancy" rel="tooltip" data-original-title="{{$file->name}}">							
+														<img src="{{BASE.$file->thumb}}" width="50" heigth="50" alt="">							
 													</a>
 												</td>
 												<td class="v-middle">
@@ -158,8 +158,8 @@
 
 						@forelse ($files_select as $file)
 							<li class="span1" id="{{$banner_id}}_{{$file->id}}">
-								<a href="{{$file->path}}" class="thumbnail fancy" data-original-title="{{$file->name}}" rel="tooltip">
-									<img src="{{$file->thumb}}" width="50" heigth="50" alt="">							
+								<a href="{{BASE.$file->path}}" class="thumbnail fancy" data-original-title="{{$file->name}}" rel="tooltip">
+									<img src="{{BASE.$file->thumb}}" width="50" heigth="50" alt="">							
 								</a>
 							</li>
 						@empty

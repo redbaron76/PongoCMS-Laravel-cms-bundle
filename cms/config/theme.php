@@ -32,27 +32,11 @@ return array(
 
 		),
 
-		'fancybox' => array(
-
-			'path' => 'js/jquery.fancybox.js',
-			'container' => 'footer',
-			'after' => 'jquery_lib',
-
-		),
-
 		'site_js' => array(
 
 			'path' => 'js/site.js',
 			'container' => 'footer',
 			'after' => 'jquery_lib',
-
-		),
-
-		'marker' => array(
-
-			'path' => 'js/markers/thumb.js',
-			'container' => 'footer',
-			'after' => 'fancybox',
 
 		),
 

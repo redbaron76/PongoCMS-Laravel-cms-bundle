@@ -123,6 +123,7 @@ return array(
 	"user_role" => "Access level",
 	"user_lang" => "Language",
 	"user_is_valid" => "User enabled?",
+	"user_remember" => "Remember credentials",
 
 	"user_password" => "New password",
 	"user_password_confirmation" => "Confirm password",
@@ -157,6 +158,7 @@ return array(
 	"menu_legend_order" => "Menu items order",
 	"menu_legend" => "Link pages to menu",
 	"menu_is_nested" => "Hierarchical menu?",
+	"menu_parent_start" => "Starting element",
 	"modal_title_menu" => "Delete this menu?",
 
 	//BANNER

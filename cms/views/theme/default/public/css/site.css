@@ -28,6 +28,43 @@ body {
 	color: #87AA1A;
 }
 
+.inner blockquote {
+	margin-top: 10px;
+	font-family: Georgia, serif;
+	font-style: italic;
+	font-size: 120%;
+}
+
+.inner .crumb {
+	margin: 0;
+	padding: 0;
+}
+
+.inner .crumb li {
+	display: inline-block;
+	margin: 0 5px 0 0;
+}
+
+.inner .pagination a,
+.inner .pagination span {
+	display: inline-block;
+}
+
+.inner .pagination span {
+    border-color: #DDDDDD;
+    border-style: solid;
+    border-width: 1px 1px 1px 0;
+    float: left;
+    line-height: 34px;
+    padding: 0 14px;
+    text-decoration: none;
+}
+
+.inner .pagination span:first-child,
+.inner .pagination a:first-child {
+	border-left: 1px solid #DDDDDD;
+}
+
 #header {
 	min-height: 140px;
 }

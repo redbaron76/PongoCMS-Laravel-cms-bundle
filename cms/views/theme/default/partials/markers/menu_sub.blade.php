@@ -4,7 +4,7 @@
 	@foreach($elements as $element)
 	<li>
 
-		<a href="{{CmsUtility::parse_slug($slug)}}#{{$element->name}}">
+		<a href="{{SLUG($slug)}}#{{$element->name}}">
 			{{$element->label}}
 		</a>
 

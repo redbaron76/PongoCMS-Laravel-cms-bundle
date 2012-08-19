@@ -185,8 +185,8 @@ class CmsRender {
 			//Verifico se SITE_ROLE < access_level -> to_login
 
 			if(SITE_ROLE < $page->access_level) {
-				return Redirect::to_action('user@login')
-				->with('back_url', URL::current());
+				return Redirect::to_action('site@login')
+				->with('back_url', SLUG_FULL);
 			}
 
 			//Imposto page_layout da DB o default se non settato
@@ -236,13 +236,33 @@ class CmsRender {
 						$layout[strtoupper($item->zone)] = trim(implode("\n", $zone[$item->zone]));
 					} 
 
+				} 
+
+
+				//Se nessun elemento presente, vado al primo child in ordine
+
+				else {
+
+					$new_page = CmsPage::where_lang(SITE_LANG)
+					->where_parent_id($page->id)
+					->where_is_valid(1)
+					->order_by('order_id', 'asc')
+					->first();
+
+					if( ! empty($new_page)) return Redirect::to($new_page->slug);
+
 				}
 
 				//Bindo $extra alla ZONA layout pagine se presente
 
 				if( ! empty($extra)) {
-					
-					$tmp_text = Marker::decode($extra->text);
+
+					//EXTRA VIEW
+
+					$extra_what = CONF('cms::settings.extra_id', $page->extra_id);
+
+					$tmp_text = View::make('cms::theme.'.THEME.'.partials.preview.'.$extra_what);
+					$tmp_text['text'] = $extra;
 
 					//Bindo text del pageitem a ZONE che diventa variabile nel layout						
 					$layout[strtoupper($extra->zone)] = trim(implode("\n", array($tmp_text)));
@@ -278,8 +298,8 @@ class CmsRender {
 		$descr = (! empty($extra->descr)) ? $extra->descr : $descr;
 
 		//Set default header, footer, layout se non settati
-		$header = ( ! empty($pager->header)) ? $page->header : 'default';
-		$footer = ( ! empty($pager->footer)) ? $page->footer : 'default';
+		$header = ( ! empty($page->header)) ? $page->header : 'default';
+		$footer = ( ! empty($page->footer)) ? $page->footer : 'default';
 
 
 		//Prepare html buffer

@@ -51,7 +51,7 @@ class CmsRole extends Eloquent {
 		foreach ($data as $role) {
 			$roles[$role->id] = ucfirst(LABEL('cms::role.', $role->name));
 		}
-
+		
 		return $roles;
 
 	}

@@ -359,7 +359,7 @@ function db2Date($date)
 function dateTimeFuture($datetime, $when) //'P50Y'
 {
 
-  $d = dateTime2Db($datetime);
+  $d = $datetime;
 
   $date = new DateTime($d);
   $date->add(new DateInterval($when));

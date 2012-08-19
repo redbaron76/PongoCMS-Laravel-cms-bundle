@@ -14,6 +14,7 @@ class Cms_Create_Menus {
 			$table->increments('id');
 			$table->string('name', 50);
 			$table->string('lang', 5);
+			$table->integer('parent_start')->defaults(0);
 			$table->boolean('is_nested');
 			$table->timestamps();
 		});

@@ -4,29 +4,31 @@
 	<?php $c = 0 ?>
 
 	@foreach($crumbs as $slug => $label)
-	<li>
 
 		@if(strlen($separator) > 0 and $c == 0 and $first)
-		<span>{{$separator}}</span>
+		<li class="separator">{{$separator}}</li>
 		@endif
 
-		<a href="{{$slug}}"{{CmsUtility::link_active($slug)}}>
+		<li{{CmsUtility::link_active($slug)}}>	
 
-			{{$label}}
+			<a href="{{SLUG($slug)}}">
 
-		</a>
+				{{$label}}
+
+			</a>
+
+		</li>
 
 		<?php $c++ ?>
 
 		@if(strlen($separator) > 0 and $c < count($crumbs))
-		<span>{{$separator}}</span>
+		<li class="separator">{{$separator}}</li>
 		@endif
 
 		@if(strlen($separator) > 0 and $c == count($crumbs) and $last)
-		<span>{{$separator}}</span>
+		<li class="separator">{{$separator}}</li>
 		@endif
 
-	</li>
 	@endforeach
 
 </ul>

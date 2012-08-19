@@ -65,7 +65,7 @@
 						</div>
 
 						<div class="modal hide" id="modal-delete-{{$banner->id}}">
-							{{Form::open(action('cms::banner@delete_banner'), 'POST')}}
+							{{Form::open(action('cms::banner@delete'), 'POST')}}
 							{{Form::hidden('banner_id', $banner->id)}}
 							<div class="modal-header">
 								<button class="close" data-dismiss="modal">×</button>

@@ -22,7 +22,7 @@ class CmsBlog extends Eloquent {
 	{
 		return $this->has_many_and_belongs_to('CmsPage', 'blogs_pages')
 		->order_by('is_default', 'desc')
-		->order_by('created_at', 'asc');
+		->order_by('blogs_pages.created_at', 'asc');
 	}
 
 	public function blogrels()
@@ -50,6 +50,16 @@ class CmsBlog extends Eloquent {
 	public function get_created_date()
 	{
 		return strftime('%d %b %Y - %H:%M', strtotime($this->get_attribute('created_at')));
+	}
+
+	public function get_dmy()
+	{
+		return strftime('%d/%m/%Y', strtotime($this->get_attribute('datetime_on')));
+	}
+
+	public function get_datetime_blog()
+	{
+		return strftime('%A %d %B %H:%M', strtotime($this->get_attribute('datetime_on')));
 	}
 
 	public function get_datetime_on()
