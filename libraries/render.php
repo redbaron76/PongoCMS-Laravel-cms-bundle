@@ -202,6 +202,9 @@ class CmsRender {
 			//Verifico che esista il layout
 			if( ! empty($arr_layout)) {
 
+				//Bindo nome della pagina
+				$layout['NAME'] = $page->name;
+
 				//Bindo le zone come vuote per evitare errori
 				foreach ($arr_layout as $key => $value) {
 
@@ -263,6 +266,9 @@ class CmsRender {
 
 					$tmp_text = View::make('cms::theme.'.THEME.'.partials.preview.'.$extra_what);
 					$tmp_text['text'] = $extra;
+
+					//Bindo nome extra
+					$layout['NAME'] = $extra->name;
 
 					//Bindo text del pageitem a ZONE che diventa variabile nel layout						
 					$layout[strtoupper($extra->zone)] = trim(implode("\n", array($tmp_text)));
