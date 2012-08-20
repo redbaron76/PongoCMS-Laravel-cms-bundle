@@ -8,7 +8,7 @@ return array(
 	"login_success" => "Benvenuto nel cms, :username",
 	"not_found" => "Pagina non trovata",
 	"upload_unavailable" => "Upload non disponibile",
-	"upload_allowed" => "Formati supportati: :format<br>Max peso del file: :size kb",
+	"upload_allowed" => "Formati supportati: :format<br>Max peso del file: :size Mb",
 
 	"delete_page_success" => "La pagina <strong>:page</strong> è stata eliminata!",
 	"delete_page_error" => "Pagina non eliminata!",

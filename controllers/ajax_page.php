@@ -356,7 +356,7 @@ class Cms_Ajax_Page_Controller extends Cms_Base_Controller {
 			//VALIDATION CHECK
 
 			$get_mimes = Config::get('cms::settings.mimes');
-			$get_max = Config::get('cms::settings.max_size');
+			$get_max = Config::get('cms::settings.max_size') * 1024;	//10Mb
 
 			$rules = array(
 				'page_id'  => 'required',

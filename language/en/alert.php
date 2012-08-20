@@ -8,7 +8,7 @@ return array(
 	"login_success" => "Welcome in PongoCMS, :username",
 	"not_found" => "Page not found",
 	"upload_unavailable" => "Upload not available",
-	"upload_allowed" => "Supported formats: :format<br>Max file size: :size kb",
+	"upload_allowed" => "Supported formats: :format<br>Max file size: :size Mb",
 
 	"delete_page_success" => "Page <strong>:page</strong> has been deleted!",
 	"delete_page_error" => "Page not deleted!",
