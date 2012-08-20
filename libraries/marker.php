@@ -154,6 +154,9 @@ class Marker {
 		$_tpl = 'banner';
 		if(isset($tpl) and !empty($tpl)) $_tpl = $tpl;
 
+		//FORCE NIVO TPL
+		if(isset($type) and $type == 'nivo') $_tpl = 'nivo';
+
 		if(!empty($_name)) {
 
 			if($_type == 'nivo') {
