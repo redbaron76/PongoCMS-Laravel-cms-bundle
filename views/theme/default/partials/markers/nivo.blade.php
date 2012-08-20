@@ -30,7 +30,7 @@
 			<a href="{{SLUG($image->pivot->url)}}"{{$target}}{{$title}}>
 			@endif
 
-				{{HTML::image($image->path, $alt, array('width' => $image->w, 'height' => $image->h, 'title' => $titles[$key]))}}
+				{{HTML::image(MEDIA_NAME($image->path, $thumb), $alt, array('title' => $titles[$key]))}}
 
 			@if(strlen($image->pivot->url) > 0)
 			</a>

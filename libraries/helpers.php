@@ -47,6 +47,8 @@ function LABEL($where, $what) {
  */
 function CONF($config, $key)
 {
+	if($key == '') return array();
+
 	$conf = Config::get($config);
 
 	return $conf[$key];
@@ -87,6 +89,8 @@ function MEDIA_TYPE($ext)
  */
 function MEDIA_NAME($filename, $suffix)
 {
+  
+  if(empty($suffix)) return $filename;
   
   $tmp_ext = substr($filename, -4);
   $tmp_filename = str_replace($tmp_ext, $suffix, $filename) . $tmp_ext;

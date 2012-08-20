@@ -118,6 +118,7 @@ class Marker {
     *
 	* [$BANNER[{
 	*	"name":"<banner name>",
+	*	"thumb":"<thumb type>"	=> (default: none)
 	*	"type":"<slider name>"	=> (default: none)
 	*	"theme":"<theme>"		=> (default: default)
 	*	"caption":"false"		=> (default: false)
@@ -142,6 +143,9 @@ class Marker {
 		$_type = '';
 		if(isset($type) and !empty($type)) $_type = $type;
 
+		$_thumb = '';
+		if(isset($thumb) and !empty($thumb)) $_thumb = $thumb;
+
 		$_theme = 'default';
 		if(isset($theme) and !empty($theme)) $_theme = $theme;
 
@@ -156,6 +160,7 @@ class Marker {
 
 		//FORCE NIVO TPL
 		if(isset($type) and $type == 'nivo') $_tpl = 'nivo';
+
 
 		if(!empty($_name)) {
 
@@ -231,8 +236,11 @@ class Marker {
 			'class' => $_class,
 		);
 
+		$thumbs = CONF('cms::theme.thumb', $_thumb);
+
 		$view = View::make('cms::theme.'.THEME.'.partials.markers.'.$_tpl);
 		$view['images'] 	= $images;
+		$view['thumb'] 		= (strlen($_thumb) > 0 and array_key_exists('suffix', $thumbs)) ? $thumbs['suffix'] : '';
 		$view['theme'] 		= $_theme;
 		$view['attr'] 		= $attr;
 		$view['caption'] 	= $_caption;

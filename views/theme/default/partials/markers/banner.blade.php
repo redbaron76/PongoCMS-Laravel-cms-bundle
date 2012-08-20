@@ -18,7 +18,7 @@
 
 		<a href="{{SLUG($image->pivot->url)}}"{{$target}}{{$title}}>
 
-			{{HTML::image($image->path, $alt, array('width' => $image->w, 'height' => $image->h))}}
+			{{HTML::image(MEDIA_NAME($image->path, $thumb), $alt)}}
 			
 		</a>
 	</li>
