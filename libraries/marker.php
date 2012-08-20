@@ -120,6 +120,7 @@ class Marker {
 	*	"name":"<banner name>",
 	*	"type":"<slider name>"	=> (default: none)
 	*	"theme":"<theme>"		=> (default: default)
+	*	"caption":"false"		=> (default: false)
 	*	"class":"<class>",		=> OPTIONAL
 	*	"tpl":"<tpl_name>"		=> OPTIONAL (in /partials/markers)
 	* }]]
@@ -144,6 +145,9 @@ class Marker {
 		$_theme = 'default';
 		if(isset($theme) and !empty($theme)) $_theme = $theme;
 
+		$_caption = false;
+		if(isset($caption) and !empty($caption) and $caption == 'true') $_caption = true;
+
 		$_class = 'banner';
 		if(isset($class) and !empty($class)) $_class = $class;
 
@@ -163,18 +167,30 @@ class Marker {
 			//CACHE DATA
 			if(CACHE) {
 				$list = Cache::remember('img_banner_'.$_name, function() use ($_name) {
-					return CmsBanner::with(array('files' => function($query) {
+					return CmsBanner::with(array(
+						'files' => function($query) {
 						
-							$query->where('files_banners.date_off', '>=', date('Y-m-d H:i:s'));
+							$query->where('files_banners.date_off', '>=', dateTime2Db(date('Y-m-d H:i:s')));
+
+						},
+						'files.filetexts' => function($query) {
+						
+							$query->where('lang', '=', SITE_LANG);
 
 						}))->where_name($_name)->first();
 				}, 1440);
 			} else {
-				$list = CmsBanner::with(array('files' => function($query) {
-							
-							$query->where('files_banners.date_off', '>=', date('Y-m-d H:i:s'));
+				$list = CmsBanner::with(array(
+					'files' => function($query) {
+						
+						$query->where('files_banners.date_off', '>=', dateTime2Db(date('Y-m-d H:i:s')));
 
-						}))->where_name($_name)->first();
+					},
+					'files.filetexts' => function($query) {
+					
+						$query->where('lang', '=', SITE_LANG);
+
+					}))->where_name($_name)->first();
 			}
 
 			//Load file lable and title
@@ -185,12 +201,25 @@ class Marker {
 			} else {
 				
 				$images = array();
+				$attr = '';
+
+			}
+
+			//Load file alt title and caption
+			if(!empty($list->files)) {
+
+				$attr = $list->files;
+
+			} else {
+				
+			 	$attr = '';
 
 			}
 
 		} else {
 
 			$images = array();
+			$attr = '';
 
 		}
 
@@ -201,6 +230,9 @@ class Marker {
 
 		$view = View::make('cms::theme.'.THEME.'.partials.markers.'.$_tpl);
 		$view['images'] 	= $images;
+		$view['theme'] 		= $_theme;
+		$view['attr'] 		= $attr;
+		$view['caption'] 	= $_caption;
 		$view['options'] 	= HTML::attributes($options);
 
 		return $view;

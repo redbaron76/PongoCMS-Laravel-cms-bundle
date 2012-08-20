@@ -77,6 +77,7 @@ class Cms_File_Controller extends Cms_Base_Controller {
 
 				$filetext_alt = (!empty($text)) ? $text->alt : '';
 				$filetext_title = (!empty($text)) ? $text->title : '';
+				$filetext_caption = (!empty($text)) ? $text->caption : '';
 				$filetext_label = (!empty($text)) ? $text->label : '';
 
 			}
@@ -85,6 +86,7 @@ class Cms_File_Controller extends Cms_Base_Controller {
 
 			$filetext_alt = '';
 			$filetext_title = '';
+			$filetext_caption = '';
 			$filetext_label = '';
 
 		}
@@ -110,11 +112,6 @@ class Cms_File_Controller extends Cms_Base_Controller {
 			$new_data = ($new_data + $recursive);
 		}
 
-		/*foreach ($data as $page) {
-			$recursive = call_user_func_array('CmsPage::recursive_filespages', array($page->id));			
-			$data = array_insert($data, $page->id, $recursive);
-		}*/
-
 		if(empty($new_data)) $new_data = array();
 
 		$this->layout->content = View::make('cms::interface.pages.file_edit')
@@ -129,6 +126,7 @@ class Cms_File_Controller extends Cms_Base_Controller {
 		->with('langs', Config::get('cms::settings.langs'))
 		->with('filetext_title', $filetext_title)
 		->with('filetext_alt', $filetext_alt)
+		->with('filetext_caption', $filetext_caption)
 		->with('filetext_label', $filetext_label);
 
     }

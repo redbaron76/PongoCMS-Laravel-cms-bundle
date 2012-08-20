@@ -140,6 +140,7 @@ return array(
 	"select_lang" => "Seleziona la lingua",
 	"filetext_alt" => "Descrizione <img alt>",
 	"filetext_title" => "Titolo link <a title>",
+	"filetext_caption" => "Testo correlato <HTML>",
 	"filetext_label" => "Etichetta cliccabile del file",
 	"file_filename_legend" => "Modifica il nome del file",
 	"available" => "Disponibilità",

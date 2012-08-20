@@ -191,7 +191,7 @@ class Site_Controller extends Base_Controller {
 
 			 		foreach ($element->pages as $page) {
 
-			 			$title = (count($page->title) > 0) ? $page->title : $page->name;
+			 			$title = (strlen($page->title) > 0) ? $page->title : $page->name;
 
 			 			$results[$key+1]['source'] = LL('cms::label.pages', SITE_LANG)->get();
 			 			$results[$key+1]['title'] = $title;
@@ -307,7 +307,7 @@ class Site_Controller extends Base_Controller {
 
 			 		foreach ($element->pages as $page) {
 
-			 			$title = (count($page->title) > 0) ? $page->title : $page->name;
+			 			$title = (strlen($page->title) > 0) ? $page->title : $page->name;
 
 			 			$results[$key+1]['source'] = LL('cms::label.pages', SITE_LANG)->get();
 			 			$results[$key+1]['title'] = $title;

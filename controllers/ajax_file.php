@@ -32,6 +32,7 @@ class Cms_Ajax_File_Controller extends Cms_Base_Controller {
 
 			$text->alt = $input['filetext_alt'];
 			$text->title = $input['filetext_title'];
+			$text->caption = $input['filetext_caption'];
 			$text->lang = $input['file_lang'];
 
 			$text->save();
@@ -86,6 +87,7 @@ class Cms_Ajax_File_Controller extends Cms_Base_Controller {
 
 			$text->label = $input['filetext_label'];
 			$text->title = $input['filetext_title'];
+			$text->caption = $input['filetext_caption'];
 			$text->lang = $input['file_lang'];
 
 			$text->save();

@@ -15,6 +15,7 @@ class Cms_Create_Filetexts {
 			$table->integer('file_id');
 			$table->text('alt');
 			$table->text('title');
+			$table->text('caption');
 			$table->string('label', 255);
 			$table->string('lang', 5);
 			$table->timestamps();

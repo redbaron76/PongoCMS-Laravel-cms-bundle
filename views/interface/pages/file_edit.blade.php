@@ -69,6 +69,13 @@
 										</div>
 									</div>
 
+									<div class="control-group" rel="filetext_caption">
+										{{Form::label('filetext_caption', LL('cms::form.filetext_caption', CMSLANG), array('class' => 'control-label')) . "\n"}}
+										<div class="controls">
+											{{Form::textarea('filetext_caption', $filetext_caption, array('class' => 'span6', 'id' => 'filetext_caption', 'rows' => 3)) . "\n"}}
+										</div>
+									</div>
+
 									<div class="form-actions">
 										<a href="#" class="btn btn-success save_form" rel="form_text">
 											<i class="icon-ok icon-white"></i>

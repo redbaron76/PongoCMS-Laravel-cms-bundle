@@ -146,7 +146,7 @@ $THEME_SETTINGS = array(
 	|--------------------------------------------------------------------------|
 	*/
 
-	'title' => 'Finestre per arredare',
+	'title' => 'Welcome to PongoCMS',
 	
 	'keyw' => 'keyword1, keyword2, keyword3',
 
@@ -159,10 +159,10 @@ $THEME_SETTINGS = array(
 	*/
 
 	'thumb' => array(
-                        
-                        //CUSTOM THUMB CREATOR
+						
+						//CUSTOM THUMB CREATOR
 
-                        /*'mini' => array(
+						/*'mini' => array(
 											'width'	=> 320,
 											'height' => 200,
 											'suffix' => '_mini',
@@ -176,8 +176,8 @@ $THEME_SETTINGS = array(
 											'method' => 'adaptiveResize'
 										),
 
-                        //NEEDED FOR CMS LIST PREVIEW - DO NOT REMOVE!!
-                        'thumb' => array(
+						//NEEDED FOR CMS LIST PREVIEW - DO NOT REMOVE!!
+						'thumb' => array(
 											'width'	=> 50,
 											'height' => 50,
 											'suffix' => '_thumb',
