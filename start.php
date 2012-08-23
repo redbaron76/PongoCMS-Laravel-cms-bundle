@@ -18,7 +18,7 @@ if (Request::cli() and Config::get('session.driver') !== '')
 
 //SET LOCALE
 
-setlocale(LC_TIME, Config::get('cms::settings.locale'));
+setlocale(LC_ALL, Config::get('cms::settings.locale'), Config::get('cms::settings.locale').'.utf8');
 
 
 //CMS COMPOSER

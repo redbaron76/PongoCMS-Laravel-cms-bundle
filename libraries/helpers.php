@@ -214,6 +214,97 @@ function SLUG($path)
 }
 
 /**
+* File from full path
+*
+* @param  string
+* @param 	numeric
+* @return string
+*/
+function PATH2FILE($url, $n = 0)
+{
+  $slugs = explode('/', $url);
+
+  $c = count($slugs);
+
+  $slug = end($slugs);
+
+  if($n > 0) {
+  	$reverse = array_reverse($slugs);
+
+  	for ($i=1; $i < $n+1 ; $i++) { 
+  		$slug = $reverse[$i] . '/' . $slug;
+  	}
+  } 
+
+  return $slug;
+}
+
+/**
+* Add text preview
+*
+* @param  string
+* @return string
+*/
+function TEXTPREVIEW($obj, $max = false, $end = '...', $strip_tags = true, $decode = true)
+{
+  if(!empty($obj)) {
+
+  	$text = (strlen($obj->preview) > 0) ? $obj->preview : $obj->text;
+
+  	if($decode) $text = Marker::decode($text);
+
+  	if($strip_tags) $text = strip_tags($text);
+
+  	if(is_numeric($max)) $text = substr($text, 0, $max) . $end;
+
+  	return $text;
+
+  } else {
+
+  	return '';
+
+  }
+}
+
+/**
+* Extract image from text
+*
+* @param  string
+* @return string
+*/
+function TEXT2IMG($text, $w = 320, $h = 200, $key = 0)
+{
+	$tmp_text = trim($text);
+	$tmp_text = Marker::decode($tmp_text);
+
+	preg_match_all('/src="([^"]*)"/i', $tmp_text, $matches);
+
+	if(!empty($matches[1])) {
+
+		$file = PATH2FILE($matches[1][$key]);
+
+		$thumbs = Config::get('cms::theme.thumb');
+
+		foreach ($thumbs as $val) {
+		 	$file = str_replace($val['suffix'], '', $file);
+		}				
+
+		$url = URL::to_action('cms::image@thumb', array($w, $h, $file));
+
+		return HTML::image($url, '', array('width' => $w, 'height' => $h));
+
+	} else {
+
+		$thumbs = Config::get('cms::theme.thumb');
+
+		$url = URL::to_action('cms::image@thumb', array($w, $h, 'img_default.jpg'));
+
+		return HTML::image($url, '', array('width' => $w, 'height' => $h));
+
+	}
+}
+
+/**
  * Inserts values from $arr2 after (or before) $key in $arr1
  * if $key is not found, $arr2 is appended to $arr1 using array_merge()
  *

@@ -38,6 +38,7 @@ class Cms_Search_Controller extends Cms_Searchbase_Controller {
 
 				//GET PAGE DATA
 				$data = CmsBlog::with('user')
+				->where_lang(LANG)
 				->where('name', 'LIKE', '%'.$q.'%')
 				->or_where('slug', 'LIKE', '%'.$q.'%')
 				->or_where('title', 'LIKE', '%'.$q.'%')
@@ -170,14 +171,14 @@ class Cms_Search_Controller extends Cms_Searchbase_Controller {
 
 				//GET PAGE DATA
 				$data = CmsPage::with('user')
+								->where_lang(LANG)
 								->where('name', 'LIKE', '%'.$q.'%')
-								->or_where('slug', 'LIKE', '%'.$q.'%')
 								->or_where('title', 'LIKE', '%'.$q.'%')
 								->order_by('name', 'asc')
 								->order_by('slug', 'asc')
 								->order_by('title', 'asc')
 								->paginate(Config::get('cms::theme.pag'));
-				
+
 				$this->layout->content = View::make('cms::interface.pages.page_list')
 									 ->with('data', $data)
 									 ->with('lang', '');
@@ -194,7 +195,7 @@ class Cms_Search_Controller extends Cms_Searchbase_Controller {
 
 				//GET ALL PAGE DATA
 				$data = CmsPage::with('user')
-								->where_lang(LANG)						
+								->where_lang(LANG)
 								->order_by('order_id', 'asc')
 								->order_by('updated_at', 'desc')
 								->paginate(Config::get('cms::theme.pag'));

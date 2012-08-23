@@ -324,6 +324,7 @@ class Cms_Ajax_Page_Controller extends Cms_Base_Controller {
 			$input = Input::all();
 
 			$file_name = strtolower(preg_replace('/[^\w\._]+/', '_', $input['file']['name']));
+			$file_name = str_replace('.jpeg','.jpg',$file_name);
 			$file_size = $input['file']['size'];
 			$file_ext = strtolower(File::extension($file_name));
 			$page_id = $input['page_id'];

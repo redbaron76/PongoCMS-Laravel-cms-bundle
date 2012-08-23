@@ -63,6 +63,8 @@ class CmsFile extends Eloquent {
 				$thumb->resize($setting['width'], $setting['height']);
 			if($setting['method'] == 'adaptiveResize')
 				$thumb->adaptiveResize($setting['width'], $setting['height']);
+			if($setting['method'] == 'cropFromCenter')
+				$thumb->cropFromCenter($setting['width'], $setting['height']);
 
 			//CREATE SUBDIR IF NOT EXISTS
 			if(!file_exists(path('public').$thumb_path)) mkdir(path('public').$thumb_path);

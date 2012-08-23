@@ -24,7 +24,7 @@ class Cms_User_Controller extends Cms_Base_Controller {
 		);
 
 		$this->layout->top_data = array(
-			'search' => '/cms/user/src',
+			'search' => '/cms/user/search',
 			'q' => ''
 		);
 

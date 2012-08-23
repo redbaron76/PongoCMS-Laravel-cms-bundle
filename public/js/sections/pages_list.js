@@ -9,6 +9,6 @@ $(function() {
 	$.cms.changeLang('page');
 
 	//PAGINATOR
-	//$.cms.paginator('page', false);
+	$.cms.paginator('page', false);
 
 });
