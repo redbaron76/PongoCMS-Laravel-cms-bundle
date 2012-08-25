@@ -252,6 +252,96 @@ class Marker {
 
 
 	/**
+    * BLOGVIEW Marker - Shows a list of last n blogs
+    *
+	* [$BLOGVIEW[{
+	*	"source":"<source label>",	=> (available: blogs, products...)
+	*	"n":"<n items per page>",	=> (default: 5)
+	*	"id":"<id>",				=> OPTIONAL <ul> id
+	*	"class":"<class>",			=> OPTIONAL <ul><li> class (default: list)
+	*	"tpl":"<tpl_name>"			=> OPTIONAL (in /partials/markers)
+	* }]]
+    *
+    * @param  array
+    * @return string
+    */
+	public static function BLOGVIEW($vars = array())
+	{
+
+		//Get variables from array $vars
+		if( ! empty($vars)) extract($vars);
+
+		//Bind variables
+
+		$_n = 5;
+		if(isset($n) and !empty($n)) $_n = $n;
+
+		$_id = 'blogview';
+		if(isset($id) and !empty($id)) $_id = $id;
+
+		$_class = 'list';
+		if(isset($class) and !empty($class)) $_class = $class;
+
+		$_tpl = 'blogview';
+		if(isset($tpl) and !empty($tpl)) $_tpl = $tpl;
+
+		//CHECK SOURCE CLASS
+
+		if($_n > 0) {
+
+			//CACHE DATA
+			if(CACHE) {
+
+				$list = Cache::remember('blog_last', function() {
+
+					return CmsBlog::with(array('pages'))
+						->where_lang(SITE_LANG)
+						->where('datetime_on', '>=', dateTime2Db(date('Y-m-d H:i:s')))
+						->where('datetime_off', '>', dateTime2Db(date('Y-m-d H:i:s')))
+						->where_is_valid(1)
+						->order_by('datetime_on', 'asc')
+						->take($_n)
+						->get();
+
+				}, 5);
+
+			} else {
+				
+				$list = CmsBlog::with(array('pages'))
+						->where_lang(SITE_LANG)
+						->where('datetime_on', '>=', dateTime2Db(date('Y-m-d H:i:s')))
+						->where('datetime_off', '>', dateTime2Db(date('Y-m-d H:i:s')))
+						->where_is_valid(1)
+						->order_by('datetime_on', 'asc')
+						->take($_n)
+						->get();
+			}
+
+			if(!empty($list)) {
+
+				$ul_options = array(
+					'id' => $_id,
+				);
+
+				$li_options = array(
+					'class' => $_class,
+				);
+
+				$view = View::make('cms::theme.'.THEME.'.partials.markers.'.$_tpl);
+				$view['list']		= $list;
+				$view['ul_options']	= HTML::attributes($ul_options);
+				$view['li_options']	= HTML::attributes($li_options);
+
+				return $view;
+
+			}
+
+		}
+
+	}
+
+
+	/**
     * CRUMB Marker - Shows a BREADCRUMB style navigation menu
     *
 	* [$CRUMB[{
@@ -1225,98 +1315,6 @@ class Marker {
 		return $view;
 
 	}
-
-
-
-	/**
-    * BLOGVIEW Marker - Shows a list of last n blogs
-    *
-	* [$BLOGVIEW[{
-	*	"source":"<source label>",	=> (available: blogs, products...)
-	*	"n":"<n items per page>",	=> (default: 5)
-	*	"id":"<id>",				=> OPTIONAL <ul> id
-	*	"class":"<class>",			=> OPTIONAL <ul><li> class (default: list)
-	*	"tpl":"<tpl_name>"			=> OPTIONAL (in /partials/markers)
-	* }]]
-    *
-    * @param  array
-    * @return string
-    */
-	public static function BLOGVIEW($vars = array())
-	{
-
-		//Get variables from array $vars
-		if( ! empty($vars)) extract($vars);
-
-		//Bind variables
-
-		$_n = 5;
-		if(isset($n) and !empty($n)) $_n = $n;
-
-		$_id = 'blogview';
-		if(isset($id) and !empty($id)) $_id = $id;
-
-		$_class = 'list';
-		if(isset($class) and !empty($class)) $_class = $class;
-
-		$_tpl = 'blogview';
-		if(isset($tpl) and !empty($tpl)) $_tpl = $tpl;
-
-		//CHECK SOURCE CLASS
-
-		if($_n > 0) {
-
-			//CACHE DATA
-			if(CACHE) {
-
-				$list = Cache::remember($_source.'_last', function() {
-
-					return CmsBlog::with(array('pages'))
-						->where_lang(SITE_LANG)
-						->where('datetime_on', '>=', dateTime2Db(date('Y-m-d H:i:s')))
-						->where('datetime_off', '>', dateTime2Db(date('Y-m-d H:i:s')))
-						->where_is_valid(1)
-						->order_by('datetime_on', 'asc')
-						->take($_n)
-						->get();
-
-				}, 5);
-
-			} else {
-				
-				$list = CmsBlog::with(array('pages'))
-						->where_lang(SITE_LANG)
-						->where('datetime_on', '>=', dateTime2Db(date('Y-m-d H:i:s')))
-						->where('datetime_off', '>', dateTime2Db(date('Y-m-d H:i:s')))
-						->where_is_valid(1)
-						->order_by('datetime_on', 'asc')
-						->take($_n)
-						->get();
-			}
-
-			if(!empty($list)) {
-
-				$ul_options = array(
-					'id' => $_id,
-				);
-
-				$li_options = array(
-					'class' => $_class,
-				);
-
-				$view = View::make('cms::theme.'.THEME.'.partials.markers.'.$_tpl);
-				$view['list']		= $list;
-				$view['ul_options']	= HTML::attributes($ul_options);
-				$view['li_options']	= HTML::attributes($li_options);
-
-				return $view;
-
-			}
-
-		}
-
-	}
-
 
 
 	/**
