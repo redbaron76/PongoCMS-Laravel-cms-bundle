@@ -291,6 +291,8 @@ class CmsRender {
 		$title = (isset($extra)) ? $extra->name : $title;
 		$title = (! empty($extra->title)) ? $extra->title : $title;
 
+		$title = CmsUtility::string_style($title, Config::get('cms::theme.title_style'));
+
 		//Set default keyw
 		$keyw = ( ! empty($page->keyw)) ? $page->keyw : Config::get('cms::theme.keyw');
 		//Set $extra keyw
