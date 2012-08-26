@@ -6,6 +6,13 @@
 	
 $.site = {
 
+	analytics:
+	function(code) {
+		if(code.length > 0) {
+			$.trackPage(code);
+		}
+	},
+	
 	fancyBox:
 	function() {
 		$('a[rel=fancybox]').fancybox();
@@ -26,10 +33,12 @@ $.site = {
 
 }
 
-
 //RUN
 
 $(function() {
+	
+	//GOOGLE ANALYTICS
+	$.site.analytics(ANALYTICS_ID);
 
 	//SCROLL TOP
 	$.site.scrollTop();

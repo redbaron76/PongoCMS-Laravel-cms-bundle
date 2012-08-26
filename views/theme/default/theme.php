@@ -32,11 +32,19 @@ $THEME_SETTINGS = array(
 
 		),
 
+		'analytics_lib' => array(
+
+			'path' => 'js/jquery.analytics.js',
+			'container' => 'footer',
+			'after' => 'jquery_lib',
+
+		),
+
 		'site_js' => array(
 
 			'path' => 'js/site.js',
 			'container' => 'footer',
-			'after' => 'jquery_lib',
+			'after' => 'analytics_lib',
 
 		),
 
