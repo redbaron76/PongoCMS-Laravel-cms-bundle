@@ -235,9 +235,11 @@ class Site_Controller extends Base_Controller {
 
 			}
 
-			$count_results = count($results);
+			$unique_results = array_unique($results, SORT_REGULAR);
 
-			$output = array_slice($results, (($npp*$p)-$npp), $npp);
+			$count_results = count($unique_results);
+
+			$output = array_slice($unique_results, (($npp*$p)-$npp), $npp);
 
 			$paginate = Paginator::make($output, $count_results, $npp);
 
@@ -351,9 +353,11 @@ class Site_Controller extends Base_Controller {
 
 			}
 
-			$count_results = count($results);
+			$unique_results = array_unique($results, SORT_REGULAR);
 
-			$output = array_slice($results, (($npp*$p)-$npp), $npp);
+			$count_results = count($unique_results);
+
+			$output = array_slice($unique_results, (($npp*$p)-$npp), $npp);
 
 			$paginate = Paginator::make($output, $count_results, $npp);
 
@@ -385,57 +389,6 @@ class Site_Controller extends Base_Controller {
 
 	}
 
-
-
-	//NEWSLETTER SIGNUP
-	public function post_newsletter()
-	{
-
-		$input = Input::all();
-
-		$rules = array(
-			'name'  	=> 'required',
-			'surname' 	=> 'required',
-			'email' 	=> 'required|email|unique:users',
-			'terms' 	=> 'accepted'
-		);
-
-		$validation = Validator::make($input, $rules);
-
-		if ($validation->fails()) {
-		 	if ($validation->errors->has('name')) {
-		 		return LL($validation->errors->first('name'), SITE_LANG)->get();
-		 	}
-		 	if ($validation->errors->has('surname')) {
-		 		return LL($validation->errors->first('surname'), SITE_LANG)->get();
-		 	}			
-		 	if ($validation->errors->has('email')) {
-		 		return LL($validation->errors->first('email'), SITE_LANG)->get();
-		 	}
-		 	if ($validation->errors->has('terms')) {
-		 		return LL($validation->errors->first('terms'), SITE_LANG)->get();
-		 	}
-		}
-
-		$name = $input['name'];
-		$surname = $input['surname'];
-		$email = $input['email'];
-
-		$username = Str::slug($name . ' ' . $surname, '_');
-
-		$user = new CmsUser();
-		$user->role_id = 4;
-		$user->username = $username;
-		$user->email = $email;
-		$user->password = Hash::make($username);
-		$user->role_level = 1;
-		$user->lang = SITE_LANG;
-		$user->is_valid = 1;
-		$user->save();
-
-		return 'Grazie per l\'iscrizione';
-
-	}
 
 
 }

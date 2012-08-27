@@ -85,9 +85,10 @@ class Cms_Ajax_File_Controller extends Cms_Base_Controller {
 
 			$text->file_id = $input['file_id'];
 
-			$text->label = $input['filetext_label'];
-			$text->title = $input['filetext_title'];
-			$text->caption = $input['filetext_caption'];
+			$text->label = Input::has('filetext_label') ? $input['filetext_label'] : '';
+			$text->alt = Input::has('filetext_alt') ? $input['filetext_alt'] : '';
+			$text->title = Input::has('filetext_title') ? $input['filetext_title'] : '';
+			$text->caption = Input::has('filetext_caption') ? $input['filetext_caption'] : '';
 			$text->lang = $input['file_lang'];
 
 			$text->save();

@@ -205,22 +205,12 @@ class Marker {
 			if(!empty($list->files)) {
 
 				$images = $list->files;
+				$attr = $list->files;
 
 			} else {
 				
 				$images = array();
 				$attr = '';
-
-			}
-
-			//Load file alt title and caption
-			if(!empty($list->files)) {
-
-				$attr = $list->files;
-
-			} else {
-				
-			 	$attr = '';
 
 			}
 
@@ -505,10 +495,24 @@ class Marker {
 			//CACHE DATA
 			if(CACHE) {
 				$list = Cache::remember('file_list_'.$_name, function() use ($_name) {
-					return CmsDownload::with(array('files'))->where_name($_name)->first();
+					return CmsDownload::with(array(
+						'files',
+						'files.filetexts' => function($query) {
+					
+						$query->where('lang', '=', SITE_LANG);
+
+					}
+					))->where_name($_name)->first();
 				}, 1440);
 			} else {
-				$list = CmsDownload::with(array('files'))->where_name($_name)->first();
+				$list = CmsDownload::with(array(
+					'files',
+					'files.filetexts' => function($query) {
+					
+						$query->where('lang', '=', SITE_LANG);
+
+					}
+					))->where_name($_name)->first();
 			}
 
 			//Load file lable and title
@@ -807,16 +811,19 @@ class Marker {
 			if(!empty($file->filetexts)) {
 
 				$alt = $file->filetexts[0]->alt;
+				$caption = $file->filetexts[0]->caption;
 
 			} else {
 				
 				$alt = '';
+				$caption = '';
 
 			}
 
 		} else {
 
 			$alt = '';
+			$caption = '';
 			$dim['w'] = '';
 			$dim['h'] = '';
 
@@ -1634,11 +1641,13 @@ class Marker {
 
 				$title = $file->filetexts[0]->title;
 				$alt = $file->filetexts[0]->alt;
+				$caption = $file->filetexts[0]->caption;
 
 			} else {
 				
 				$title = '';
 				$alt = '';
+				$caption = '';
 
 			}
 
@@ -1647,6 +1656,7 @@ class Marker {
 			$full_path = '';
 			$title = '';
 			$alt = '';
+			$caption = '';
 			$url = '';
 			$dim['w'] = '';
 			$dim['h'] = '';
@@ -1665,6 +1675,7 @@ class Marker {
 		$view['path'] 		= $full_path;
 		$view['img'] 		= $img;
 		$view['options'] 	= HTML::attributes($options);
+		$view['caption'] 	= $caption;
 
 		return $view;
 
