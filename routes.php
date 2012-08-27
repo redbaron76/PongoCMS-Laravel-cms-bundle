@@ -185,7 +185,7 @@ Route::controller(Controller::detect('cms'));
 Route::filter('cms_no_auth', function()
 {
 	//FORCE LOGOUT IF NOT ROLE
-	if (Auth::check() and (ROLE <= Config::get('cms::settings.roles.manager'))) return Redirect::to_action('cms::login');
+	if (Auth::check() and (ROLE < Config::get('cms::settings.roles.editor'))) return Redirect::to_action('cms::login');
 	if (Auth::guest()) return Redirect::to_action('cms::login');
 
 });
@@ -193,7 +193,7 @@ Route::filter('cms_no_auth', function()
 
 Route::filter('cms_is_auth', function()
 {	
-	if (Auth::check() and (URL::current() != URL::to_action('cms::logout')) and (ROLE >= Config::get('cms::settings.roles.manager'))) return Redirect::to_action('cms::dashboard');
+	if (Auth::check() and (URL::current() != URL::to_action('cms::logout')) and (ROLE >= Config::get('cms::settings.roles.editor'))) return Redirect::to_action('cms::dashboard');
 });
 
 

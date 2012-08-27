@@ -38,7 +38,6 @@ class Cms_Login_Controller extends Cms_Base_Controller {
 		//CHECK CREDENTIALS
 		if(Auth::attempt($credentials)) {
 			//SUCCESS NOTIFICATION
-        	//Notification::success(LL('cms::alert.login_success', CMSLANG, array('username' => Input::get('username'))), 1000);
             return Redirect::to_action('cms::dashboard');
         } else {
         	//ERROR NOTIFICATION
