@@ -13,7 +13,7 @@
 
 			<a href="{{SLUG($slug)}}">
 
-				{{$label}}
+				{{CmsUtility::string_style($label, 'allcapital')}}
 
 			</a>
 

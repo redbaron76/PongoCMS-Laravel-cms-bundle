@@ -339,6 +339,7 @@ class Marker {
 	*	"separator":"<char>", 	=> OPTIONAL	
 	*	"first":"false",		=> OPTIONAL (separator at start)
 	*	"last":"false",			=> OPTIONAL (separator at the end)
+	*	"label":""				=> OPTIONAL (default: cms::marker.crumb_here)
 	*	"id":"<id>",			=> OPTIONAL (id of <ul>)
 	*	"class":"<class>",		=> OPTIONAL (class of <ul>)
 	*	"tpl":"<tpl_name>"		=> OPTIONAL (in /partials/markers)
@@ -366,6 +367,9 @@ class Marker {
 
 		$_last = false;
 		if(isset($last) and !empty($last) and $last == 'true') $_last = true;
+
+		$_label = LL('cms::marker.crumb_here', SITE_LANG)->get();
+		if(isset($label) and !empty($label)) $_label = $label;
 
 		$_id = null;
 		if(isset($id) and !empty($id)) $_id = $id;
@@ -428,7 +432,7 @@ class Marker {
 			if(count($slugs) > count($crumbs)) {
 
 				$last_slug = SLUG_FULL;
-				$crumbs[$last_slug] = LL('cms::marker.crumb_here', SITE_LANG)->get();
+				$crumbs[$last_slug] = $_label;
 
 			}
 
@@ -1540,6 +1544,7 @@ class Marker {
 	* [$THUMB[{
 	*	"file":"<filename>",
 	*	"thumb":"thumb",
+	*	"caption":"false"		=> (default: false)
 	*	"w":"100",				=> OPTIONAL (overrides thumb)
 	*	"h":"100",				=> OPTIONAL (overrides thumb)
 	*	"wm":"true | false",	=> OPTIONAL
@@ -1564,6 +1569,9 @@ class Marker {
 
 		$_thumb = 'thumb';
 		if(isset($thumb) and !empty($thumb)) $_thumb = $thumb;
+
+		$_caption = false;
+		if(isset($caption) and !empty($caption) and $caption == 'true') $_caption = true;
 
 		$_w = '';
 		if(isset($w) and !empty($w)) $_w = $w;
@@ -1672,10 +1680,11 @@ class Marker {
 		);
 
 		$view = View::make('cms::theme.'.THEME.'.partials.markers.'.$_tpl);
-		$view['path'] 		= $full_path;
-		$view['img'] 		= $img;
-		$view['options'] 	= HTML::attributes($options);
-		$view['caption'] 	= $caption;
+		$view['path'] 			= $full_path;
+		$view['img'] 			= $img;
+		$view['options'] 		= HTML::attributes($options);		
+		$view['caption'] 		= $_caption;
+		$view['caption_text'] 	= $caption;
 
 		return $view;
 

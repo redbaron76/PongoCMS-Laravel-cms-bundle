@@ -2,6 +2,6 @@
 	{{$img}}
 </a>
 
-@if(strlen($caption) > 0)
-<div>{{$caption}}</div>
+@if($caption)
+<caption>{{$caption_text}}</caption>
 @endif
