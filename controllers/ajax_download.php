@@ -61,7 +61,7 @@ class Cms_Ajax_Download_Controller extends Cms_Base_Controller {
 
 					foreach ($files as $fid) {
 
-						$check = $download->files()->pivot()->where_cmsfile_id($fid)->where_cmsdownload_id($did)->first();
+						$check = DB::table('files_downloads')->where_cmsfile_id($fid)->where_cmsdownload_id($did)->first();
 
 						if(empty($check)) {
 							$download->files()->attach($fid, array('order_id' => 1000000));
@@ -70,7 +70,7 @@ class Cms_Ajax_Download_Controller extends Cms_Base_Controller {
 					}
 
 					//DELETE NOT IN
-					$download->files()->pivot()->where_cmsdownload_id($did)->where_not_in('cmsfile_id', $files)->delete();
+					DB::table('files_downloads')->where_cmsdownload_id($did)->where_not_in('cmsfile_id', $files)->delete();
 				}
 
 				$response = 'success';
@@ -80,7 +80,7 @@ class Cms_Ajax_Download_Controller extends Cms_Base_Controller {
 			} else {
 
 				//DELETE ALL DOWNLOAD_ID
-				$download->files()->pivot()->where_cmsdownload_id($did)->delete();
+				DB::table('files_downloads')->where_cmsdownload_id($did)->delete();
 
 				$response = 'success';
 				$msg = LL('cms::ajax_resp.download_save_success', CMSLANG)->get();

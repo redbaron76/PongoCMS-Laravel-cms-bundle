@@ -15,7 +15,7 @@ INSERT INTO "pongo_elements" VALUES(1,1,'credits','credits','<h1>About us</h1>
 [$SOCIAL[{"what":"follow","user":"PongoWEB"}]]','ZONE1','en',1,'2012-07-10 15:18:35','2012-07-10 17:14:30');
 INSERT INTO "pongo_elements" VALUES(2,1,'author','author','<h2>About the author</h2>
 
-<p>[$IMAGE[{"file":"fabio_fumis.jpg", "w":"90", "h":"90"}]]<strong>Fabio Fumis</strong> is a professional web developer based in <strong>Monfalcone</strong> - <strong>ITALY</strong>.<br>He began to take interest in web development since 1996, when he was 20.<br>In his portfolio an e-commerce website for a leading cloathing italian company, a social community website <strong>Bisiacaria.com</strong> and many company websites.<br>Today he loves to stay informed about new web technologies, playing with <strong>Laravel</strong> framework, coding new <strong>jQuery</strong> plugins and riding his <strong>Ducati Monster 900</strong> motorbike.</p>
+<p>[$IMAGE[{"file":"fabio_fumis.jpg", "w":"90", "h":"90"}]]<strong>Fabio Fumis</strong> is a professional web developer based in <strong>Monfalcone</strong> - <strong>ITALY</strong>.<br>He began to take interest in web development since 1996, when he was 20.<br>In his portfolio an e-commerce website for a leading clothing italian company, a social community website <strong>Bisiacaria.com</strong> and many company websites.<br>Today he loves to stay informed about new web technologies, playing with <strong>Laravel</strong> framework, coding new <strong>jQuery</strong> plugins and riding his <strong>Ducati Monster 900</strong> motorbike.</p>
 
 [$SOCIAL[{"what":"follow","user":"FFumis"}]]','ZONE2','en',1,'2012-07-10 15:23:10','2012-07-10 17:14:41');
 INSERT INTO "pongo_elements" VALUES(3,1,'intro','intro','<h1>Welcome to PongoCMS!</h1>
@@ -151,3 +151,4 @@ INSERT INTO "pongo_pages" VALUES(2,0,1,50,1,'/about-us','About us','','About thi
 INSERT INTO "pongo_pages" VALUES(3,0,1,50,1,'/home','Home','','Un CMS in PHP per gestire siti multilingua','','','default','home','default',0,0,1000000,'it',1,1,'2012-07-10 15:12:36','2012-07-10 19:13:30');
 INSERT INTO "pongo_pages" VALUES(4,0,1,50,1,'/chi-siamo','Chi siamo','','Notizie su questo CMS in PHP','','','default','home','default',0,0,1000000,'it',0,1,'2012-07-10 18:48:18','2012-07-10 19:14:03');
 INSERT INTO "pongo_pages" VALUES(5,0,1,50,1,'/blog','Blog',NULL,'PongoCMS Blog','','','default','default','default',0,1,1000000,'en',0,1,'2012-07-15 09:46:28','2012-07-15 09:47:09');
+

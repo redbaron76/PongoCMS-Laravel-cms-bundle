@@ -66,7 +66,7 @@ class Cms_Ajax_Blog_Controller extends Cms_Base_Controller {
 			$blog->author_id = AUTHORID;
 
 			$blog->lang = $input['blog_lang'];
-			$blog->name = strtolower($input['blog_name']);
+			$blog->name = $input['blog_name'];
 
 			$slug = '/'.$input['blog_slug'];
 
@@ -421,7 +421,6 @@ class Cms_Ajax_Blog_Controller extends Cms_Base_Controller {
 							);
 
 							//CREATE REVERSE REL
-							//$blog->blogrels()->pivot()->insert($reverse);
 							DB::table('blogs_blogs')->insert($reverse);
 						}
 

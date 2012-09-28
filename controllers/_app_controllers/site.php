@@ -177,6 +177,8 @@ class Site_Controller extends Base_Controller {
 
 			//PAGES
 
+			$tot = 0;
+
 			if(is_numeric(array_search('pages', $sources))) {
 				
 			 	$elements = CmsElement::with(array('pages'))
@@ -184,8 +186,6 @@ class Site_Controller extends Base_Controller {
 			 		->where_lang(SITE_LANG)
 			 		->where_is_valid(1)
 			 		->get();
-
-			 	$tot = 0;
 
 			 	foreach ($elements as $key => $element) {
 
@@ -295,6 +295,8 @@ class Site_Controller extends Base_Controller {
 
 			//PAGES
 
+			$tot = 0;
+
 			if(is_numeric(array_search('pages', $sources))) {
 				
 			 	$elements = CmsElement::with(array('pages'))
@@ -302,8 +304,6 @@ class Site_Controller extends Base_Controller {
 			 		->where_lang(SITE_LANG)
 			 		->where_is_valid(1)
 			 		->get();
-
-			 	$tot = 0;
 
 			 	foreach ($elements as $key => $element) {
 

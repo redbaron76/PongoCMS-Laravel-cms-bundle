@@ -110,7 +110,7 @@ class CmsPage extends Eloquent {
 
 		$rs = self::where_parent_id(0)					
                     ->where_lang($lang)
-                    ->where_is_home(0)
+                    //->where_is_home(0)
                     ->where_is_valid(1)
                     ->order_by('is_home', 'desc')
                     ->order_by('order_id', 'asc')

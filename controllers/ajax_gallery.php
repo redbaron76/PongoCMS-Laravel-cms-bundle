@@ -62,7 +62,7 @@ class Cms_Ajax_Gallery_Controller extends Cms_Base_Controller {
 
 					foreach ($files as $fid) {
 
-						$check = $gallery->files()->pivot()->where_cmsfile_id($fid)->where_cmsgallery_id($gid)->first();
+						$check = DB::table('files_galleries')->where_cmsfile_id($fid)->where_cmsgallery_id($gid)->first();
 
 						if(empty($check)) {
 							$gallery->files()->attach($fid, array('order_id' => 1000000));
@@ -71,7 +71,7 @@ class Cms_Ajax_Gallery_Controller extends Cms_Base_Controller {
 					}
 
 					//DELETE NOT IN
-					$gallery->files()->pivot()->where_cmsgallery_id($gid)->where_not_in('cmsfile_id', $files)->delete();
+					DB::table('files_galleries')->where_cmsgallery_id($gid)->where_not_in('cmsfile_id', $files)->delete();
 				}
 
 				$response = 'success';
@@ -81,7 +81,7 @@ class Cms_Ajax_Gallery_Controller extends Cms_Base_Controller {
 			} else {
 
 				//DELETE ALL GALLERY_ID
-				$gallery->files()->pivot()->where_cmsgallery_id($gid)->delete();
+				DB::table('files_galleries')->where_cmsgallery_id($gid)->delete();
 
 				$response = 'success';
 				$msg = LL('cms::ajax_resp.gallery_save_success', CMSLANG)->get();

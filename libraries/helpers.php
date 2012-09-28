@@ -33,8 +33,8 @@ function LL($key, $language = null, $replacements = array())
  */
 function LABEL($where, $what) {
 
-  return (strlen(LL($where.$what, CMSLANG)->get()) > 0 and strpos(LL($where.$what, CMSLANG)->get(), '::') == 0) ?
-  LL($where.$what, CMSLANG) : $what;
+	return (strlen(LL($where.$what, CMSLANG)->get()) > 0 and strpos(LL($where.$what, CMSLANG)->get(), '::') == 0) ?
+	LL($where.$what, CMSLANG) : $what;
 
 }
 
@@ -89,18 +89,18 @@ function MEDIA_TYPE($ext)
  */
 function MEDIA_NAME($filename, $suffix)
 {
-  
-  if(empty($suffix)) return $filename;
-  
-  $tmp_ext = substr($filename, -4);
-  $tmp_filename = str_replace($tmp_ext, $suffix, $filename) . $tmp_ext;
+	
+	if(empty($suffix)) return $filename;
+	
+	$tmp_ext = substr($filename, -4);
+	$tmp_filename = str_replace($tmp_ext, $suffix, $filename) . $tmp_ext;
 
-  //IF FULL PATH, NOT FILENAME
-  if(substr_count($tmp_filename, '/img/') > 0) {
+	//IF FULL PATH, NOT FILENAME
+	if(substr_count($tmp_filename, '/img/') > 0) {
 	$tmp_filename = str_replace('/img/', '/img/'.Config::get('cms::settings.thumb_path'), $tmp_filename);
-  }
+	}
 
-  return $tmp_filename;
+	return $tmp_filename;
 
 }
 
@@ -113,23 +113,23 @@ function MEDIA_NAME($filename, $suffix)
 */
 function MEDIA_SIZE($size, $type)
 {  
-  switch($type) {
+	switch($type) {
 	case "KB":
-	  $filesize = $size * .0009765625; // bytes to KB  
-	  break;
+		$filesize = $size * .0009765625; // bytes to KB  
+		break;
 	case "MB":
-	  $filesize = ($size * .0009765625) * .0009765625; // bytes to MB  
-	  break;  
+		$filesize = ($size * .0009765625) * .0009765625; // bytes to MB  
+		break;  
 	case "GB":
-	  $filesize = (($size * .0009765625) * .0009765625) * .0009765625; // bytes to GB  
+		$filesize = (($size * .0009765625) * .0009765625) * .0009765625; // bytes to GB  
 	break;
-  }
+	}
 
-  if($filesize < 0) {  
+	if($filesize < 0) {  
 	return $filesize = 'unknown file size';}
-  else {
+	else {
 	return round($filesize, 2).' '.$type;
-  }  
+	}  
 }
 
 /**
@@ -140,7 +140,7 @@ function MEDIA_SIZE($size, $type)
 */
 function MEDIA_PATH($path)
 {
-  return path('public') . substr($path, -(strlen($path)-1));
+	return path('public') . substr($path, -(strlen($path)-1));
 }
 
 /**
@@ -151,7 +151,7 @@ function MEDIA_PATH($path)
 */
 function MEDIA_NOEXT($path)
 {
-  return substr($path, 0, -4);
+	return substr($path, 0, -4);
 }
 
 /**
@@ -162,7 +162,7 @@ function MEDIA_NOEXT($path)
 */
 function MEDIA_NOPOINT($path)
 {
-  return str_replace('.', '', $path);
+	return str_replace('.', '', $path);
 }
 
 /**
@@ -176,13 +176,13 @@ function MEDIA_NOPOINT($path)
 */
 function MEDIA_DIM($ow, $oh, $w, $h)
 {
-  if($ow >= $oh) {
+	if($ow >= $oh) {
 	$h = intval(($oh * $w) / $ow);
-  } else {
+	} else {
 	$w = intval(($ow * $h) / $oh);
-  }
+	}
 
-  return array('w' => $w, 'h' => $h);
+	return array('w' => $w, 'h' => $h);
 
 }
 
@@ -197,8 +197,8 @@ function MEDIA_DIM($ow, $oh, $w, $h)
 */
 function MEDIA($path)
 {
-  
-  return Config::get('application.url') . '/' . $path;
+	
+	return Config::get('application.url') . '/' . $path;
 
 }
 
@@ -210,7 +210,7 @@ function MEDIA($path)
 */
 function SLUG($path)
 {
-  return CmsUtility::parse_slug($path);
+	return CmsUtility::parse_slug($path);
 }
 
 /**
@@ -222,21 +222,21 @@ function SLUG($path)
 */
 function PATH2FILE($url, $n = 0)
 {
-  $slugs = explode('/', $url);
+	$slugs = explode('/', $url);
 
-  $c = count($slugs);
+	$c = count($slugs);
 
-  $slug = end($slugs);
+	$slug = end($slugs);
 
-  if($n > 0) {
-  	$reverse = array_reverse($slugs);
+	if($n > 0) {
+		$reverse = array_reverse($slugs);
 
-  	for ($i=1; $i < $n+1 ; $i++) { 
-  		$slug = $reverse[$i] . '/' . $slug;
-  	}
-  } 
+		for ($i=1; $i < $n+1 ; $i++) { 
+			$slug = $reverse[$i] . '/' . $slug;
+		}
+	} 
 
-  return $slug;
+	return $slug;
 }
 
 /**
@@ -245,25 +245,25 @@ function PATH2FILE($url, $n = 0)
 * @param  string
 * @return string
 */
-function TEXTPREVIEW($obj, $max = false, $end = '...', $strip_tags = true, $decode = true)
+function TEXTPREVIEW($obj, $max = false, $end = '...', $strip_tags = false, $decode = true)
 {
-  if(!empty($obj)) {
+	if(!empty($obj)) {
 
-  	$text = (strlen($obj->preview) > 0) ? $obj->preview : $obj->text;
+		$text = (strlen($obj->preview) > 0) ? $obj->preview : $obj->text;
 
-  	if($decode) $text = Marker::decode($text);
+		if($decode) $text = Marker::decode($text);
 
-  	if($strip_tags) $text = strip_tags($text);
+		if($strip_tags) $text = strip_tags($text);
 
-  	if(is_numeric($max)) $text = substr($text, 0, $max) . $end;
+		if(is_numeric($max)) $text = substr($text, 0, $max) . $end;
 
-  	return $text;
+		return $text;
 
-  } else {
+	} else {
 
-  	return '';
+		return '';
 
-  }
+	}
 }
 
 /**
@@ -286,7 +286,7 @@ function TEXT2IMG($text, $w = 320, $h = 200, $key = 0)
 		$thumbs = Config::get('cms::theme.thumb');
 
 		foreach ($thumbs as $val) {
-		 	$file = str_replace($val['suffix'], '', $file);
+			$file = str_replace($val['suffix'], '', $file);
 		}				
 
 		$url = URL::to_action('cms::image@thumb', array($w, $h, $file));
@@ -321,56 +321,56 @@ function TEXT2IMG($text, $w = 320, $h = 200, $key = 0)
  */
 function array_insert($arr1, $key, $arr2, $before = FALSE)
 {
-  $done = FALSE;
-  
-  foreach($arr1 as $arr1_key => $arr1_val) {
+	$done = FALSE;
+	
+	foreach($arr1 as $arr1_key => $arr1_val) {
 	
 	if(!$before) {
 
-	  $new_array[$arr1_key] = $arr1_val;
+		$new_array[$arr1_key] = $arr1_val;
 
 	}
 	
 	if($arr1_key == $key && !$done) {
-	  
-	  foreach($arr2 as $arr2_key => $arr2_val) {
+		
+		foreach($arr2 as $arr2_key => $arr2_val) {
 
 		$new_array[$arr2_key] = $arr2_val;
 
-	  }
+		}
 
-	  $done = TRUE;
+		$done = TRUE;
 
 	}
 	
 	if($before) {
 
-	  $new_array[$arr1_key] = $arr1_val;
+		$new_array[$arr1_key] = $arr1_val;
 
 	}
 
-  }
-  
-  if(!$done) {
+	}
+	
+	if(!$done) {
 
 	$new_array = array_merge($arr1, $arr2);
 
-  }
-  
-  return $new_array;
-  
+	}
+	
+	return $new_array;
+	
 }
 
 //EXTRA CONTENT
 
 function getExtra($key = 0)
 {
-  return CONF('cms::settings.extra_id', $key);
+	return CONF('cms::settings.extra_id', $key);
 }
 
 function setExtra($value)
 {
-  return array_search($value, Config::get('cms::settings.extra_id'));
+	return array_search($value, Config::get('cms::settings.extra_id'));
 }
 
 function noSlash($string)
@@ -398,17 +398,17 @@ function MARKER($marker)
 function dateTime2Db($datetime)
 {
 
-  //get date
-  $date = substr($datetime, 0, 10);
-  //get time
-  $time = substr($datetime, -5);
+	//get date
+	$date = substr($datetime, 0, 10);
+	//get time
+	$time = substr($datetime, -5);
 
-  //re-format date
-  $rsl = explode ('/',$date);
-  $rsl = array_reverse($rsl);
-  $mysql_date = implode($rsl,'-');
+	//re-format date
+	$rsl = explode ('/',$date);
+	$rsl = array_reverse($rsl);
+	$mysql_date = implode($rsl,'-');
 
-  return $mysql_date . ' ' . $time . ':00';
+	return $mysql_date . ' ' . $time . ':00';
 
 }
 
@@ -421,14 +421,14 @@ function dateTime2Db($datetime)
 function date2Db($date)
 {
 
-  //get date
-  $date = substr($date, 0, 10);
-  //re-format date
-  $rsl = explode ('/',$date);
-  $rsl = array_reverse($rsl);
-  $mysql_date = implode($rsl,'-');
+	//get date
+	$date = substr($date, 0, 10);
+	//re-format date
+	$rsl = explode ('/',$date);
+	$rsl = array_reverse($rsl);
+	$mysql_date = implode($rsl,'-');
 
-  return $mysql_date . ' 00:00:00';
+	return $mysql_date . ' 00:00:00';
 
 }
 
@@ -441,7 +441,7 @@ function date2Db($date)
 function db2Date($date)
 {
 
-  return strftime('%d/%m/%Y', strtotime($date));
+	return strftime('%d/%m/%Y', strtotime($date));
 
 }
 
@@ -454,10 +454,10 @@ function db2Date($date)
 function dateTimeFuture($datetime, $when) //'P50Y'
 {
 
-  $d = $datetime;
+	$d = $datetime;
 
-  $date = new DateTime($d);
-  $date->add(new DateInterval($when));
-  return $date->format('Y-m-d H:i:s');
+	$date = new DateTime($d);
+	$date->add(new DateInterval($when));
+	return $date->format('Y-m-d H:i:s');
 
 }

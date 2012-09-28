@@ -137,13 +137,13 @@ class Cms_Ajax_File_Controller extends Cms_Base_Controller {
 
 				$file = CmsFile::find($fid);
 
-				$pivot = $file->pages()->pivot();
+				//$pivot = $file->pages()->pivot();
 
 				if(is_array($pages)) {
 
 					foreach ($pages as $pid) {
 
-						$check = $file->pages()->pivot()->where_cmspage_id($pid)->first();
+						$check = DB::table('files_pages')->where_cmspage_id($pid)->first();
 
 						if(empty($check)) {
 							$file->pages()->attach($pid);
@@ -152,7 +152,7 @@ class Cms_Ajax_File_Controller extends Cms_Base_Controller {
 					}
 
 					//DELETE NOT IN
-					$file->pages()->pivot()->where_cmsfile_id($fid)->where_not_in('cmspage_id', $pages)->delete();
+					DB::table('files_pages')->where_cmsfile_id($fid)->where_not_in('cmspage_id', $pages)->delete();
 				}
 
 				$response = 'success';

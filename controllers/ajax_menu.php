@@ -65,16 +65,17 @@ class Cms_Ajax_Menu_Controller extends Cms_Base_Controller {
 
 					foreach ($pages as $pid) {
 
-						$check = $menu->pages()->pivot()->where_cmspage_id($pid)->where_cmsmenu_id($mid)->first();
+						$check = DB::table('menus_pages')->where_cmspage_id($pid)->where_cmsmenu_id($mid)->first();
 
 						if(empty($check)) {
-							$menu->pages()->attach($pid, array('order_id' => Config::get('cms::settings.order')));
+						 	$menu->pages()->attach($pid, array('order_id' => Config::get('cms::settings.order')));
 						}
 
 					}
 
 					//DELETE NOT IN
-					$menu->pages()->pivot()->where_cmsmenu_id($mid)->where_not_in('cmspage_id', $pages)->delete();
+					DB::table('menus_pages')->where_cmsmenu_id($mid)->where_not_in('cmspage_id', $pages)->delete();
+
 				}
 
 				$response = 'success';
@@ -84,7 +85,7 @@ class Cms_Ajax_Menu_Controller extends Cms_Base_Controller {
 			} else {
 
 				//DELETE ALL MENU_ID
-				$menu->pages()->pivot()->where_cmsmenu_id($mid)->delete();
+				DB::table('menus_pages')->where_cmsmenu_id($mid)->delete();
 
 				$response = 'success';
 				$msg = LL('cms::ajax_resp.menu_save_success', CMSLANG)->get();

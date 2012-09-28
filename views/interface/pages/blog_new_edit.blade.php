@@ -454,19 +454,15 @@
 														</div>
 
 													</li>
-													@endif													
+													@endif
 
 												@empty
 													<li>{{LL('cms::alert.list_empty', CMSLANG)}}</li>
 												@endforelse
 
-												<li class="navigation">
-													<div class="row space">
-														<div class="span5 offset5 toright">
-															{{$blogdata->next()}}
-														</div>
-													</div>
-												</li>
+												@if(count($blogdata->results) > Config::get('cms::theme.pag'))
+												{{$blogdata->next()}}
+												@endif
 
 											@else
 												<li>{{LL('cms::alert.list_empty', CMSLANG)}}</li>

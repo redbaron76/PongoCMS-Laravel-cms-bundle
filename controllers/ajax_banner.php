@@ -65,7 +65,7 @@ class Cms_Ajax_Banner_Controller extends Cms_Base_Controller {
 
 					foreach ($files as $key => $fid) {
 
-						$check = $banner->files()->pivot()->where_cmsfile_id($fid)->where_cmsbanner_id($bid)->first();
+						$check = DB::table('files_banners')->where_cmsfile_id($fid)->where_cmsbanner_id($bid)->first();
 
 						$blank = (array_key_exists($key, $is_blank)) ? 1 : 0;						
 
@@ -104,7 +104,7 @@ class Cms_Ajax_Banner_Controller extends Cms_Base_Controller {
 					}
 
 					//DELETE NOT IN
-					$banner->files()->pivot()->where_cmsbanner_id($bid)->where_not_in('cmsfile_id', $files)->delete();
+					DB::table('files_banners')->where_cmsbanner_id($bid)->where_not_in('cmsfile_id', $files)->delete();
 				}
 
 				$response = 'success';
@@ -114,7 +114,7 @@ class Cms_Ajax_Banner_Controller extends Cms_Base_Controller {
 			} else {
 
 				//DELETE ALL GALLERY_ID
-				$banner->files()->pivot()->where_cmsbanner_id($bid)->delete();
+				DB::table('files_banners')->where_cmsbanner_id($bid)->delete();
 
 				$response = 'success';
 				$msg = LL('cms::ajax_resp.banner_save_success', CMSLANG)->get();

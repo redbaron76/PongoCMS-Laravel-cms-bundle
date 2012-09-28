@@ -560,7 +560,6 @@ class Cms_Ajax_Page_Controller extends Cms_Base_Controller {
 							);
 
 							//CREATE REVERSE REL
-							//$page->pagerels()->pivot()->insert($reverse);
 							DB::table('pages_pages')->insert($reverse);
 						}
 
@@ -850,14 +849,12 @@ class Cms_Ajax_Page_Controller extends Cms_Base_Controller {
 					$order_id++;
 					$p = explode("_", $item);
 					$element = CmsElement::find($p[1]);
-					//$element->order_id = $order_id;
-					//$element->save();
 
 					$order = array(
 						'order_id' => $order_id
 					);
 
-					$element->pages()->pivot()->update($order);
+					DB::table('elements_pages')->update($order);
 
 				}
 				

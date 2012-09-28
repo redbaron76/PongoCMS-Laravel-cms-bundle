@@ -286,8 +286,8 @@ class Marker {
 
 					return CmsBlog::with(array('pages'))
 						->where_lang(SITE_LANG)
-						->where('datetime_on', '>=', dateTime2Db(date('Y-m-d H:i:s')))
-						->where('datetime_off', '>', dateTime2Db(date('Y-m-d H:i:s')))
+						->where('datetime_on', '<=', date('Y-m-d H:i:s'))
+						->where('datetime_off', '>', date('Y-m-d H:i:s'))
 						->where_is_valid(1)
 						->order_by('datetime_on', 'asc')
 						->take($_n)
@@ -296,11 +296,11 @@ class Marker {
 				}, 5);
 
 			} else {
-				
+
 				$list = CmsBlog::with(array('pages'))
 						->where_lang(SITE_LANG)
-						->where('datetime_on', '>=', dateTime2Db(date('Y-m-d H:i:s')))
-						->where('datetime_off', '>', dateTime2Db(date('Y-m-d H:i:s')))
+						 ->where('datetime_on', '<=', date('Y-m-d H:i:s'))
+						->where('datetime_off', '>', date('Y-m-d H:i:s'))
 						->where_is_valid(1)
 						->order_by('datetime_on', 'asc')
 						->take($_n)
@@ -1528,7 +1528,7 @@ class Marker {
 
 			$view = View::make('cms::theme.'.THEME.'.partials.markers.'.$_tpl);
 			$view['services'] 	= $services;
-			$view['user']		= $user;		
+			$view['user']		= $_user;		
 			$view['options'] 	= HTML::attributes($options);
 
 			return $view;
