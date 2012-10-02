@@ -83,6 +83,7 @@ return array(
 	"modal_descr_clone_element" => "Seleziona la pagina a cui associarlo:",
 	"modal_title_media" => "Inserisci Media",
 	"modal_title_marker" => "Inserisci Marker",
+	"modal_title_sample" => "Inserisci Esempio",
 
 	//MODAL CLONE PAGE
 	"modal_title_clone_page" => "Duplicare questa pagina?",

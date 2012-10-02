@@ -109,6 +109,10 @@
 								<div class="control-group relative">
 									{{Form::label('element_text', LL('cms::form.element_text', CMSLANG), array('class' => 'control-label')) . "\n"}}
 									<div class="controls text-btn">
+										<a href="#modal-sample" class="btn open-sample-modal" data-toggle="modal">
+											<i class="icon-plus"></i>
+											{{LL('cms::button.sample_pick', CMSLANG)}}
+										</a>
 										<a href="#" class="btn btn-primary open-media-modal" rel="{{$page_id}}">
 											<i class="icon-plus icon-white"></i>
 											{{LL('cms::button.media_pick', CMSLANG)}}
@@ -155,6 +159,10 @@
 								<div class="control-group relative">
 									{{Form::label('element_text', LL('cms::form.element_text', CMSLANG), array('class' => 'control-label')) . "\n"}}
 									<div class="controls text-btn">
+										<a href="#modal-sample" class="btn open-sample-modal" data-toggle="modal">
+											<i class="icon-plus"></i>
+											{{LL('cms::button.sample_pick', CMSLANG)}}
+										</a>
 										<a href="#" class="btn btn-primary open-media-modal" rel="{{$page_id}}">
 											<i class="icon-plus icon-white"></i>
 											{{LL('cms::button.media_pick', CMSLANG)}}
@@ -305,6 +313,19 @@
 	</div>
 	<div class="modal-body">
 		{{View::make('cms::interface.partials.markers')}}
+	</div>
+	<div class="modal-footer">
+		<a href="#" class="btn" data-dismiss="modal">{{LL('cms::button.close', CMSLANG)}}</a>
+	</div>
+</div>
+
+<div class="modal hide" id="modal-sample">
+	<div class="modal-header">
+		<button class="close" data-dismiss="modal">×</button>
+		<h3>{{LL('cms::form.modal_title_sample', CMSLANG)}}</h3>
+	</div>
+	<div class="modal-body">
+		{{View::make('cms::interface.partials.samples')}}
 	</div>
 	<div class="modal-footer">
 		<a href="#" class="btn" data-dismiss="modal">{{LL('cms::button.close', CMSLANG)}}</a>

@@ -236,4 +236,36 @@ $.ck = {
 
 		});
 	},
+
+	CKasSample:
+	function() {
+		$('.as_sample').live('click', function() {
+
+			var $filename = $(this).attr('data-filename') + '.php';
+			var $url = BASE + '/bundles/cms/sample/' + $filename;
+
+			$.get($url,function(text) {
+
+				var $val = text;
+
+				if($('.active textarea.editorck').length>0) {
+
+					var $istance = $('.active textarea.editorck').attr('id');
+
+				 	$.ck.CKInsertHtml($val, $istance);
+
+				} else {
+
+				 	$.ck.InsertAtCaret('markitup', $val);
+
+				}
+
+				$('.modal').modal('hide');
+
+			});			
+
+			return false;
+
+		});
+	},
 }
