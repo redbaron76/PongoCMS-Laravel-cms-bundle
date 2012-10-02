@@ -4,7 +4,7 @@ return array(
 	
 	//LOGIN
 
-	"legend_login" => "Esegui il login",
+	"legend_login" => "Please, login!",
 
 	//NEW - EDIT PAGE - SETTINGS
 
