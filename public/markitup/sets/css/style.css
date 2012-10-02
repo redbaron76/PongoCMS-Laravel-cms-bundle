@@ -1,0 +1,72 @@
+/* -------------------------------------------------------------------
+// markItUp!
+// By Jay Salvat - http://markitup.jaysalvat.com/
+//
+// CSS Set by Kevin Papst - http://www.kevinpapst.de/
+// ------------------------------------------------------------------*/
+.markItUp .class a {
+	background-image:url(images/tag.png);
+}
+.markItUp .bold a {
+	background-image:url(images/bold.png);
+}
+.markItUp .italic a {
+	background-image:url(images/italic.png);
+}
+.markItUp .stroke a {
+	background-image:url(images/stroke.png);
+}
+.markItUp .lowercase a {
+	background-image:url(images/text_lowercase.png); 
+}
+.markItUp .uppercase a {
+	background-image:url(images/text_uppercase.png); 
+}
+
+.markItUp .alignments a {
+	background-image:url(images/text_align_left.png); 
+}
+	.markItUp .alignments .left a {
+		background-image:url(images/text_align_left.png); 
+	}
+	.markItUp .alignments .center a {
+		background-image:url(images/text_align_center.png); 
+	}
+	.markItUp .alignments .right a {
+		background-image:url(images/text_align_center.png); 
+	}
+	.markItUp .alignments .justify a {
+		background-image:url(images/text_align_justify.png); 
+	}
+
+.markItUp .indent a {
+	background-image:url(images/text_indent.png); 
+}
+.markItUp .letterspacing a {
+	background-image:url(images/text_letterspacing.png); 
+}
+.markItUp .lineheight a {
+	background-image:url(images/text_linespacing.png); 
+}
+
+.markItUp .padding a {
+	background-image:url(images/text_padding_left.png); 
+}
+	.markItUp .padding .left a {
+		background-image:url(images/text_padding_left.png);  
+	}
+	.markItUp .padding .top a {
+		background-image:url(images/text_padding_top.png);  
+	}
+	.markItUp .padding .right a {
+		background-image:url(images/text_padding_right.png);  
+	}
+	.markItUp .padding .bottom a {
+		background-image:url(images/text_padding_bottom.png); 
+	}
+.markItUp .background a {
+	background-image:url(images/picture.png); 
+}
+.markItUp .css a {
+	background-image:url(images/css.png); 
+}
