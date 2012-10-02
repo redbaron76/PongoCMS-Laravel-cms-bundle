@@ -286,8 +286,8 @@ class Marker {
 
 					return CmsBlog::with(array('pages'))
 						->where_lang(SITE_LANG)
-						->where('datetime_on', '<=', date('Y-m-d H:i:s'))
-						->where('datetime_off', '>', date('Y-m-d H:i:s'))
+						->where('datetime_on', '>=', dateTime2Db(date('Y-m-d H:i:s')))
+						->where('datetime_off', '>', dateTime2Db(date('Y-m-d H:i:s')))
 						->where_is_valid(1)
 						->order_by('datetime_on', 'asc')
 						->take($_n)
@@ -296,11 +296,11 @@ class Marker {
 				}, 5);
 
 			} else {
-
+				
 				$list = CmsBlog::with(array('pages'))
 						->where_lang(SITE_LANG)
-						 ->where('datetime_on', '<=', date('Y-m-d H:i:s'))
-						->where('datetime_off', '>', date('Y-m-d H:i:s'))
+						->where('datetime_on', '>=', dateTime2Db(date('Y-m-d H:i:s')))
+						->where('datetime_off', '>', dateTime2Db(date('Y-m-d H:i:s')))
 						->where_is_valid(1)
 						->order_by('datetime_on', 'asc')
 						->take($_n)
@@ -1333,6 +1333,7 @@ class Marker {
     *
 	* [$PREVIEW[{
 	*	"source":"<source label>",	=> (available: blogs, products...)
+	*	"time":"<time label>",		=> (available: future, past, null - default: null)
 	*	"n":"<n items per page>",	=> (default: config.design.pag)
 	*	"id":"<id>",				=> OPTIONAL <ul> id
 	*	"class":"<class>",			=> OPTIONAL <ul><li> class (default: list)
@@ -1353,6 +1354,9 @@ class Marker {
 		$_source = '';
 		if(isset($source) and !empty($source)) $_source = $source;
 
+		$_time = null;
+		if(isset($time) and !empty($time)) $_time = $time;
+
 		$_n = Config::get('cms::theme.pag');
 		if(isset($n) and !empty($n)) $_n = $n;
 
@@ -1370,6 +1374,8 @@ class Marker {
 			//SET MODEL RELATION
 
 			$_source = $_source . '_preview';
+
+			if(!is_null($_time)) $_source = $_source . '_' . $_time;
 
 			//CACHE DATA
 			if(CACHE) {
@@ -1400,8 +1406,8 @@ class Marker {
 				} else {				
 					
 					$list = CmsPage::find($page->id)
-							->$_source()
-							->paginate($_n);
+								->$_source()
+								->paginate($_n);
 
 				}
 
@@ -1528,7 +1534,7 @@ class Marker {
 
 			$view = View::make('cms::theme.'.THEME.'.partials.markers.'.$_tpl);
 			$view['services'] 	= $services;
-			$view['user']		= $_user;		
+			$view['user']		= $user;		
 			$view['options'] 	= HTML::attributes($options);
 
 			return $view;

@@ -57,6 +57,20 @@ class CmsPage extends Eloquent {
 		->order_by('blogs.datetime_on', 'desc');
 	}
 
+	public function blogs_preview_past()
+	{
+		return $this->has_many_and_belongs_to('CmsBlog', 'blogs_pages')
+		->where('blogs.datetime_on', '<', dateTime2Db(date('Y-m-d H:i:s')))
+		->order_by('blogs.datetime_on', 'desc');
+	}
+
+	public function blogs_preview_future()
+	{
+		return $this->has_many_and_belongs_to('CmsBlog', 'blogs_pages')
+		->where('blogs.datetime_on', '>=', dateTime2Db(date('Y-m-d H:i:s')))
+		->order_by('blogs.datetime_on', 'desc');
+	}
+
 	//GETTERS
 
 	public function get_updated_date()
@@ -110,7 +124,7 @@ class CmsPage extends Eloquent {
 
 		$rs = self::where_parent_id(0)					
                     ->where_lang($lang)
-                    //->where_is_home(0)
+                    ->where_is_home(0)
                     ->where_is_valid(1)
                     ->order_by('is_home', 'desc')
                     ->order_by('order_id', 'asc')
