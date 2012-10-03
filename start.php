@@ -117,14 +117,12 @@ Validator::register('unique_element_page', function($attribute, $value, $paramet
 	
 	//CHECK UNIQUENESS OF ELEMENT NAME IN A PAGE
 
-	$page_id = $parameters[1];
-	$element_id = $parameters[2];
+	$page_id = $parameters[0];
 
-	if(isset($parameters[0])) $attribute = $parameters[0];
+	if(isset($parameters[1])) $attribute = $parameters[1];
 
 	return CmsPage::find($page_id)->elements()
 									->where($attribute, '=', $value)
-									->where('cmselement_id', '<>', $element_id)
 									->count() == 0;
 
 
@@ -185,6 +183,14 @@ define('LANG', Session::get('LANG', Config::get('cms::settings.language')));
 define('CMSLANG', Session::get('CMSLANG', Config::get('cms::settings.language')));
 define('CACHE', Config::get('cms::settings.cache_engine'));
 define('BASE', Config::get('application.url'));
+
+
+//BUNDLE REQUIREMENTS
+
+require path('bundle').'cms/libraries/helpers'.EXT;
+
+
+'));
 
 
 //BUNDLE REQUIREMENTS

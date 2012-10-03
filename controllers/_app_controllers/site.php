@@ -250,8 +250,9 @@ class Site_Controller extends Base_Controller {
 			$view['source'] = $source;
 
 			//LOAD LAYOUT
-			$layout = View::make('cms::theme.'.THEME.'.layouts.default');
-			$layout['ZONE1'] = $view;
+			$layout = View::make('cms::theme.'.THEME.'.layouts.'.Config::get('cms::theme.search_layout'));
+			$_zone = Config::get('cms::theme.search_zone');
+			$layout[$_zone] = $view;
 
 			//LOAD TEMPLATE
 			$html = View::make('cms::theme.'.THEME.'.templates.'.TEMPLATE)
@@ -368,8 +369,9 @@ class Site_Controller extends Base_Controller {
 			$view['source'] = $source;
 
 			//LOAD LAYOUT
-			$layout = View::make('cms::theme.'.THEME.'.layouts.default');
-			$layout['ZONE1'] = $view;
+			$layout = View::make('cms::theme.'.THEME.'.layouts.'.Config::get('cms::theme.search_layout'));
+			$_zone = Config::get('cms::theme.search_zone');
+			$layout[$_zone] = $view;
 
 			//LOAD TEMPLATE
 			$html = View::make('cms::theme.'.THEME.'.templates.'.TEMPLATE)

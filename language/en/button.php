@@ -12,6 +12,7 @@ return array(
 	"pages" => "Pages",
 	"media_pick" => "Media",
 	"marker_pick" => "Marker",
+	"sample_pick" => "Sample",
 
 	//DASHBOARD
 

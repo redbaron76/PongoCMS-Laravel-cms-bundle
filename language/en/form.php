@@ -83,6 +83,7 @@ return array(
 	"modal_descr_clone_element" => "Select page to link:",
 	"modal_title_media" => "Insert Media",
 	"modal_title_marker" => "Insert Marker",
+	"modal_title_sample" => "Insert Sample",
 
 	//MODAL CLONE PAGE
 	"modal_title_clone_page" => "Clone this page?",

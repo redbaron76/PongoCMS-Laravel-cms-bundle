@@ -28,7 +28,7 @@ return array(
 
 	//CUSTOM
 
-	"page_not_set" => "Page not set.",
+	"page_not_set" => "Page not yet created!",
 	"mimes_not_valid" => "File type not allowed.",
 	"max_file_size" => "File size exceeds max size.",
 	"unique_file" => "This file name already exists.",

@@ -36,7 +36,10 @@ $(function() {
 	//LISTENER as_html
 	$.ck.CKasHtml();
 
-	//LISTENER as_html
+	//LISTENER as_text
 	$.ck.CKasText();
+
+	//LISTENER as_sample
+	$.ck.CKasSample();
 
 });
