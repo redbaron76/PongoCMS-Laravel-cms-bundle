@@ -1357,7 +1357,7 @@ class Marker {
 		$_time = null;
 		if(isset($time) and !empty($time)) $_time = $time;
 
-		$_n = Config::get('cms::theme.pag');
+		$_n = Config::get('cms::theme.site_pag');
 		if(isset($n) and !empty($n)) $_n = $n;
 
 		$_id = 'preview';
@@ -1534,7 +1534,7 @@ class Marker {
 
 			$view = View::make('cms::theme.'.THEME.'.partials.markers.'.$_tpl);
 			$view['services'] 	= $services;
-			$view['user']		= $user;		
+			$view['user']		= $_user;		
 			$view['options'] 	= HTML::attributes($options);
 
 			return $view;

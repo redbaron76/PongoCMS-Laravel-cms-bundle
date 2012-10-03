@@ -166,7 +166,7 @@ class Site_Controller extends Base_Controller {
 			$p = Input::get('page', 1);
 
 			//ITEMS PER PAGE
-			$npp = Config::get('cms::theme.pag');
+			$npp = Config::get('cms::theme.site_pag');
 
 			//GET SOURCE WHERE TO SEARCH
 			$source = Input::get('source');
@@ -285,7 +285,7 @@ class Site_Controller extends Base_Controller {
 			$p = Input::get('page', 1);
 
 			//ITEMS PER PAGE
-			$npp = Config::get('cms::theme.pag');
+			$npp = Config::get('cms::theme.site_pag');
 
 			//GET SOURCE WHERE TO SEARCH
 			$source = Input::get('source');
