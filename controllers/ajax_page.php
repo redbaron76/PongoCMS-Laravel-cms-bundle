@@ -127,6 +127,15 @@ class Cms_Ajax_Page_Controller extends Cms_Base_Controller {
         	$page->is_home = Input::has('is_home') ? 1 : 0;
         	$page->is_valid = Input::has('is_valid') ? 1 : 0;
 
+        	//IF NEW PAGE, SAVE DEFAULT LAYOUT
+
+        	if(empty($input['page_id'])) {
+	        	$page->header = 'default';
+				$page->layout = 'default';
+				$page->footer = 'default';
+			}
+
+
 			$page->save();
 
 			$pid = $page->id;
