@@ -96,9 +96,11 @@
 				</tr>
 				@endforelse
 
+				@if($data->total > Config::get('cms::theme.pag'))
 				<tr class="navigation">
 					<td colspan="3">{{$data->next()}}</td>
 				</tr>
+				@endif
 				
 			</tbody>
 		</table>

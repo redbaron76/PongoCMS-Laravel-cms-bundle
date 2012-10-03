@@ -242,7 +242,7 @@ $.ck = {
 		$('.as_sample').live('click', function() {
 
 			var $filename = $(this).attr('data-filename') + '.php';
-			var $url = BASE + '/bundles/cms/sample/' + $filename;
+			var $url = BASE + '/bundles/cms/samples/' + $filename;
 
 			$.get($url,function(text) {
 
