@@ -191,7 +191,7 @@
 				</tr>
 				
 			</tbody>
-		</table>		
+		</table>
 
 	</div>
 </div>

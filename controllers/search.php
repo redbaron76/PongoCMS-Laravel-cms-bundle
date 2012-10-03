@@ -62,16 +62,16 @@ class Cms_Search_Controller extends Cms_Searchbase_Controller {
 					'q' => ''
 				);
 
-				//GET ALL PAGE DATA
-				$data = CmsBlog::with(array('user'))
-				->where_lang($lang)
+				//GET PAGE DATA
+				$data = CmsBlog::with('user')
+				->where_lang(LANG)
 				->order_by('updated_at', 'desc')
 				->order_by('created_at', 'desc')
 				->paginate(Config::get('cms::theme.pag'));
-
-				$this->layout->content = View::make('cms::interface.pages.page_list')
-										 ->with('data', $data)
-										 ->with('lang', LANG);
+				
+				$this->layout->content = View::make('cms::interface.pages.blog_list')
+									 ->with('data', $data)
+									 ->with('lang', LANG);
 
 			}
 
