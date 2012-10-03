@@ -86,17 +86,18 @@
 											</tr>
 											@endforelse
 
-											<tr class="navigation">
-												<td colspan="3" class="row space">
-													<div class="toright">
-														{{$files->next()}}
-													</div>
-												</td>
-											</tr>
-
 										</tbody>
 
 									</table>
+
+									@if($files->total > Config::get('cms::theme.pag'))
+									<div class="navigation">
+										<ul class="unstyled toright">
+											{{$files->next()}}
+										</ul>
+									</div>
+									@endif
+
 								</div>
 							</div>
 							{{Form::close()}}
