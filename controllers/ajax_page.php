@@ -635,15 +635,14 @@ class Cms_Ajax_Page_Controller extends Cms_Base_Controller {
 			//VALIDATION CHECK
 
 			$rules = array(
-				'element_name'  => 'required|alpha_dash|max:20|unique_lang:'.$input['element_id'].','.LANG.',elements,name',
+				'element_name'  => 'required|alpha_dash|max:20|unique_element_page:'.$input['page_id'].',name',
 				'element_label' => 'required',
 				'element_zone' => 'not_in:0',
 			);
 
 			$messages = array(
 				'required' => LL('cms::validation.required', CMSLANG)->get(),
-				//'unique' => LL('cms::validation.unique', CMSLANG)->get(),
-				'unique_lang' => LL('cms::validation.unique_lang', CMSLANG)->get(),
+				'unique_element_page' => LL('cms::validation.unique_element_page', CMSLANG)->get(),
 				'max' => LL('cms::validation.max.string', CMSLANG)->get(),
 				'alpha_dash' => LL('cms::validation.alpha_dash', CMSLANG)->get(),
 				'not_in' => LL('cms::validation.not_in', CMSLANG)->get(),
