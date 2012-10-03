@@ -190,3 +190,14 @@ define('BASE', Config::get('application.url'));
 require path('bundle').'cms/libraries/helpers'.EXT;
 
 
+<<<<<<< HEAD
+=======
+'));
+
+
+//BUNDLE REQUIREMENTS
+
+require path('bundle').'cms/libraries/helpers'.EXT;
+
+
+>>>>>>> bfd05efcab75566eafe84f3aa21804c9b9904980
