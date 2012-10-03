@@ -174,6 +174,13 @@ Validator::register('valid_datetime', function($attribute, $value, $parameters)
 });
 
 
+// BLADE MODIFICATION
+
+Blade::extend(function($value) {
+    return preg_replace('/\{\{([^\-].+?)\}\}/s', '<?php echo $1; ?>', $value);
+});
+
+
 //BUNDLE CONSTANTS
 
 define('USERNAME', Session::get('USERNAME'));
