@@ -259,7 +259,7 @@ class Cms_Ajax_Page_Controller extends Cms_Base_Controller {
 			//VALIDATION CHECK
 
 			$rules = array(
-				'page_title'  => 'required|max:70',
+				'page_title'  => 'max:70',
 				'page_descr'  => 'max:150',
 			);
 

@@ -278,9 +278,13 @@ $.cms = {
 			$('#filelist').html("<div>Upload engine: " + params.runtime + "</div>");
 		});
 
-		if($page_id) uploader.init();
+		// if($page_id) uploader.init();
+		uploader.init();
 
 		uploader.bind('FilesAdded', function(up, files) {
+
+			this.settings.multipart_params.page_id = $('.page_id').val();
+
 			$.each(files, function(i, file) {
 				$('#filelist').append('<div id="' + file.id + '" class="upload_list">' +
 				file.name + '<span class="label">' + plupload.formatSize(file.size) + '</span>' +

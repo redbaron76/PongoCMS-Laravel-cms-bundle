@@ -28,7 +28,7 @@ return array(
 
 	//CUSTOM
 
-	"page_not_set" => "Pagina non impostata.",
+	"page_not_set" => "Pagina non ancora creata!",
 	"mimes_not_valid" => "Tipo di file non consentito.",
 	"max_file_size" => "Peso del file superiore ai 10Mb.",
 	"unique_file" => "Un file con lo stesso nome è già presente.",
