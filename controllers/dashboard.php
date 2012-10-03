@@ -10,14 +10,20 @@ class Cms_Dashboard_Controller extends Cms_Base_Controller {
 		$this->filter('before', 'cms_no_auth');
 	}
 
-    public function get_index()
-    {
-            	
-    	//LOAD JS LIBS
-		Asset::container('footer')->add('flot', 'bundles/cms/js/jquery.flot.js', 'jquery');
-		Asset::container('footer')->add('blog', 'bundles/cms/js/sections/dashboard_list.js', 'cms');
+	public function get_index()
+	{
+				
+		$analytics = Config::get('cms::settings.analytics.profile_id');
 
-        $this->layout->header_data = array(
+		if(!empty($analytics)) {
+
+			//LOAD JS LIBS
+			Asset::container('footer')->add('flot', 'bundles/cms/js/jquery.flot.js', 'jquery');
+			Asset::container('footer')->add('blog', 'bundles/cms/js/sections/dashboard_list.js', 'cms');
+
+		}
+
+		$this->layout->header_data = array(
 			'title' => 'Dashboard'
 		);
 
@@ -40,10 +46,10 @@ class Cms_Dashboard_Controller extends Cms_Base_Controller {
 		->with('cache', $cache)
 		->with('total', $total);
 
-    }
+	}
 
-    //CHANGE INTERFACE LANG
-    public function get_lang($lang)
+	//CHANGE INTERFACE LANG
+	public function get_lang($lang)
 	{
 
 		//SET NEW INTERFACE LANGUAGE
