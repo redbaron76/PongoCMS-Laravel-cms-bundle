@@ -36,7 +36,7 @@ class Cms_Blog_Controller extends Cms_Base_Controller {
 				->where_lang($lang)
 				->order_by('updated_at', 'desc')
 				->order_by('created_at', 'desc')
-				->paginate(Config::get('cms::theme.pag'));
+				->paginate(Config::get('cms::settings.pag'));
 
 		$this->layout->content = View::make('cms::interface.pages.blog_list')
 		->with('data', $data)
@@ -223,7 +223,7 @@ class Cms_Blog_Controller extends Cms_Base_Controller {
 						->where_is_valid(1)
 						->order_by('datetime_on', 'desc')
 						->order_by('name', 'desc')
-						->paginate(Config::get('cms::theme.pag'));
+						->paginate(Config::get('cms::settings.pag'));
 
 				if(empty($new_data)) $new_data = array();
 

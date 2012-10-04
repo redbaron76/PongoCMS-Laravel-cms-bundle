@@ -46,7 +46,7 @@ class Cms_Search_Controller extends Cms_Searchbase_Controller {
 				->order_by('name', 'asc')
 				->order_by('slug', 'asc')
 				->order_by('title', 'asc')
-				->paginate(Config::get('cms::theme.pag'));
+				->paginate(Config::get('cms::settings.pag'));
 				
 				$this->layout->content = View::make('cms::interface.pages.blog_list')
 									 ->with('data', $data)
@@ -67,7 +67,7 @@ class Cms_Search_Controller extends Cms_Searchbase_Controller {
 				->where_lang(LANG)
 				->order_by('updated_at', 'desc')
 				->order_by('created_at', 'desc')
-				->paginate(Config::get('cms::theme.pag'));
+				->paginate(Config::get('cms::settings.pag'));
 				
 				$this->layout->content = View::make('cms::interface.pages.blog_list')
 									 ->with('data', $data)
@@ -113,7 +113,7 @@ class Cms_Search_Controller extends Cms_Searchbase_Controller {
 						->order_by('ext', 'asc')
 						->order_by('size', 'desc')
 						->order_by('name', 'asc')
-						->paginate(Config::get('cms::theme.pag'));
+						->paginate(Config::get('cms::settings.pag'));
 				
 				$this->layout->content = View::make('cms::interface.pages.file_list')
 				->with('data', $data);
@@ -134,7 +134,7 @@ class Cms_Search_Controller extends Cms_Searchbase_Controller {
 						->order_by('ext', 'asc')
 						->order_by('size', 'desc')
 						->order_by('name', 'asc')
-						->paginate(Config::get('cms::theme.pag'));
+						->paginate(Config::get('cms::settings.pag'));
 
 				$this->layout->content = View::make('cms::interface.pages.file_list')
 				->with('data', $data);
@@ -177,7 +177,7 @@ class Cms_Search_Controller extends Cms_Searchbase_Controller {
 								->order_by('name', 'asc')
 								->order_by('slug', 'asc')
 								->order_by('title', 'asc')
-								->paginate(Config::get('cms::theme.pag'));
+								->paginate(Config::get('cms::settings.pag'));
 
 				$this->layout->content = View::make('cms::interface.pages.page_list')
 									 ->with('data', $data)
@@ -198,7 +198,7 @@ class Cms_Search_Controller extends Cms_Searchbase_Controller {
 								->where_lang(LANG)
 								->order_by('order_id', 'asc')
 								->order_by('updated_at', 'desc')
-								->paginate(Config::get('cms::theme.pag'));
+								->paginate(Config::get('cms::settings.pag'));
 
 				$this->layout->content = View::make('cms::interface.pages.page_list')
 										 ->with('data', $data)
@@ -295,7 +295,7 @@ class Cms_Search_Controller extends Cms_Searchbase_Controller {
 						->order_by('username', 'asc')
 						->order_by('email', 'asc')
 						->order_by('role_id', 'asc')
-						->paginate(Config::get('cms::theme.pag'));
+						->paginate(Config::get('cms::settings.pag'));
 				
 				$this->layout->content = View::make('cms::interface.pages.user_list')
 									 ->with('data', $data);
@@ -315,7 +315,7 @@ class Cms_Search_Controller extends Cms_Searchbase_Controller {
 				$data = CmsUser::with('role')
 						->order_by('username', 'asc')
 						->order_by('role_level', 'asc')
-						->paginate(Config::get('cms::theme.pag'));
+						->paginate(Config::get('cms::settings.pag'));
 
 				$this->layout->content = View::make('cms::interface.pages.user_list')
 				->with('data', $data);
@@ -353,7 +353,7 @@ class Cms_Search_Controller extends Cms_Searchbase_Controller {
 				//GET PAGE DATA
 				$data = CmsTag::where('name', 'LIKE', '%'.$q.'%')
 						->order_by('name', 'asc')
-						->paginate(Config::get('cms::theme.pag'));
+						->paginate(Config::get('cms::settings.pag'));
 				
 				$this->layout->content = View::make('cms::interface.pages.tag_list')
 				->with('lang', '')
@@ -373,7 +373,7 @@ class Cms_Search_Controller extends Cms_Searchbase_Controller {
 				//GET ALL TAG DATA
 				$data = CmsTag::where_lang(LANG)
 						->order_by('name', 'asc')
-						->paginate(Config::get('cms::theme.pag'));
+						->paginate(Config::get('cms::settings.pag'));
 
 				$this->layout->content = View::make('cms::interface.pages.tag_list')
 				->with('data', $data)

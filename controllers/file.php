@@ -37,7 +37,7 @@ class Cms_File_Controller extends Cms_Base_Controller {
 				->order_by('name', 'asc')
 				->order_by('ext', 'asc')
 				->order_by('size', 'desc')				
-				->paginate(Config::get('cms::theme.pag'));
+				->paginate(Config::get('cms::settings.pag'));
 
 		$this->layout->content = View::make('cms::interface.pages.file_list')
 		->with('data', $data);

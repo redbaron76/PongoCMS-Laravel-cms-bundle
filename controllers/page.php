@@ -37,7 +37,7 @@ class Cms_Page_Controller extends Cms_Base_Controller {
 				->order_by('updated_at', 'desc')
 				->order_by('parent_id', 'asc')
 				->order_by('order_id', 'asc')
-				->paginate(Config::get('cms::theme.pag'));
+				->paginate(Config::get('cms::settings.pag'));
 
 		$this->layout->content = View::make('cms::interface.pages.page_list')
 		->with('data', $data)

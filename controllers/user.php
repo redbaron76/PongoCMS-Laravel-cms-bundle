@@ -32,7 +32,7 @@ class Cms_User_Controller extends Cms_Base_Controller {
 		$data = CmsUser::with('role')
 				->order_by('username', 'asc')
 				->order_by('role_level', 'asc')
-				->paginate(Config::get('cms::theme.pag'));
+				->paginate(Config::get('cms::settings.pag'));
 
 		$this->layout->content = View::make('cms::interface.pages.user_list')
 		->with('data', $data);

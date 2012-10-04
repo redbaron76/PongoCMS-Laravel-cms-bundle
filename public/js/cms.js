@@ -124,7 +124,7 @@ $.cms = {
 			container 	: ".listing",
 			item		: ".post",
 			pagination	: ".navigation",
-			next		: ".next_page",
+			next		: ".next_page a",
 			loader		: "<img src='"+BASE+"/bundles/cms/img/loader.gif'>",
 			history		: false,
 			onRenderComplete: function(items) {

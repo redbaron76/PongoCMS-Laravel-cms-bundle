@@ -65,7 +65,7 @@ class Cms_Gallery_Controller extends Cms_Base_Controller {
 				->where_is_valid(1)
 				->order_by('name', 'asc')
 				->order_by('id', 'asc')
-				->paginate(Config::get('cms::theme.pag'));
+				->paginate(Config::get('cms::settings.pag'));
 
 		$this->layout->content = View::make('cms::interface.pages.gallery_new_edit')
 		->with('title', LL('cms::title.gallery_new', CMSLANG))
@@ -110,7 +110,7 @@ class Cms_Gallery_Controller extends Cms_Base_Controller {
 				->where_is_valid(1)
 				->order_by('name', 'asc')
 				->order_by('id', 'asc')
-				->paginate(Config::get('cms::theme.pag'));
+				->paginate(Config::get('cms::settings.pag'));
 
 		$this->layout->content = View::make('cms::interface.pages.gallery_new_edit')
 		->with('title', LL('cms::title.gallery_edit', CMSLANG))

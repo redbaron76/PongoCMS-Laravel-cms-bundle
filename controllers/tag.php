@@ -31,7 +31,7 @@ class Cms_Tag_Controller extends Cms_Base_Controller {
 		//GET DATA
 		$data = CmsTag::where_lang($lang)
 				->order_by('name', 'asc')
-				->paginate(Config::get('cms::theme.pag'));
+				->paginate(Config::get('cms::settings.pag'));
 
 		$this->layout->content = View::make('cms::interface.pages.tag_list')
 		->with('data', $data)
