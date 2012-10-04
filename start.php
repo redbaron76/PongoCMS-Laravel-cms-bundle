@@ -118,13 +118,16 @@ Validator::register('unique_element_page', function($attribute, $value, $paramet
 	//CHECK UNIQUENESS OF ELEMENT NAME IN A PAGE
 
 	$page_id = $parameters[0];
+	$element_id = $parameters[1];
 
-	if(isset($parameters[1])) $attribute = $parameters[1];
+	if(isset($parameters[2])) $attribute = $parameters[2];
 
-	return CmsPage::find($page_id)->elements()
-									->where($attribute, '=', $value)
-									->count() == 0;
+	$elements = CmsPage::find($page_id)->elements()
+				->where('cmselement_id','<>',$element_id)
+				->where($attribute, '=', $value)
+				->count();
 
+	return $elements == 0;
 
 });
 

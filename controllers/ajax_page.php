@@ -644,7 +644,7 @@ class Cms_Ajax_Page_Controller extends Cms_Base_Controller {
 			//VALIDATION CHECK
 
 			$rules = array(
-				'element_name'  => 'required|alpha_dash|max:20|unique_element_page:'.$input['page_id'].',name',
+				'element_name'  => 'required|alpha_dash|max:20|unique_element_page:'.$input['page_id'].','.$input['element_id'].',name',
 				'element_label' => 'required',
 				'element_zone' => 'not_in:0',
 			);
