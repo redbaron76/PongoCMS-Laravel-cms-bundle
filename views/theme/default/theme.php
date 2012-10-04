@@ -27,7 +27,7 @@ $THEME_SETTINGS = array(
 		'jquery_lib' => array(
 
 			'path' => 'js/jquery.min.js',
-			'container' => 'footer',
+			'container' => 'header',
 			'after' => null,
 
 		),

@@ -6,7 +6,10 @@ $('#{{$id}}').gmap3({
 	address: '{{$address}}',
 	map:{
 		center:true,
-		zoom:{{$zoom}}
+		zoom:{{$zoom}},
+		@if(strlen($maptype) > 0)
+		mapTypeId: {{$maptype}},
+		@endif
 	}
 });
 </script>

@@ -286,8 +286,8 @@ class Marker {
 
 					return CmsBlog::with(array('pages'))
 						->where_lang(SITE_LANG)
-						->where('datetime_on', '>=', dateTime2Db(date('Y-m-d H:i:s')))
-						->where('datetime_off', '>', dateTime2Db(date('Y-m-d H:i:s')))
+						->where('datetime_on', '<=', date('Y-m-d H:i:s'))
+						->where('datetime_off', '>', date('Y-m-d H:i:s'))
 						->where_is_valid(1)
 						->order_by('datetime_on', 'asc')
 						->take($_n)
@@ -296,11 +296,11 @@ class Marker {
 				}, 5);
 
 			} else {
-				
+
 				$list = CmsBlog::with(array('pages'))
 						->where_lang(SITE_LANG)
-						->where('datetime_on', '>=', dateTime2Db(date('Y-m-d H:i:s')))
-						->where('datetime_off', '>', dateTime2Db(date('Y-m-d H:i:s')))
+						 ->where('datetime_on', '<=', date('Y-m-d H:i:s'))
+						->where('datetime_off', '>', date('Y-m-d H:i:s'))
 						->where_is_valid(1)
 						->order_by('datetime_on', 'asc')
 						->take($_n)
@@ -1011,6 +1011,7 @@ class Marker {
 	*	"zoom":"14"				=> Zoom level (default: 14)
 	*	"w":"320",				=> (map width)
 	*	"h":"240",				=> (map height)
+	*	"type":"",				=> (map type: google.maps.MapTypeId.SATELLITE - default: empty)
 	*	"id":"map"				=> (map id container | default: map)
 	*	"class":"<class>",		=> OPTIONAL (default: map)
 	*	"tpl":"<tpl_name>"		=> OPTIONAL (in /partials/markers)
@@ -1041,6 +1042,9 @@ class Marker {
 		$_h = 240;
 		if(isset($h) and !empty($h)) $_h = $h;
 
+		$_type = '';
+		if(isset($type) and !empty($type)) $_type = $type;
+
 		$_id = 'map';
 		if(isset($id) and !empty($id)) $_id = $id;
 
@@ -1056,6 +1060,15 @@ class Marker {
 			Asset::container('header')->add('googlemaps', 'http://maps.google.com/maps/api/js?sensor=false', 'jquery');
 			Asset::container('header')->add('gmap3', 'bundles/cms/js/jquery.gmap3.js', 'googlemaps');
 			
+			switch ($_type) {
+				case 'satellite':
+					$map_type = 'google.maps.MapTypeId.SATELLITE';
+					break;
+				
+				default:
+					$map_type = '';
+					break;
+			}
 
 			$options = array(
 				'id' => $_id,
@@ -1067,6 +1080,7 @@ class Marker {
 			$view['zoom'] 		= $_zoom;
 			$view['w']			= $_w;
 			$view['h']			= $_h;
+			$view['maptype']	= $map_type;
 			$view['id']			= $_id;			
 			$view['options'] 	= HTML::attributes($options);
 
@@ -1406,8 +1420,8 @@ class Marker {
 				} else {				
 					
 					$list = CmsPage::find($page->id)
-								->$_source()
-								->paginate($_n);
+							->$_source()
+							->paginate($_n);
 
 				}
 
