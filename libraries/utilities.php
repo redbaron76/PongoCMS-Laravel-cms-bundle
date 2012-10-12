@@ -285,9 +285,17 @@ class CmsUtility {
 	public static function link_active($slug)
 	{
 		if (SLUG_FULL == '/' and $slug == SITE_HOMEPAGE) return HTML::attributes(array('class' => 'active'));
-		// if ($slug == SLUG_FULL) return HTML::attributes(array('class' => 'active'));
-		// if (substr_count(SLUG_FULL, $slug) > 0) return HTML::attributes(array('class' => 'active'));
 		if (SLUG_FULL == $slug) return HTML::attributes(array('class' => 'active'));
+	}
+
+	/**
+	* Set active class to active link in menu
+	*
+	* @return string
+	*/
+	public static function link_menu_active($slug)
+	{
+		if (substr_count(SLUG_FULL.'/', $slug.'/') > 0) return HTML::attributes(array('class' => 'active'));
 	}
 
 	/**

@@ -246,7 +246,9 @@ class Marker {
     *
 	* [$BLOGVIEW[{
 	*	"source":"<source label>",	=> (available: blogs, products...)
+	*	"time":"<time label>",		=> (available: future, past, null - default: null)
 	*	"n":"<n items per page>",	=> (default: 5)
+	*	"order":"desc",				=> OPTIONAL (asc, desc default: desc)
 	*	"id":"<id>",				=> OPTIONAL <ul> id
 	*	"class":"<class>",			=> OPTIONAL <ul><li> class (default: list)
 	*	"tpl":"<tpl_name>"			=> OPTIONAL (in /partials/markers)
@@ -263,8 +265,14 @@ class Marker {
 
 		//Bind variables
 
+		$_time = null;
+		if(isset($time) and !empty($time)) $_time = $time;
+
 		$_n = 5;
 		if(isset($n) and !empty($n)) $_n = $n;
+
+		$_order = 'desc';
+		if(isset($order) and !empty($order)) $_order = $order;
 
 		$_id = 'blogview';
 		if(isset($id) and !empty($id)) $_id = $id;
@@ -279,6 +287,9 @@ class Marker {
 
 		if($_n > 0) {
 
+			$_sign = '<';
+			if($_time == 'future') $_sign = '>';
+
 			//CACHE DATA
 			if(CACHE) {
 
@@ -286,10 +297,10 @@ class Marker {
 
 					return CmsBlog::with(array('pages'))
 						->where_lang(SITE_LANG)
-						->where('datetime_on', '<=', date('Y-m-d H:i:s'))
+						->where('datetime_on', $_sign.'=', date('Y-m-d H:i:s'))
 						->where('datetime_off', '>', date('Y-m-d H:i:s'))
 						->where_is_valid(1)
-						->order_by('datetime_on', 'asc')
+						->order_by('datetime_on', $_order)
 						->take($_n)
 						->get();
 
@@ -299,10 +310,10 @@ class Marker {
 
 				$list = CmsBlog::with(array('pages'))
 						->where_lang(SITE_LANG)
-						 ->where('datetime_on', '<=', date('Y-m-d H:i:s'))
+						->where('datetime_on', $_sign.'=', date('Y-m-d H:i:s'))
 						->where('datetime_off', '>', date('Y-m-d H:i:s'))
 						->where_is_valid(1)
-						->order_by('datetime_on', 'asc')
+						->order_by('datetime_on', $_order)
 						->take($_n)
 						->get();
 			}
@@ -558,7 +569,7 @@ class Marker {
 	*	"file":"<filename>",
 	*	"label":"label",		=> OPTIONAL (Overrides default label)
 	*	"id":"<id>",			=> OPTIONAL (id of <a>)
-	*	"class":"<class>",		=> OPTIONAL (class of <a>)
+	*	"class":"<class>",		=> OPTIONAL (class of <a> default: download)
 	*	"tpl":"<tpl_name>"		=> OPTIONAL (in /partials/markers)
 	* }]]
     *
@@ -582,7 +593,7 @@ class Marker {
 		$_id = null;
 		if(isset($id) and !empty($id)) $_id = $id;
 
-		$_class = null;
+		$_class = 'download';
 		if(isset($class) and !empty($class)) $_class = $class;
 
 		$_tpl = 'download';
@@ -640,12 +651,12 @@ class Marker {
 
 			$full_path = '';
 			$lab = '';
-			$title = '';
 			
 		}
 
 		$options = array(
 			'id' => $_id,
+			'class' => $_class,
 			'title' => $title,
 		);
 

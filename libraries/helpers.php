@@ -245,7 +245,7 @@ function PATH2FILE($url, $n = 0)
 * @param  string
 * @return string
 */
-function TEXTPREVIEW($obj, $max = false, $end = '...', $strip_tags = false, $decode = true)
+function TEXTPREVIEW($obj, $max = false, $strip_tags = false, $decode = true, $end = '...')
 {
 	if(!empty($obj)) {
 

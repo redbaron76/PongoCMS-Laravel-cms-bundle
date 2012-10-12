@@ -68,7 +68,7 @@ class CmsPage extends Eloquent {
 	{
 		return $this->has_many_and_belongs_to('CmsBlog', 'blogs_pages')
 		->where('blogs.datetime_on', '>=', dateTime2Db(date('Y-m-d H:i:s')))
-		->order_by('blogs.datetime_on', 'desc');
+		->order_by('blogs.datetime_on', 'asc');
 	}
 
 	//GETTERS

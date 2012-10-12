@@ -11,7 +11,7 @@
 		
 		<h6>{{$post->datetime_blog}} - {{$post->user->username}}</h6>
 
-		{{Marker::decode($post->preview)}}
+		{{TEXTPREVIEW($post,250)}}
 
 	</li>
 	

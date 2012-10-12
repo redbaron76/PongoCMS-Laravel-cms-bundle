@@ -2,7 +2,7 @@
 <ul{{$options}}>
 	
 	@foreach($pages as $page)
-	<li{{CmsUtility::link_active($page->slug)}}>
+	<li{{CmsUtility::link_menu_active($page->slug)}}>
 
 		<a href="{{SLUG($page->slug)}}">
 			{{$page->name}}

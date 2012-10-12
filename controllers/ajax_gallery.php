@@ -54,7 +54,7 @@ class Cms_Ajax_Gallery_Controller extends Cms_Base_Controller {
 
 			$gid = $gallery->id;			
 
-			if(Input::has('file_id')) {
+			if(Input::get('file_id') !== '') {
 
 				$files = Input::get('file_id');
 
