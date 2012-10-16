@@ -56,6 +56,8 @@ $THEME_SETTINGS = array(
 
 		),
 
+		// Change key name accordingly with CKEDITOR config.js
+
 		'site_css' => array(
 
 			'path' => 'css/site.css',

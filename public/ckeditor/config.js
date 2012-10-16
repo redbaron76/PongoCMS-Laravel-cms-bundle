@@ -9,6 +9,8 @@ CKEDITOR.editorConfig = function( config )
 	// config.language = 'fr';
 	// config.uiColor = '#AADC6E';
 
+	config.baseHref = BASE + '/';
+
 	config.enterMode = CKEDITOR.ENTER_BR;
 	config.shiftEnterMode = CKEDITOR.ENTER_P;
 
@@ -41,5 +43,13 @@ CKEDITOR.editorConfig = function( config )
 		{ name: 'tools', items : [ 'Maximize','-','About' ] }
 	];
 
+	config.contentsCss = [
+		'../../../bundles/cms/css/bootstrap.min.css',
+		'../../../' + SITE_CSS,
+		'../../../bundles/cms/css/editor.css',
+	];
+
+	CKEDITOR.config.bodyId = 'editor';
+	CKEDITOR.config.bodyClass = ELE_CLASS;
 
 };
