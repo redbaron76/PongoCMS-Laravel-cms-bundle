@@ -137,13 +137,11 @@ class Cms_Ajax_File_Controller extends Cms_Base_Controller {
 
 				$file = CmsFile::find($fid);
 
-				//$pivot = $file->pages()->pivot();
-
 				if(is_array($pages)) {
 
 					foreach ($pages as $pid) {
 
-						$check = DB::table('files_pages')->where_cmspage_id($pid)->first();
+						$check = DB::table('files_pages')->where_cmsfile_id($fid)->where_cmspage_id($pid)->first();
 
 						if(empty($check)) {
 							$file->pages()->attach($pid);
