@@ -468,7 +468,7 @@
 													<li>{{LL('cms::alert.list_empty', CMSLANG)}}</li>
 												@endforelse
 
-												@if($blogdata->total > Config::get('cms::settings.pag'))
+												@if($blogdata->total > Config::get('cms::theme.pag') and $blogdata->page < $blogdata->last)
 												{{$blogdata->next()}}
 												@endif
 

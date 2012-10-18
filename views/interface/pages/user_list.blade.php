@@ -71,7 +71,7 @@
 				</tr>
 				@endforelse
 
-				@if($data->total > Config::get('cms::settings.pag'))
+				@if($data->total > Config::get('cms::theme.pag') and $data->page < $data->last)
 				<tr class="navigation">
 					<td colspan="4">{{$data->next()}}</td>
 				</tr>

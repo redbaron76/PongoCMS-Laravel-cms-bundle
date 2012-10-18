@@ -97,7 +97,7 @@
 
 									</table>
 
-									@if($files->total > Config::get('cms::settings.pag'))
+									@if($files->total > Config::get('cms::theme.pag') and $files->page < $files->last)
 									<div class="navigation">
 										<ul class="unstyled toright">
 											{{$files->next()}}
