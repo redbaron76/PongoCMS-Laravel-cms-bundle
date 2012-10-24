@@ -54,6 +54,8 @@ class CmsPage extends Eloquent {
 	public function blogs_preview()
 	{
 		return $this->has_many_and_belongs_to('CmsBlog', 'blogs_pages')
+		->where('blogs.datetime_off', '>=', dateTime2Db(date('Y-m-d H:i:s')))
+		->group_by('blogs_pages.cmsblog_id')
 		->order_by('blogs.datetime_on', 'desc');
 	}
 
@@ -61,6 +63,8 @@ class CmsPage extends Eloquent {
 	{
 		return $this->has_many_and_belongs_to('CmsBlog', 'blogs_pages')
 		->where('blogs.datetime_on', '<', dateTime2Db(date('Y-m-d H:i:s')))
+		->where('blogs.datetime_off', '>=', dateTime2Db(date('Y-m-d H:i:s')))
+		->group_by('blogs_pages.cmsblog_id')
 		->order_by('blogs.datetime_on', 'desc');
 	}
 
@@ -68,6 +72,8 @@ class CmsPage extends Eloquent {
 	{
 		return $this->has_many_and_belongs_to('CmsBlog', 'blogs_pages')
 		->where('blogs.datetime_on', '>=', dateTime2Db(date('Y-m-d H:i:s')))
+		->where('blogs.datetime_off', '>=', dateTime2Db(date('Y-m-d H:i:s')))
+		->group_by('blogs_pages.cmsblog_id')
 		->order_by('blogs.datetime_on', 'asc');
 	}
 
