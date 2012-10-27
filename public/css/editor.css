@@ -5,6 +5,8 @@
 body {
 	background-image: none;
 	background-color: #ffffff;
+	padding: 10px;
+	width: 723px;
 }
 
 /* higlight P tag */

@@ -44,9 +44,9 @@ CKEDITOR.editorConfig = function( config )
 	];
 
 	config.contentsCss = [
-		'../../../bundles/cms/css/bootstrap.min.css',
-		'../../../' + SITE_CSS,
-		'../../../bundles/cms/css/editor.css',
+		BASE + '/bundles/cms/css/bootstrap.min.css',
+		BASE + '/' + SITE_CSS,
+		BASE + '/bundles/cms/css/editor.css',
 	];
 
 	CKEDITOR.config.bodyId = 'editor';

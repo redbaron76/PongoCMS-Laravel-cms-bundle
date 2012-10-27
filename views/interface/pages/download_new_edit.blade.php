@@ -86,17 +86,21 @@
 											</tr>
 											@endforelse
 
+											<tr>
+												<td colspan="3">
+													@if($files->total > Config::get('cms::theme.pag') and $files->page < $files->last)
+													<div class="navigation">
+														<ul class="unstyled toright">
+															{{$files->next()}}
+														</ul>
+													</div>
+													@endif
+												</td>
+											</tr>
+
 										</tbody>
 
 									</table>
-
-									@if($files->total > Config::get('cms::theme.pag') and $files->page < $files->last)
-									<div class="navigation">
-										<ul class="unstyled toright">
-											{{$files->next()}}
-										</ul>
-									</div>
-									@endif
 
 								</div>
 							</div>
@@ -133,7 +137,7 @@
 						@forelse ($files_select as $file)
 							<li class="span1" id="{{$download_id}}_{{$file->id}}">
 								<a href="{{BASE.$file->path}}" class="thumbnail fancy" data-original-title="{{$file->name}}" rel="tooltip">
-									<img src="{{BASE.$file->thumb}}" width="50" heigth="50" alt="">							
+									<img src="{{BASE.$file->thumb}}" width="50" heigth="50" alt="">
 								</a>
 							</li>
 						@empty
@@ -155,10 +159,3 @@
 	</div>
 
 </div>
-
-
-
-
-
-
-

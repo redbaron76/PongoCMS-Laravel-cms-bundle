@@ -113,18 +113,22 @@
 											</tr>
 											@endforelse
 
+											<tr>
+												<td colspan="3">
+													@if($files->total > Config::get('cms::theme.pag') and $files->page < $files->last)
+													<div class="navigation">
+														<ul class="unstyled toright">
+															{{$files->next()}}
+														</ul>
+													</div>
+													@endif
+												</td>
+											</tr>
+
 										</tbody>
 
 									</table>
-
-									@if($files->total > Config::get('cms::theme.pag') and $files->page < $files->last)
-									<div class="navigation">
-										<ul class="unstyled toright">
-											{{$files->next()}}
-										</ul>
-									</div>
-									@endif
-
+									
 								</div>
 							</div>
 							
@@ -182,10 +186,3 @@
 	</div>
 
 </div>
-
-
-
-
-
-
-
