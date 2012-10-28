@@ -199,11 +199,11 @@ class CmsRender {
 			//Carico template
 			$layout = View::make('cms::theme.'.THEME.'.layouts.'.$page_layout);
 
+			//Bindo nome della pagina
+			$layout['NAME'] = $page->name;
+
 			//Verifico che esista il layout
 			if( ! empty($arr_layout)) {
-
-				//Bindo nome della pagina
-				$layout['NAME'] = $page->name;
 
 				//Bindo le zone come vuote per evitare errori
 				foreach ($arr_layout as $key => $value) {
@@ -308,7 +308,6 @@ class CmsRender {
 		//Set default header, footer, layout se non settati
 		$header = ( ! empty($page->header)) ? $page->header : 'default';
 		$footer = ( ! empty($page->footer)) ? $page->footer : 'default';
-
 
 		//Prepare html buffer
 

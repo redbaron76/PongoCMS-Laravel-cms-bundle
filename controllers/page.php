@@ -590,9 +590,9 @@ class Cms_Page_Controller extends Cms_Base_Controller {
 				$nid = $new_page->id;
 
 				//GET ALL MEDIA IN PIVOT WHERE OLD PAGE_ID
-				$pivot = $page->files()->pivot();
+				// $pivot = $page->files()->pivot();
 
-				foreach ($pivot->get() as $value) {
+				foreach (DB::table('files_pages')->where_cmspage_id($pid)->get() as $value) {
 
 					$clone_array = array(
 						'cmsfile_id' => $value->cmsfile_id,
@@ -613,9 +613,9 @@ class Cms_Page_Controller extends Cms_Base_Controller {
 				$nid = $new_page->id;
 
 				//GET ALL ELEMENTS IN PIVOT WHERE OLD PAGE_ID
-				$pivot = $page->elements()->pivot();
+				// $pivot = $page->elements()->pivot();
 
-				foreach ($pivot->get() as $value) {
+				foreach (DB::table('elements_pages')->where_cmspage_id($pid)->get() as $value) {
 					
 					//INSERT TO PIVOT
 
