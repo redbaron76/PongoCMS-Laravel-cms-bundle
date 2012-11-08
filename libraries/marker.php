@@ -1469,6 +1469,131 @@ class Marker {
 
 
 	/**
+    * PREVNEXT Marker - Loop paginator between pages or blog posts
+    *
+	* [$PREVNEXT[{
+	*	"separator":""			=> OPTIONAL	
+	*	"class":"<class>",		=> OPTIONAL (default: search)
+	*	"tpl":"<tpl_name>"		=> OPTIONAL (in /partials/markers)
+	* }]]
+    *
+    * @param  array
+    * @return string
+    */
+	public static function PREVNEXT($vars = array())
+	{
+
+		//Get variables from array $vars
+		if( ! empty($vars)) extract($vars);
+
+		$_separator = '';
+		if(isset($separator) and !empty($separator)) $_separator = $separator;
+
+		$_class = '';
+		if(isset($class) and !empty($class)) $_class = $class;
+
+		$_tpl = 'prevnext';
+		if(isset($tpl) and !empty($tpl)) $_tpl = $tpl;
+
+
+		//CACHE DATA
+		if(CACHE) {
+
+			$this_page = Cache::remember('page_'.Str::slug(SLUG_LAST, '_').'_'.SITE_LANG, function() {
+
+				return CmsPage::where_lang(SITE_LANG)
+						->where_slug(SLUG_FULL)
+						->first();
+
+			}, 5);
+
+		} else {
+			
+			$this_page = CmsPage::where_lang(SITE_LANG)
+						->where_slug(SLUG_FULL)
+						->first();
+
+		}
+
+		// GET THIS PAGE
+		$this_order = $this_page->order_id;
+		$this_id = $this_page->id;
+		$this_parent = $this_page->parent_id;
+
+
+		// GET ALL PAGES
+		if(CACHE) {
+
+			$pages = Cache::remember('page_'.$this_parent.'_'.SITE_LANG, function() use ($this_parent) {
+
+				return CmsPage::where_lang(SITE_LANG)
+						->where_parent_id($this_parent)
+						->order_by('order_id', 'asc')
+						->order_by('id', 'asc')
+						->get();
+
+			}, 5);
+
+		} else {
+			
+			$pages = CmsPage::where_lang(SITE_LANG)
+						->where_parent_id($this_parent)
+						->order_by('order_id', 'asc')
+						->order_by('id', 'asc')
+						->get();
+
+		}
+
+		// CHECK BY ORDER_ID
+		$order = ($this_order == Config::get('cms::settings.order')) ? false : true;
+
+		
+		// ITERATE PAGES TO FIND ARRAY KEY
+		foreach ($pages as $key => $page) {			
+			if($page->id == $this_id) $page_index = $key;
+		}
+
+		$page_count = count($pages);
+
+		// GET PREV
+		if(array_key_exists($page_index - 1, $pages)) {
+			
+			$prev_slug = $pages[$page_index - 1]->slug;
+
+		} else {
+
+			$prev_slug = $pages[$page_count - 1]->slug;
+
+		}		
+
+		// GET NEXT
+		if(array_key_exists($page_index + 1, $pages)) {
+			
+			$next_slug = $pages[$page_index + 1]->slug;
+
+		} else {
+
+			$next_slug = $pages[0]->slug;
+
+		}
+
+
+		$options = array(
+			'class' => $_class,
+		);
+
+		$view = View::make('cms::theme.'.THEME.'.partials.markers.'.$_tpl);
+		$view['separator'] 	= $_separator;
+		$view['prev_slug']	= $prev_slug;
+		$view['next_slug']	= $next_slug;
+		$view['options']	= HTML::attributes($options);
+
+		return $view;
+
+	}
+
+
+	/**
     * SEARCH Marker - Shows a search form
     *
 	* [$SEARCH[{

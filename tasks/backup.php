@@ -104,7 +104,7 @@ class Cms_Backup_Task {
 		$result .= shell_exec('php artisan bundle:install pongocms');
 
 		//COPY BUNDLE ASSET
-		$result = shell_exec('php artisan bundle:publish cms');
+		$result .= shell_exec('php artisan bundle:publish cms');
 
 		//PERFORM RESTORE THEME
 		$result .= shell_exec('php artisan cms::backup:restore '.$current_theme);
