@@ -1575,13 +1575,14 @@ class Marker {
 	* [$THUMB[{
 	*	"file":"<filename>",
 	*	"thumb":"thumb",
-	*	"caption":"false"		=> (default: false)
-	*	"w":"100",				=> OPTIONAL (overrides thumb)
-	*	"h":"100",				=> OPTIONAL (overrides thumb)
-	*	"wm":"true | false",	=> OPTIONAL
-	*	"id":"<id>",			=> OPTIONAL (id of <a>)
-	*	"class":"<class>",		=> OPTIONAL
-	*	"tpl":"<tpl_name>"		=> OPTIONAL (in /partials/markers)
+	*	"path":"img_path | !img_path"	=> (point to full image path or $caption || $alt slug - default: img_path)
+	*	"caption":"false"				=> (default: false)
+	*	"w":"100",						=> OPTIONAL (overrides thumb)
+	*	"h":"100",						=> OPTIONAL (overrides thumb)
+	*	"wm":"true | false",			=> OPTIONAL
+	*	"id":"<id>",					=> OPTIONAL (id of <a>)
+	*	"class":"<class>",				=> OPTIONAL
+	*	"tpl":"<tpl_name>"				=> OPTIONAL (in /partials/markers)
 	* }]]
     *
     * @param  array
@@ -1600,6 +1601,9 @@ class Marker {
 
 		$_thumb = 'thumb';
 		if(isset($thumb) and !empty($thumb)) $_thumb = $thumb;
+
+		$_path = 'img_path';
+		if(isset($path) and !empty($path)) $_path = $path;
 
 		$_caption = false;
 		if(isset($caption) and !empty($caption) and $caption == 'true') $_caption = true;
@@ -1646,10 +1650,14 @@ class Marker {
 			//Get img dimension
 			if(!empty($file)) {
 
-				//LOAD FANCYBOX LIBS
-				Asset::container('header')->add('fancyboxcss', 'bundles/cms/css/fancybox.css', 'site_css');
-				Asset::container('footer')->add('fancybox', 'bundles/cms/js/jquery.fancybox.js', 'jquery_lib');
-				Asset::container('footer')->add('thumb', 'js/markers/thumb.js', 'site_js');
+				if($_path == 'img_path') {
+
+					//LOAD FANCYBOX LIBS
+					Asset::container('header')->add('fancyboxcss', 'bundles/cms/css/fancybox.css', 'site_css');
+					Asset::container('footer')->add('fancybox', 'bundles/cms/js/jquery.fancybox.js', 'jquery_lib');
+					Asset::container('footer')->add('thumb', 'js/markers/thumb.js', 'site_js');
+
+				}
 
 				if(empty($_w) and empty($_h)) {
 
@@ -1706,9 +1714,18 @@ class Marker {
 
 		$options = array(
 			'id' => $_id,
-			'title' => $title,
-			'rel' => 'fancybox'
+			'title' => $title
 		);
+
+		if($_path == 'img_path') {
+
+			$options['rel'] = 'fancybox';
+
+		} else {
+
+			$full_path = SLUG_FULL . DS . Str::slug(($alt != '') ? $alt : $caption);
+
+		}
 
 		$view = View::make('cms::theme.'.THEME.'.partials.markers.'.$_tpl);
 		$view['path'] 			= $full_path;
