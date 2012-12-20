@@ -20,8 +20,8 @@
 					<li><a href="#design" data-toggle="tab">{{LL('cms::button.page_design', CMSLANG)}}</a></li>
 					<li><a href="#seo" data-toggle="tab">{{LL('cms::button.page_seo', CMSLANG)}}</a></li>
 					<li><a href="#media" data-toggle="tab">{{LL('cms::button.page_media', CMSLANG)}}</a></li>
-					<li><a href="#preview" data-toggle="tab">{{LL('cms::button.page_preview', CMSLANG)}}</a></li>
-					<li><a href="#order" data-toggle="tab">{{LL('cms::form.element_order', CMSLANG)}}</a></li>
+					<li><a href="#preview" data-toggle="tab">{{LL('cms::button.page_abstract', CMSLANG)}}</a></li>
+					<li><a href="#order" data-toggle="tab">{{LL('cms::form.subpage_order', CMSLANG)}}</a></li>
 					<li><a href="#relations" data-toggle="tab">{{LL('cms::form.page_relation', CMSLANG)}}</a></li>
 				</ul>
 
@@ -93,6 +93,10 @@
 								</div>
 								<div class="control-group">
 									<div class="controls">
+
+										<?php $url_preview = URL::base().$page_parent_slug.'/'.$page_slug.'/preview' ?>
+
+										<a href="{{$url_preview}}" class="btn btn-mini span1 preview" target="_blank">{{LL('cms::button.page_preview', CMSLANG)}}</a>
 										<label class="checkbox">
 											{{Form::checkbox('is_valid', 1, $page_is_valid, array('id' => 'page_is_valid'))}}
 											{{LL('cms::form.page_is_valid', CMSLANG)}}
@@ -131,6 +135,14 @@
 							{{Form::hidden('page_id', $page_id, array('class' => 'page_id')) . "\n"}}
 							<fieldset>
 								<legend>{{LL('cms::form.page_legend_design', CMSLANG)}}</legend>
+
+								<div class="control-group">
+									{{Form::label('page_template', LL('cms::form.page_template', CMSLANG), array('class' => 'control-label')) . "\n"}}
+									<div class="controls">
+										{{Form::select('page_template', $page_template, $page_template_selected, array('class' => 'span2', 'id' => 'page_template'))}}
+									</div>
+								</div>
+
 								<div class="control-group">
 									{{Form::label('page_header', LL('cms::form.page_header', CMSLANG), array('class' => 'control-label')) . "\n"}}
 									<div class="controls">
@@ -268,7 +280,7 @@
 						{{Form::open(action('cms::ajax_page@save_preview'), 'POST', array('class' => 'form-vertical', 'id' => 'form_preview')) . "\n"}}
 							{{Form::hidden('page_id', $page_id, array('class' => 'page_id')) . "\n"}}
 							<fieldset>
-								<legend>{{LL('cms::form.page_legend_preview', CMSLANG)}}</legend>
+								<legend>{{LL('cms::form.page_legend_abstract', CMSLANG)}}</legend>
 								<div class="control-group">
 									{{Form::label('page_lang', LL('cms::form.page_lang', CMSLANG), array('class' => 'control-label')) . "\n"}}
 									<div class="controls">
@@ -291,9 +303,17 @@
 											{{LL('cms::button.marker_pick', CMSLANG)}}
 										</a>
 									</div>
+									@if(IS('cms::settings.wysiwyg', 'ckeditor'))
 									<div class="controls">
 										{{Form::textarea('page_preview', $page_preview, array('class' => 'span6 editorck', 'id' => 'preview_text', 'rows' => 8))}}
 									</div>
+									@endif
+																		
+									@if(IS('cms::settings.wysiwyg', 'markitup'))
+									<div class="controls">
+										{{Form::textarea('page_preview', $page_preview, array('class' => 'html', 'id' => 'markitup', 'rows' => 8))}}
+									</div>
+									@endif
 								</div>
 								<div class="form-actions">
 									<a href="#" class="btn btn-success save_form" rel="form_preview">

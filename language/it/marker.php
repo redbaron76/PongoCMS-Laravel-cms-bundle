@@ -5,6 +5,7 @@ return array(
 	"back_descr" => "Crea un link \"Torna Indietro\"",
 	"banner_descr" => "Crea un rotator di immagini cliccabili salvate in \"Servizi => Banner\".",
 	"crumb_descr" => "Crea navigazione a \"briciole di pane\" in base alla posizione della pagina corrente.",
+	"disqus_descr" => "Attiva il sistema di commenti DISQUS per questo post.",
 	"downlist_descr" => "Crea una lista download salvata in \"Servizi => Download\".",
 	"gallery_descr" => "Crea una galleria di immagini salvata in \"Servizi => Gallerie\".",
 	"map_descr" => "Crea una nuova Google Map.",

@@ -57,7 +57,7 @@ return array(
 	"page_no_link" => "No link",
 
 	"pages" => "Pages",
-	"blogs" => "Blog",
+	"blogs" => "Blog posts",
 	"products" => "Products",
 
 	//ROLES

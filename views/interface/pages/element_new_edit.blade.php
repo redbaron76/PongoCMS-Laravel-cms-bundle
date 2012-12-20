@@ -17,10 +17,14 @@
 				
 				<ul class="nav nav-tabs">
 					<li class="active"><a href="#element" data-toggle="tab">{{LL('cms::form.element_settings', CMSLANG)}}</a></li>
-					<li><a href="#ckeditor" data-toggle="tab">{{LL('cms::form.element_ckeditor', CMSLANG)}}</a></li>
-					<li><a href="#markit" data-toggle="tab">{{LL('cms::form.element_markitup', CMSLANG)}}</a></li>
+					@if(IS('cms::settings.wysiwyg', 'ckeditor'))
+					<li><a href="#ckeditor" data-toggle="tab">{{LL('cms::form.element_content', CMSLANG)}}</a></li>
+					@endif
+					@if(IS('cms::settings.wysiwyg', 'markitup'))
+					<li><a href="#markit" data-toggle="tab">{{LL('cms::form.element_content', CMSLANG)}}</a></li>
+					@endif
 					<li><a href="#media" data-toggle="tab">{{LL('cms::button.page_media', CMSLANG)}}</a></li>
-					<li><a href="#order" data-toggle="tab">{{LL('cms::form.element_order', CMSLANG)}}</a></li>
+					<li><a href="#order" data-toggle="tab">{{LL('cms::form.element_stack', CMSLANG)}}</a></li>
 				</ul>
 
 			</div>
@@ -41,22 +45,25 @@
 									<div class="controls">
 										{{HTML::span(CONF('cms::settings.langs', LANG), array('class' => 'label label-warning')) . "\n"}}
 									</div>
-								</div>
-								<div class="control-group" rel="element_name">
-									{{Form::label('element_name', LL('cms::form.element_name', CMSLANG), array('class' => 'control-label')) . "\n"}}
-									<div class="controls">
-										{{Form::text('element_name', $element_name, array('class' => 'span4 count20', 'id' => 'element_name'))}}
-									</div>
-								</div>
+								</div>								
 								<div class="control-group" rel="element_label">
 									{{Form::label('element_label', LL('cms::form.element_label', CMSLANG), array('class' => 'control-label')) . "\n"}}
 									<div class="controls">
 										{{Form::text('element_label', $element_label, array('class' => 'span4', 'id' => 'element_label'))}}
 									</div>
 								</div>
+								<div class="control-group" rel="element_name">
+									{{Form::label('element_name', LL('cms::form.element_name', CMSLANG), array('class' => 'control-label')) . "\n"}}
+									<div class="controls">
+										<div class="input-prepend">
+											<span class="add-on">#</span>
+											{{Form::text('element_name', $element_name, array('class' => 'span3', 'id' => 'element_name'))}}
+										</div>
+									</div>
+								</div>
 								<div class="control-group" rel="element_zone">
 									{{Form::label('element_zone', LL('cms::form.element_zone', CMSLANG), array('class' => 'control-label')) . "\n"}}
-									<div class="controls">
+									<div class="controls">										
 										{{Form::select('element_zone', $element_zones, $element_zone_selected, array('id' => 'element_zone')) . "\n"}}
 									</div>
 								</div>
@@ -93,6 +100,7 @@
 					</div>
 
 					<!-- CKEDITOR FORM TAB -->
+					@if(IS('cms::settings.wysiwyg', 'ckeditor'))
 					<div class="tab-pane" id="ckeditor">
 						
 						{{Form::open(action('cms::ajax_page@save_element_text'), 'POST', array('class' => 'form-vertical', 'id' => 'form_ckeditor')) . "\n"}}
@@ -141,8 +149,10 @@
 							</fieldset>
 						{{Form::close()}}
 					</div>
+					@endif
 
 					<!-- MARKITUP FORM TAB -->
+					@if(IS('cms::settings.wysiwyg', 'markitup'))
 					<div class="tab-pane" id="markit">
 						
 						{{Form::open(action('cms::ajax_page@save_element_text'), 'POST', array('class' => 'form-vertical', 'id' => 'form_markitup')) . "\n"}}
@@ -191,6 +201,7 @@
 							</fieldset>
 						{{Form::close()}}
 					</div>
+					@endif
 
 					<!-- MEDIA FORM -->
 					<div class="tab-pane" id="media">
@@ -252,7 +263,7 @@
 					<!-- ORDER TAB -->
 					<div class="tab-pane" id="order">
 						
-						<legend>{{LL('cms::form.element_legend_order', CMSLANG)}}</legend>
+						<legend>{{LL('cms::form.element_legend_stack', CMSLANG)}}</legend>
 
 						<ul class="sortable">
 						@if(!$role_fail)
@@ -261,7 +272,7 @@
 									<li id="{{$page_id}}_{{$element->id}}">
 										<a href="#" class="btn">
 											<i class="icon-resize-vertical"></i>
-											{{$element->name}}
+											{{$element->label}}
 										</a>
 									</li>
 								@endif

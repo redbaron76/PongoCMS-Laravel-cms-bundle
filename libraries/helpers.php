@@ -41,7 +41,7 @@ function LABEL($where, $what) {
 /**
  * Retrieve config array value.
  *
- * @param  array   $config
+ * @param  string   $config
  * @param  string  $key
  * @return string
  */
@@ -52,6 +52,41 @@ function CONF($config, $key)
 	$conf = Config::get($config);
 
 	return $conf[$key];
+}
+
+
+/**
+ * Check config setting
+ *
+ * @param  string   $config
+ * @param  string  $key
+ * @return bool
+ */
+function IS($config, $key)
+{
+	return Config::get($config) === $key ? true : false;
+}
+
+/**
+ * Set is_valid true or false depending on /preview reequest
+ *
+ * @return bool
+ */
+function VALID($base = SLUG_FULL)
+{
+	if($base == SLUG_FIRST) return 1;
+
+	return SLUG_PREVIEW ? 0 : 1;
+}
+
+/**
+ * Get datetime format on locale
+ *
+ * @return string
+ */
+function DATETIME()
+{
+	return CONF('cms::settings.datetime', LANG);
 }
 
 /**
@@ -405,8 +440,15 @@ function dateTime2Db($datetime)
 
 	//re-format date
 	$rsl = explode ('/',$date);
-	$rsl = array_reverse($rsl);
-	$mysql_date = implode($rsl,'-');
+
+	$day 	= (LANG === 'en') ? $rsl[1] : $rsl[0];
+	$month 	= (LANG === 'en') ? $rsl[0] : $rsl[1];
+	$year	= $rsl[2];
+
+	$mysql_date = $year.'-'.$month.'-'.$day;
+
+	/*$rsl = array_reverse($rsl);
+	$mysql_date = implode($rsl,'-');*/
 
 	return $mysql_date . ' ' . $time . ':00';
 
@@ -425,8 +467,15 @@ function date2Db($date)
 	$date = substr($date, 0, 10);
 	//re-format date
 	$rsl = explode ('/',$date);
-	$rsl = array_reverse($rsl);
-	$mysql_date = implode($rsl,'-');
+
+	$day 	= (LANG === 'en') ? $rsl[1] : $rsl[0];
+	$month 	= (LANG === 'en') ? $rsl[0] : $rsl[1];
+	$year	= $rsl[2];
+
+	$mysql_date = $year.'-'.$month.'-'.$day;
+
+	/*$rsl = array_reverse($rsl);
+	$mysql_date = implode($rsl,'-');*/
 
 	return $mysql_date . ' 00:00:00';
 

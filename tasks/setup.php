@@ -6,13 +6,15 @@ class Cms_Setup_Task {
 	public function run($arguments = array())
 	{
 		
+		$env = (!empty($arguments)) ? ' --env='.$arguments[0] : '';
+
 		//COPY CONTROLLERS
 		$controller_path = path('bundle').'cms/controllers/_app_controllers';
 		$app_controller_path = path('app').'controllers';
 		File::cpdir($controller_path, $app_controller_path, false);
 
 		//COPY BUNDLE ASSET
-		$result = shell_exec('php artisan bundle:publish cms');
+		$result = shell_exec('php artisan bundle:publish cms'.$env);
 
 		//COPY THEME ASSETS
 		$asset_path = path('bundle').'cms/views/theme/'.Config::get('cms::settings.theme').'/public';
@@ -76,10 +78,10 @@ class Cms_Setup_Task {
 		if(file_exists($home_file)) unlink($home_file);
 
 		//INSTALL MIGRATION
-		$result = shell_exec('php artisan migrate:install');
+		$result = shell_exec('php artisan migrate:install'.$env);
 
 		//MIGRATE TABLES
-		$result = shell_exec('php artisan migrate cms');
+		$result = shell_exec('php artisan migrate cms'.$env);
 
 		//INSERT DEFAULT DATA
 		$default_data = path('bundle').'cms/default_content';

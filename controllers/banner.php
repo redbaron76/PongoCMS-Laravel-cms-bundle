@@ -52,7 +52,7 @@ class Cms_Banner_Controller extends Cms_Base_Controller {
 
 		//DATETIME PICKER
 		Asset::container('header')->add('jqueryuicss', 'bundles/cms/css/jquery.ui.css', 'main');
-		Asset::container('footer')->add('local', 'bundles/cms/js/i18n/jquery.ui.datepicker-it.js', 'jquery');
+		if(LANG !== 'en') Asset::container('footer')->add('local', 'bundles/cms/js/i18n/jquery.ui.datepicker-'.LANG.'.js', 'jquery');
 		Asset::container('footer')->add('datepicker', 'bundles/cms/js/jquery.datepicker.js', 'local');
 
     	//LOAD JS LIBS
@@ -98,7 +98,7 @@ class Cms_Banner_Controller extends Cms_Base_Controller {
 
 		//DATETIME PICKER
 		Asset::container('header')->add('jqueryuicss', 'bundles/cms/css/jquery.ui.css', 'main');
-		Asset::container('footer')->add('local', 'bundles/cms/js/i18n/jquery.ui.datepicker-it.js', 'jquery');
+		if(LANG !== 'en') Asset::container('footer')->add('local', 'bundles/cms/js/i18n/jquery.ui.datepicker-'.LANG.'.js', 'jquery');
 		Asset::container('footer')->add('datepicker', 'bundles/cms/js/jquery.datepicker.js', 'local');
 
     	//LOAD JS LIBS

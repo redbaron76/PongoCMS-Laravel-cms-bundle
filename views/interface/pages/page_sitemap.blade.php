@@ -4,7 +4,10 @@
 	</div>
 	<div class="span6 toright">
 		@if (!empty($lang))
-		{{Form::select('page_lang', Config::get('cms::settings.langs'), $lang, array('id' => 'change_lang'))}}
+		<div class="input-prepend">
+			<span class="add-on">{{LL('cms::form.page_display', CMSLANG)}}:</span>
+			{{Form::select('page_lang', Config::get('cms::settings.langs'), $lang, array('id' => 'change_lang', 'class' => 'span2'))}}
+		</div>
 		@else
 		&nbsp;
 		@endif
@@ -46,27 +49,32 @@
 				@forelse ($data as $page)
 				<tr class="post">
 					<td>
-						
-						@for ($i=0; $i < substr_count($page->slug, '/') - 1; $i++)
-						<i class="icon-chevron-right right20"></i>
-						@endfor
 
-						<i class="icon-star<?php if($page->is_valid == 0) echo '-empty'; ?>"></i>
-						@if ((bool) $page->is_home)
-						<i class="icon-home"></i>
-						@endif
-						@if ($page->access_level > 0)
-						<i class="icon-lock"></i>
-						@endif
-						@if (empty($page->layout))
-						<i class="icon-exclamation-sign"></i>
+						<?php $margin = ' w-right' . (substr_count($page->slug, '/') -1) * 20; ?>
+
+						@if(strlen($margin) > 9)
+						<div class="sub-page{{$margin}}"></div>
 						@endif
 
-						{{HTML::span($page->name, array('class' => 'pop-over', 'rel' => $page->id, 'data-original-title' => LL('cms::title.popover_title_page', CMSLANG)))}}
-						
-						{{HTML::span(LL('cms::label.url', CMSLANG).$page->slug, array('class' => 'page_url block'))}}
+						<div class="sub-page">
+
+							<i class="icon-star<?php if($page->is_valid == 0) echo '-empty'; ?>"></i>
+							@if ((bool) $page->is_home)
+							<i class="icon-home"></i>
+							@endif
+							@if ($page->access_level > 0)
+							<i class="icon-lock"></i>
+							@endif
+							@if (empty($page->layout))
+							<i class="icon-exclamation-sign"></i>
+							@endif
+
+							{{HTML::span($page->name, array('class' => 'pop-over', 'rel' => $page->id, 'data-original-title' => LL('cms::title.popover_title_page', CMSLANG)))}}
+
+							{{HTML::span(LL('cms::label.url', CMSLANG).$page->slug, array('class' => 'page_url block'))}}
+						</div>
 					</td>
-					<td>
+					<td class="toright">
 						
 						<div class="btn-toolbar">
 							<div class="btn-group">
@@ -94,7 +102,7 @@
 										<li>
 											<a href="{{action('cms::page@edit_element', array($page->id, $element->id))}}">												
 												<i class="icon-star<?php if($element->is_valid == 0) echo '-empty'; ?>"></i>
-												{{$element->name}}
+												{{$element->label}}
 												<span class="badge-mini badge-info">{{strtoupper($element->lang)}}</span>
 											</a>
 										</li>
@@ -128,7 +136,7 @@
 										<li>
 											<a href="#element-delete-{{$page->id}}-{{$element->id}}" data-toggle="modal">
 												<i class="icon-star<?php if($element->is_valid == 0) echo '-empty'; ?>"></i>
-												{{$element->name}}
+												{{$element->label}}
 												<span class="badge-mini badge-info">{{strtoupper($element->lang)}}</span>
 											</a>
 										</li>
@@ -155,7 +163,7 @@
 									<h3>{{LL('cms::form.modal_title_element', CMSLANG)}}</h3>
 								</div>
 								<div class="modal-body">
-									<p>{{$element->name}}</p>
+									<p>{{$element->label}}</p>
 								</div>
 								<div class="modal-footer">
 									<a href="#" class="btn" data-dismiss="modal">{{LL('cms::button.close', CMSLANG)}}</a>

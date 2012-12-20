@@ -26,7 +26,8 @@ return array(
 	"page_design" => "Layout",
 	"page_seo" => "SEO",
 	"page_media" => "Media",
-	"page_preview" => "Preview",
+	"page_abstract" => "Riassunto",
+	"page_preview" => "Anteprima",
 	"save_continue" => "Salva e Continua",
 	"save_exit" => "Salva e Esci",
 	"save" => "Salva",
@@ -70,7 +71,6 @@ return array(
 
 	"new_blog" => "Nuovo Post",
 	"blog_post" => "Post",
-	"blog_preview" => "Preview",
 	"blog_tags" => "Tags",
 	"blog_seo" => "SEO",
 	"blog_media" => "Media",

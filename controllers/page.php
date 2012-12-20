@@ -11,45 +11,10 @@ class Cms_Page_Controller extends Cms_Base_Controller {
 		$this->filter('before', 'cms_no_auth');
 	}
 
-	//LIST ALL PAGES
-    /*public function get_index($lang = LANG)
-    {
-
-    	//LOAD JS LIBS
-		Asset::container('footer')->add('ias', 'bundles/cms/js/jquery.ias.js', 'jquery');
-		Asset::container('footer')->add('pages', 'bundles/cms/js/sections/pages_list.js', 'cms');
-
-		//SET ACTIVE LANG
-		Session::put('LANG', $lang);
-
-		$this->layout->header_data = array(
-			'title' => LL('cms::title.pages', CMSLANG)
-		);
-
-		$this->layout->top_data = array(
-			'search' => '/cms/page/search',
-			'q' => ''
-		);
-
-		//GET PAGE DATA
-		$data = CmsPage::with(array('user','elements'))
-				->where_lang($lang)
-				->order_by('updated_at', 'desc')
-				->order_by('parent_id', 'asc')
-				->order_by('order_id', 'asc')
-				->paginate(Config::get('cms::settings.pag'));
-
-		$this->layout->content = View::make('cms::interface.pages.page_list')
-		->with('data', $data)
-		->with('lang', $lang);
-
-    }*/
-
     //SITEMAP
     public function get_index($lang = LANG)
     {
     	//LOAD JS LIBS
-		//Asset::container('footer')->add('ias', 'bundles/cms/js/jquery.ias.js', 'jquery');
 		Asset::container('footer')->add('pages', 'bundles/cms/js/sections/pages_list.js', 'cms');
 
 		//SET ACTIVE LANG
@@ -98,9 +63,20 @@ class Cms_Page_Controller extends Cms_Base_Controller {
 		Asset::container('footer')->add('slug', 'bundles/cms/js/jquery.stringtoslug.js', 'jquery');
 
 		//CKEDITOR
-		Asset::container('footer')->add('ckeditor', 'bundles/cms/ckeditor/ckeditor.js', 'form');
-		Asset::container('footer')->add('jqadapter', 'bundles/cms/ckeditor/adapters/jquery.js', 'form');
-		Asset::container('footer')->add('ckcms', 'bundles/cms/js/ck.cms.js', 'jqadapter');
+		if(IS('cms::settings.wysiwyg', 'ckeditor')) {
+			Asset::container('footer')->add('ckeditor', 'bundles/cms/ckeditor/ckeditor.js', 'form');
+			Asset::container('footer')->add('jqadapter', 'bundles/cms/ckeditor/adapters/jquery.js', 'form');
+			Asset::container('footer')->add('ckcms', 'bundles/cms/js/ck.cms.js', 'jqadapter');
+		}
+
+		//MARKITUP
+		if(IS('cms::settings.wysiwyg', 'markitup')) {
+			Asset::container('footer')->add('markitup', 'bundles/cms/markitup/jquery.markitup.js', 'form');
+			Asset::container('footer')->add('sethtml', 'bundles/cms/markitup/sets/html/set.js', 'markitup');
+			Asset::container('footer')->add('ckcms', 'bundles/cms/js/ck.cms.js', 'jqadapter');
+			Asset::container('header')->add('csshtml', 'bundles/cms/markitup/sets/html/style.css');
+			Asset::container('header')->add('cssmarkitup', 'bundles/cms/markitup/skins/markitup/style.css');
+		}
 
 		//PLUPLOAD
 		Asset::container('footer')->add('plupload', 'bundles/cms/js/plupload.js', 'jquery');
@@ -150,6 +126,8 @@ class Cms_Page_Controller extends Cms_Base_Controller {
 		->with('page_extra_selected', false)
 		->with('page_is_home', false)
 		->with('page_is_valid', true)
+		->with('page_template', Config::get('cms::theme.template'))
+		->with('page_template_selected', false)
 		->with('page_header', Config::get('cms::theme.header'))
 		->with('page_header_selected', false)
 		->with('page_layout', Config::get('cms::theme.layout'))
@@ -179,9 +157,20 @@ class Cms_Page_Controller extends Cms_Base_Controller {
 		Asset::container('footer')->add('slug', 'bundles/cms/js/jquery.stringtoslug.js', 'jquery');
 
 		//CKEDITOR
-		Asset::container('footer')->add('ckeditor', 'bundles/cms/ckeditor/ckeditor.js', 'form');
-		Asset::container('footer')->add('jqadapter', 'bundles/cms/ckeditor/adapters/jquery.js', 'form');
-		Asset::container('footer')->add('ckcms', 'bundles/cms/js/ck.cms.js', 'jqadapter');
+		if(IS('cms::settings.wysiwyg', 'ckeditor')) {
+			Asset::container('footer')->add('ckeditor', 'bundles/cms/ckeditor/ckeditor.js', 'form');
+			Asset::container('footer')->add('jqadapter', 'bundles/cms/ckeditor/adapters/jquery.js', 'form');
+			Asset::container('footer')->add('ckcms', 'bundles/cms/js/ck.cms.js', 'jqadapter');
+		}
+
+		//MARKITUP
+		if(IS('cms::settings.wysiwyg', 'markitup')) {
+			Asset::container('footer')->add('markitup', 'bundles/cms/markitup/jquery.markitup.js', 'form');
+			Asset::container('footer')->add('sethtml', 'bundles/cms/markitup/sets/html/set.js', 'markitup');
+			Asset::container('footer')->add('ckcms', 'bundles/cms/js/ck.cms.js', 'jqadapter');
+			Asset::container('header')->add('csshtml', 'bundles/cms/markitup/sets/html/style.css');
+			Asset::container('header')->add('cssmarkitup', 'bundles/cms/markitup/skins/markitup/style.css');
+		}
 
 		//PLUPLOAD
 		Asset::container('footer')->add('plupload', 'bundles/cms/js/plupload.js', 'jquery');
@@ -256,6 +245,8 @@ class Cms_Page_Controller extends Cms_Base_Controller {
 				->with('page_extra_selected', $page->extra_id)
 				->with('page_is_home', (bool) $page->is_home)
 				->with('page_is_valid', (bool) $page->is_valid)
+				->with('page_template', Config::get('cms::theme.template'))
+				->with('page_template_selected', $page->template)
 				->with('page_header', Config::get('cms::theme.header'))
 				->with('page_header_selected', $page->header)
 				->with('page_layout', Config::get('cms::theme.layout'))
@@ -352,17 +343,23 @@ class Cms_Page_Controller extends Cms_Base_Controller {
 		//LOAD JS LIBS
 		Asset::container('footer')->add('form', 'bundles/cms/js/jquery.form.js', 'jquery');
 		Asset::container('footer')->add('count', 'bundles/cms/js/jquery.charcount.js', 'jquery');
+		Asset::container('footer')->add('slug', 'bundles/cms/js/jquery.stringtoslug.js', 'jquery');
 
 		//CKEDITOR
-		Asset::container('footer')->add('ckeditor', 'bundles/cms/ckeditor/ckeditor.js', 'form');
-		Asset::container('footer')->add('jqadapter', 'bundles/cms/ckeditor/adapters/jquery.js', 'form');
-		Asset::container('footer')->add('ckcms', 'bundles/cms/js/ck.cms.js', 'jqadapter');
+		if(IS('cms::settings.wysiwyg', 'ckeditor')) {
+			Asset::container('footer')->add('ckeditor', 'bundles/cms/ckeditor/ckeditor.js', 'form');
+			Asset::container('footer')->add('jqadapter', 'bundles/cms/ckeditor/adapters/jquery.js', 'form');
+			Asset::container('footer')->add('ckcms', 'bundles/cms/js/ck.cms.js', 'jqadapter');
+		}
 
 		//MARKITUP
-		Asset::container('footer')->add('markitup', 'bundles/cms/markitup/jquery.markitup.js', 'form');
-		Asset::container('footer')->add('sethtml', 'bundles/cms/markitup/sets/html/set.js', 'markitup');
-		Asset::container('header')->add('csshtml', 'bundles/cms/markitup/sets/html/style.css');
-		Asset::container('header')->add('cssmarkitup', 'bundles/cms/markitup/skins/markitup/style.css');
+		if(IS('cms::settings.wysiwyg', 'markitup')) {
+			Asset::container('footer')->add('markitup', 'bundles/cms/markitup/jquery.markitup.js', 'form');
+			Asset::container('footer')->add('sethtml', 'bundles/cms/markitup/sets/html/set.js', 'markitup');
+			Asset::container('footer')->add('ckcms', 'bundles/cms/js/ck.cms.js', 'jqadapter');
+			Asset::container('header')->add('csshtml', 'bundles/cms/markitup/sets/html/style.css');
+			Asset::container('header')->add('cssmarkitup', 'bundles/cms/markitup/skins/markitup/style.css');
+		}
 
 		//PLUPLOAD
 		Asset::container('footer')->add('plupload', 'bundles/cms/js/plupload.js', 'jquery');
@@ -415,17 +412,22 @@ class Cms_Page_Controller extends Cms_Base_Controller {
 		//LOAD JS LIBS
 		Asset::container('footer')->add('form', 'bundles/cms/js/jquery.form.js', 'jquery');
 		Asset::container('footer')->add('count', 'bundles/cms/js/jquery.charcount.js', 'jquery');
+		Asset::container('footer')->add('slug', 'bundles/cms/js/jquery.stringtoslug.js', 'jquery');
 
 		//CKEDITOR
-		Asset::container('footer')->add('ckeditor', 'bundles/cms/ckeditor/ckeditor.js', 'form');
-		Asset::container('footer')->add('jqadapter', 'bundles/cms/ckeditor/adapters/jquery.js', 'form');
-		Asset::container('footer')->add('ckcms', 'bundles/cms/js/ck.cms.js', 'jqadapter');
+		if(IS('cms::settings.wysiwyg', 'ckeditor')) {
+			Asset::container('footer')->add('ckeditor', 'bundles/cms/ckeditor/ckeditor.js', 'form');
+			Asset::container('footer')->add('jqadapter', 'bundles/cms/ckeditor/adapters/jquery.js', 'form');
+			Asset::container('footer')->add('ckcms', 'bundles/cms/js/ck.cms.js', 'jqadapter');
+		}
 
 		//MARKITUP
-		Asset::container('footer')->add('markitup', 'bundles/cms/markitup/jquery.markitup.js', 'form');
-		Asset::container('footer')->add('sethtml', 'bundles/cms/markitup/sets/html/set.js', 'markitup');
-		Asset::container('header')->add('csshtml', 'bundles/cms/markitup/sets/html/style.css');
-		Asset::container('header')->add('cssmarkitup', 'bundles/cms/markitup/skins/markitup/style.css');
+		if(IS('cms::settings.wysiwyg', 'markitup')) {
+			Asset::container('footer')->add('markitup', 'bundles/cms/markitup/jquery.markitup.js', 'form');
+			Asset::container('footer')->add('sethtml', 'bundles/cms/markitup/sets/html/set.js', 'markitup');
+			Asset::container('header')->add('csshtml', 'bundles/cms/markitup/sets/html/style.css');
+			Asset::container('header')->add('cssmarkitup', 'bundles/cms/markitup/skins/markitup/style.css');
+		}
 
 		//PLUPLOAD
 		Asset::container('footer')->add('plupload', 'bundles/cms/js/plupload.js', 'jquery');

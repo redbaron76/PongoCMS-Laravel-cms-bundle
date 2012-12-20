@@ -130,6 +130,7 @@ class Cms_Ajax_Page_Controller extends Cms_Base_Controller {
         	//IF NEW PAGE, SAVE DEFAULT LAYOUT
 
         	if(empty($input['page_id'])) {
+        		$page->template = 'default';
 	        	$page->header = 'default';
 				$page->layout = 'default';
 				$page->footer = 'default';
@@ -154,6 +155,7 @@ class Cms_Ajax_Page_Controller extends Cms_Base_Controller {
 			$msg = LL('cms::ajax_resp.page_settings_success', CMSLANG)->get();
 
 			$backurl = $input['back_url'];
+			$full_slug = URL::base().$slug;
 
 		} else {
 
@@ -162,6 +164,7 @@ class Cms_Ajax_Page_Controller extends Cms_Base_Controller {
 			$response = 'error';
 			$msg = LL('cms::ajax_resp.page_settings_error', CMSLANG)->get();
 			$backurl = '#';
+			$full_slug = '';
 
 		}
 
@@ -170,6 +173,7 @@ class Cms_Ajax_Page_Controller extends Cms_Base_Controller {
 			'cls' => 'page_id',
 			'id' => $pid,
 			'pageid' => $pid,
+			'full_slug' => $full_slug,
 			'response' => $response,
 			'message' => $msg,
 			'backurl' => $backurl
@@ -203,6 +207,7 @@ class Cms_Ajax_Page_Controller extends Cms_Base_Controller {
 
 			$page->author_id = AUTHORID;
 
+			$page->template = $input['page_template'];
 			$page->header = $input['page_header'];
 			$page->layout = $input['page_layout'];
 			$page->footer = $input['page_footer'];
@@ -644,7 +649,7 @@ class Cms_Ajax_Page_Controller extends Cms_Base_Controller {
 			//VALIDATION CHECK
 
 			$rules = array(
-				'element_name'  => 'required|alpha_dash|max:20|unique_element_page:'.$input['page_id'].','.$input['element_id'].',name',
+				'element_name'  => 'required|alpha_dash|unique_element_page:'.$input['page_id'].','.$input['element_id'].',name',
 				'element_label' => 'required',
 				'element_zone' => 'not_in:0',
 			);

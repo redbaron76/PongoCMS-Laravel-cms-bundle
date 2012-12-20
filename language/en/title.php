@@ -2,6 +2,8 @@
 
 return array(
 	
+	"preview_title" => "PREVIEW => ",
+
 	"loginnow" => "Please, login now",
 	"homepage" => "Home Page",
 	"slogan" => "Content manager",

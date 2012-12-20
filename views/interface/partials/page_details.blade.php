@@ -36,7 +36,7 @@
 <ul>
 @forelse($elements as $element)
 	<li>
-		{{$element->name}}
+		{{$element->label}}
 		<span class="badge-mini badge-info">{{strtoupper($element->zone)}}</span>
 	</li>
 @empty

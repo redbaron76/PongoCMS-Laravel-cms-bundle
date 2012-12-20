@@ -70,6 +70,8 @@ class Cms_Ajax_Blog_Controller extends Cms_Base_Controller {
 
 			$slug = '/'.$input['blog_slug'];
 
+			$parent_slug = (empty($input['blog_parent_slug'])) ? '/' : str_replace ('//', '/', $input['blog_parent_slug']);
+
 			$blog->slug = $slug;
 
 			//SET PERMISSION LIKE PARENT PAGE
@@ -99,6 +101,7 @@ class Cms_Ajax_Blog_Controller extends Cms_Base_Controller {
 			$msg = LL('cms::ajax_resp.blog_post_success', CMSLANG)->get();
 
 			$backurl = $input['back_url'];
+			$full_slug = str_replace ('//', '/', $parent_slug.$slug);
 
 			$pid = $input['blog_parent'];
 
@@ -130,6 +133,7 @@ class Cms_Ajax_Blog_Controller extends Cms_Base_Controller {
 			$response = 'error';
 			$msg = LL('cms::ajax_resp.blog_post_error', CMSLANG)->get();
 			$backurl = '#';
+			$full_slug = '';
 
 		}
 
@@ -138,6 +142,7 @@ class Cms_Ajax_Blog_Controller extends Cms_Base_Controller {
 			'cls' => 'blog_id',
 			'id' => $bid,
 			'pageid' => $pid,
+			'full_slug' => $full_slug,
 			'response' => $response,
 			'message' => $msg,
 			'backurl' => $backurl

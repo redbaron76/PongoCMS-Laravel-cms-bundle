@@ -3,8 +3,11 @@
 		<h2>{{LL('cms::title.blogs', CMSLANG)}}</h2>
 	</div>
 	<div class="span6 toright">		
-		@if (!empty($lang))
-		{{Form::select('blog_lang', Config::get('cms::settings.langs'), $lang, array('id' => 'change_lang'))}}
+		@if (!empty($lang))		
+		<div class="input-prepend">
+			<span class="add-on">{{LL('cms::form.page_display', CMSLANG)}}:</span>
+			{{Form::select('blog_lang', Config::get('cms::settings.langs'), $lang, array('id' => 'change_lang', 'class' => 'span2'))}}
+		</div>
 		@else
 		&nbsp;
 		@endif

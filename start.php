@@ -163,8 +163,13 @@ Validator::register('valid_datetime', function($attribute, $value, $parameters)
 	//match the format of the date
 	if (preg_match("/^(\d{2})\/(\d{2})\/(\d{4}) ([01][0-9]|2[0-3]):([0-5][0-9])$/", $value, $parts))
 	{
+
+		$day 	= LANG === 'en' ? $parts[2] : $parts[1];
+		$month 	= LANG === 'en' ? $parts[1] : $parts[2];
+		$year	= $parts[3];
+
 		//check weather the date is valid of not
-		if(checkdate($parts[2],$parts[1],$parts[3])) {
+		if(checkdate($month, $day, $year)) {
 			return true;
 		} else {
 			return false;

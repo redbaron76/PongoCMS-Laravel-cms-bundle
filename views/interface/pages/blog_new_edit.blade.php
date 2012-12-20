@@ -17,7 +17,7 @@
 				
 				<ul class="nav nav-tabs">
 					<li class="active"><a href="#post" data-toggle="tab">{{LL('cms::button.blog_post', CMSLANG)}}</a></li>
-					<li><a href="#preview" data-toggle="tab">{{LL('cms::button.blog_preview', CMSLANG)}}</a></li>
+					<li><a href="#preview" data-toggle="tab">{{LL('cms::button.page_abstract', CMSLANG)}}</a></li>
 					<li><a href="#seo" data-toggle="tab">{{LL('cms::button.blog_seo', CMSLANG)}}</a></li>
 					<li><a href="#tags" data-toggle="tab">{{LL('cms::button.blog_tags', CMSLANG)}}</a></li>
 					<li><a href="#media" data-toggle="tab">{{LL('cms::button.blog_media', CMSLANG)}}</a></li>
@@ -62,12 +62,7 @@
 										</div>
 									</div>
 								</div>								
-								<div class="control-group" rel="blog_parent">
-									{{Form::label('blog_parent', LL('cms::form.blog_parent', CMSLANG), array('class' => 'control-label')) . "\n"}}
-									<div class="controls">
-										{{Form::select('blog_parent', $blog_parent, $blog_parent_selected, array('id' => 'blog_parent', 'class' => 'span7')) . "\n"}}
-									</div>
-								</div>
+								
 								<div class="control-group" rel="blog_name">
 									{{Form::label('blog_name', LL('cms::form.blog_name', CMSLANG), array('class' => 'control-label')) . "\n"}}
 									<div class="controls">
@@ -81,15 +76,11 @@
 											<span class="add-on" rel="blog_slug">{{$blog_parent_slug}}</span>
 											<?php $span = (strlen($blog_parent_slug) > 5) ? 'span5' : 'span7';   ?>
 											{{Form::text('blog_slug', $blog_slug, array('class' => $span, 'id' => 'blog_slug')) . "\n"}}
+											{{Form::hidden('blog_parent_slug', $blog_parent_slug, array('id' => 'blog_parent_slug')) . "\n"}}
 										</div>
 									</div>
 								</div>
-								<div class="control-group" rel="blog_zone">
-									{{Form::label('blog_zone', LL('cms::form.element_zone', CMSLANG), array('class' => 'control-label')) . "\n"}}
-									<div class="controls">
-										{{Form::select('blog_zone', $blog_zones, $blog_zone_selected, array('id' => 'blog_zone')) . "\n"}}
-									</div>
-								</div>
+								<br>
 								<div class="control-group relative">
 									{{Form::label('blog_text', LL('cms::form.blog_text', CMSLANG), array('class' => 'control-label')) . "\n"}}
 									<div class="controls text-btn">
@@ -106,12 +97,37 @@
 											{{LL('cms::button.marker_pick', CMSLANG)}}
 										</a>
 									</div>
+									@if(IS('cms::settings.wysiwyg', 'ckeditor'))
 									<div class="controls">
 										{{Form::textarea('blog_text', $blog_text, array('class' => 'span6 editorck', 'id' => 'blog_text', 'rows' => 8))}}
+									</div>
+									@endif
+									
+									@if(IS('cms::settings.wysiwyg', 'markitup'))
+									<div class="controls">
+										{{Form::textarea('blog_text', $blog_text, array('class' => 'html', 'id' => 'markitup', 'rows' => 8))}}
+									</div>
+									@endif
+								</div>
+								<br>
+								<div class="control-group" rel="blog_parent">
+									{{Form::label('blog_parent', LL('cms::form.blog_parent', CMSLANG), array('class' => 'control-label')) . "\n"}}
+									<div class="controls">
+										{{Form::select('blog_parent', $blog_parent, $blog_parent_selected, array('id' => 'blog_parent', 'class' => 'span7')) . "\n"}}
+									</div>
+								</div>
+								<div class="control-group" rel="blog_zone">
+									{{Form::label('blog_zone', LL('cms::form.element_zone', CMSLANG), array('class' => 'control-label')) . "\n"}}
+									<div class="controls">
+										{{Form::select('blog_zone', $blog_zones, $blog_zone_selected, array('id' => 'blog_zone')) . "\n"}}
 									</div>
 								</div>
 								<div class="control-group">
 									<div class="controls">
+
+										<?php $url_preview = URL::base().$blog_parent_slug.$blog_slug.'/preview' ?>
+
+										<a href="{{$url_preview}}" class="btn btn-mini span1 preview" target="_blank">{{LL('cms::button.page_preview', CMSLANG)}}</a>
 										<label class="checkbox">
 											{{Form::checkbox('is_valid', 1, $blog_is_valid, array('id' => 'blog_is_valid'))}}
 											{{LL('cms::form.blog_is_valid', CMSLANG)}}
@@ -144,7 +160,7 @@
 							{{Form::hidden('blog_id', $blog_id, array('class' => 'blog_id')) . "\n"}}
 							{{Form::hidden('page_id', $page_id, array('class' => 'page_id')) . "\n"}}
 							<fieldset>
-								<legend>{{LL('cms::form.blog_legend_preview', CMSLANG)}}</legend>
+								<legend>{{LL('cms::form.blog_legend_abstract', CMSLANG)}}</legend>
 								<div class="control-group">
 									{{Form::label('blog_lang', LL('cms::form.page_lang', CMSLANG), array('class' => 'control-label')) . "\n"}}
 									<div class="controls">
@@ -167,9 +183,17 @@
 											{{LL('cms::button.marker_pick', CMSLANG)}}
 										</a>
 									</div>
+									@if(IS('cms::settings.wysiwyg', 'ckeditor'))
 									<div class="controls">
 										{{Form::textarea('blog_preview', $blog_preview, array('class' => 'span6 editorck', 'id' => 'blog_preview', 'rows' => 8))}}
 									</div>
+									@endif
+																		
+									@if(IS('cms::settings.wysiwyg', 'markitup'))
+									<div class="controls">
+										{{Form::textarea('blog_preview', $blog_preview, array('class' => 'html', 'id' => 'markitup', 'rows' => 8))}}
+									</div>
+									@endif
 								</div>
 								<div class="form-actions">
 									<a href="#" class="btn btn-success save_form" rel="form_preview">

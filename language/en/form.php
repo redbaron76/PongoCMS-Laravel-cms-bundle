@@ -10,6 +10,7 @@ return array(
 
 	"page_legend_settings" => "Page settings",	
 	"page_lang" => "Input language",
+	"page_display" => "Display in",
 	"page_name" => "Page name",
 	"page_is_menu" => "Menu item?",
 	"page_parent" => "Page parent",
@@ -26,6 +27,7 @@ return array(
 	//NEW - EDIT PAGE - DESIGN
 
 	"page_legend_design" => "Page layout",
+	"page_template" => "Page template",
 	"page_header" => "Page header",
 	"page_layout" => "Page layout",
 	"page_footer" => "Page footer",	
@@ -44,7 +46,7 @@ return array(
 
 	//NEW - EDIT PAGE - PREVIEW
 	"page_preview" => "Preview content",
-	"page_legend_preview" => "Page preview",
+	"page_legend_abstract" => "Page abstract",
 
 	//NEW - EDIT PAGE - ORDER
 	"page_legend_order_submenu" => "Submenu view order",
@@ -54,14 +56,18 @@ return array(
 	//NEW - EDIT ELEMENT
 
 	"element_settings" => "Settings",
+	"element_content"  => "Content",
 	"element_ckeditor" => "CKEditor",
 	"element_markitup" => "MarkItUp",
 	"element_settings_legend" => "Element settings",
 	"element_ckeditor_legend" => "Element content",
 	"element_markitup_legend" => "Element HTML",
 	"element_order" => "Elements order",
+	"element_stack" => "Elements stack",
 	"page_relation" => "Pages relationship",
+	"subpage_order" => "Subpage order",
 	"element_legend_order" => "Elements view order",
+	"element_legend_stack" => "Elements stack",
 
 	"element_name" => "Element ID",
 	"element_label" => "Element label",
@@ -205,8 +211,8 @@ return array(
 	"blog_parent" => "Linked to page",
 	"blog_slug" => "Post short url",
 	"blog_text" => "Post content",
-	"blog_preview" => "Preview content",
-	"blog_legend_preview" => "Post preview",
+	"blog_preview" => "Abstract content",
+	"blog_legend_abstract" => "Post abstract",
 	"blog_legend_seo" => "SEO post",
 	"blog_title" => "Post title",
 	"blog_descr" => "Post description",

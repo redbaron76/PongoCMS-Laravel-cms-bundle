@@ -165,15 +165,30 @@ class CmsUtility {
 			$tmp_url = str_replace('/' . $segments[1], '', $tmp_url);
 
 		}
+		
+		// CHECK PREVIEW REQUEST
+		$is_preview = false;
+
+		if('/'.end($segments) === '/preview') {
+
+			$is_preview = true;
+
+			$remove_preview = array_pop($segments);
+
+			//REMOVE PREVIEW FROM TMP_URL
+			$tmp_url = str_replace('/preview', '', $tmp_url);
+
+		}
 
 		$last_segment = '/' . end($segments);
 
-		$first_segment = '/' . str_replace($last_segment, '', $tmp_url);
+		$first_segment = '/' . str_replace($last_segment, '', $tmp_url);		
 
 		$slugs = array(
 			'first' => str_replace('//', '/', $first_segment),
 			'last' => str_replace('//', '/', $last_segment),
-			'full' => str_replace('//', '/', $first_segment . $last_segment)
+			'full' => str_replace('//', '/', $first_segment . $last_segment),
+			'preview' => $is_preview
 		);
 
 		if(array_key_exists($key, $slugs)) {

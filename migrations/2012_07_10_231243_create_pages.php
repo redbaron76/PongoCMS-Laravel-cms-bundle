@@ -22,6 +22,7 @@ class Cms_Create_Pages {
 			$table->string('title', 255);
 			$table->text('keyw')->nullable();
 			$table->text('descr')->nullable();
+			$table->string('template', 100);
 			$table->string('header', 100);
 			$table->string('layout', 100);
 			$table->string('footer', 100);

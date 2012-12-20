@@ -47,11 +47,13 @@ Route::filter('init', function()
 	//LOAD SEGMENTS
 	$segment = CmsUtility::url_segments();
 
-	//SEGMENTS SLUG CONSTANT
+	//SEGMENTS SLUG CONSTANT	
 	define('SLUG_FULL', $segment['full']);
 	define('SLUG_FIRST', $segment['first']);
 	define('SLUG_LAST', $segment['last']);
 	define('SLUG_BACK', $segment['first']);
+	// BOOLEAN
+	define('SLUG_PREVIEW', $segment['preview']);
 
 	//GLOBAL CONSTANT
 	define('SITE_URL', Config::get('application.url'));
@@ -64,36 +66,9 @@ Route::filter('init', function()
 	define('SITE_HOMEPAGE', CmsUtility::home_page());
 
 	define('THEME', Config::get('cms::settings.theme'));
-	define('TEMPLATE', Config::get('cms::theme.template'));
+	// define('TEMPLATE', Config::get('cms::theme.template'));
 
 });
-
-
-//APPLICATION COMPOSER
-
-View::composer('cms::theme.'.Config::get('cms::settings.theme').'.templates.'.Config::get('cms::theme.template'), function($view)
-{
-	CmsRender::asset();
-
-	//BASE JS
-	Asset::container('header')->add('base_js', Config::get('application.url').'/site/js');
-
-	if(!isset($view->title)) $view->title = Config::get('cms::theme.title');
-
-	if(!isset($view->descr)) $view->descr = Config::get('cms::theme.descr');
-
-	if(!isset($view->keyw)) $view->keyw = Config::get('cms::theme.keyw');
-
-	if(!isset($view->header)) $view->header = '';
-
-	if(!isset($view->layout)) $view->layout = '';
-
-	if(!isset($view->footer)) $view->footer = '';
-	
-});
-
-
-
 
 
 

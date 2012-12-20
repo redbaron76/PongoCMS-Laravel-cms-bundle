@@ -12,10 +12,12 @@ $(function() {
 	$.cms.count20();
 	
 	//ENABLE CKEDITOR
-	$.ck.CKEditor();
+	if(WYSIWYG === 'ckeditor')
+		$.ck.CKEditor();
 
 	//ENABLE MARKITUP
-	$.ck.MarkItUp();
+	if(WYSIWYG === 'markitup')
+		$.ck.MarkItUp();
 
 	//SAVE AND CONTINUE
 	$.cms.saveContinue();

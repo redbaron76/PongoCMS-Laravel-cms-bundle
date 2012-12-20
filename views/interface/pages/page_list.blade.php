@@ -88,7 +88,7 @@
 										<li>
 											<a href="{{action('cms::page@edit_element', array($page->id, $element->id))}}">												
 												<i class="icon-star<?php if($element->is_valid == 0) echo '-empty'; ?>"></i>
-												{{$element->name}}
+												{{$element->label}}
 												<span class="badge-mini badge-info">{{strtoupper($element->zone)}}</span>
 											</a>
 										</li>
@@ -122,7 +122,7 @@
 										<li>
 											<a href="#element-delete-{{$page->id}}-{{$element->id}}" data-toggle="modal">
 												<i class="icon-star<?php if($element->is_valid == 0) echo '-empty'; ?>"></i>
-												{{$element->name}}
+												{{$element->label}}
 												<span class="badge-mini badge-info">{{strtoupper($element->zone)}}</span>
 											</a>
 										</li>
@@ -149,7 +149,7 @@
 									<h3>{{LL('cms::form.modal_title_element', CMSLANG)}}</h3>
 								</div>
 								<div class="modal-body">
-									<p>{{$element->name}}</p>
+									<p>{{$element->label}}</p>
 								</div>
 								<div class="modal-footer">
 									<a href="#" class="btn" data-dismiss="modal">{{LL('cms::button.close', CMSLANG)}}</a>

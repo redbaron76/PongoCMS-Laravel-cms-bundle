@@ -178,7 +178,7 @@ class Marker {
 					return CmsBanner::with(array(
 						'files' => function($query) {
 						
-							$query->where('files_banners.date_off', '>=', dateTime2Db(date('Y-m-d H:i:s')));
+							$query->where('files_banners.date_off', '>=', date('Y-m-d H:i:s'));
 
 						},
 						'files.filetexts' => function($query) {
@@ -191,7 +191,7 @@ class Marker {
 				$list = CmsBanner::with(array(
 					'files' => function($query) {
 						
-						$query->where('files_banners.date_off', '>=', dateTime2Db(date('Y-m-d H:i:s')));
+						$query->where('files_banners.date_off', '>=', date('Y-m-d H:i:s'));
 
 					},
 					'files.filetexts' => function($query) {
@@ -463,6 +463,45 @@ class Marker {
 		$view['separator'] 	= $_separator;
 		$view['first'] 		= $_first;
 		$view['last'] 		= $_last;
+		$view['options'] 	= HTML::attributes($options);
+
+		return $view;
+
+	}
+
+
+	/**
+    * DISQUS Marker - Show DISQUS snippet
+	*
+	* [$DISQUS[{
+	*	"class":"<class>",		=> OPTIONAL (class of disqus wrapper <div>)
+	*	"tpl":"<tpl_name>"		=> OPTIONAL (in /partials/markers)
+	* }]]
+    *
+    * @param  array
+    * @return string
+    */
+	public static function DISQUS($vars = array())
+	{
+
+		//Get variables from array $vars
+		if( ! empty($vars)) extract($vars);
+
+		//Bind variables
+
+		$_class = null;
+		if(isset($class) and !empty($class)) $_class = $class;
+
+		$_tpl = 'disqus';
+		if(isset($tpl) and !empty($tpl)) $_tpl = $tpl;
+
+		Asset::container('footer')->add('disqus', 'bundles/cms/js/disqus.comment_count.js');
+
+		$options = array(
+			'class' => $_class,
+		);
+
+		$view = View::make('cms::theme.'.THEME.'.partials.markers.'.$_tpl);
 		$view['options'] 	= HTML::attributes($options);
 
 		return $view;
@@ -1674,7 +1713,7 @@ class Marker {
 		if(!empty($_what)) {
 
 			//LOAD ADDTHIS LIBS
-			Asset::container('header')->add('addthis', 'http://s7.addthis.com/js/250/addthis_widget.js', 'jquery');
+			Asset::container('header')->add('addthis', 'http://s7.addthis.com/js/300/addthis_widget.js#pubid=ra-50d155e0673e5c43', 'jquery');
 			
 			$services = explode("-", $_what);
 
@@ -1901,13 +1940,13 @@ class Marker {
 			//CACHE DATA
 			if(CACHE) {
 				$trans = Cache::remember('trans_'.md5($_key).'_'.$_to, function() use ($_key, $_to) {
-					return CmsTranslation::where_lang_from(Config::get('cms::settings.language'))
+					return CmsTranslation::where_lang_from(LANG)
 											->where_lang_to($_to)
 											->where_word($_key)
 											->first();
 				}, 1440);
 			} else {
-				$trans = CmsTranslation::where_lang_from(Config::get('cms::settings.language'))
+				$trans = CmsTranslation::where_lang_from(LANG)
 											->where_lang_to($_to)
 											->where_word($_key)
 											->first();

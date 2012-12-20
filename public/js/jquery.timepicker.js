@@ -30,19 +30,19 @@ $.extend($.ui, { timepicker: { version: "0.9.9" } });
 function Timepicker() {
 	this.regional = []; // Available regional settings, indexed by language code
 	this.regional[''] = { // Default regional settings
-		currentText: 'Adesso',
-		closeText: 'Chiudi',
+		currentText: 'Now',
+		closeText: 'Close',
 		ampm: false,
 		amNames: ['AM', 'A'],
 		pmNames: ['PM', 'P'],
 		timeFormat: 'hh:mm tt',
 		timeSuffix: '',
 		timeOnlyTitle: 'Choose Time',
-		timeText: 'Ora',
-		hourText: 'Ore',
-		minuteText: 'Minuti',
-		secondText: 'Secondi',
-		millisecText: 'Millisecondi',
+		timeText: 'Hour',
+		hourText: 'Hours',
+		minuteText: 'Minutes',
+		secondText: 'Seconds',
+		millisecText: 'Milliseconds',
 		timezoneText: 'Time Zone'
 	};
 	this._defaults = { // Global defaults for all the datetime picker instances

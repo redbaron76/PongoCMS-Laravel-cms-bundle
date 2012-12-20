@@ -54,26 +54,29 @@ class CmsPage extends Eloquent {
 	public function blogs_preview()
 	{
 		return $this->has_many_and_belongs_to('CmsBlog', 'blogs_pages')
-		->where('blogs.datetime_off', '>=', dateTime2Db(date('Y-m-d H:i:s')))
-		->group_by('blogs_pages.cmsblog_id')
+		->where('blogs.datetime_off', '>=', date('Y-m-d H:i:s'))
+		// LARAVEL BUG
+		// ->group_by('blogs_pages.cmsblog_id')
 		->order_by('blogs.datetime_on', 'desc');
 	}
 
 	public function blogs_preview_past()
 	{
 		return $this->has_many_and_belongs_to('CmsBlog', 'blogs_pages')
-		->where('blogs.datetime_on', '<', dateTime2Db(date('Y-m-d H:i:s')))
-		->where('blogs.datetime_off', '>=', dateTime2Db(date('Y-m-d H:i:s')))
-		->group_by('blogs_pages.cmsblog_id')
+		->where('blogs.datetime_on', '<', date('Y-m-d H:i:s'))
+		->where('blogs.datetime_off', '>=', date('Y-m-d H:i:s'))
+		// LARAVEL BUG
+		// ->group_by('blogs_pages.cmsblog_id')
 		->order_by('blogs.datetime_on', 'desc');
 	}
 
 	public function blogs_preview_future()
 	{
 		return $this->has_many_and_belongs_to('CmsBlog', 'blogs_pages')
-		->where('blogs.datetime_on', '>=', dateTime2Db(date('Y-m-d H:i:s')))
-		->where('blogs.datetime_off', '>=', dateTime2Db(date('Y-m-d H:i:s')))
-		->group_by('blogs_pages.cmsblog_id')
+		->where('blogs.datetime_on', '>=', date('Y-m-d H:i:s'))
+		->where('blogs.datetime_off', '>=', date('Y-m-d H:i:s'))
+		// LARAVEL BUG
+		// ->group_by('blogs_pages.cmsblog_id')
 		->order_by('blogs.datetime_on', 'asc');
 	}
 
@@ -211,7 +214,7 @@ class CmsPage extends Eloquent {
 		$select = array('', LL('cms::form.page_select', CMSLANG));
 
 		foreach ($langs as $key => $value) {
-			if($key != Config::get('cms::settings.language')) $select[$key] = $value;
+			if($key != LANG) $select[$key] = $value;
 		}
 
 		return $select;

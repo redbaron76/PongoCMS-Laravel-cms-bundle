@@ -48,6 +48,20 @@
 
 		<tr>
 			<td>
+				<strong>$DISQUS</strong>
+			</td>
+			<td>
+				{{LL('cms::marker.disqus_descr', CMSLANG)}}
+			</td>
+			<td class="toright">
+				<a href="#" class="btn btn-primary as_text" data-tag="DISQUS">
+					{{LL('cms::button.insert', CMSLANG)}}
+				</a>
+			</td>
+		</tr>
+
+		<tr>
+			<td>
 				<strong>$DOWNLIST</strong>
 			</td>
 			<td>

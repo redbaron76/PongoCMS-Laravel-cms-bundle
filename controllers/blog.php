@@ -56,9 +56,20 @@ class Cms_Blog_Controller extends Cms_Base_Controller {
 		Asset::container('footer')->add('slug', 'bundles/cms/js/jquery.stringtoslug.js', 'jquery');
 
 		//CKEDITOR
-		Asset::container('footer')->add('ckeditor', 'bundles/cms/ckeditor/ckeditor.js', 'form');
-		Asset::container('footer')->add('jqadapter', 'bundles/cms/ckeditor/adapters/jquery.js', 'form');
-		Asset::container('footer')->add('ckcms', 'bundles/cms/js/ck.cms.js', 'jqadapter');
+		if(IS('cms::settings.wysiwyg', 'ckeditor')) {
+			Asset::container('footer')->add('ckeditor', 'bundles/cms/ckeditor/ckeditor.js', 'form');
+			Asset::container('footer')->add('jqadapter', 'bundles/cms/ckeditor/adapters/jquery.js', 'form');
+			Asset::container('footer')->add('ckcms', 'bundles/cms/js/ck.cms.js', 'jqadapter');
+		}
+
+		//MARKITUP
+		if(IS('cms::settings.wysiwyg', 'markitup')) {
+			Asset::container('footer')->add('markitup', 'bundles/cms/markitup/jquery.markitup.js', 'form');
+			Asset::container('footer')->add('sethtml', 'bundles/cms/markitup/sets/html/set.js', 'markitup');
+			Asset::container('footer')->add('ckcms', 'bundles/cms/js/ck.cms.js', 'jqadapter');
+			Asset::container('header')->add('csshtml', 'bundles/cms/markitup/sets/html/style.css');
+			Asset::container('header')->add('cssmarkitup', 'bundles/cms/markitup/skins/markitup/style.css');
+		}
 
 		//PLUPLOAD
 		Asset::container('footer')->add('plupload', 'bundles/cms/js/plupload.js', 'jquery');
@@ -75,7 +86,7 @@ class Cms_Blog_Controller extends Cms_Base_Controller {
 
 		//DATETIME PICKER
 		Asset::container('header')->add('jqueryuicss', 'bundles/cms/css/jquery.ui.css', 'main');
-		Asset::container('footer')->add('local', 'bundles/cms/js/i18n/jquery.ui.datepicker-it.js', 'jquery');
+		if(LANG !== 'en') Asset::container('footer')->add('local', 'bundles/cms/js/i18n/jquery.ui.datepicker-'.LANG.'.js', 'jquery');
 		Asset::container('footer')->add('datepicker', 'bundles/cms/js/jquery.datepicker.js', 'local');		
 		Asset::container('footer')->add('timepicker', 'bundles/cms/js/jquery.timepicker.js', 'datepicker');
 
@@ -146,10 +157,23 @@ class Cms_Blog_Controller extends Cms_Base_Controller {
 		Asset::container('footer')->add('elastic', 'bundles/cms/js/jquery.elastic.js', 'jquery');
 		Asset::container('footer')->add('slug', 'bundles/cms/js/jquery.stringtoslug.js', 'jquery');
 
-		//CKEDITOR
-		Asset::container('footer')->add('ckeditor', 'bundles/cms/ckeditor/ckeditor.js', 'form');
-		Asset::container('footer')->add('jqadapter', 'bundles/cms/ckeditor/adapters/jquery.js', 'form');
 		Asset::container('footer')->add('ckcms', 'bundles/cms/js/ck.cms.js', 'jqadapter');
+
+		//CKEDITOR
+		if(IS('cms::settings.wysiwyg', 'ckeditor')) {
+			Asset::container('footer')->add('ckeditor', 'bundles/cms/ckeditor/ckeditor.js', 'form');
+			Asset::container('footer')->add('jqadapter', 'bundles/cms/ckeditor/adapters/jquery.js', 'form');
+			Asset::container('footer')->add('ckcms', 'bundles/cms/js/ck.cms.js', 'jqadapter');
+		}
+
+		//MARKITUP
+		if(IS('cms::settings.wysiwyg', 'markitup')) {
+			Asset::container('footer')->add('markitup', 'bundles/cms/markitup/jquery.markitup.js', 'form');
+			Asset::container('footer')->add('sethtml', 'bundles/cms/markitup/sets/html/set.js', 'markitup');
+			Asset::container('footer')->add('ckcms', 'bundles/cms/js/ck.cms.js', 'jqadapter');
+			Asset::container('header')->add('csshtml', 'bundles/cms/markitup/sets/html/style.css');
+			Asset::container('header')->add('cssmarkitup', 'bundles/cms/markitup/skins/markitup/style.css');
+		}
 
 		//PLUPLOAD
 		Asset::container('footer')->add('plupload', 'bundles/cms/js/plupload.js', 'jquery');
@@ -166,7 +190,7 @@ class Cms_Blog_Controller extends Cms_Base_Controller {
 
 		//DATETIME PICKER
 		Asset::container('header')->add('jqueryuicss', 'bundles/cms/css/jquery.ui.css', 'main');
-		Asset::container('footer')->add('local', 'bundles/cms/js/i18n/jquery.ui.datepicker-it.js', 'jquery');
+		if(LANG !== 'en') Asset::container('footer')->add('local', 'bundles/cms/js/i18n/jquery.ui.datepicker-'.LANG.'.js', 'jquery');
 		Asset::container('footer')->add('datepicker', 'bundles/cms/js/jquery.datepicker.js', 'local');		
 		Asset::container('footer')->add('timepicker', 'bundles/cms/js/jquery.timepicker.js', 'datepicker');
 

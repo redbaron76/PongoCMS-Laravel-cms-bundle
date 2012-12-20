@@ -146,9 +146,9 @@ INSERT INTO "pongo_blogs_pages" VALUES(1,1,5,1,'2012-07-15 10:28:45','2012-07-15
 INSERT INTO "pongo_blogs_pages" VALUES(2,2,5,1,'2012-07-15 10:32:33','2012-07-15 10:32:33');
 INSERT INTO "pongo_blogs_pages" VALUES(3,3,5,1,'2012-07-15 10:34:17','2012-07-15 10:34:17');
 
-INSERT INTO "pongo_pages" VALUES(1,0,1,50,1,'/home','Home','','A multilingual PHP CMS','','','default','home','default',0,0,1000000,'en',1,1,'2012-07-09 19:27:04','2012-07-10 19:15:26');
-INSERT INTO "pongo_pages" VALUES(2,0,1,50,1,'/about-us','About us','','About this PHP CMS','','','default','home','default',0,0,1000000,'en',0,1,'2012-07-10 15:00:38','2012-07-10 19:15:42');
-INSERT INTO "pongo_pages" VALUES(3,0,1,50,1,'/home','Home','','Un CMS in PHP per gestire siti multilingua','','','default','home','default',0,0,1000000,'it',1,1,'2012-07-10 15:12:36','2012-07-10 19:13:30');
-INSERT INTO "pongo_pages" VALUES(4,0,1,50,1,'/chi-siamo','Chi siamo','','Notizie su questo CMS in PHP','','','default','home','default',0,0,1000000,'it',0,1,'2012-07-10 18:48:18','2012-07-10 19:14:03');
-INSERT INTO "pongo_pages" VALUES(5,0,1,50,1,'/blog','Blog',NULL,'PongoCMS Blog','','','default','default','default',0,1,1000000,'en',0,1,'2012-07-15 09:46:28','2012-07-15 09:47:09');
+INSERT INTO "pongo_pages" VALUES(1,0,1,50,1,'/home','Home','','A multilingual PHP CMS','','','default','default','home','default',0,0,1000000,'en',1,1,'2012-07-09 19:27:04','2012-07-10 19:15:26');
+INSERT INTO "pongo_pages" VALUES(2,0,1,50,1,'/about-us','About us','','About this PHP CMS','','','default','default','home','default',0,0,1000000,'en',0,1,'2012-07-10 15:00:38','2012-07-10 19:15:42');
+INSERT INTO "pongo_pages" VALUES(3,0,1,50,1,'/home','Home','','Un CMS in PHP per gestire siti multilingua','','','default','default','home','default',0,0,1000000,'it',1,1,'2012-07-10 15:12:36','2012-07-10 19:13:30');
+INSERT INTO "pongo_pages" VALUES(4,0,1,50,1,'/chi-siamo','Chi siamo','','Notizie su questo CMS in PHP','','','default','default','home','default',0,0,1000000,'it',0,1,'2012-07-10 18:48:18','2012-07-10 19:14:03');
+INSERT INTO "pongo_pages" VALUES(5,0,1,50,1,'/blog','Blog',NULL,'PongoCMS Blog','','','default','default','default','default',0,1,1000000,'en',0,1,'2012-07-15 09:46:28','2012-07-15 09:47:09');
 

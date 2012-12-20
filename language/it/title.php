@@ -2,6 +2,8 @@
 
 return array(
 	
+	"preview_title" => "ANTEPRIMA => ",
+
 	"loginnow" => "Esegui il login",
 	"homepage" => "Home Page",
 	"slogan" => "Gestore dei contenuti",

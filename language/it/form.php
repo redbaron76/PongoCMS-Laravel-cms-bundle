@@ -10,6 +10,7 @@ return array(
 
 	"page_legend_settings" => "Impostazioni di pagina",	
 	"page_lang" => "Lingua di inserimento",
+	"page_display" => "Mostra in",
 	"page_name" => "Nome della pagina",
 	"page_is_menu" => "Voce di menu?",
 	"page_parent" => "Categoria padre",
@@ -26,6 +27,7 @@ return array(
 	//NEW - EDIT PAGE - DESIGN
 
 	"page_legend_design" => "Layout della pagina",
+	"page_template" => "Template pagina",
 	"page_header" => "Header pagina",
 	"page_layout" => "Layout pagina",
 	"page_footer" => "Footer pagina",	
@@ -44,7 +46,7 @@ return array(
 
 	//NEW - EDIT PAGE - PREVIEW
 	"page_preview" => "Contenuto della preview",
-	"page_legend_preview" => "Preview della pagina",
+	"page_legend_abstract" => "Riassunto della pagina",
 
 	//NEW - EDIT PAGE - ORDER
 	"page_legend_order_submenu" => "Ordine di visualizzazione dei sottomenu",
@@ -54,14 +56,18 @@ return array(
 	//NEW - EDIT ELEMENT
 
 	"element_settings" => "Impostazioni",
+	"element_content"  => "Contenuto",
 	"element_ckeditor" => "CKEditor",
 	"element_markitup" => "MarkItUp",
 	"element_settings_legend" => "Impostazioni dell'elemento",
 	"element_ckeditor_legend" => "Contenuti dell'elemento",
 	"element_markitup_legend" => "HTML dell'elemento",
 	"element_order" => "Ordine elementi",
+	"element_stack" => "Sequenza elementi",
 	"page_relation" => "Relazione pagine",
+	"subpage_order" => "Ordine sottopagine",
 	"element_legend_order" => "Ordine di visualizzazione degli elementi",
+	"element_legend_stack" => "Ordine di apparizione degli elementi",
 
 	"element_name" => "ID dell'elemento",
 	"element_label" => "Etichetta dell'elemento",
@@ -205,8 +211,8 @@ return array(
 	"blog_parent" => "Associato alla pagina",
 	"blog_slug" => "URL breve del post",
 	"blog_text" => "Contenuto del post",
-	"blog_preview" => "Contenuto della preview",
-	"blog_legend_preview" => "Preview del post",
+	"blog_preview" => "Contenuto del riassunto",
+	"blog_legend_abstract" => "Riassunto del post",
 	"blog_legend_seo" => "Ottimizzazione del post",
 	"blog_title" => "Titolo del post",
 	"blog_descr" => "Descrizione del post",

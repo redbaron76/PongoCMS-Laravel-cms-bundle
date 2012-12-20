@@ -43,10 +43,9 @@ class CmsRender {
 
 				$query->where_is_valid(1);
 
-			}))
-					->where_slug($base)
-					->where_is_valid(1)
-					->get();
+		}))	->where_slug($base)
+			->where_is_valid(VALID($base))
+			->get();
 
 		if(!empty($pages)) {
 
@@ -89,7 +88,7 @@ class CmsRender {
 	public static function page()
 	{
 
-		//Cerco pagina con lang = SITE_LANG e is_homepage = 1
+		// Page with lang = SITE_LANG and is_homepage = 1
 
 		if(SLUG_FULL == '/') {		// HOMEPAGE
 
@@ -99,7 +98,7 @@ class CmsRender {
 
 			}))
 					->where_lang(SITE_LANG)
-					->where_is_valid(1)
+					->where_is_valid(VALID())
 					->first();
 
 			if(empty($page)) {
@@ -108,11 +107,11 @@ class CmsRender {
 				
 			}
 
-		//Cerco altre pagine con lang = SITE_LANG e slug = SLUG_FULL
+		// More pages with lang = SITE_LANG and slug = SLUG_FULL
 
-		} else {					// ALTRE PAGINE
+		} else {					// MORE PAGES
 
-			//Verifico che slug non sia solo lang
+			// Check slug is not lang
 
 			if(array_key_exists(str_replace('/', '', SLUG_FULL), Config::get('cms::settings.langs'))) {
 
@@ -121,31 +120,31 @@ class CmsRender {
 
 			}
 
-			//Carico la pagina
+			// Get page
 
 			$page = self::page_base(SLUG_FULL);
 
-			//Verifico che esista la pagina
+			// Check page exists
 
 			if(empty($page)) {
 
-				//Se non esiste, cerco con SLUG_FIRST e salvo SLUG LAST
+				// If not exists, look at SLUG_FIRST and save SLUG_LAST
 
 				$page = self::page_base(SLUG_FIRST);
 
-				//Verifico che esista la pagina
+				// Check page exists
 				
-				//Non esiste, ERROR 404
+				// Not exists
 
 				if(empty($page)) {
-
+					
 					return Response::error('404');
 
-				//Pagina esiste ed è ZOOM di un EXTRA
+				// It exists and it is a ZOOM of EXTRA
 
 				} else {
 
-					//Ottengo il model da caricare
+					// Get Model to load
 					
 					switch(getExtra($page->extra_id)) {
 		
@@ -159,14 +158,14 @@ class CmsRender {
 
 					}
 
-					//Carico lo zoom se $extra esiste
+					// Load ZOOM if $extra exists
 
 					if(isset($model)) {
 
 						$extra = $model
 							->where_lang(SITE_LANG)
 							->where_slug(SLUG_LAST)
-							->where_is_valid(1)
+							->where_is_valid(VALID())
 							->first();
 
 					}
@@ -182,30 +181,30 @@ class CmsRender {
 
 		if( ! empty($page)) {
 
-			//Verifico se SITE_ROLE < access_level -> to_login
+			// Check if SITE_ROLE < access_level -> to_login
 
 			if(SITE_ROLE < $page->access_level) {
 				return Redirect::to_action('site@login')
 				->with('back_url', SLUG_FULL);
 			}
 
-			//Imposto page_layout da DB o default se non settato
+			// Set page_layout from DB or default if not set
 			$page_layout = $page->layout;
 			if(empty($page->layout)) $page_layout = 'default';
 
-			//Carico layouts da config.design
+			// Get layouts from config.design
 			$arr_layout = Config::get('cms::theme.layout_'.$page_layout);
 
-			//Carico template
+			// Load template
 			$layout = View::make('cms::theme.'.THEME.'.layouts.'.$page_layout);
 
-			//Bindo nome della pagina
+			// Bind page name
 			$layout['NAME'] = $page->name;
 
-			//Verifico che esista il layout
+			// Check layout exists
 			if( ! empty($arr_layout)) {
 
-				//Bindo le zone come vuote per evitare errori
+				// Bind zones as empty to avoid errors
 				foreach ($arr_layout as $key => $value) {
 
 					$layout[strtoupper($key)] = '';
@@ -214,15 +213,15 @@ class CmsRender {
 
 			}
 
-			//Bindo contenuti alle variabili di layout
+			// Bind contents to layout variables
 
 			if( ! empty($page)) {
 
-				//Bindo elementi alla ZONA nel layout pagina
+				// Bind elements to $ZONE in page layout
 
 				if( ! empty($page->elements)) {
 
-					//Creo array di zone
+					// Create zone array
 					$zone = array();
 					
 					foreach($page->elements as $item) {
@@ -234,15 +233,14 @@ class CmsRender {
 						$zone[$item->zone][] = $tmp_text;
 					}
 
-					//Bindo text del pageitem a ZONE che diventa variabile nel layout
+					// Bind pageitem text to ZONE which become layout variable
 					foreach($page->elements as $item) {							
 						$layout[strtoupper($item->zone)] = trim(implode("\n", $zone[$item->zone]));
 					} 
 
 				} 
 
-
-				//Se nessun elemento presente, vado al primo child in ordine
+				// If no element present, move to first available child in order
 
 				else {
 
@@ -256,21 +254,22 @@ class CmsRender {
 
 				}
 
-				//Bindo $extra alla ZONA layout pagine se presente
+				// Bind $extra to layout ZONE if present
 
 				if( ! empty($extra)) {
 
 					//EXTRA VIEW
+
 
 					$extra_what = CONF('cms::settings.extra_id', $page->extra_id);
 
 					$tmp_text = View::make('cms::theme.'.THEME.'.partials.preview.'.$extra_what);
 					$tmp_text['text'] = $extra;
 
-					//Bindo nome extra
+					// Bind extra name
 					$layout['NAME'] = $extra->name;
 
-					//Bindo text del pageitem a ZONE che diventa variabile nel layout						
+					// Bind pageitem text to ZONE which become layout variable
 					$layout[strtoupper($extra->zone)] = trim(implode("\n", array($tmp_text)));
 
 				}
@@ -279,7 +278,7 @@ class CmsRender {
 
 		} else {
 
-			//Pagina non trovata, layout vuoto
+			// Page not found, empty layout
 
 			$layout = '';
 
@@ -293,6 +292,9 @@ class CmsRender {
 
 		$title = CmsUtility::string_style($title, Config::get('cms::theme.title_style'));
 
+		// Add preview string to title
+		if(SLUG_PREVIEW) $title = LL('cms::title.preview_title', CMSLANG) . $title;
+
 		//Set default keyw
 		$keyw = ( ! empty($page->keyw)) ? $page->keyw : Config::get('cms::theme.keyw');
 		//Set $extra keyw
@@ -305,13 +307,41 @@ class CmsRender {
 		$descr = (isset($extra)) ? $extra->descr : $descr;
 		$descr = (! empty($extra->descr)) ? $extra->descr : $descr;
 
-		//Set default header, footer, layout se non settati
+		//Set default template, header, footer, layout se non settati
+		$template = ( ! empty($page->template)) ? $page->template : 'default';
 		$header = ( ! empty($page->header)) ? $page->header : 'default';
 		$footer = ( ! empty($page->footer)) ? $page->footer : 'default';
 
+
+
+		//APPLICATION COMPOSER
+
+		View::composer('cms::theme.'.THEME.'.templates.'.$template, function($view)
+		{
+			
+			CmsRender::asset();
+
+			//BASE JS
+			Asset::container('header')->add('base_js', Config::get('application.url').'/site/js');
+
+			if(!isset($view->title)) $view->title = Config::get('cms::theme.title');
+
+			if(!isset($view->descr)) $view->descr = Config::get('cms::theme.descr');
+
+			if(!isset($view->keyw)) $view->keyw = Config::get('cms::theme.keyw');
+
+			if(!isset($view->header)) $view->header = '';
+
+			if(!isset($view->layout)) $view->layout = '';
+
+			if(!isset($view->footer)) $view->footer = '';
+			
+		});
+
+
 		//Prepare html buffer
 
-		$html = View::make('cms::theme.'.THEME.'.templates.'.TEMPLATE)
+		$html = View::make('cms::theme.'.THEME.'.templates.'.$template)
 		->with('title', $title)
 		->with('keyw', $keyw)
 		->with('descr', $descr)

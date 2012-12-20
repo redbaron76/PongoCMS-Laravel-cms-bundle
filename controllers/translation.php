@@ -28,7 +28,7 @@ class Cms_Translation_Controller extends Cms_Base_Controller {
 		);
 
 		$langs = CmsPage::select_lang_translation();
-		$my_lang = Config::get('cms::settings.language');
+		$my_lang = LANG;
 		array_shift($langs);
 
 		//GET DATA
