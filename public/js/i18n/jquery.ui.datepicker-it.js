@@ -1,7 +1,9 @@
 /* Italian initialisation for the jQuery UI date picker plugin. */
-/* Written by Antonello Pasella (antonello.pasella@gmail.com). */
+
 jQuery(function($){
+	
 	$.datepicker.regional['it'] = {
+
 		closeText: 'Chiudi',
 		prevText: '&#x3c;Prec',
 		nextText: 'Succ&#x3e;',
@@ -18,6 +20,33 @@ jQuery(function($){
 		firstDay: 1,
 		isRTL: false,
 		showMonthAfterYear: false,
-		yearSuffix: ''};
+		yearSuffix: ''
+
+	};
+
 	$.datepicker.setDefaults($.datepicker.regional['it']);
+
+/* Italian initialisation for the jQuery UI time picker plugin. */
+
+	$.timepicker.regional['it'] = {
+
+		currentText: 'Adesso',
+		closeText: 'Chiudi',
+		ampm: false,
+		amNames: ['AM', 'A'],
+		pmNames: ['PM', 'P'],
+		timeFormat: 'hh:mm tt',
+		timeSuffix: '',
+		timeOnlyTitle: 'Choose Time',
+		timeText: 'Ora',
+		hourText: 'Ore',
+		minuteText: 'Minuti',
+		secondText: 'Secondi',
+		millisecText: 'Millisecondi',
+		timezoneText: 'Time Zone'
+
+	};
+
+	$.timepicker.setDefaults($.timepicker.regional['it']);
+
 });

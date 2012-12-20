@@ -43,6 +43,28 @@ $.cms = {
 		$('.pop-over').popover(options);
 	},
 
+	togglePreviewButton:
+	function() {
+		var $preview_btn = $('a.preview'),
+			$checkbox = $('input[name=is_valid]');
+
+		$checkbox.is(':checked') ? $preview_btn.hide() : $preview_btn.show();
+
+		$checkbox.click(function () {
+			$preview_btn.toggle();
+		});
+
+		$preview_btn.click(function(e) {
+			e.preventDefault();
+			if($preview_btn.attr('href').length > 0) {
+				window.open(
+				  $preview_btn.attr('href'),
+				  '_blank'
+				);
+			}
+		});
+	},
+
 	//PAGE
 
 	changeLang:
@@ -53,6 +75,11 @@ $.cms = {
 				window.location = BASE+'/cms/'+where+'/'+lang;
 			}
 		});
+	},
+
+	label2Slug:
+	function() {
+		$('#element_label').stringToSlug({getPut: '#element_name'});
 	},
 
 	title2Slug:
@@ -203,6 +230,8 @@ $.cms = {
 
 				//Set page_id for extra and enable upload
 				if(data.pageid) $('.page_id').val(data.pageid);
+
+				if(data.full_slug) $('a.preview').attr('href', data.full_slug + '/preview');
 
 				//redirect if exit
 				if(data.backurl != '#') {

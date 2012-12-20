@@ -8,8 +8,8 @@ $(function() {
 	//FANCYBOX
 	$.cms.fancyBox();
 
-	//COUNT
-	$.cms.count20();
+	//LABEL ID SLUG
+	$.cms.label2Slug();
 	
 	//ENABLE CKEDITOR
 	if(WYSIWYG === 'ckeditor')

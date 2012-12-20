@@ -44,6 +44,26 @@ html, body {
     margin-right: 20px;
 }
 
+.w-right20 {
+    width: 20px;
+}
+
+.w-right40 {
+    width: 40px;
+}
+
+.w-right60 {
+    width: 60px;
+}
+
+.w-right80 {
+    width: 80px;
+}
+
+.w-right100 {
+    width: 100px;
+}
+
 .left20 {
     margin-left: 20px;
 }
@@ -167,9 +187,12 @@ ul.sortable li a.btn {
     position: relative;
 }
 
-.btn-group.open > .dropdown-menu {
-    /*left: -33px;*/
-    /*right: 0;*/
+.btn-group > .btn-mini {
+    height: 15px;
+}
+
+.btn-group > .btn-mini.dropdown-toggle {
+    height: 21px;
 }
 
 /* BADGET */
@@ -203,6 +226,10 @@ form .controls p.help-block {
     margin-left: 5px;
 }
 
+form .controls .input-prepend p.help-block {
+    margin-top: 5px;
+}
+
 form .controls span.label {
     display: inline-block;
     margin-top: 8px;
@@ -214,6 +241,11 @@ form .control-label {
     /*font-weight: bold;*/
 }
 
+form a.preview {
+    position: absolute;
+    left: 50px;
+}
+
 /* LEGEND FIX */
 
 legend + * {
@@ -222,6 +254,10 @@ legend + * {
 }
 
 /* FORM FIX */
+
+.input-prepend .add-on, .input-prepend .btn {
+    margin-right: -5px;
+}
 
 form.form-vertical .add-on {
     vertical-align: top;
@@ -262,6 +298,16 @@ ul.page-list li.divider {
 
 ul.page-list li.divider:first-child {
     margin-top: 0px;
+}
+
+.sub-page {
+    display: inline-block;
+    vertical-align: top;
+    height: 34px;
+}
+
+.sub-page[class*="right"]:first-child {
+    background: url('../img/subpage.png') top right no-repeat;
 }
 
 /* ERROR MESSAGES */

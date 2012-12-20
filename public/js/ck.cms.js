@@ -106,6 +106,11 @@ $.ck = {
 				return '[$CRUMB[]]';
 				break;
 
+			case 'DISQUS':
+				
+				return '[$DISQUS[]]';
+				break;
+
 			case 'DOWNLIST':
 				
 				return '[$DOWNLIST[{"name":""}]]';

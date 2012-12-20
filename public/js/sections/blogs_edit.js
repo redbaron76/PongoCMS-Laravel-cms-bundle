@@ -18,6 +18,9 @@ $(function() {
 	//ELASTIC TEXTAREA
 	$.cms.elastic();
 
+	//TOGGLE PREVIEW
+	$.cms.togglePreviewButton();
+
 	//SAVE AND CONTINUE
 	$.cms.saveContinue();
 
@@ -28,7 +31,12 @@ $(function() {
 	$.cms.openMediaModal();
 
 	//ENABLE CKEDITOR
-	$.ck.CKEditor();
+	if(WYSIWYG === 'ckeditor')
+		$.ck.CKEditor();
+
+	//ENABLE MARKITUP
+	if(WYSIWYG === 'markitup')
+		$.ck.MarkItUp();
 
 	//LISTENER as_html
 	$.ck.CKasHtml();

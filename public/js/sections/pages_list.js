@@ -8,7 +8,4 @@ $(function() {
 	//LANG
 	$.cms.changeLang('page');
 
-	//PAGINATOR
-	// $.cms.paginator('page', false);
-
 });
