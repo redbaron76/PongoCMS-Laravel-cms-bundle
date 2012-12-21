@@ -323,5 +323,44 @@ class CmsUtility {
 		if ($code == SITE_LANG) return HTML::attributes(array('class' => 'active'));
 	}
 
+	/**
+	* Get relative time string
+	*
+	* @param  string
+	* @return string
+	*/
+	public static function relative_time($time_string)
+	{
+
+		// Time arrays
+		$intervalNames = array('second', 'minute', 'hour', 'day', 'week', 'month', 'year');
+		$intervalSeconds = array( 1, 60, 3600, 86400, 604800, 2630880, 31570560);
+
+		// Start time
+		$time = 'just now';
+		$secondsPassed = time() - strtotime($time_string);
+
+		if ($secondsPassed>0) {
+			// see what interval are we in
+			for($j = count($intervalSeconds)-1; ($j >= 0); $j--) {
+				$crtIntervalName = $intervalNames[$j];
+				$crtInterval = $intervalSeconds[$j];
+
+				if ($secondsPassed >= $crtInterval) {
+					$value = floor($secondsPassed / $crtInterval);
+
+					if ($value > 1)	$crtIntervalName .= 's';
+
+					$time = $value . ' ' . LL('cms::time.'.$crtIntervalName, LANG) . ' ' . LL('cms::time.ago', LANG);
+
+					break;
+				}
+			}
+		}
+
+		return $time;
+
+	}
+
 
 }

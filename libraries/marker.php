@@ -119,9 +119,10 @@ class Marker {
 	* [$BANNER[{
 	*	"name":"<banner name>",
 	*	"thumb":"<thumb type>"	=> (default: none)
-	*	"type":"<slider name>"	=> (default: none)
+	*	"type":"<slider name>"	=> (default: none | available: nivo)
 	*	"theme":"<theme>"		=> (default: default)
 	*	"caption":"false"		=> (default: false)
+	*	"wm":"true | false",	=> OPTIONAL
 	*	"class":"<class>",		=> OPTIONAL
 	*	"tpl":"<tpl_name>"		=> OPTIONAL (in /partials/markers)
 	* }]]
@@ -152,6 +153,9 @@ class Marker {
 		$_caption = false;
 		if(isset($caption) and !empty($caption) and $caption == 'true') $_caption = true;
 
+		$_wm = 'no';
+		if(isset($wm) and !empty($wm) and $wm == 'true') $_wm = 'wm';
+
 		$_class = 'banner';
 		if(isset($class) and !empty($class)) $_class = $class;
 
@@ -174,6 +178,7 @@ class Marker {
 
 			//CACHE DATA
 			if(CACHE) {
+
 				$list = Cache::remember('img_banner_'.$_name, function() use ($_name) {
 					return CmsBanner::with(array(
 						'files' => function($query) {
@@ -187,7 +192,9 @@ class Marker {
 
 						}))->where_name($_name)->first();
 				}, 1440);
+
 			} else {
+
 				$list = CmsBanner::with(array(
 					'files' => function($query) {
 						
@@ -234,6 +241,7 @@ class Marker {
 		$view['theme'] 		= $_theme;
 		$view['attr'] 		= $attr;
 		$view['caption'] 	= $_caption;
+		$view['wm']			= ($_wm == 'wm') ? true : false;
 		$view['options'] 	= HTML::attributes($options);
 
 		return $view;
@@ -1839,6 +1847,9 @@ class Marker {
 
 				$full_path = $file->path;
 
+				// Apply watermark if required
+				if($_wm == 'wm') $full_path = URL::to_action('cms::image@resize', array($file->w, $file->h, $_wm, $file->name));
+
 			} else {
 
 				$_filename = '';
@@ -1977,11 +1988,71 @@ class Marker {
 
 
 	/**
+    * TWEETS Marker - Shows Twitter ticker
+    *
+	* [$TWEETS[{
+	*	"user":"[username]" 	=> (Twitter username)
+	*	"n":"<n items >",		=> (default: 5)
+	*	"id":"tweet-list"		=> (list id | default: tweet-list)
+	*	"class":"<class>",		=> OPTIONAL (default: social)
+	*	"tpl":"<tpl_name>"		=> OPTIONAL (in /partials/markers)
+	* }]]
+    *
+    * @param  array
+    * @return string
+    */
+	public static function TWEETS($vars = array())
+	{
+
+		//Get variables from array $vars
+		if( ! empty($vars)) extract($vars);
+
+		//Bind variables
+
+		$_user = '';
+		if(isset($user) and !empty($user)) $_user = $user;
+
+		$_n = 5;
+		if(isset($n) and !empty($n)) $_n = $n;
+
+		$_id = 'tweet-list';
+		if(isset($id) and !empty($id)) $_id = $id;
+
+		$_class = 'tweets';
+		if(isset($class) and !empty($class)) $_class = $class;
+
+		$_tpl = 'tweets';
+		if(isset($tpl) and !empty($tpl)) $_tpl = $tpl;
+
+		if(!empty($_user)) {
+
+			$options = array(
+				'id' => $_id,
+				'class' => $_class,
+			);
+
+			$_feed = "http://search.twitter.com/search.atom?q=from:" . $_user . "&rpp=" . $_n;
+			$twitter_feed = file_get_contents($_feed);
+			$twitter_feed = simplexml_load_string($twitter_feed);
+
+			$view = View::make('cms::theme.'.THEME.'.partials.markers.'.$_tpl);
+			$view['user'] 		= $_user;
+			$view['tweets'] 	= $twitter_feed;
+			$view['options'] 	= HTML::attributes($options);
+
+			return $view;
+
+		}
+
+	}
+
+
+	/**
     * VIDEO Marker - Shows video embed from Youtube, Screenr or Vimeo
     *
-	* [$video[{
+	* [$VIDEO[{
 	*	"code":"<video code>",	=> (video code)
-	*	"site":"youtube",		=> (available: youtube || screenr || vimeo)
+	*	"site":"youtube",		=> (available: youtube || screenr || vimeo || local)
 	*	"w":"420",				=> (video width)
 	*	"h":"315",				=> (video height)
 	*	"class":"<class>",		=> OPTIONAL (default: video)

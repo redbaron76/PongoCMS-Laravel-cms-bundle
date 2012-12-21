@@ -28,8 +28,8 @@ class GdAddLogo {
      * @param positionY - Position of logo image on X-axis ('top', 'center', 'bottom' or plain number)
      * @param alpha - alpha value for logo merging in percent
      */
-    //public function addLogo($logoFileName, $positionX, $positionY, $alpha, &$that) {
-    public function addLogo($logoFileName, $positionX, $positionY, &$that) {
+    public function addLogo($logoFileName, $positionX, $positionY, &$that)
+    {
         $logo_size                  = getimagesize($logoFileName);
         // bring stuff from the parent class into this class...
         $this->parentInstance       = $that;
@@ -68,8 +68,6 @@ class GdAddLogo {
                 $logo = imagecreatefrompng($logoFileName);
                 break;
         }
-
-        //imagecopymerge($this->workingImage, $logo, $logo_position["x"], $logo_position["y"], 0, 0, $logo_dimension["x"], $logo_dimension["y"], $alpha);
         
         imagecopy($this->workingImage, $logo, $logo_position["x"], $logo_position["y"], 0, 0, $logo_dimension["x"], $logo_dimension["y"]);      
 
@@ -77,16 +75,6 @@ class GdAddLogo {
 
     }
 }
+
 $pt = PhpThumb::getInstance();
 $pt->registerPlugin('GdAddLogo', 'gd');
-
-
-/*
-$thumb = PhpThumbFactory::create('test.jpg');
-// Logo at top-center position 25% visible
-$thumb->addLogo($_SERVER["DOCUMENT_ROOT"]."/images/imageForLogo.png", 'right', 'bottom', 25, &$thumb);
-// Logo at bottom position, 100px from the left side 10% visible
-// $thumb->addLogo($_SERVER["DOCUMENT_ROOT"]."/images/imageForLogo.png", 'right', 100, 10, &$thumb);
-
-$thumb->show();
-*/

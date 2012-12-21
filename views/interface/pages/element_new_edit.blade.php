@@ -228,7 +228,7 @@
 									<i class="icon-upload icon-white"></i>
 									{{LL('cms::button.page_media_upload', CMSLANG)}}
 								</a>
-							</div>								
+							</div>
 						</div>
 						@endif
 

@@ -18,7 +18,10 @@
 
 		<a href="{{SLUG($image->pivot->url)}}"{{$target}}{{$title}}>
 
-			{{HTML::image(MEDIA_NAME($image->path, $thumb), $alt)}}
+			<?php $img = ($wm) ? URL::to_action('cms::image@resize', array($image->w, $image->h, 'wm', $image->name))
+								   : MEDIA_NAME($image->path, $thumb); ?>
+
+			{{HTML::image($img, $alt)}}
 			
 		</a>
 	</li>

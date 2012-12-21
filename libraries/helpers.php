@@ -490,7 +490,9 @@ function date2Db($date)
 function db2Date($date)
 {
 
-	return strftime('%d/%m/%Y', strtotime($date));
+	$format = (LANG === 'en') ? '%m/%d/%Y' : '%d/%m/%Y';
+
+	return strftime($format, strtotime($date));
 
 }
 

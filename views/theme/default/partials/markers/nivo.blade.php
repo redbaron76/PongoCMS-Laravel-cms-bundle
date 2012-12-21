@@ -30,7 +30,10 @@
 			<a href="{{SLUG($image->pivot->url)}}"{{$target}}{{$title}}>
 			@endif
 
-				{{HTML::image(MEDIA_NAME($image->path, $thumb), $alt, array('title' => $titles[$key]))}}
+				<?php $img = ($wm) ? URL::to_action('cms::image@resize', array($image->w, $image->h, 'wm', $image->name))
+								   : MEDIA_NAME($image->path, $thumb); ?>
+
+				{{HTML::image($img, $alt, array('title' => $titles[$key]))}}
 
 			@if(strlen($image->pivot->url) > 0)
 			</a>

@@ -67,12 +67,16 @@ class Cms_Ajax_Banner_Controller extends Cms_Base_Controller {
 
 						$check = DB::table('files_banners')->where_cmsfile_id($fid)->where_cmsbanner_id($bid)->first();
 
-						$blank = (array_key_exists($key, $is_blank)) ? 1 : 0;						
+						$blank = (array_key_exists($key, $is_blank)) ? 1 : 0;
 
 						if(empty($date_off[$key])) {
+
 							$off_date = dateTimeFuture(date("Y-m-d H:i:s"), 'P5Y');
+
 						} else {
+
 							$off_date = date2Db($date_off[$key]);
+
 						}
 
 						if(empty($check)) {
