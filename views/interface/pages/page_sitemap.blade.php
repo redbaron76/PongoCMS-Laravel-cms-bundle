@@ -74,7 +74,7 @@
 							{{HTML::span(LL('cms::label.url', CMSLANG).$page->slug, array('class' => 'page_url block'))}}
 						</div>
 					</td>
-					<td class="toright">
+					<td>
 						
 						<div class="btn-toolbar">
 							<div class="btn-group">

@@ -183,8 +183,14 @@ ul.sortable li a.btn {
 }
 
 /* BUTTON DROPDOWN */
+
 .btn-group.open {
     position: relative;
+    text-align: left;
+}
+
+.btn-group.open .dropdown-menu {
+    left: -50%;
 }
 
 .btn-group > .btn-mini {
@@ -288,6 +294,12 @@ form .text-btn {
     margin: 0;
 }
 
+/* MODAL */
+
+#modal-media .modal-body {
+    min-height: 200px;
+}
+
 /* PAGE LIST */
 
 ul.page-list li.divider {
@@ -341,6 +353,14 @@ ul.page-list li.divider:first-child {
 
 .table.listing {
     margin-bottom: 0;
+}
+
+thead th:last-child {
+    text-align: right;
+}
+
+tbody.listing td:last-child {
+    text-align: right;
 }
 
 .ias_loader {
