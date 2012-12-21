@@ -5,76 +5,25 @@ multilingual and SEO optimized websites or blogs with ease and flexibility.
 
 [Official Website & Documentation](http://pongocms.com)
 
-## Feature Overview
+## version 1.2 - RC1
 
-- Theme based frontend development
-- Laravel's Artisan CLI commands for **cms** and **theme** setup
-- Full route management trough friendly urls
-- Pages and Blog posts management
-- Multiple file upload at once and auto thumbs creator
-- Services for translations, image galleries, banner rotators
-- Inline **Markers** for embed video, Google Maps, social toolbars, etc.
-- ...a lot of [other things](http://pongocms.com/features)
+### v1.2 Upgrades and new features
 
+- Master template selectable through back-end interface
+- Preview of pages and blog posts before they go live
+- DISQUS comment system added as MARKER tag
+- Environment support to custom tasks
+- Better pages tree view
+- Datetime localization fixed
+- Some interface enhancements
+- Minor bug fixes
 
-## Install and config PongoCMS bundle
+### to-do list in the next future
 
-Use Laravel Artisan CLI command: `php artisan bundle:install pongocms`
-
-**OR**
-
-1. Download **latest release** of PongoCMS from GitHub .
-
-2. Create a `cms` folder inside Laravel `/bundles` folder.
-
-3. Copy downloaded content into `/bundles/cms` folder.
-
-**THEN**
-
-Config **cms** bundle in `/application/bundles.php` like this:
-
-```php
-return array(
-
-    'cms' => array(
-        'autoloads' => array(
-            'map' => array(
-
-                //CMS CORE
-                'Cms_Base_Controller'       => '(:bundle)/controllers/cms_base.php',
-                'Cms_Searchbase_Controller' => '(:bundle)/controllers/cms_searchbase.php',
-                'Cms_Auth'                  => '(:bundle)/auth/cms_auth.php',
-
-                //CMS METHODS
-                'CmsRender'                 => '(:bundle)/libraries/render.php',
-                'CmsUtility'                => '(:bundle)/libraries/utilities.php',
-
-                //PLUG-INS
-                'CleanOutput'               => '(:bundle)/libraries/cleanoutput.php',
-                'gapi'                      => '(:bundle)/libraries/gapi.php',
-                'PhpThumbFactory'           => '(:bundle)/libraries/thumb/ThumbLib.inc.php',
-
-            ),
-            'directories' => array(
-                '(:bundle)/libraries',
-                '(:bundle)/models',
-            )
-        ),
-        'handles' => 'cms',
-        'auto' => true,
-    ),
-
-);
-```
-
-## Setup and run PongoCMS demo site
-
-1. Open a terminal console and move on **project root**.
-
-2. Run Laravel Artisan CLI task command: `php artisan cms::setup`
-
-3. Point your browser to your **base url**
-
+- Generic "Product" directory management
+- Basic shop capabilities
+- Shopping cart and PayPal payments
+- ... ???
 
 ## License
 
