@@ -80,16 +80,6 @@ function VALID($base = SLUG_FULL)
 }
 
 /**
- * Get datetime format on locale
- *
- * @return string
- */
-function DATETIME()
-{
-	return CONF('cms::settings.datetime', LANG);
-}
-
-/**
  * Retrieve media type.
  *
  * @param  string  $ext
@@ -425,6 +415,20 @@ function MARKER($marker)
 //DATE CONVERSION HELPERS
 
 /**
+ * Get datetime format
+ *
+ * @param  bool  $time
+ * @return string
+ */
+function GET_DATETIME($time = true)
+{
+	$date_format = Config::get('cms::settings.dateformat');
+	if($time) $date_format = $date_format . ' ' . Config::get('cms::settings.timeformat');
+
+	return $date_format;
+}
+
+/**
 * Date Time format to MySQL format
 *
 * @param  string
@@ -433,24 +437,16 @@ function MARKER($marker)
 function dateTime2Db($datetime)
 {
 
-	//get date
-	$date = substr($datetime, 0, 10);
-	//get time
-	$time = substr($datetime, -5);
+	if($datetime) {
 
-	//re-format date
-	$rsl = explode ('/',$date);
+		$d = DateTime::createFromFormat(GET_DATETIME(), $datetime);
+		
+		$mysql_datetime = $d->format('Y-m-d H:i');
 
-	$day 	= (LANG === 'en') ? $rsl[1] : $rsl[0];
-	$month 	= (LANG === 'en') ? $rsl[0] : $rsl[1];
-	$year	= $rsl[2];
+		return $mysql_datetime . ':00';
+	}
 
-	$mysql_date = $year.'-'.$month.'-'.$day;
-
-	/*$rsl = array_reverse($rsl);
-	$mysql_date = implode($rsl,'-');*/
-
-	return $mysql_date . ' ' . $time . ':00';
+	return '0000-00-00 00:00:00';
 
 }
 
@@ -463,21 +459,16 @@ function dateTime2Db($datetime)
 function date2Db($date)
 {
 
-	//get date
-	$date = substr($date, 0, 10);
-	//re-format date
-	$rsl = explode ('/',$date);
+	if($datetime) {
 
-	$day 	= (LANG === 'en') ? $rsl[1] : $rsl[0];
-	$month 	= (LANG === 'en') ? $rsl[0] : $rsl[1];
-	$year	= $rsl[2];
+		$d = DateTime::createFromFormat(GET_DATETIME(false), $datetime);
+		
+		$mysql_dat = $d->format('Y-m-d');
 
-	$mysql_date = $year.'-'.$month.'-'.$day;
+		return $mysql_date . ' 00:00:00';
+	}
 
-	/*$rsl = array_reverse($rsl);
-	$mysql_date = implode($rsl,'-');*/
-
-	return $mysql_date . ' 00:00:00';
+	return '0000-00-00 00:00:00';
 
 }
 
@@ -490,9 +481,14 @@ function date2Db($date)
 function db2Date($date)
 {
 
-	$format = (LANG === 'en') ? '%m/%d/%Y' : '%d/%m/%Y';
+	if($date) {
 
-	return strftime($format, strtotime($date));
+		$date = DateTime::createFromFormat('Y-m-d H:i', substr($date, 0, -3));
+
+		return $date->format(GET_DATETIME());
+	}
+
+	return GET_DATETIME();
 
 }
 

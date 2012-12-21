@@ -686,6 +686,7 @@ $.cms = {
 					parent_id: $parent
 				},function(data) {
 					$('span.add-on[rel=blog_slug]').html('/').prepend(data);
+					$('#blog_parent_slug').val(data+'/');
 					$diff = $tot - $('span[rel=blog_slug]').width();			
 					$blog_slug.css('width', $diff);
 				});

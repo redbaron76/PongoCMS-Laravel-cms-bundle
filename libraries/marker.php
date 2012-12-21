@@ -1742,6 +1742,22 @@ class Marker {
 
 
 	/**
+    * TEST Marker - Test sandbox
+    *
+	* [$TEST[]]
+    *
+    */
+	public static function TEST($vars = array())
+	{
+
+		$view = View::make('cms::theme.'.THEME.'.partials.markers.test');
+
+		return $view;
+
+	}
+	
+
+	/**
     * THUMB Marker - Show a pre-config or on-the-fly resized thumb image linked to original
 	*
 	* [$THUMB[{
@@ -2103,7 +2119,6 @@ class Marker {
 	}
 
 
-
-
+	
 
 }

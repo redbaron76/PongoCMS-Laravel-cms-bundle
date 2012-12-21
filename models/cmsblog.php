@@ -69,12 +69,12 @@ class CmsBlog extends Eloquent {
 
 	public function get_datetime_on()
 	{
-		return strftime(DATETIME(), strtotime($this->get_attribute('datetime_on')));
+		return date(GET_DATETIME(), strtotime($this->get_attribute('datetime_on')));
 	}
 
 	public function get_datetime_off()
 	{
-		return strftime(DATETIME(), strtotime($this->get_attribute('datetime_off')));
+		return date(GET_DATETIME(), strtotime($this->get_attribute('datetime_off')));
 	}
 
 	public function get_dt_on()

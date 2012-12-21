@@ -2,6 +2,11 @@
 
 class Cms_Backup_Task {
 
+	/**
+	 * 	Run backup task of then current theme
+	 *
+	 * 	@return string
+	 */
 	public function run()
 	{
 		// RUN DEFAULT ACTION
@@ -10,6 +15,13 @@ class Cms_Backup_Task {
 		echo $result;
 	}
 
+	/**
+	 *	Run backup task of any theme
+	 *	Current theme if not specified
+	 *
+	 * 	@param  array
+	 * 	@return string
+	 */
 	public function theme($arguments = array())
 	{
 
@@ -55,6 +67,48 @@ class Cms_Backup_Task {
 
 	}
 
+	/**
+	 *	Run sync task on bundle assets
+	 *	Good in development before Git push!
+	 *
+	 * 	@param  array
+	 * 	@return string
+	 */
+	public function sync($arguments = array())
+	{
+
+		// COPY ASSET FROM PUBLIC/BUNDLES TO BUNDLES/PUBLIC
+
+		$from_path 	= path('public').'bundles/cms';
+		$to_path 	= path('bundle').'cms/public';
+
+		//ITEMS TO COPY
+		$items = array('css','img','js');
+
+		//ITERATE COPY
+		foreach ($items as $item) {
+
+			if(is_dir($from_path.DS.$item)) {
+
+				//COPY TO BUNDLES/PUBLIC
+				File::cpdir($from_path.DS.$item, $to_path.DS.$item, false);
+
+			}
+
+		}
+
+		echo PHP_EOL;
+		echo 'Asset sync completed!'.PHP_EOL;
+
+	}
+
+	/**
+	 *	It restores a backed up theme
+	 *	Current theme if not specified
+	 *
+	 * 	@param  array
+	 * 	@return string
+	 */
 	public function restore($arguments = array())
 	{
 
@@ -92,6 +146,12 @@ class Cms_Backup_Task {
 
 	}
 
+	/**
+	 *	Run update task on PongoCMS
+	 *
+	 * 	@param  array
+	 * 	@return string
+	 */
 	public function update()
 	{
 
