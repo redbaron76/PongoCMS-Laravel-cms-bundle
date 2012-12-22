@@ -33,6 +33,8 @@ $.cms = {
 	popOver:
 	function(what) {
 		var options = {
+			trigger: 'hover',
+			html: true,
 			content: function() {
 				var id = $(this).attr('rel');
 				var content = $.cms.getPopOver(what,id);
