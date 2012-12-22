@@ -217,6 +217,8 @@
 							</div>
 						</div>
 
+						<div id="media-container"></div>
+
 						@if(!$role_fail)
 						<div class="row space">
 							<div class="span">

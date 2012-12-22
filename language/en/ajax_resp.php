@@ -18,6 +18,7 @@ return array(
 
 	"page_upload_success" => "Loaded",
 	"page_upload_error" => "Loading error!",
+	"page_upload_ftp" => "Upload this file with FTP in :path",
 
 	"element_success" => "Element saved!",
 	"element_error" => "Element error!",

@@ -18,6 +18,7 @@ return array(
 
 	"page_upload_success" => "Caricato",
 	"page_upload_error" => "Errore di caricamento",
+	"page_upload_ftp" => "Carica questo file usando FTP in :path",
 
 	"element_success" => "Elemento salvato!",
 	"element_error" => "Errore salvataggio elemento!",

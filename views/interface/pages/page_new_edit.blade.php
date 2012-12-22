@@ -228,6 +228,8 @@
 								<div id="filelist">{{LL('cms::alert.upload_unavailable', CMSLANG)}}</div>
 							</div>
 						</div>
+
+						<div id="media-container"></div>
 						
 						@if(!$role_fail)
 						<div class="row space">
@@ -246,8 +248,8 @@
 
 						<legend class="space">{{LL('cms::form.page_legend_media_available', CMSLANG)}}</legend>
 
-						<div>
-							<div>
+						<!-- <div>
+							<div> -->
 
 								<ul class="thumbnails" id="media-box">
 
@@ -269,8 +271,8 @@
 
 								</ul>
 
-							</div>
-						</div>
+							<!-- </div>
+						</div> -->
 
 					</div>
 

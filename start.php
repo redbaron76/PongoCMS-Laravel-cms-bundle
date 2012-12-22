@@ -139,7 +139,10 @@ Validator::register('unique_file', function($attribute, $value, $parameters)
 	$file_name = $parameters[0];
 	$path = $parameters[1];
 
-	return !file_exists(path('public') . $path . $file_name);
+	// CHECK DB NAME
+	$query = CmsFile::where_name($file_name);
+
+	return !file_exists(path('public') . $path . $file_name) and $query->count() == 0;
 
 });
 

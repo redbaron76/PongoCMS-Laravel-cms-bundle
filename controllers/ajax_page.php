@@ -344,7 +344,6 @@ class Cms_Ajax_Page_Controller extends Cms_Base_Controller {
 			$page_id = $input['page_id'];
 			$file_w = 0;
 			$file_h = 0;
-			$is_image = 0;
 
 			//CREATE UPLOAD PATH
 
@@ -354,9 +353,13 @@ class Cms_Ajax_Page_Controller extends Cms_Base_Controller {
 
 				$up = 'img/';
 
+				$is_image = true;
+
 			} else {
 
 				$up = $file_ext . '/';
+
+				$is_image = false;
 
 			}
 
@@ -364,14 +367,30 @@ class Cms_Ajax_Page_Controller extends Cms_Base_Controller {
 			$upload_path = Config::get('cms::settings.data') . $up;
 
 			//VALIDATION CHECK
-
+			
 			$get_mimes = str_replace(' ', '', Config::get('cms::settings.mimes'));
-			$get_max = Config::get('cms::settings.max_size') * 1024;	//10Mb
+			$get_max = Config::get('cms::settings.max_size') * 1024000;	//1Mb
 
-			$rules = array(
-				'page_id'  => 'required',
-				'file'  => 'mimes:'.$get_mimes.'|max:'.$get_max.'|unique_file:'.$file_name.','.$upload_path,
-			);
+			// CHECK SIZE EXCEEDS
+			
+			$exceeds = (!$is_image and $file_size > $get_max) ? true : false;
+
+			// CHECK SIZE IF IMAGE
+			if($is_image) {
+
+				$rules = array(
+					'page_id'  => 'required',
+					'file'  => 'mimes:'.$get_mimes.'|max:'.$get_max.'|unique_file:'.$file_name.','.$upload_path,
+				);
+
+			} else {
+
+				$rules = array(
+					'page_id'  => 'required',
+					'file'  => 'mimes:'.$get_mimes.'|unique_file:'.$file_name.','.$upload_path,
+				);
+
+			}			
 
 			$messages = array(
 				'required' => LL('cms::validation.page_not_set', CMSLANG)->get(),
@@ -394,23 +413,24 @@ class Cms_Ajax_Page_Controller extends Cms_Base_Controller {
 
 				$path = strtolower($upload_path . $file_name);
 
-				//DO UPLOAD!
-				if(move_uploaded_file($input['file']['tmp_name'], path('public').$path)) {
+				// DO UPLOAD ONLY IF IS IMAGE OR LOWER THAN MAX SIZE ALLOWED
+				$status_upload = (!$exceeds) ? move_uploaded_file($input['file']['tmp_name'], path('public').$path) : true;
+
+				// UPLOAD OK
+				if($status_upload) {
 
 					//SET ICO PATH
 					$thumb_path = '/bundles/cms/img/'.$file_ext.'_ico.png';
 
 					//GET IMG DIMENSIONS
-					if($up == 'img/') {
+					if($is_image) {
+
 						$img = getimagesize(path('public').$path);
 						$file_w = $img[0];
 						$file_h = $img[1];
 
 						//GENERATE THUMBS
 						$thumb_path = CmsFile::create_thumb($upload_path, $file_name, $file_ext);
-
-						//FLAG IS_IMAGE
-						$is_image = 1;
 
 					}
 
@@ -424,7 +444,7 @@ class Cms_Ajax_Page_Controller extends Cms_Base_Controller {
 						'h' => $file_h,
 						'path' => '/'.$path,
 						'thumb' => $thumb_path,
-						'is_image' => $is_image,
+						'is_image' => ($is_image) ? 1 : 0,
 						'is_valid' => 1
 					);
 
@@ -434,12 +454,12 @@ class Cms_Ajax_Page_Controller extends Cms_Base_Controller {
 
 					// SUCCESS RESPONSE
 					$resp = array(
-						'type' => 'label-success',
-						'message' => LL('cms::ajax_resp.page_upload_success', CMSLANG)->get(),
+						'type' => ($exceeds) ? 'label-info' : 'label-success',
+						'message' => ($exceeds) ? LL('cms::ajax_resp.page_upload_ftp', CMSLANG, array('path' => $upload_path))->get() : LL('cms::ajax_resp.page_upload_success', CMSLANG)->get(),
 						'name' => $file_name,
 						'path' => '/'.$path,
 						'thumb_path' => $thumb_path,
-						'is_img' => ($up == 'img/') ? true : false
+						'is_img' => ($is_image) ? true : false
 					);
 
 					return json_encode($resp);

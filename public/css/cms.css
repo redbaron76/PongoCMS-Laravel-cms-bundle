@@ -407,6 +407,11 @@ table td.toright {
     margin-left: 10px;
 }
 
+#media-container {
+    overflow: hidden;
+    display: none;
+}
+
 /*#media-box {
     margin-top: 0px;
 }

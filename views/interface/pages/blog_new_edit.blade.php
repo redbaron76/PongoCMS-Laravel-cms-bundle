@@ -305,6 +305,8 @@
 								<div id="filelist">{{LL('cms::alert.upload_unavailable', CMSLANG)}}</div>
 							</div>
 						</div>
+
+						<div id="media-container"></div>
 						
 						@if(!$role_fail)
 						<div class="row space">

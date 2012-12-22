@@ -321,8 +321,8 @@ $.cms = {
 		var uploader = new plupload.Uploader({
 			runtimes : 'html5,html4',
 			browse_button : 'add_media',
-			container : 'media',
-			max_file_size : MAX_UP,
+			container : 'media-container',
+			// max_file_size : MAX_UP,
 			url : BASE+'/cms/ajax/upload/media',
 			multipart_params : {
 				page_id: $page_id,
