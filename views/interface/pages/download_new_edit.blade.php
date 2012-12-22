@@ -136,8 +136,8 @@
 
 						@forelse ($files_select as $file)
 							<li class="span1" id="{{$download_id}}_{{$file->id}}">
-								<a href="{{BASE.$file->path}}" class="thumbnail fancy" data-original-title="{{$file->name}}" rel="tooltip">
-									<img src="{{BASE.$file->thumb}}" width="50" heigth="50" alt="">
+								<a href="{{BASE.$file->path}}" class="thumbnail" data-original-title="{{$file->name}}" rel="tooltip">
+									<img src="{{BASE.$file->thumb}}" />
 								</a>
 							</li>
 						@empty

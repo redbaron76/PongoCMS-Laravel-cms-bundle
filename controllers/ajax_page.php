@@ -705,6 +705,7 @@ class Cms_Ajax_Page_Controller extends Cms_Base_Controller {
 
 			// Inject container
 			$inject = 'ul.sortable';
+			$detach = false;
 
 		} else {
 
@@ -718,6 +719,7 @@ class Cms_Ajax_Page_Controller extends Cms_Base_Controller {
 
 			$template = '';
 			$inject = '';
+			$detach = false;
 
 		}
 
@@ -729,6 +731,7 @@ class Cms_Ajax_Page_Controller extends Cms_Base_Controller {
 			'response' => $response,
 			'message' => $msg,
 			'backurl' => $backurl,
+			'detach' => $detach,
 			'inject' => $inject,
 			'template' => $template
 		);

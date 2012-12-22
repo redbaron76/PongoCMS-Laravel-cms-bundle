@@ -63,6 +63,9 @@ class Cms_Ajax_Banner_Controller extends Cms_Base_Controller {
 
 				if(is_array($files)) {
 
+					// Empty template
+					$template = '';
+
 					foreach ($files as $key => $fid) {
 
 						$check = DB::table('files_banners')->where_cmsfile_id($fid)->where_cmsbanner_id($bid)->first();
@@ -75,7 +78,7 @@ class Cms_Ajax_Banner_Controller extends Cms_Base_Controller {
 
 						} else {
 
-							$off_date = date2Db($date_off[$key]);
+							$off_date = date2Db(substr($date_off[$key],0,10));
 
 						}
 
@@ -105,15 +108,29 @@ class Cms_Ajax_Banner_Controller extends Cms_Base_Controller {
 
 						}
 
+						$img = CmsFile::find($fid);
+
+						// Template returned
+						$template .= '<li id="'.$bid.'_'.$fid.'" class="span1">';
+						$template .= '<a class="thumbnail fancy" rel="tooltip" data-original-title="'.$img->name.'" href="'.BASE.$img->path.'">';
+						$template .= '<img src="'.BASE.$img->thumb.'" />';
+						$template .= '</a>';
+						$template .= '</li>';
+
 					}
 
 					//DELETE NOT IN
 					DB::table('files_banners')->where_cmsbanner_id($bid)->where_not_in('cmsfile_id', $files)->delete();
+
 				}
 
 				$response = 'success';
 				$msg = LL('cms::ajax_resp.banner_save_success', CMSLANG)->get();
 				$backurl = $input['back_url'];
+
+				// Inject container
+				$inject = 'ul.sortable';
+				$detach = true;
 
 			} else {
 
@@ -124,6 +141,10 @@ class Cms_Ajax_Banner_Controller extends Cms_Base_Controller {
 				$msg = LL('cms::ajax_resp.banner_save_success', CMSLANG)->get();
 				$backurl = $input['back_url'];
 
+				$template = '';
+				$inject = '';
+				$detach = true;
+
 			}
 
 		} else {
@@ -131,6 +152,10 @@ class Cms_Ajax_Banner_Controller extends Cms_Base_Controller {
 			$response = 'error';
 			$msg = LL('cms::ajax_resp.banner_save_error', CMSLANG)->get();
 			$backurl = '#';
+
+			$template = '';
+			$inject = '';
+			$detach = true;
 
 		}
 
@@ -140,7 +165,10 @@ class Cms_Ajax_Banner_Controller extends Cms_Base_Controller {
 			'id' => $bid,
 			'response' => $response,
 			'message' => $msg,
-			'backurl' => $backurl
+			'backurl' => $backurl,
+			'detach' => $detach,
+			'inject' => $inject,
+			'template' => $template
 		);
 
 		return json_encode($data);

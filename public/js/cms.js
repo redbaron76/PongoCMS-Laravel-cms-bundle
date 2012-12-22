@@ -250,7 +250,17 @@ $.cms = {
 				if(data.full_slug) $('a.preview').attr('href', data.full_slug + '/preview');
 
 				// Template inject
-				if(data.inject && data.template) $(data.inject).append(data.template);
+				if(data.inject && data.template) {
+
+					// Clear content
+					if(data.detach) $(data.inject).children().detach();
+
+					// Append content
+					$(data.inject).append(data.template);
+
+					//Renew tooltip
+					$.cms.toolTip();
+				}
 
 				//redirect if exit
 				if(data.backurl != '#') {

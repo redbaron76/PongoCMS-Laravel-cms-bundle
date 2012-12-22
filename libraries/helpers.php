@@ -447,7 +447,7 @@ function GET_DATETIME($time = true)
 function dateTime2Db($datetime)
 {
 
-	if($datetime) {
+	if(!empty($datetime)) {
 
 		$d = DateTime::createFromFormat(GET_DATETIME(), $datetime);
 		
@@ -469,11 +469,11 @@ function dateTime2Db($datetime)
 function date2Db($date)
 {
 
-	if($datetime) {
+	if(!empty($date)) {
 
-		$d = DateTime::createFromFormat(GET_DATETIME(false), $datetime);
+		$d = DateTime::createFromFormat(GET_DATETIME(false), $date);
 		
-		$mysql_dat = $d->format('Y-m-d');
+		$mysql_date = $d->format('Y-m-d');
 
 		return $mysql_date . ' 00:00:00';
 	}
@@ -491,7 +491,7 @@ function date2Db($date)
 function db2Date($date)
 {
 
-	if($date) {
+	if(!empty($date)) {
 
 		$date = DateTime::createFromFormat('Y-m-d H:i', substr($date, 0, -3));
 

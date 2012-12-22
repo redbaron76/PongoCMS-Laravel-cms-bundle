@@ -59,13 +59,27 @@ class Cms_Ajax_Download_Controller extends Cms_Base_Controller {
 
 				if(is_array($files)) {
 
+					// Empty template
+					$template = '';
+
 					foreach ($files as $fid) {
 
 						$check = DB::table('files_downloads')->where_cmsfile_id($fid)->where_cmsdownload_id($did)->first();
 
 						if(empty($check)) {
+
 							$download->files()->attach($fid, array('order_id' => 1000000));
+
 						}
+
+						$img = CmsFile::find($fid);
+
+						// Template returned
+						$template .= '<li id="'.$did.'_'.$fid.'" class="span1">';
+						$template .= '<a class="thumbnail" rel="tooltip" data-original-title="'.$img->name.'" href="'.BASE.$img->path.'">';
+						$template .= '<img src="'.BASE.$img->thumb.'" />';
+						$template .= '</a>';
+						$template .= '</li>';
 
 					}
 
@@ -77,6 +91,10 @@ class Cms_Ajax_Download_Controller extends Cms_Base_Controller {
 				$msg = LL('cms::ajax_resp.download_save_success', CMSLANG)->get();
 				$backurl = $input['back_url'];
 
+				// Inject container
+				$inject = 'ul.sortable';
+				$detach = true;
+
 			} else {
 
 				//DELETE ALL DOWNLOAD_ID
@@ -86,6 +104,10 @@ class Cms_Ajax_Download_Controller extends Cms_Base_Controller {
 				$msg = LL('cms::ajax_resp.download_save_success', CMSLANG)->get();
 				$backurl = $input['back_url'];
 
+				$template = '';
+				$inject = '';
+				$detach = true;
+
 			}
 
 		} else {
@@ -93,6 +115,10 @@ class Cms_Ajax_Download_Controller extends Cms_Base_Controller {
 			$response = 'error';
 			$msg = LL('cms::ajax_resp.download_save_error', CMSLANG)->get();
 			$backurl = '#';
+
+			$template = '';
+			$inject = '';
+			$detach = true;
 
 		}
 
@@ -102,7 +128,10 @@ class Cms_Ajax_Download_Controller extends Cms_Base_Controller {
 			'id' => $did,
 			'response' => $response,
 			'message' => $msg,
-			'backurl' => $backurl
+			'backurl' => $backurl,
+			'detach' => $detach,
+			'inject' => $inject,
+			'template' => $template
 		);
 
 		return json_encode($data);

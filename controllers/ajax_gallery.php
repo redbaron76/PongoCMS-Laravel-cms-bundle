@@ -60,13 +60,27 @@ class Cms_Ajax_Gallery_Controller extends Cms_Base_Controller {
 
 				if(is_array($files)) {
 
+					// Empty template
+					$template = '';
+
 					foreach ($files as $fid) {
 
 						$check = DB::table('files_galleries')->where_cmsfile_id($fid)->where_cmsgallery_id($gid)->first();
 
 						if(empty($check)) {
+
 							$gallery->files()->attach($fid, array('order_id' => 1000000));
+
 						}
+
+						$img = CmsFile::find($fid);
+
+						// Template returned
+						$template .= '<li id="'.$gid.'_'.$fid.'" class="span1">';
+						$template .= '<a class="thumbnail fancy" rel="tooltip" data-original-title="'.$img->name.'" href="'.BASE.$img->path.'">';
+						$template .= '<img src="'.BASE.$img->thumb.'" />';
+						$template .= '</a>';
+						$template .= '</li>';
 
 					}
 
@@ -78,6 +92,10 @@ class Cms_Ajax_Gallery_Controller extends Cms_Base_Controller {
 				$msg = LL('cms::ajax_resp.gallery_save_success', CMSLANG)->get();
 				$backurl = $input['back_url'];
 
+				// Inject container
+				$inject = 'ul.sortable';
+				$detach = true;
+
 			} else {
 
 				//DELETE ALL GALLERY_ID
@@ -87,6 +105,10 @@ class Cms_Ajax_Gallery_Controller extends Cms_Base_Controller {
 				$msg = LL('cms::ajax_resp.gallery_save_success', CMSLANG)->get();
 				$backurl = $input['back_url'];
 
+				$template = '';
+				$inject = '';
+				$detach = true;
+
 			}
 
 		} else {
@@ -94,6 +116,10 @@ class Cms_Ajax_Gallery_Controller extends Cms_Base_Controller {
 			$response = 'error';
 			$msg = LL('cms::ajax_resp.gallery_save_error', CMSLANG)->get();
 			$backurl = '#';
+
+			$template = '';
+			$inject = '';
+			$detach = true;
 
 		}
 
@@ -103,7 +129,10 @@ class Cms_Ajax_Gallery_Controller extends Cms_Base_Controller {
 			'id' => $gid,
 			'response' => $response,
 			'message' => $msg,
-			'backurl' => $backurl
+			'backurl' => $backurl,
+			'detach' => $detach,
+			'inject' => $inject,
+			'template' => $template
 		);
 
 		return json_encode($data);

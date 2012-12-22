@@ -63,6 +63,9 @@ class Cms_Ajax_Menu_Controller extends Cms_Base_Controller {
 
 				if(is_array($pages)) {
 
+					// Empty template
+					$template = '';
+
 					foreach ($pages as $pid) {
 
 						$check = DB::table('menus_pages')->where_cmspage_id($pid)->where_cmsmenu_id($mid)->first();
@@ -70,6 +73,14 @@ class Cms_Ajax_Menu_Controller extends Cms_Base_Controller {
 						if(empty($check)) {
 						 	$menu->pages()->attach($pid, array('order_id' => Config::get('cms::settings.order')));
 						}
+
+						// Template returned
+						$template .= '<li id="'.$mid.'_'.$pid.'">';
+						$template .= '<a class="btn" href="#">';
+						$template .= '<i class="icon-resize-vertical"></i>';
+						$template .= CmsPage::find($pid)->name;
+						$template .= '</a>';
+						$template .= '</li>';						
 
 					}
 
@@ -82,6 +93,10 @@ class Cms_Ajax_Menu_Controller extends Cms_Base_Controller {
 				$msg = LL('cms::ajax_resp.menu_save_success', CMSLANG)->get();
 				$backurl = $input['back_url'];
 
+				// Inject container
+				$inject = 'ul.sortable';
+				$detach = true;
+
 			} else {
 
 				//DELETE ALL MENU_ID
@@ -91,6 +106,10 @@ class Cms_Ajax_Menu_Controller extends Cms_Base_Controller {
 				$msg = LL('cms::ajax_resp.menu_save_success', CMSLANG)->get();
 				$backurl = $input['back_url'];
 
+				$template = '';
+				$inject = '';
+				$detach = true;
+
 			}
 
 		} else {
@@ -98,6 +117,10 @@ class Cms_Ajax_Menu_Controller extends Cms_Base_Controller {
 			$response = 'error';
 			$msg = LL('cms::ajax_resp.menu_save_error', CMSLANG)->get();
 			$backurl = '#';
+
+			$template = '';
+			$inject = '';
+			$detach = true;
 
 		}
 
@@ -107,7 +130,10 @@ class Cms_Ajax_Menu_Controller extends Cms_Base_Controller {
 			'id' => $mid,
 			'response' => $response,
 			'message' => $msg,
-			'backurl' => $backurl
+			'backurl' => $backurl,
+			'detach' => $detach,
+			'inject' => $inject,
+			'template' => $template
 		);
 
 		return json_encode($data);
