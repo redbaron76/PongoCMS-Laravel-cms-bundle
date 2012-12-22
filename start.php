@@ -27,9 +27,9 @@ View::composer('cms::interface.layouts.default', function($view)
 {
 	
 	Asset::container('header')->add('app_js', Config::get('application.url').'/site/js');
-	Asset::container('header')->add('jquery', 'bundles/cms/js/jquery.min.js', 'app_js');
-	Asset::container('footer')->add('bootstrap', 'bundles/cms/js/bootstrap.min.js', 'jquery');
-	Asset::container('footer')->add('cms', 'bundles/cms/js/cms.js', 'bootstrap');
+	Asset::container('header')->add('jquery', 'bundles/cms/js/jquery.min.js', 'app_js');	
+	Asset::container('footer')->add('cms', 'bundles/cms/js/cms.js', 'jquery');
+	Asset::container('footer')->add('bootstrap', 'bundles/cms/js/bootstrap.min.js', 'cms');
 	Asset::container('header')->add('bootstrapcss', 'bundles/cms/css/bootstrap.css');
 	Asset::container('header')->add('main', 'bundles/cms/css/cms.css', 'bootstrapcss');
 

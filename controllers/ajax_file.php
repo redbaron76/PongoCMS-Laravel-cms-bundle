@@ -153,6 +153,9 @@ class Cms_Ajax_File_Controller extends Cms_Base_Controller {
 					DB::table('files_pages')->where_cmsfile_id($fid)->where_not_in('cmspage_id', $pages)->delete();
 				}
 
+				// RESET CACHE
+				if(CACHE) Cache::forget('file_'.$fid.'_details');
+
 				$response = 'success';
 				$msg = LL('cms::ajax_resp.filename_fileavailable_success', CMSLANG)->get();
 				$backurl = '#';
@@ -223,9 +226,7 @@ class Cms_Ajax_File_Controller extends Cms_Base_Controller {
 					return json_encode($validation->errors);
 				}
 
-				//VALIDATION OK
-
-				
+				//VALIDATION OK				
 
 				//RENAME DB
 

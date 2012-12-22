@@ -17,12 +17,12 @@
 				
 				<ul class="nav nav-tabs">
 					<li class="active"><a href="#settings" data-toggle="tab">{{LL('cms::button.page_settings', CMSLANG)}}</a></li>
-					<li><a href="#design" data-toggle="tab">{{LL('cms::button.page_design', CMSLANG)}}</a></li>
-					<li><a href="#seo" data-toggle="tab">{{LL('cms::button.page_seo', CMSLANG)}}</a></li>
-					<li><a href="#media" data-toggle="tab">{{LL('cms::button.page_media', CMSLANG)}}</a></li>
-					<li><a href="#preview" data-toggle="tab">{{LL('cms::button.page_abstract', CMSLANG)}}</a></li>
-					<li><a href="#order" data-toggle="tab">{{LL('cms::form.subpage_order', CMSLANG)}}</a></li>
-					<li><a href="#relations" data-toggle="tab">{{LL('cms::form.page_relation', CMSLANG)}}</a></li>
+					<li{{DISABLED($page_id)}}><a href="#design" data-toggle="tab">{{LL('cms::button.page_design', CMSLANG)}}</a></li>
+					<li{{DISABLED($page_id)}}><a href="#seo" data-toggle="tab">{{LL('cms::button.page_seo', CMSLANG)}}</a></li>
+					<li{{DISABLED($page_id)}}><a href="#media" data-toggle="tab">{{LL('cms::button.page_media', CMSLANG)}}</a></li>
+					<li{{DISABLED($page_id)}}><a href="#preview" data-toggle="tab">{{LL('cms::button.page_abstract', CMSLANG)}}</a></li>
+					<li{{DISABLED($page_id)}}><a href="#order" data-toggle="tab">{{LL('cms::form.subpage_order', CMSLANG)}}</a></li>
+					<li{{DISABLED($page_id)}}><a href="#relations" data-toggle="tab">{{LL('cms::form.page_relation', CMSLANG)}}</a></li>
 				</ul>
 
 			</div>

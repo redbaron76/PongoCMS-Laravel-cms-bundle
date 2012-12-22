@@ -110,6 +110,12 @@ ul.sortable li a.btn {
     text-decoration: none;
 }
 
+/* TYPOGRAPHY */
+
+h1 { font-size: 32px; line-height: 32px; margin: 0; }
+h2 { font-size: 26px; line-height: 28px; margin: 0; }
+h1 small { font-size: 20px; line-height: 20px; margin: 0; }
+
 /* CONTAINER GENERIC */
 
 .row {
@@ -193,12 +199,10 @@ ul.sortable li a.btn {
     left: -50%;
 }
 
-.btn-group > .btn-mini {
-    height: 15px;
-}
-
-.btn-group > .btn-mini.dropdown-toggle {
-    height: 21px;
+.btn-mini .caret,
+.btn-small .caret,
+.btn-large .caret {
+    margin-top: 8px;
 }
 
 /* BADGET */
@@ -216,8 +220,9 @@ ul.sortable li a.btn {
 
 /* FORM */
 
-form legend {
-    border-color: #DDDDDD;
+form legend,
+div > legend {
+    line-height: 36px;
 }
 
 form .controls span.help-inline {
@@ -261,14 +266,6 @@ legend + * {
 
 /* FORM FIX */
 
-.input-prepend .add-on, .input-prepend .btn {
-    margin-right: -5px;
-}
-
-form.form-vertical .add-on {
-    vertical-align: top;
-}
-
 form.form-vertical .input-prepend input[class*="span"] {
     margin-left: -4px;
 }
@@ -281,7 +278,11 @@ form.form-vertical .input-prepend .add-on,
 form.form-vertical .input-append .add-on,
 form.form-vertical .input-prepend .btn,
 form.form-vertical .input-append .btn {
-    margin-left: 0px;
+    margin-bottom: 10px;
+}
+
+form.form-vertical .input-prepend .add-on {
+    margin-right: 3px;
 }
 
 form .text-btn {
@@ -319,7 +320,7 @@ ul.page-list li.divider:first-child {
 }
 
 .sub-page[class*="right"]:first-child {
-    background: url('../img/subpage.png') top right no-repeat;
+    background: url('../img/subpage.png') 0 3px no-repeat;
 }
 
 /* ERROR MESSAGES */

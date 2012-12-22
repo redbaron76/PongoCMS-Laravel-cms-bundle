@@ -17,12 +17,12 @@
 				
 				<ul class="nav nav-tabs">
 					<li class="active"><a href="#post" data-toggle="tab">{{LL('cms::button.blog_post', CMSLANG)}}</a></li>
-					<li><a href="#preview" data-toggle="tab">{{LL('cms::button.page_abstract', CMSLANG)}}</a></li>
-					<li><a href="#seo" data-toggle="tab">{{LL('cms::button.blog_seo', CMSLANG)}}</a></li>
-					<li><a href="#tags" data-toggle="tab">{{LL('cms::button.blog_tags', CMSLANG)}}</a></li>
-					<li><a href="#media" data-toggle="tab">{{LL('cms::button.blog_media', CMSLANG)}}</a></li>
-					<li><a href="#available" data-toggle="tab">{{LL('cms::form.available', CMSLANG)}}</a></li>
-					<li><a href="#relations" data-toggle="tab">{{LL('cms::form.blog_relation', CMSLANG)}}</a></li>
+					<li{{DISABLED($blog_id)}}><a href="#preview" data-toggle="tab">{{LL('cms::button.page_abstract', CMSLANG)}}</a></li>
+					<li{{DISABLED($blog_id)}}><a href="#seo" data-toggle="tab">{{LL('cms::button.blog_seo', CMSLANG)}}</a></li>
+					<li{{DISABLED($blog_id)}}><a href="#tags" data-toggle="tab">{{LL('cms::button.blog_tags', CMSLANG)}}</a></li>
+					<li{{DISABLED($blog_id)}}><a href="#media" data-toggle="tab">{{LL('cms::button.blog_media', CMSLANG)}}</a></li>
+					<li{{DISABLED($blog_id)}}><a href="#available" data-toggle="tab">{{LL('cms::form.available', CMSLANG)}}</a></li>
+					<li{{DISABLED($blog_id)}}><a href="#relations" data-toggle="tab">{{LL('cms::form.blog_relation', CMSLANG)}}</a></li>
 				</ul>
 
 			</div>
@@ -68,18 +68,7 @@
 									<div class="controls">
 										{{Form::text('blog_name', $blog_name, array('class' => 'span7', 'id' => 'blog_name')) . "\n"}}
 									</div>
-								</div>
-								<div class="control-group" rel="blog_slug">
-									{{Form::label('blog_slug', LL('cms::form.blog_slug', CMSLANG), array('class' => 'control-label')) . "\n"}}
-									<div class="controls">
-										<div class="input-prepend">
-											<span class="add-on" rel="blog_slug">{{$blog_parent_slug}}</span>
-											<?php $span = (strlen($blog_parent_slug) > 5) ? 'span5' : 'span7';   ?>
-											{{Form::text('blog_slug', $blog_slug, array('class' => $span, 'id' => 'blog_slug')) . "\n"}}
-											{{Form::hidden('blog_parent_slug', $blog_parent_slug, array('id' => 'blog_parent_slug')) . "\n"}}
-										</div>
-									</div>
-								</div>
+								</div>								
 								<br>
 								<div class="control-group relative">
 									{{Form::label('blog_text', LL('cms::form.blog_text', CMSLANG), array('class' => 'control-label')) . "\n"}}
@@ -114,6 +103,17 @@
 									{{Form::label('blog_parent', LL('cms::form.blog_parent', CMSLANG), array('class' => 'control-label')) . "\n"}}
 									<div class="controls">
 										{{Form::select('blog_parent', $blog_parent, $blog_parent_selected, array('id' => 'blog_parent', 'class' => 'span7')) . "\n"}}
+									</div>
+								</div>
+								<div class="control-group" rel="blog_slug">
+									{{Form::label('blog_slug', LL('cms::form.blog_slug', CMSLANG), array('class' => 'control-label')) . "\n"}}
+									<div class="controls">
+										<div class="input-prepend">
+											<span class="add-on" rel="blog_slug">{{$blog_parent_slug}}</span>
+											<?php $span = (strlen($blog_parent_slug) > 5) ? 'span5' : 'span7';   ?>
+											{{Form::text('blog_slug', $blog_slug, array('class' => $span, 'id' => 'blog_slug')) . "\n"}}
+											{{Form::hidden('blog_parent_slug', $blog_parent_slug, array('id' => 'blog_parent_slug')) . "\n"}}
+										</div>
 									</div>
 								</div>
 								<div class="control-group" rel="blog_zone">

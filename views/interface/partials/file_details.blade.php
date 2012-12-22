@@ -1,12 +1,15 @@
 <p>
+	<strong>{{LL('cms::label.size', CMSLANG)}}:</strong> {{MEDIA_SIZE($size, 'KB')}}
+</p>
+
+@if($is_image)
+<p class="hspace">
 	<strong>{{LL('cms::label.width', CMSLANG)}}:</strong> {{$w}}px
 </p>
 <p>
 	<strong>{{LL('cms::label.height', CMSLANG)}}:</strong> {{$h}}px
 </p>
-<p>
-	<strong>{{LL('cms::label.size', CMSLANG)}}:</strong> {{MEDIA_SIZE($size, 'KB')}}
-</p>
+@endif
 
 <p class="hspace">
 	<strong>{{LL('cms::label.created_at_o', CMSLANG)}}:</strong> {{$created_at}}

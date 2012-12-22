@@ -200,11 +200,17 @@ class Cms_File_Controller extends Cms_Base_Controller {
 
 				//CACHE DATA
 				if(CACHE) {
+
 					$file = Cache::remember('file_'.$fid.'_details', function() use ($fid) {
+
 						return CmsFile::with(array('pages'))->find($fid);
+
 					}, 60);
+
 				} else {
+
 					$file = CmsFile::with(array('pages'))->find($fid);
+
 				}
 
 				return View::make('cms::interface.partials.file_details')
@@ -213,6 +219,7 @@ class Cms_File_Controller extends Cms_Base_Controller {
 				->with('size', $file->size)
 				->with('w', $file->w)
 				->with('h', $file->h)
+				->with('is_image', ($file->is_image) ? true : false)
 				->with('pagerels', $file->pages);
 
 			}

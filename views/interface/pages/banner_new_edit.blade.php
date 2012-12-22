@@ -18,7 +18,7 @@
 				
 				<ul class="nav nav-tabs">
 					<li class="active"><a href="#banner" data-toggle="tab">{{LL('cms::form.banner', CMSLANG)}}</a></li>
-					<li><a href="#order" data-toggle="tab">{{LL('cms::form.banner_order', CMSLANG)}}</a></li>
+					<li{{DISABLED($banner_id)}}><a href="#order" data-toggle="tab">{{LL('cms::form.banner_order', CMSLANG)}}</a></li>
 				</ul>
 
 			</div>

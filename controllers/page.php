@@ -385,6 +385,9 @@ class Cms_Page_Controller extends Cms_Base_Controller {
 			'search' => false
 		);
 
+		//GET ELEMENTS DATA
+		$elements = CmsPage::find($page_id)->elements;
+
 		//GET FILE DATA
 		$files = CmsPage::find($page_id)->files;
 
@@ -397,9 +400,9 @@ class Cms_Page_Controller extends Cms_Base_Controller {
 		->with('element_label', '')
 		->with('element_text', '')
 		->with('element_zones', CmsElement::select_zone($page_id))
-		->with('element_zone_selected', false)
+		->with('element_zone_selected', true)
 		->with('element_is_valid', true)
-		->with('elements', null)
+		->with('elements', $elements)
 		->with('media', $files);
 		
 	}
@@ -460,7 +463,7 @@ class Cms_Page_Controller extends Cms_Base_Controller {
 
 			if(!empty($element)) {
 
-				//GET FILE DATA
+				//GET ELEMENTS DATA
 				$elements = CmsPage::find($page_id)->elements;
 
 				//GET FILE DATA

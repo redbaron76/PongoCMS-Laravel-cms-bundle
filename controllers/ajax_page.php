@@ -348,29 +348,24 @@ class Cms_Ajax_Page_Controller extends Cms_Base_Controller {
 
 			//CREATE UPLOAD PATH
 
-			switch ($file_ext) {
-				case 'pdf':
-					$up = 'pdf/';
-					break;
-				case 'mp3':
-					$up = 'mp3/';
-					break;
-				case 'zip':
-					$up = 'zip/';
-					break;
-				default:
-					$up = 'img/';
+			$img_mimes = array('jpg', 'jpeg', 'gif', 'png');
+
+			if (in_array($file_ext, $img_mimes)) {
+
+				$up = 'img/';
+
+			} else {
+
+				$up = $file_ext . '/';
+
 			}
 
 			//BUILD UPLOAD PATH
 			$upload_path = Config::get('cms::settings.data') . $up;
 
-			//CREATE DIR IF NOT EXISTS
-			if(!file_exists(path('public').$upload_path)) mkdir(path('public').$upload_path);
-
 			//VALIDATION CHECK
 
-			$get_mimes = Config::get('cms::settings.mimes');
+			$get_mimes = str_replace(' ', '', Config::get('cms::settings.mimes'));
 			$get_max = Config::get('cms::settings.max_size') * 1024;	//10Mb
 
 			$rules = array(
@@ -393,6 +388,9 @@ class Cms_Ajax_Page_Controller extends Cms_Base_Controller {
 				return json_encode(array('type' => 'label-important', 'message' => $validation->errors->first()));
 
 			} else {
+
+				//CREATE DIR IF NOT EXISTS
+				if(!file_exists(path('public').$upload_path)) mkdir(path('public').$upload_path);
 
 				$path = strtolower($upload_path . $file_name);
 
@@ -440,7 +438,8 @@ class Cms_Ajax_Page_Controller extends Cms_Base_Controller {
 						'message' => LL('cms::ajax_resp.page_upload_success', CMSLANG)->get(),
 						'name' => $file_name,
 						'path' => '/'.$path,
-						'thumb_path' => $thumb_path
+						'thumb_path' => $thumb_path,
+						'is_img' => ($up == 'img/') ? true : false
 					);
 
 					return json_encode($resp);
@@ -696,6 +695,17 @@ class Cms_Ajax_Page_Controller extends Cms_Base_Controller {
 			$msg = LL('cms::ajax_resp.element_success', CMSLANG)->get();
 			$backurl = $input['back_url'];
 
+			// Template returned
+			$template  = '<li id="'.$page_id.'_'.$eid.'">';
+			$template .= '<a class="btn" href="#">';
+			$template .= '<i class="icon-resize-vertical"></i>';
+			$template .= $input['element_label'];
+			$template .= '</a>';
+			$template .= '</li>';
+
+			// Inject container
+			$inject = 'ul.sortable';
+
 		} else {
 
 			$eid = null;
@@ -706,6 +716,9 @@ class Cms_Ajax_Page_Controller extends Cms_Base_Controller {
 			$msg = LL('cms::ajax_resp.element_error', CMSLANG)->get();
 			$backurl = '#';
 
+			$template = '';
+			$inject = '';
+
 		}
 
 		$data = array(
@@ -715,7 +728,9 @@ class Cms_Ajax_Page_Controller extends Cms_Base_Controller {
 			'pageid' => $page_id,
 			'response' => $response,
 			'message' => $msg,
-			'backurl' => $backurl
+			'backurl' => $backurl,
+			'inject' => $inject,
+			'template' => $template
 		);
 
 		return json_encode($data);

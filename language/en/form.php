@@ -16,7 +16,7 @@ return array(
 	"page_parent" => "Page parent",
 	"page_topcat" => "MAIN",
 	"page_select" => "SELECT",
-	"page_slug" => "SLUG",	
+	"page_slug" => "Page short url",	
 	"page_owner" => "Page owner",
 	"page_access" => "Viewable",
 	"page_extra" => "It may contain?",

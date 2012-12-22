@@ -18,7 +18,7 @@
 				
 				<ul class="nav nav-tabs">
 					<li class="active"><a href="#account" data-toggle="tab">{{LL('cms::form.account', CMSLANG)}}</a></li>
-					<li><a href="#password" data-toggle="tab">{{LL('cms::form.password', CMSLANG)}}</a></li>
+					<li{{DISABLED($user_id)}}><a href="#password" data-toggle="tab">{{LL('cms::form.password', CMSLANG)}}</a></li>
 				</ul>
 
 			</div>

@@ -27,7 +27,7 @@ class Cms_Ajax_Gallery_Controller extends Cms_Base_Controller {
 			//VALIDATION CHECK
 
 			$rules = array(
-				'gallery_name'  => 'required|alpha_dash|between:2,20|unique:galleries,name,'.$input['gallery_id'],
+				'gallery_name'  => 'required|alpha_dash|between:2,30|unique:galleries,name,'.$input['gallery_id'],
 			);
 
 			$messages = array(

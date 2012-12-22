@@ -18,13 +18,13 @@
 				<ul class="nav nav-tabs">
 					<li class="active"><a href="#element" data-toggle="tab">{{LL('cms::form.element_settings', CMSLANG)}}</a></li>
 					@if(IS('cms::settings.wysiwyg', 'ckeditor'))
-					<li><a href="#ckeditor" data-toggle="tab">{{LL('cms::form.element_content', CMSLANG)}}</a></li>
+					<li{{DISABLED($element_id)}}><a href="#ckeditor" data-toggle="tab">{{LL('cms::form.element_content', CMSLANG)}}</a></li>
 					@endif
 					@if(IS('cms::settings.wysiwyg', 'markitup'))
-					<li><a href="#markit" data-toggle="tab">{{LL('cms::form.element_content', CMSLANG)}}</a></li>
+					<li{{DISABLED($element_id)}}><a href="#markit" data-toggle="tab">{{LL('cms::form.element_content', CMSLANG)}}</a></li>
 					@endif
-					<li><a href="#media" data-toggle="tab">{{LL('cms::button.page_media', CMSLANG)}}</a></li>
-					<li><a href="#order" data-toggle="tab">{{LL('cms::form.element_stack', CMSLANG)}}</a></li>
+					<li{{DISABLED($element_id)}}><a href="#media" data-toggle="tab">{{LL('cms::button.page_media', CMSLANG)}}</a></li>
+					<li{{DISABLED($element_id)}}><a href="#order" data-toggle="tab">{{LL('cms::form.element_stack', CMSLANG)}}</a></li>
 				</ul>
 
 			</div>

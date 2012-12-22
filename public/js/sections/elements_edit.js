@@ -2,6 +2,9 @@
 
 $(function() {
 
+	//DISABLE NAV TAB
+	$.cms.disableNavTab();
+
 	//TOOLTIP
 	$.cms.toolTip();
 

@@ -18,7 +18,7 @@
 				
 				<ul class="nav nav-tabs">
 					<li class="active"><a href="#download" data-toggle="tab">{{LL('cms::form.download', CMSLANG)}}</a></li>
-					<li><a href="#order" data-toggle="tab">{{LL('cms::form.download_order', CMSLANG)}}</a></li>
+					<li{{DISABLED($download_id)}}><a href="#order" data-toggle="tab">{{LL('cms::form.download_order', CMSLANG)}}</a></li>
 				</ul>
 
 			</div>

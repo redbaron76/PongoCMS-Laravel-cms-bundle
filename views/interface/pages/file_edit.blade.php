@@ -30,8 +30,8 @@
 				
 				<ul class="nav nav-tabs">
 					<li class="active"><a href="#text" data-toggle="tab">{{LL('cms::form.texts', CMSLANG)}}</a></li>
-					<li><a href="#available" data-toggle="tab">{{LL('cms::form.available', CMSLANG)}}</a></li>
-					<li><a href="#filename" data-toggle="tab">{{LL('cms::form.filename', CMSLANG)}}</a></li>
+					<li{{DISABLED($file_id)}}><a href="#available" data-toggle="tab">{{LL('cms::form.available', CMSLANG)}}</a></li>
+					<li{{DISABLED($file_id)}}><a href="#filename" data-toggle="tab">{{LL('cms::form.filename', CMSLANG)}}</a></li>
 				</ul>
 
 			</div>

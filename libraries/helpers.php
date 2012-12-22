@@ -80,6 +80,17 @@ function VALID($base = SLUG_FULL)
 }
 
 /**
+ * Set class "disabled" to nav tabs when new
+ *
+ * @param  int  $item
+ * @return string
+ */
+function DISABLED($item)
+{
+	return is_numeric($item) ? '' : HTML::attributes(array('class' => 'disabled'));
+}
+
+/**
  * Retrieve media type.
  *
  * @param  string  $ext
@@ -87,18 +98,17 @@ function VALID($base = SLUG_FULL)
  */
 function MEDIA_TYPE($ext)
 {
-	switch ($ext) {
-		case 'pdf':
-			$t = 'pdf';
-			break;
-		case 'mp3':
-			$t = 'mp3';
-			break;
-		case 'zip':
-			$t = 'zip';
-			break;
-		default:
-			$t = 'img';
+	
+	$img_mimes = array('jpg', 'jpeg', 'gif', 'png');
+
+	if (in_array($ext, $img_mimes)) {
+
+		$t = 'img';
+
+	} else {
+
+		$t = $ext;
+
 	}
 
 	return $t;

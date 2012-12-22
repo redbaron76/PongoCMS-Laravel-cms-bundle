@@ -65,6 +65,13 @@ $.cms = {
 		});
 	},
 
+	disableNavTab:
+	function() {
+		$('.disabled a').click(function() {
+			return false;
+		});
+	},
+
 	//PAGE
 
 	changeLang:
@@ -228,10 +235,22 @@ $.cms = {
 				//Set all hidden id
 				$('.'+data.cls).val(data.id);
 
+				//Remove .disabled from tabs
+				if(data.id) {
+					$('.nav').find('li.disabled').removeClass('disabled');
+					$('a[data-toggle="tab"], a[data-toggle="pill"]').click(function(e) {
+						e.preventDefault();
+						$(this).tab('show');
+					});						
+				}
+
 				//Set page_id for extra and enable upload
 				if(data.pageid) $('.page_id').val(data.pageid);
 
 				if(data.full_slug) $('a.preview').attr('href', data.full_slug + '/preview');
+
+				// Template inject
+				if(data.inject && data.template) $(data.inject).append(data.template);
 
 				//redirect if exit
 				if(data.backurl != '#') {
@@ -307,7 +326,6 @@ $.cms = {
 			$('#filelist').html("<div>Upload engine: " + params.runtime + "</div>");
 		});
 
-		// if($page_id) uploader.init();
 		uploader.init();
 
 		uploader.bind('FilesAdded', function(up, files) {
@@ -329,7 +347,6 @@ $.cms = {
 			
 			var obj = jQuery.parseJSON(info.response);
 
-			//$('#' + file.id + ' span').html(file.percent + '%');
 			$('#' + file.id + ' span').html(obj.message).addClass(obj.type);
 
 			//create thumb element if path returned
@@ -337,8 +354,10 @@ $.cms = {
 				
 				$('.none').remove();
 
+				var fancy = (obj.is_img) ? ' fancy' : '';
+
 				var thumb = '<li class="span1 media-box-block">' +
-								'<a href="'+BASE+obj.path+'" class="thumbnail fancy" rel="tooltip" data-original-title="'+obj.name+'">' +
+								'<a href="'+BASE+obj.path+'" class="thumbnail'+fancy+'" rel="tooltip" data-original-title="'+obj.name+'">' +
 									'<img src="'+BASE+obj.thumb_path+'" width="50" height="50">' +
 								'</a>' +
 							'</li>';
