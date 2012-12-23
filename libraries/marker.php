@@ -2064,13 +2064,14 @@ class Marker {
 
 
 	/**
-    * VIDEO Marker - Shows video embed from Youtube, Screenr or Vimeo
+    * VIDEO Marker - Shows video embed from Youtube, Screenr, Vimeo or local hosted
     *
 	* [$VIDEO[{
 	*	"code":"<video code>",	=> (video code)
 	*	"site":"youtube",		=> (available: youtube || screenr || vimeo || local)
 	*	"w":"420",				=> (video width)
 	*	"h":"315",				=> (video height)
+	*	"skin":"<skin>",		=> OPTIONAL (flowplayer skin override)
 	*	"class":"<class>",		=> OPTIONAL (default: video)
 	* }]]
     *
@@ -2088,6 +2089,9 @@ class Marker {
 		$_code = '';
 		if(isset($code) and !empty($code)) $_code = $code;
 
+		// NAME IS CODE ALIAS
+		if(isset($name) and !empty($name)) $_code = $name;
+
 		$_site = 'youtube';
 		if(isset($site) and !empty($site)) $_site = $site;
 
@@ -2097,10 +2101,30 @@ class Marker {
 		$_h = 315;
 		if(isset($h) and !empty($h)) $_h = $h;
 
+		$_skin = '';
+		if(isset($skin) and !empty($skin)) $_skin = $skin;
+
 		$_class = 'video';
 		if(isset($class) and !empty($class)) $_class = $class;
 
 		if(!empty($_code)) {
+
+			$_media_url = '';
+
+			// LOAD FLOWPLAYER
+			if($_site === 'local') {
+
+				$_skin_player = (!empty($_skin)) ? $_skin : CONF('cms::settings.flowplayer','skin');
+
+				Asset::container('header')->add('flowplayercss', 'bundles/cms/flowplayer/'.$_skin_player.'.css', 'site_css');
+				Asset::container('footer')->add('flowplayer', 'bundles/cms/js/flowplayer.min.js', 'jquery_lib');
+
+				$_site = 'video';
+				$_type = File::extension($_code);				
+				$_class = CONF('cms::settings.flowplayer','options') . ' ' . $_class;
+				$_media_url = URL::base().'/'.Config::get('cms::settings.data').$_type.'/';
+
+			}
 
 			$options = array(
 				'class' => $_class,
@@ -2108,6 +2132,7 @@ class Marker {
 
 			$view = View::make('cms::theme.'.THEME.'.partials.markers.'.$_site);
 			$view['code'] 		= $_code;
+			$view['url']		= $_media_url;
 			$view['w']			= $_w;
 			$view['h']			= $_h;
 			$view['options'] 	= HTML::attributes($options);
