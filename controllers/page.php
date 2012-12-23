@@ -33,6 +33,7 @@ class Cms_Page_Controller extends Cms_Base_Controller {
 		$data = CmsPage::where_lang($lang)
 				->where_parent_id(0)
 				->order_by('is_home', 'desc')
+				->order_by('order_id', 'asc')
 				->order_by('id', 'asc')
 				->get();
 

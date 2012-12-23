@@ -272,7 +272,8 @@ class CmsPage extends Eloquent {
 
     	//GET PAGE DATA
 		$data = self::with(array('user','elements'))
-				->where_parent_id($parent_id)								
+				->where_parent_id($parent_id)
+				->order_by('order_id', 'asc')
 				->get();
 
 		$new_data = array();
@@ -295,7 +296,8 @@ class CmsPage extends Eloquent {
 		$data = self::with(array('files' => function($query) {
 			$query->where_is_image(1)->where_is_valid(1);
 		}))
-				->where_parent_id($parent_id)								
+				->where_parent_id($parent_id)
+				->order_by('order_id', 'asc')
 				->get();
 
 		$new_data = array();
@@ -316,7 +318,8 @@ class CmsPage extends Eloquent {
 
     	//GET PAGE DATA
 		$data = self::with(array('files'))
-				->where_parent_id($parent_id)								
+				->where_parent_id($parent_id)
+				->order_by('order_id', 'asc')
 				->get();
 
 		$new_data = array();
@@ -337,7 +340,8 @@ class CmsPage extends Eloquent {
 
     	//GET PAGE DATA
 		$data = self::with(array('menus'))
-				->where_parent_id($parent_id)								
+				->where_parent_id($parent_id)
+				->order_by('order_id', 'asc')
 				->get();
 
 		$new_data = array();
@@ -357,7 +361,8 @@ class CmsPage extends Eloquent {
     {
 
     	//GET PAGE DATA
-		$data = self::where_parent_id($parent_id)								
+		$data = self::where_parent_id($parent_id)
+				->order_by('order_id', 'asc')
 				->get();
 
 		$new_data = array();

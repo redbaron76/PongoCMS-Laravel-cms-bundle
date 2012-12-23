@@ -2122,7 +2122,7 @@ class Marker {
 				$_site = 'video';
 				$_type = File::extension($_code);				
 				$_class = CONF('cms::settings.flowplayer','options') . ' ' . $_class;
-				$_media_url = URL::base().'/'.Config::get('cms::settings.data').$_type.'/';
+				$_media_url = URL::to(Config::get('cms::settings.data').$_type.'/'.$_code);
 
 			}
 
@@ -2130,8 +2130,7 @@ class Marker {
 				'class' => $_class,
 			);
 
-			$view = View::make('cms::theme.'.THEME.'.partials.markers.'.$_site);
-			$view['code'] 		= $_code;
+			$view = View::make('cms::theme.'.THEME.'.partials.markers.'.$_site);;
 			$view['url']		= $_media_url;
 			$view['w']			= $_w;
 			$view['h']			= $_h;

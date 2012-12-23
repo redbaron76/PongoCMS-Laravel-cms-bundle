@@ -192,7 +192,10 @@ class Cms_Ajax_Banner_Controller extends Cms_Base_Controller {
 						'order_id' => $order_id
 					);
 
-					DB::table('files_banners')->where_cmsbanner_id($p[0])->where_cmsfile_id($p[1])->update($update);
+					DB::table('files_banners')
+						->where_cmsbanner_id($p[0])
+						->where_cmsfile_id($p[1])
+						->update($update);
 				}
 				
 			}

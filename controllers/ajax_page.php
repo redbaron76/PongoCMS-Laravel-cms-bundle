@@ -892,9 +892,6 @@ class Cms_Ajax_Page_Controller extends Cms_Base_Controller {
 			$order = Input::get('order');
 			
 			if(is_array($order)) {
-
-				//SET 1000
-				//CmsElement::where_order_id(0)->update(array('order_id' => 1000000));
 				
 				foreach($order as $order_id => $item) {
 					$order_id++;
@@ -905,7 +902,10 @@ class Cms_Ajax_Page_Controller extends Cms_Base_Controller {
 						'order_id' => $order_id
 					);
 
-					DB::table('elements_pages')->update($order);
+					DB::table('elements_pages')
+						->where_cmspage_id($p[0])
+						->where_cmselement_id($p[1])
+						->update($order);
 
 				}
 				

@@ -20,7 +20,7 @@ INSERT INTO "pongo_elements" VALUES(2,1,'author','author','<h2>About the author<
 [$SOCIAL[{"what":"follow","user":"FFumis"}]]','ZONE2','en',1,'2012-07-10 15:23:10','2012-07-10 17:14:41');
 INSERT INTO "pongo_elements" VALUES(3,1,'intro','intro','<h1>Welcome to PongoCMS!</h1>
 
-<p>Hello Cms User and welcome to the <strong>demo site</strong> of PongoCMS, the brand new Open Source PHP5 CMS built on top of <strong><a href="http://laravel.com">Laravel 3.2 PHP Framework</a></strong> and <strong><a href="http://twitter.github.com/bootstrap/">Twitter Bootstrap 2.0.4</a></strong></p>
+<p>Hello Cms User and welcome to the <strong>demo site</strong> of PongoCMS, the brand new Open Source PHP5 CMS built on top of <strong><a href="http://laravel.com">Laravel 3.2 PHP Framework</a></strong> and <strong><a href="http://twitter.github.com/bootstrap/">Twitter Bootstrap 2.x</a></strong></p>
 
 <h3>Where and how to start?</h3>
 
@@ -48,7 +48,7 @@ INSERT INTO "pongo_elements" VALUES(4,1,'guide','quick guide','<h2>Quick start g
 </ol>','ZONE2','en',1,'2012-07-10 15:40:13','2012-07-10 15:40:53');
 INSERT INTO "pongo_elements" VALUES(5,1,'intro','intro','<h1>Benvenuto in PongoCMS!</h1>
 
-<p>Salve Utente e benvenuto nel sito demo di PongoCMS, il nuovo CMS Open Source in PHP5 sviluppato con <strong><a href="http://laravel.com">Laravel 3.2 PHP Framework</a></strong> e <strong><a href="http://twitter.github.com/bootstrap/">Twitter Bootstrap 2.0.4</a></strong></p>
+<p>Salve Utente e benvenuto nel sito demo di PongoCMS, il nuovo CMS Open Source in PHP5 sviluppato con <strong><a href="http://laravel.com">Laravel 3.2 PHP Framework</a></strong> e <strong><a href="http://twitter.github.com/bootstrap/">Twitter Bootstrap 2.x</a></strong></p>
 
 <h3>Dove e come iniziare?</h3>
 

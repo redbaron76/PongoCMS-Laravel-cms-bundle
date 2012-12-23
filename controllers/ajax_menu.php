@@ -157,7 +157,10 @@ class Cms_Ajax_Menu_Controller extends Cms_Base_Controller {
 						'order_id' => $order_id
 					);
 
-					DB::table('menus_pages')->where_cmsmenu_id($p[0])->where_cmspage_id($p[1])->update($update);
+					DB::table('menus_pages')
+						->where_cmsmenu_id($p[0])
+						->where_cmspage_id($p[1])
+						->update($update);
 
 				}
 				

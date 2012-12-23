@@ -1,5 +1,5 @@
 <div{{$options}}>
 
-   <video src="{{$url.$code}}"></video>
+   <video src="{{$url}}"></video>
 
 </div>
