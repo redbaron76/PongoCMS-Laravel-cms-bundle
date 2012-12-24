@@ -96,7 +96,7 @@ return array(
 	"modal_descr_clone_page" => "Seleziona la lingua in cui duplicare la pagina:",
 	"modal_page_clone_elements" => "Duplicare tutti gli elementi ad essa associati?",
 	"modal_page_clone_media" => "Duplicare tutti i media della pagina?",
-
+	"modal_page_force_delete" => "Rimuovi la pagina e svincola gli elementi?",
 
 	//COMMON LABEL SELECT FORM
 

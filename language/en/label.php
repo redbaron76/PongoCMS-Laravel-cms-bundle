@@ -41,7 +41,7 @@ return array(
 	//PAGES
 
 	"pagename" => "Page name",
-	"layout" => "Layout setting",
+	"layout" => "Layout settings",
 	"layout_not_set" => "Layout not set",
 	"author" => "Author",
 	"created_at" => "Created at",

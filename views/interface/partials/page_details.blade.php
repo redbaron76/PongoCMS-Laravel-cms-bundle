@@ -10,7 +10,7 @@
 
 <p class="hspace">
 	<strong>{{LL('cms::label.language', CMSLANG)}}</strong>
-	<span class="badge badge-info">{{strtoupper($lang)}}</span>
+	<span class="label label-info">{{strtoupper($lang)}}</span>
 </p>
 
 <p class="hspace">
@@ -19,9 +19,9 @@
 
 @if(!empty($layout))
 <p>
-	<span class="label">{{$header}}</span>
-	<span class="label label-warning">{{$layout}}</span>
-	<span class="label">{{$footer}}</span>
+	<span class="label">{{strtoupper($header)}}</span>
+	<span class="label label-warning">{{strtoupper($layout)}}</span>
+	<span class="label">{{strtoupper($footer)}}</span>
 </p>
 @else
 <p>
@@ -33,11 +33,12 @@
 <p class="hspace">
 	<strong>{{LL('cms::label.page_elements', CMSLANG)}}</strong>
 </p>
-<ul>
+<ul class="unstyled">
 @forelse($elements as $element)
 	<li>
+		<i class="icon-star<?php if($element->is_valid == 0) echo '-empty'; ?>"></i>
+		<span class="label label-info">{{strtoupper($element->zone)}}</span>
 		{{$element->label}}
-		<span class="badge-mini badge-info">{{strtoupper($element->zone)}}</span>
 	</li>
 @empty
 	<li>{{LL('cms::label.page_no_elements', CMSLANG)}}</li>

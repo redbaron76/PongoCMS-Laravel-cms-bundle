@@ -493,14 +493,14 @@
 		@if(!$role_fail)
 		<p>{{LL('cms::form.modal_descr_clone_page', CMSLANG)}}</p>
 		<p>{{Form::select('lang', Config::get('cms::settings.langs'), LANG, array('class' => 'span6'))}}</p>
-		<p>
+		<label class="checkbox">
 			{{Form::checkbox('clone_elements', 1, null)}}
 			{{LL('cms::form.modal_page_clone_elements', CMSLANG)}}
-		</p>
-		<p>
+		</label>
+		<label class="checkbox">
 			{{Form::checkbox('clone_media', 1, null)}}
 			{{LL('cms::form.modal_page_clone_media', CMSLANG)}}
-		</p>
+		</label>
 		@else
 		<p>{{LL('cms::ajax_resp.ownership_error', CMSLANG)}}</p>
 		@endif

@@ -2,10 +2,12 @@
 	<div class="span4">
 		<h2>{{LL('cms::title.pages', CMSLANG)}}</h2>
 	</div>
-	<div class="span6 toright">		
+	<div class="span6 toright">
 		@if (!empty($lang))
-		<a href="{{action('cms::page@sitemap')}}" class="btn btn-danger v-top">Site map</a>
-		{{Form::select('page_lang', Config::get('cms::settings.langs'), $lang, array('id' => 'change_lang'))}}
+		<div class="input-prepend">
+			<span class="add-on">{{LL('cms::form.page_display', CMSLANG)}}:</span>
+			{{Form::select('page_lang', Config::get('cms::settings.langs'), $lang, array('id' => 'change_lang', 'class' => 'span2'))}}
+		</div>
 		@else
 		&nbsp;
 		@endif
@@ -20,7 +22,7 @@
 			<ul class="dropdown-menu">
 				@foreach (Config::get('cms::settings.langs') as $key => $value)
 					<li>
-						<a href="{{action('cms::page@new', array($key))}}">
+						<a href="{{URL::to_action('cms::page@new', array($key))}}">
 							<i class="icon-chevron-right"></i>
 							{{$value}}
 						</a>
@@ -44,21 +46,33 @@
 			</thead>
 			<tbody class="listing">
 
-				@forelse ($data->results as $page)
+				@forelse ($data as $page)
 				<tr class="post">
 					<td>
-						<i class="icon-star<?php if($page->is_valid == 0) echo '-empty'; ?>"></i>
-						@if ($page->access_level > 0)
-						<i class="icon-lock"></i>
+
+						<?php $margin = ' w-right' . (substr_count($page->slug, '/') -1) * 20; ?>
+
+						@if(strlen($margin) > 9)
+						<div class="sub-page{{$margin}}"></div>
 						@endif
-						@if (empty($page->layout))
-						<i class="icon-exclamation-sign"></i>
-						@endif
-						{{HTML::span($page->name, array('class' => 'pop-over', 'rel' => $page->id, 'data-original-title' => LL('cms::title.popover_title_page', CMSLANG)))}}
-						@if ($page->is_home == 1)
-						{{HTML::span('home', array('class' => 'label label-info'))}}
-						@endif
-						{{HTML::span(LL('cms::label.url', CMSLANG).$page->slug, array('class' => 'page_url block'))}}
+
+						<div class="sub-page">
+
+							<i class="icon-star<?php if($page->is_valid == 0) echo '-empty'; ?>"></i>
+							@if ((bool) $page->is_home)
+							<i class="icon-home"></i>
+							@endif
+							@if ($page->access_level > 0)
+							<i class="icon-lock"></i>
+							@endif
+							@if (empty($page->layout))
+							<i class="icon-exclamation-sign"></i>
+							@endif
+
+							{{HTML::span($page->name, array('class' => 'pop-over', 'rel' => $page->id, 'data-original-title' => LL('cms::title.popover_title_page', CMSLANG)))}}
+
+							{{HTML::span(LL('cms::label.url', CMSLANG).$page->slug, array('class' => 'page_url block'))}}
+						</div>
 					</td>
 					<td>
 						
@@ -75,7 +89,7 @@
 								<button class="btn btn-mini btn-primary dropdown-toggle" data-toggle="dropdown">
 									<span class="caret"></span>
 								</button>
-								<ul class="dropdown-menu pull-right">
+								<ul class="dropdown-menu">
 									<li>
 										<span>
 											<i class="icon-edit"></i>
@@ -86,10 +100,10 @@
 									@if (!empty($page->elements))
 										@forelse ($page->elements as $element)
 										<li>
-											<a href="{{action('cms::page@edit_element', array($page->id, $element->id))}}">												
+											<a href="{{action('cms::page@edit_element', array($page->id, $element->id))}}">			
 												<i class="icon-star<?php if($element->is_valid == 0) echo '-empty'; ?>"></i>
-												{{$element->label}}
-												<span class="badge-mini badge-info">{{strtoupper($element->zone)}}</span>
+												<span class="label label-info">{{strtoupper($element->zone)}}</span>
+												{{$element->label}}												
 											</a>
 										</li>
 										@empty
@@ -109,7 +123,7 @@
 								<button class="btn btn-mini btn-danger dropdown-toggle" data-toggle="dropdown">
 									<span class="caret"></span>
 								</button>
-								<ul class="dropdown-menu pull-right">
+								<ul class="dropdown-menu">
 									<li>										
 										<span>
 											<i class="icon-trash"></i>
@@ -120,10 +134,10 @@
 									@if (!empty($page->elements))
 										@forelse ($page->elements as $element)
 										<li>
-											<a href="#element-delete-{{$page->id}}-{{$element->id}}" data-toggle="modal">
+											<a href="#element-delete-{{$page->id}}-{{$element->id}}" data-toggle="modal">			
 												<i class="icon-star<?php if($element->is_valid == 0) echo '-empty'; ?>"></i>
+												<span class="label label-info">{{strtoupper($element->zone)}}</span>
 												{{$element->label}}
-												<span class="badge-mini badge-info">{{strtoupper($element->zone)}}</span>
 											</a>
 										</li>
 										@empty
@@ -170,6 +184,10 @@
 							</div>
 							<div class="modal-body">
 								<p>{{$page->name}}</p>
+								<label class="checkbox">
+									{{Form::checkbox('force_delete', 1, null)}}
+									{{LL('cms::form.modal_page_force_delete', CMSLANG)}}
+								</label>
 							</div>
 							<div class="modal-footer">
 								<a href="#" class="btn" data-dismiss="modal">{{LL('cms::button.close', CMSLANG)}}</a>
@@ -185,15 +203,9 @@
 					<td colspan="3">{{LL('cms::alert.list_empty', CMSLANG)}}</td>
 				</tr>
 				@endforelse
-
-				@if($data->total > Config::get('cms::theme.pag') and $data->page < $data->last)
-				<tr class="navigation">
-					<td colspan="3">{{$data->next()}}</td>
-				</tr>
-				@endif
 				
 			</tbody>
-		</table>
+		</table>		
 
 	</div>
 </div>

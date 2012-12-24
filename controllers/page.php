@@ -45,7 +45,7 @@ class Cms_Page_Controller extends Cms_Base_Controller {
 			$new_data = ($new_data + $recursive);
 		}		
 
-		$this->layout->content = View::make('cms::interface.pages.page_sitemap')
+		$this->layout->content = View::make('cms::interface.pages.page_list')
 		->with('data', $new_data)
 		->with('lang', $lang);
 
@@ -290,11 +290,11 @@ class Cms_Page_Controller extends Cms_Base_Controller {
 
 			//CHECK IF CONTAINS ELEMENTS
 
-			if(!empty($elements)) {
+			if(!empty($elements) and !Input::has('force_delete')) {
 
 				Notification::error(LL('cms::alert.delete_page_stillelements_error', CMSLANG), 2500);
 
-				return Redirect::to_action('cms::page', array(LANG));
+				return Redirect::to_action('cms::page', array(LANG));		
 
 			} else {
 
@@ -309,6 +309,30 @@ class Cms_Page_Controller extends Cms_Base_Controller {
 					return Redirect::to_action('cms::page', array(LANG));
 
 				} else {
+
+					// FORCE DELETE IS FLAGGED -> DETACH ELEMENTS
+					if(Input::has('force_delete')) {
+
+						// Ciclo tutti gli elementi collegati alla pagina
+						foreach ($elements as $element) {
+							
+							// Elimino il link dell'elemento con la pagina
+							DB::table('elements_pages')
+								->where_cmspage_id($pid)
+								->where_cmselement_id($element->id)
+								->delete();
+
+							// Conto quante altre pagine hanno l'elemento
+							$n = DB::table('elements_pages')
+								->where_cmselement_id($element->id)
+								->count();
+
+							// Se ritorna 0, elimino
+							if($n == 0) CmsElement::find($element->id)->delete();
+
+						}
+
+					}
 
 					$page = CmsPage::find($pid);
 
@@ -524,8 +548,8 @@ class Cms_Page_Controller extends Cms_Base_Controller {
 			//DELETE LINK
 			$pivot->where_cmspage_id($pid)->delete();
 
-			//IF JUST 1 ELEMENT, DELETE
-			if($n < 2) $element->delete();
+			//IF JUST 1 ELEMENT, DELETE PERMANENTLY
+			if($n == 1) $element->delete();
 
 			Notification::success(LL('cms::alert.delete_element_success', CMSLANG, array('element' => $element->name)), 1500);
 

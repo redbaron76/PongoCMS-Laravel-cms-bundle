@@ -17,7 +17,7 @@
 
 <p class="hspace">
 	<strong>{{LL('cms::label.language', CMSLANG)}}</strong>
-	<span class="badge badge-info">{{strtoupper($lang)}}</span>
+	<span class="label label-info">{{strtoupper($lang)}}</span>
 </p>
 
 @if (!$is_valid)

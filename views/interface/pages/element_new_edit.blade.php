@@ -357,10 +357,10 @@
 		@if(!$role_fail)
 		<p>{{LL('cms::form.modal_descr_clone_element', CMSLANG)}}</p>
 		<p>{{Form::select('newpage_id', CmsPage::select_top_slug(LANG, $page_id, false), null, array('class' => 'span6'))}}</p>
-		<p>
+		<label class="checkbox">
 			{{Form::checkbox('to_clone', 1, null)}}
 			{{LL('cms::form.element_to_clone', CMSLANG)}}
-		</p>
+		</label>
 		@else
 		<p>{{LL('cms::ajax_resp.ownership_error', CMSLANG)}}</p>
 		@endif

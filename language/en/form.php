@@ -96,7 +96,7 @@ return array(
 	"modal_descr_clone_page" => "Cloned page language:",
 	"modal_page_clone_elements" => "Clone all elements?",
 	"modal_page_clone_media" => "Clone all media?",
-
+	"modal_page_force_delete" => "Force delete page and detach all elements?",
 
 	//COMMON LABEL SELECT FORM
 
