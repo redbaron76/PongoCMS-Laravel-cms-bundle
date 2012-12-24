@@ -116,6 +116,9 @@ Route::post('(:bundle)/ajax/get/page/parent/paths', 'cms::ajax_page@parent_paths
 //PAGES GET PARENT ZONES (cms.js)
 Route::post('(:bundle)/ajax/get/page/parent/zones', 'cms::ajax_page@parent_zones');
 
+//LAYOUT PREVIEW (cms.js)
+Route::post('(:bundle)/ajax/page/layout', 'cms::ajax_page@preview_layout');
+
 //UPLOAD ROUTE (cms.js)
 Route::post('(:bundle)/ajax/upload/media', 'cms::ajax_page@upload_media');
 

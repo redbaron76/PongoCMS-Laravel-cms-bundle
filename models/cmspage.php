@@ -377,7 +377,42 @@ class CmsPage extends Eloquent {
 
     }
 
-    
+
+
+    // LAYOUT PREVIEW PRE-PROCESS
+    public static function preview_layout_create($layout)
+    {
+    	// GET LAYOUT
+    	$preview_layout_view = View::make('cms::theme.'.Config::get('cms::settings.theme').'.layouts.'.$layout);
+
+    	// LOAD CONTENT
+		$preview_layout = file_get_contents($preview_layout_view->path);
+
+		// STRIP HTML
+		$preview_layout = strip_tags($preview_layout, "<div>");
+
+		// REPLACE ARRAY
+		$replace = array(
+			"row" => "row-fluid",
+			"{" => "",
+			"}" => "",
+			"$" => ""
+		);
+
+		// LAYOUT TEMPLATE ARRAY
+		$layout_array = Config::get('cms::theme.layout_'.$layout);
+
+		$to_replace = array_merge($replace, $layout_array);
+
+		foreach ($to_replace as $key => $value) {
+
+			$preview_layout = str_replace($key, $value, $preview_layout);
+
+		}
+
+		return $preview_layout;
+
+    }
 
 
 }

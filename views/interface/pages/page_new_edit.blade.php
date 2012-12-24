@@ -130,37 +130,68 @@
 
 					<!-- DESIGN FORM -->
 					<div class="tab-pane" id="design">
-						
+
 						{{Form::open(action('cms::ajax_page@save_design'), 'POST', array('class' => 'form-vertical', 'id' => 'form_design')) . "\n"}}
 							{{Form::hidden('page_id', $page_id, array('class' => 'page_id')) . "\n"}}
 							<fieldset>
 								<legend>{{LL('cms::form.page_legend_design', CMSLANG)}}</legend>
 
-								<div class="control-group">
-									{{Form::label('page_template', LL('cms::form.page_template', CMSLANG), array('class' => 'control-label')) . "\n"}}
-									<div class="controls">
-										{{Form::select('page_template', $page_template, $page_template_selected, array('class' => 'span2', 'id' => 'page_template'))}}
+								<div class="row">
+
+									<div class="span3">
+
+										<div class="control-group">
+											{{Form::label('page_template', LL('cms::form.page_template', CMSLANG), array('class' => 'control-label')) . "\n"}}
+											<div class="controls">
+												{{Form::select('page_template', $page_template, $page_template_selected, array('class' => 'span2', 'id' => 'page_template'))}}
+											</div>
+										</div>
+
+										<div class="control-group">
+											{{Form::label('page_header', LL('cms::form.page_header', CMSLANG), array('class' => 'control-label')) . "\n"}}
+											<div class="controls">
+												{{Form::select('page_header', $page_header, $page_header_selected, array('class' => 'span2', 'id' => 'page_header'))}}
+											</div>
+										</div>
+										<div class="control-group">
+											{{Form::label('page_layout', LL('cms::form.page_layout', CMSLANG), array('class' => 'control-label')) . "\n"}}
+											<div class="controls">
+												{{Form::select('page_layout', $page_layout, $page_layout_selected, array('class' => 'span2', 'id' => 'page_layout'))}}
+											</div>
+										</div>
+										<div class="control-group">
+											{{Form::label('page_footer', LL('cms::form.page_footer', CMSLANG), array('class' => 'control-label')) . "\n"}}
+											<div class="controls">
+												{{Form::select('page_footer', $page_footer, $page_footer_selected, array('class' => 'span2', 'id' => 'page_footer'))}}
+											</div>
+										</div>
+
 									</div>
+
+									<div class="span7" id="template-preview">
+
+										<div class="row-fluid" id="header-preview">
+
+											{{ Config::get('cms::theme.header.'.$page_header_selected) }}
+
+										</div>
+
+										<div class="row-fluid" id="layout-preview">
+
+											{{ $page_layout_preview }}
+
+										</div>
+
+										<div class="row-fluid" id="footer-preview">
+
+											{{ Config::get('cms::theme.footer.'.$page_footer_selected) }}
+
+										</div>
+
+									</div>
+
 								</div>
 
-								<div class="control-group">
-									{{Form::label('page_header', LL('cms::form.page_header', CMSLANG), array('class' => 'control-label')) . "\n"}}
-									<div class="controls">
-										{{Form::select('page_header', $page_header, $page_header_selected, array('class' => 'span2', 'id' => 'page_header'))}}
-									</div>
-								</div>
-								<div class="control-group">
-									{{Form::label('page_layout', LL('cms::form.page_layout', CMSLANG), array('class' => 'control-label')) . "\n"}}
-									<div class="controls">
-										{{Form::select('page_layout', $page_layout, $page_layout_selected, array('class' => 'span2', 'id' => 'page_layout'))}}
-									</div>
-								</div>
-								<div class="control-group">
-									{{Form::label('page_footer', LL('cms::form.page_footer', CMSLANG), array('class' => 'control-label')) . "\n"}}
-									<div class="controls">
-										{{Form::select('page_footer', $page_footer, $page_footer_selected, array('class' => 'span2', 'id' => 'page_footer'))}}
-									</div>
-								</div>								
 								<div class="form-actions">
 									<a href="#" class="btn btn-success save_form" rel="form_design">
 										<i class="icon-ok icon-white"></i>

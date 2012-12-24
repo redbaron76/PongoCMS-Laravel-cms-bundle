@@ -916,5 +916,19 @@ class Cms_Ajax_Page_Controller extends Cms_Base_Controller {
 
 	}
 
+	// CREATE LIVE LAYOUT PREVIEW
+	public function post_preview_layout()
+	{
+
+		if(Input::has('layout')) {
+
+			$layout = Input::get('layout');
+
+			return CmsPage::preview_layout_create($layout);
+
+		}
+
+	}
+
 
 }

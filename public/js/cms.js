@@ -76,6 +76,33 @@ $.cms = {
 
 	//PAGE
 
+	changeLayout:
+	function() {
+
+		$('#page_header').live('change', function() {
+			var text = $('#page_header option:selected').text();
+			$('#header-preview').html(text);
+		});
+
+		$('#page_footer').live('change', function() {
+			var text = $('#page_footer option:selected').text();
+			$('#footer-preview').html(text);
+		});
+
+		$('#page_layout').live('change', function() {
+			var layout = $('#page_layout').val();
+			
+			if(layout.length > 0) {
+				$.post(BASE+'/cms/ajax/page/layout',{
+					layout: layout
+				},function(data) {
+					$('#layout-preview').html(data);
+				});
+			}
+		});
+
+	},
+
 	changeLang:
 	function(where) {
 		$('#change_lang').live('change', function() {

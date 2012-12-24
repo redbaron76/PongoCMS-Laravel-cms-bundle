@@ -1,4 +1,5 @@
 /* BASE */
+
 html, body {
     background-color: #E6ECB5;
 }
@@ -186,6 +187,33 @@ h1 small { font-size: 20px; line-height: 20px; margin: 0; }
 
 .container > footer p {
     text-align: center;
+}
+
+/* PAGE PREVIEW */
+
+#template-preview div {
+    -moz-box-sizing: border-box;
+    -webkit-box-sizing: border-box;
+    box-sizing: border-box;
+}
+
+#header-preview,
+#footer-preview,
+#layout-preview [class*="span"] {
+    border: 5px solid #EEEEEE;
+    padding: 5px;
+}
+
+#header-preview {
+    margin-bottom: 5px;
+}
+
+#footer-preview {
+    margin-top: 5px;
+}
+
+#layout-preview [class*="span"] {
+    min-height: 200px;
 }
 
 /* BUTTON DROPDOWN */

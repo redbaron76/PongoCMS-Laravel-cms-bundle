@@ -11,6 +11,9 @@ $(function() {
 	//FANCYBOX
 	$.cms.fancyBox();
 
+	//CHANGE LAYOUT
+	$.cms.changeLayout();
+
 	//COMPILE SLUG
 	$.cms.title2Slug();
 

@@ -76,7 +76,7 @@ $THEME_SETTINGS = array(
 
 	'template' => array(
 		
-		'default' => 'Default',
+		'default' => 'Default Template',
 
 	),
 
@@ -88,7 +88,7 @@ $THEME_SETTINGS = array(
 
 	'header' => array(
 		
-		'default' => 'Default',
+		'default' => 'Default Header',
 
 	),
 
@@ -100,7 +100,7 @@ $THEME_SETTINGS = array(
 
 	'footer' => array(
 		
-		'default' => 'Default',
+		'default' => 'Default Footer',
 		
 	),
 

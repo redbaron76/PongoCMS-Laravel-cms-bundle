@@ -11,7 +11,7 @@ class Cms_Page_Controller extends Cms_Base_Controller {
 		$this->filter('before', 'cms_no_auth');
 	}
 
-    //SITEMAP
+    //PAGE LIST
     public function get_index($lang = LANG)
     {
     	//LOAD JS LIBS
@@ -51,7 +51,6 @@ class Cms_Page_Controller extends Cms_Base_Controller {
 
     }
 
-    
 
     //NEW PAGE FORM
     public function get_new($lang)
@@ -109,6 +108,9 @@ class Cms_Page_Controller extends Cms_Base_Controller {
 			'lang' => $lang
 		);
 
+		// LOAD LAYOUT PREVIEW
+		$preview_layout = CmsPage::preview_layout_create('default');
+
 		$this->layout->content = View::make('cms::interface.pages.page_new_edit')
 		->with('role_fail', false)
 		->with('title', LL('cms::title.page_new', CMSLANG))
@@ -130,11 +132,12 @@ class Cms_Page_Controller extends Cms_Base_Controller {
 		->with('page_template', Config::get('cms::theme.template'))
 		->with('page_template_selected', false)
 		->with('page_header', Config::get('cms::theme.header'))
-		->with('page_header_selected', false)
+		->with('page_header_selected', 'default')
 		->with('page_layout', Config::get('cms::theme.layout'))
-		->with('page_layout_selected', false)
+		->with('page_layout_selected', 'default')
 		->with('page_footer', Config::get('cms::theme.footer'))
-		->with('page_footer_selected', false)
+		->with('page_footer_selected', 'default')
+		->with('page_layout_preview', $preview_layout)
 		->with('page_title', '')
 		->with('page_preview', '')
 		->with('page_keyw', '')
@@ -227,6 +230,9 @@ class Cms_Page_Controller extends Cms_Base_Controller {
 				}
 
 				if(empty($new_data)) $new_data = array();
+
+				// LOAD LAYOUT PREVIEW
+				$preview_layout = CmsPage::preview_layout_create($page->layout);
 		
 				$this->layout->content = View::make('cms::interface.pages.page_new_edit')
 				->with('role_fail', CmsRole::role_fail($id))
@@ -254,6 +260,7 @@ class Cms_Page_Controller extends Cms_Base_Controller {
 				->with('page_layout_selected', $page->layout)
 				->with('page_footer', Config::get('cms::theme.footer'))
 				->with('page_footer_selected', $page->footer)
+				->with('page_layout_preview', $preview_layout)
 				->with('page_title', $page->title)
 				->with('page_preview', $page->preview)
 				->with('page_keyw', $page->keyw)
@@ -810,6 +817,7 @@ class Cms_Page_Controller extends Cms_Base_Controller {
 
 		}
 		
-	}
+	}	
+
 
 }
