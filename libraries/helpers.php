@@ -222,19 +222,25 @@ function MEDIA_DIM($ow, $oh, $w, $h)
 }
 
 /**
+* Get media file url
+*
+* @param string
+* @return string
+*/
+function MEDIA_URL($file_name)
+{	
+	return URL::to('cms/media/get/'.$file_name);
+}
+
+/**
 * Return media url based
 *
-* @param  int
-* @param  int
-* @param  int
-* @param  int
-* @return array
+* @param  string
+* @return string
 */
 function MEDIA($path)
-{
-	
+{	
 	return Config::get('application.url') . '/' . $path;
-
 }
 
 /**

@@ -196,7 +196,8 @@ h1 small { font-size: 20px; line-height: 20px; margin: 0; }
 }
 
 .btn-group.open .dropdown-menu {
-    left: -50%;
+    left: auto;
+    right: 0;
 }
 
 .btn-mini .caret,

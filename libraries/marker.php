@@ -2068,7 +2068,7 @@ class Marker {
     *
 	* [$VIDEO[{
 	*	"code":"<video code>",	=> (video code)
-	*	"site":"youtube",		=> (available: youtube || screenr || vimeo || local)
+	*	"site":"local",			=> (available: youtube || screenr || vimeo || local)
 	*	"w":"420",				=> (video width)
 	*	"h":"315",				=> (video height)
 	*	"skin":"<skin>",		=> OPTIONAL (flowplayer skin override)
@@ -2092,13 +2092,13 @@ class Marker {
 		// NAME IS CODE ALIAS
 		if(isset($name) and !empty($name)) $_code = $name;
 
-		$_site = 'youtube';
+		$_site = 'local';
 		if(isset($site) and !empty($site)) $_site = $site;
 
-		$_w = 420;
+		$_w = '';
 		if(isset($w) and !empty($w)) $_w = $w;
 
-		$_h = 315;
+		$_h = '';
 		if(isset($h) and !empty($h)) $_h = $h;
 
 		$_skin = '';
@@ -2120,9 +2120,16 @@ class Marker {
 				Asset::container('footer')->add('flowplayer', 'bundles/cms/js/flowplayer.min.js', 'jquery_lib');
 
 				$_site = 'video';
-				$_type = File::extension($_code);				
+				$_type = File::extension($_code);
 				$_class = CONF('cms::settings.flowplayer','options') . ' ' . $_class;
-				$_media_url = URL::to(Config::get('cms::settings.data').$_type.'/'.$_code);
+				$_media_url = MEDIA_URL($_code);
+
+			} else {
+
+				// SET DEFAULT VIDEO SIZE
+
+				if($_w == '') $_w = 420;
+				if($_h == '') $_h = 315;
 
 			}
 
@@ -2132,6 +2139,7 @@ class Marker {
 
 			$view = View::make('cms::theme.'.THEME.'.partials.markers.'.$_site);;
 			$view['url']		= $_media_url;
+			$view['code']		= $_code;
 			$view['w']			= $_w;
 			$view['h']			= $_h;
 			$view['options'] 	= HTML::attributes($options);
