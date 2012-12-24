@@ -102,7 +102,7 @@ class Marker {
 				'class' => $_class,
 			);
 
-			$view = View::make('cms::theme.'.THEME.'.partials.markers.'.$_tpl);
+			$view = LOAD_VIEW($_tpl);
 			$view['label'] 	= $_label;
 			$view['url'] 	= $_url;
 			$view['options'] 	= HTML::attributes($options);
@@ -235,7 +235,7 @@ class Marker {
 
 		$thumbs = CONF('cms::theme.thumb', $_thumb);
 
-		$view = View::make('cms::theme.'.THEME.'.partials.markers.'.$_tpl);
+		$view = LOAD_VIEW($_tpl);
 		$view['images'] 	= $images;
 		$view['thumb'] 		= (strlen($_thumb) > 0 and array_key_exists('suffix', $thumbs)) ? $thumbs['suffix'] : '';
 		$view['theme'] 		= $_theme;
@@ -336,7 +336,7 @@ class Marker {
 					'class' => $_class,
 				);
 
-				$view = View::make('cms::theme.'.THEME.'.partials.markers.'.$_tpl);
+				$view = LOAD_VIEW($_tpl);
 				$view['list']		= $list;
 				$view['ul_options']	= HTML::attributes($ul_options);
 				$view['li_options']	= HTML::attributes($li_options);
@@ -466,7 +466,7 @@ class Marker {
 			'class' => $_class,
 		);
 
-		$view = View::make('cms::theme.'.THEME.'.partials.markers.'.$_tpl);
+		$view = LOAD_VIEW($_tpl);
 		$view['crumbs']		= $crumbs;
 		$view['separator'] 	= $_separator;
 		$view['first'] 		= $_first;
@@ -509,7 +509,7 @@ class Marker {
 			'class' => $_class,
 		);
 
-		$view = View::make('cms::theme.'.THEME.'.partials.markers.'.$_tpl);
+		$view = LOAD_VIEW($_tpl);
 		$view['options'] 	= HTML::attributes($options);
 
 		return $view;
@@ -599,7 +599,7 @@ class Marker {
 			'class' => $_class,
 		);
 
-		$view = View::make('cms::theme.'.THEME.'.partials.markers.'.$_tpl);
+		$view = LOAD_VIEW($_tpl);
 		$view['files'] 		= $files;
 		$view['full']		= $_full;
 		$view['options'] 	= HTML::attributes($options);
@@ -707,7 +707,7 @@ class Marker {
 			'title' => $title,
 		);
 
-		$view = View::make('cms::theme.'.THEME.'.partials.markers.'.$_tpl);
+		$view = LOAD_VIEW($_tpl);
 		$view['path'] 		= $full_path;
 		$view['label'] 		= $lab;
 		$view['options'] 	= HTML::attributes($options);
@@ -784,7 +784,7 @@ class Marker {
 			'class' => $_class,
 		);
 
-		$view = View::make('cms::theme.'.THEME.'.partials.markers.'.$_tpl);
+		$view = LOAD_VIEW($_tpl);
 		$view['images'] 	= $images;
 		$view['thumb']		= $thumb;
 		$view['options'] 	= HTML::attributes($options);
@@ -948,7 +948,7 @@ class Marker {
 			'class' => $_class,
 		);
 
-		$view = View::make('cms::theme.'.THEME.'.partials.markers.'.$_tpl);
+		$view = LOAD_VIEW($_tpl);
 		$view['langs'] 		= Config::get('cms::settings.langs');
 		$view['separator'] 	= $_separator;
 		$view['first'] 		= $_first;
@@ -1010,7 +1010,7 @@ class Marker {
 				'target' => $_target,
 			);
 
-			$view = View::make('cms::theme.'.THEME.'.partials.markers.'.$_tpl);
+			$view = LOAD_VIEW($_tpl);
 			$view['url'] 		= $_url;
 			$view['label'] 		= $_label;		
 			$view['options'] 	= HTML::attributes($options);
@@ -1053,7 +1053,7 @@ class Marker {
 			'class' => $_class,
 		);
 
-		$view = View::make('cms::theme.'.THEME.'.partials.markers.'.$_tpl);
+		$view = LOAD_VIEW($_tpl);
 		$view['options'] = HTML::attributes($options);
 
 		return $view;
@@ -1133,7 +1133,7 @@ class Marker {
 				'class' => $_class,
 			);
 
-			$view = View::make('cms::theme.'.THEME.'.partials.markers.'.$_tpl);
+			$view = LOAD_VIEW($_tpl);
 			$view['address'] 	= $_address;
 			$view['zoom'] 		= $_zoom;
 			$view['w']			= $_w;
@@ -1269,7 +1269,7 @@ class Marker {
 			'class' => $_class,
 		);
 
-		$view = View::make('cms::theme.'.THEME.'.partials.markers.'.$_tpl);
+		$view = LOAD_VIEW($_tpl);
 		$view['mid']	= $id;
 		$view['pages'] 	= $pages;
 		$view['nested']		= $nested;
@@ -1314,7 +1314,7 @@ class Marker {
 			'class' => $_class,
 		);
 
-		$view = View::make('cms::theme.'.THEME.'.partials.markers.'.$_tpl);
+		$view = LOAD_VIEW($_tpl);
 		$view['options'] = HTML::attributes($options);
 
 		return $view;
@@ -1390,7 +1390,7 @@ class Marker {
 			'class' => $_class,
 		);
 
-		$view = View::make('cms::theme.'.THEME.'.partials.markers.'.$_tpl);
+		$view = LOAD_VIEW($_tpl);
 		$view['slug'] = SLUG_FULL;
 		$view['elements'] = $elements;
 		$view['options'] = HTML::attributes($options);
@@ -1491,7 +1491,7 @@ class Marker {
 					'class' => $_class,
 				);
 
-				$view = View::make('cms::theme.'.THEME.'.partials.markers.'.$_tpl);
+				$view = LOAD_VIEW($_tpl);
 				$view['page']		= $page;
 				$view['ul_options']	= HTML::attributes($ul_options);
 				$view['li_options']	= HTML::attributes($li_options);
@@ -1629,7 +1629,7 @@ class Marker {
 			'class' => $_class,
 		);
 
-		$view = View::make('cms::theme.'.THEME.'.partials.markers.'.$_tpl);
+		$view = LOAD_VIEW($_tpl);
 		$view['separator'] 	= $_separator;
 		$view['prev_slug']	= $prev_slug;
 		$view['next_slug']	= $next_slug;
@@ -1676,7 +1676,7 @@ class Marker {
 			'class' => $_class,
 		);
 
-		$view = View::make('cms::theme.'.THEME.'.partials.markers.'.$_tpl);
+		$view = LOAD_VIEW($_tpl);
 		$view['source'] = $_source;
 		$view['options'] = $options;
 
@@ -1729,7 +1729,7 @@ class Marker {
 				'class' => $_class,
 			);
 
-			$view = View::make('cms::theme.'.THEME.'.partials.markers.'.$_tpl);
+			$view = LOAD_VIEW($_tpl);
 			$view['services'] 	= $services;
 			$view['user']		= $_user;		
 			$view['options'] 	= HTML::attributes($options);
@@ -1918,7 +1918,7 @@ class Marker {
 
 		}
 
-		$view = View::make('cms::theme.'.THEME.'.partials.markers.'.$_tpl);
+		$view = LOAD_VIEW($_tpl);
 		$view['path'] 			= $full_path;
 		$view['img'] 			= $img;
 		$view['options'] 		= HTML::attributes($options);		
@@ -2051,7 +2051,7 @@ class Marker {
 			$twitter_feed = file_get_contents($_feed);
 			$twitter_feed = simplexml_load_string($twitter_feed);
 
-			$view = View::make('cms::theme.'.THEME.'.partials.markers.'.$_tpl);
+			$view = LOAD_VIEW($_tpl);
 			$view['user'] 		= $_user;
 			$view['tweets'] 	= $twitter_feed;
 			$view['options'] 	= HTML::attributes($options);

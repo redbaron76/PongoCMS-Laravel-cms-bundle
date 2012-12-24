@@ -428,6 +428,18 @@ function MARKER($marker)
 
 }
 
+//VIEW HELPER - Fallback to default if not present
+
+function LOAD_VIEW($tpl)
+{
+
+	$tpl_view = 'cms::theme.'.THEME.'.partials.markers.'.$tpl;
+	$default_view = 'cms::theme.default.partials.markers.'.$tpl;
+
+	return  View::exists($tpl_view) ? View::make($tpl_view) : View::make($default_view); 
+
+}
+
 //DATE CONVERSION HELPERS
 
 /**

@@ -69,73 +69,73 @@ class CmsUtility {
 	public static function db_backup()
 	{
 	  
-	$type_db = Config::get('database.default');
-	$connections = Config::get('database.connections');
+		$type_db = Config::get('database.default');
+		$connections = Config::get('database.connections');
 
-	switch($type_db) {
-		
-	  case 'sqlite':
+		switch($type_db) {
+			
+		  case 'sqlite':
+			  
+			$file_name = $connections[$type_db]['database'] . '.' . $connections[$type_db]['driver'];
+			
+			break;
 		  
-		$file_name = $connections[$type_db]['database'] . '.' . $connections[$type_db]['driver'];
-		
-		break;
-	  
-	  case 'mysql':
-		  
-		$link = mysql_connect($connections[$type_db]['host'],$connections[$type_db]['username'],$connections[$type_db]['password']);
-		mysql_select_db($connections[$type_db]['database'],$link);
-		
-		$tables = array();
-		$result = mysql_query('SHOW TABLES');
-		while($row = mysql_fetch_row($result))
-		{
-		  $tables[] = $row[0];
-		}
-		
-		//Set time now
-		$now = date('Y-m-d-H-i-s');
-		
-		//File header
-		$return ="### DB BACKUP: " . $connections[$type_db]['database'] . " at " . $now . " ###\n\n\n";
-		
-		//cycle through
-		foreach($tables as $table)
-		{
-		  $result = mysql_query('SELECT * FROM '.$table);
-		  $num_fields = mysql_num_fields($result);
-		  
-		  $return.= 'DROP TABLE IF EXISTS '.$table.';';
-		  $row2 = mysql_fetch_row(mysql_query('SHOW CREATE TABLE '.$table));
-		  $return.= "\n\n".$row2[1].";\n\n";
-		  
-		  for ($i = 0; $i < $num_fields; $i++) 
-		  {
+		  case 'mysql':
+			  
+			$link = mysql_connect($connections[$type_db]['host'],$connections[$type_db]['username'],$connections[$type_db]['password']);
+			mysql_select_db($connections[$type_db]['database'],$link);
+			
+			$tables = array();
+			$result = mysql_query('SHOW TABLES');
 			while($row = mysql_fetch_row($result))
 			{
-			  $return.= 'INSERT INTO '.$table.' VALUES(';
-			  for($j=0; $j<$num_fields; $j++) 
-			  {
-				$row[$j] = addslashes($row[$j]);
-				$row[$j] = preg_replace("#\n#i","\\n",$row[$j]);
-				if (isset($row[$j])) { $return.= '"'.$row[$j].'"' ; } else { $return.= '""'; }
-				if ($j<($num_fields-1)) { $return.= ','; }
-			  }
-			  $return.= ");\n";
+			  $tables[] = $row[0];
 			}
-		  }
-		  $return.="\n\n\n";
-		}
-		
-		//save file
-		$file_name = 'db-backup-'.$now.'.sql';
-		
-		$handle = fopen(path('storage') . 'database/' . $file_name, 'w+');
-		fwrite($handle, utf8_encode($return));
-		fclose($handle);
 			
-	}
+			//Set time now
+			$now = date('Y-m-d-H-i-s');
+			
+			//File header
+			$return ="### DB BACKUP: " . $connections[$type_db]['database'] . " at " . $now . " ###\n\n\n";
+			
+			//cycle through
+			foreach($tables as $table)
+			{
+			  $result = mysql_query('SELECT * FROM '.$table);
+			  $num_fields = mysql_num_fields($result);
+			  
+			  $return.= 'DROP TABLE IF EXISTS '.$table.';';
+			  $row2 = mysql_fetch_row(mysql_query('SHOW CREATE TABLE '.$table));
+			  $return.= "\n\n".$row2[1].";\n\n";
+			  
+			  for ($i = 0; $i < $num_fields; $i++) 
+			  {
+				while($row = mysql_fetch_row($result))
+				{
+				  $return.= 'INSERT INTO '.$table.' VALUES(';
+				  for($j=0; $j<$num_fields; $j++) 
+				  {
+					$row[$j] = addslashes($row[$j]);
+					$row[$j] = preg_replace("#\n#i","\\n",$row[$j]);
+					if (isset($row[$j])) { $return.= '"'.$row[$j].'"' ; } else { $return.= '""'; }
+					if ($j<($num_fields-1)) { $return.= ','; }
+				  }
+				  $return.= ");\n";
+				}
+			  }
+			  $return.="\n\n\n";
+			}
+			
+			//save file
+			$file_name = 'db-backup-'.$now.'.sql';
+			
+			$handle = fopen(path('storage') . 'database/' . $file_name, 'w+');
+			fwrite($handle, utf8_encode($return));
+			fclose($handle);
+				
+		}
 
-	return $file_name;
+		return $file_name;
 
 	}
 
@@ -361,6 +361,5 @@ class CmsUtility {
 		return $time;
 
 	}
-
 
 }
