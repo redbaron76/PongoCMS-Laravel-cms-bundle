@@ -493,10 +493,10 @@ function date2Db($date)
 		
 		$mysql_date = $d->format('Y-m-d');
 
-		return $mysql_date . ' 00:00:00';
+		return $mysql_date;
 	}
 
-	return '0000-00-00 00:00:00';
+	return '0000-00-00';
 
 }
 
@@ -506,17 +506,17 @@ function date2Db($date)
 * @param  string
 * @return string
 */
-function db2Date($date)
+function db2Date($date, $with_time = true)
 {
 
 	if(!empty($date)) {
 
 		$date = DateTime::createFromFormat('Y-m-d H:i', substr($date, 0, -3));
 
-		return $date->format(GET_DATETIME());
+		return $date->format(GET_DATETIME($with_time));
 	}
 
-	return GET_DATETIME();
+	return GET_DATETIME($with_time);
 
 }
 

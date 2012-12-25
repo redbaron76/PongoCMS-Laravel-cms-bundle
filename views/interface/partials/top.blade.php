@@ -1,6 +1,9 @@
 <div class="row page-header top-page">
 	<div class="span7">
-		<h1>{{Config::get('cms::theme.project_name')}} <small>| {{LL('cms::title.slogan', CMSLANG)}}</small></h1>
+
+		<?php $name = (Auth::check()) ? Config::get('cms::theme.project_name') : Config::get('cms::settings.name') ?>
+
+		<h1>{{$name}} <small>| {{LL('cms::title.slogan', CMSLANG)}}</small></h1>
 	</div>
 	@if ($search)
 		<div class="span5">

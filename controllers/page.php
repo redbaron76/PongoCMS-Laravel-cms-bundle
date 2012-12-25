@@ -25,8 +25,7 @@ class Cms_Page_Controller extends Cms_Base_Controller {
 		);
 
 		$this->layout->top_data = array(
-			'search' => '/cms/page/search',
-			'q' => ''
+			'search' => false
 		);
 
 		//GET PAGE DATA

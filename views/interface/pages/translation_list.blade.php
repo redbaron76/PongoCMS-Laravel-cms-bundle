@@ -71,7 +71,7 @@
 				</tr>
 				@empty
 				<tr>
-					<td colspan="2">
+					<td colspan="2" class="toleft">
 						{{LL('cms::alert.list_empty', CMSLANG)}}
 					</td>
 				</tr>

@@ -10,7 +10,7 @@ $THEME_SETTINGS = array(
 
 	/*
 	|--------------------------------------------------------------------------
-	| Theme project name (short name)
+	| Theme project name (short name) - Set DISQUS site name like this!
 	|--------------------------------------------------------------------------|
 	*/
 

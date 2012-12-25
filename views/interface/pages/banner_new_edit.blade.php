@@ -73,7 +73,7 @@
 														foreach($files_select as $image) {
 															$valid = ($image->pivot->cmsfile_id == $file->id) ? true : false;
 															$url = ($valid) ? $image->pivot->url : '';
-															$date_off = ($valid) ? db2Date($image->pivot->date_off) : '';
+															$date_off = ($valid) ? db2Date($image->pivot->date_off, false) : '';
 															$is_blank = ($valid) ? ((bool) $image->pivot->is_blank) : false;
 															if($image->pivot->cmsfile_id == $file->id) break;
 														}
@@ -107,7 +107,7 @@
 											</tr>
 											@empty
 											<tr>
-												<td colspan="3">
+												<td colspan="3" class="toleft">
 													{{LL('cms::alert.list_empty', CMSLANG)}}
 												</td>
 											</tr>

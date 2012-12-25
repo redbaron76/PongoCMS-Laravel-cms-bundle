@@ -36,17 +36,59 @@ class Cms_Search_Controller extends Cms_Searchbase_Controller {
 					'q' => $q
 				);
 
-				//GET PAGE DATA
-				$data = CmsBlog::with('user')
-				->where_lang(LANG)
-				->where('name', 'LIKE', '%'.$q.'%')
-				->or_where('slug', 'LIKE', '%'.$q.'%')
-				->or_where('title', 'LIKE', '%'.$q.'%')
-				->or_where('datetime_on', '>=', date2Db($q))
-				->order_by('name', 'asc')
-				->order_by('slug', 'asc')
-				->order_by('title', 'asc')
-				->paginate(Config::get('cms::settings.pag'));
+				// CHECK IF DATE
+				if(substr_count($q, '/') >= 2) {
+
+					// CHECK IF DATE RANGE
+					if((substr_count($q, '/') == 4) and (substr_count($q, ' ') == 1)) {						
+
+						$date_arr = explode(' ', $q);
+
+						$from = date2Db($date_arr[0]) . ' 00:00:00';
+						$to = date2Db($date_arr[1]) . ' 23:59:59';						
+
+						// FROM DATE $from TO DATE $to
+						$data = CmsBlog::with('user')
+						->where_lang(LANG)
+						->where('datetime_on', '>=', $from)
+						->where('datetime_on', '<=', $to)
+						->order_by('datetime_on', 'asc')
+						->order_by('name', 'asc')
+						->order_by('slug', 'asc')
+						->order_by('title', 'asc')
+						->paginate(Config::get('cms::settings.pag'));
+
+					} else {
+
+						// FROM DATE XX
+						$data = CmsBlog::with('user')
+						->where_lang(LANG)
+						->where('datetime_on', 'LIKE', date2Db($q).'%')
+						->order_by('datetime_on', 'asc')
+						->order_by('name', 'asc')
+						->order_by('slug', 'asc')
+						->order_by('title', 'asc')
+						->paginate(Config::get('cms::settings.pag'));
+
+					}
+
+				} else {
+
+					//GET PAGE DATA
+					$data = CmsBlog::with('user')
+					->where_lang(LANG)
+					->where('name', 'LIKE', '%'.$q.'%')
+					->or_where('slug', 'LIKE', '%'.$q.'%')
+					->or_where('title', 'LIKE', '%'.$q.'%')
+					->order_by('datetime_on', 'asc')
+					->order_by('name', 'asc')
+					->order_by('slug', 'asc')
+					->order_by('title', 'asc')
+					->paginate(Config::get('cms::settings.pag'));
+
+				}
+
+				
 				
 				$this->layout->content = View::make('cms::interface.pages.blog_list')
 									 ->with('data', $data)

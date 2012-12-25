@@ -80,7 +80,7 @@
 				</tr>
 				@empty
 				<tr>
-					<td colspan="3">{{LL('cms::alert.list_empty', CMSLANG)}}</td>
+					<td colspan="3" class="toleft">{{LL('cms::alert.list_empty', CMSLANG)}}</td>
 				</tr>
 				@endforelse
 			</tbody>
