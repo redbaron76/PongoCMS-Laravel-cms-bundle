@@ -30,7 +30,7 @@ return array(
 	|--------------------------------------------------------------------------|
 	*/
 
-	'copyright' => 'PongoCMS v1.2 rc1.1.8 &copy; pongoweb.it',
+	'copyright' => 'PongoCMS v1.2 rc1.1.8 &copy; Pongoweb.it',
 
 	/*
 	|--------------------------------------------------------------------------
@@ -173,19 +173,11 @@ return array(
 		'dashboard' => array(
 			'path' => 'dashboard',
 			'level' => 30,
-		),
-		
-		'access' => array(
-			
-			'roles' => array(
-				'path' => 'role',
-				'level' => 40
-			),
-			
-			'users' => array(
-				'path' => 'user',
-				'level' => 40
-			),
+		),		
+
+		'pages' => array(
+			'path' => 'page',
+			'level' => 30
 		),
 
 		'contents' => array(			
@@ -195,9 +187,9 @@ return array(
 				'level' => 30,
 			),
 			
-			'pages' => array(
-				'path' => 'page',
-				'level' => 30
+			'products' => array(
+				'path' => 'product',
+				'level' => 30,
 			),
 			
 		),
@@ -239,6 +231,19 @@ return array(
 				'level' => 30
 			),
 
+		),
+
+		'access' => array(
+			
+			'roles' => array(
+				'path' => 'role',
+				'level' => 40
+			),
+			
+			'users' => array(
+				'path' => 'user',
+				'level' => 40
+			),
 		),
 		
 	),	
