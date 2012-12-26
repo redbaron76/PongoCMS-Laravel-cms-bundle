@@ -6,29 +6,10 @@
 </ul>
 @endif
 
-@if (array_key_exists('access', $sections) and (ROLE >= $sections['access']['roles']['level'] or ROLE >= $sections['access']['users']['level']))
-
-	<?php
-		$is_active = false;
-		if(URI::is('cms/role*')) $is_active = true;
-		if(URI::is('cms/user*')) $is_active = true;
-	?>
-
+@if (array_key_exists('pages', $sections) and ROLE >= $sections['pages']['level'])
 <ul class="nav">
-	<li class="dropdown{{($is_active) ? ' active' : ''}}" data-dorpdown="dropdown">
-		<a class="dropdown-toggle" data-toggle="dropdown" href="#">
-			{{LL('cms::menu.access', CMSLANG)}}
-			<b class="caret"></b>
-		</a>
-		<ul class="dropdown-menu">
-		@foreach ($sections['access'] as $key => $value)
-			@if (ROLE >= $value['level'])
-			<li class="{{ (URI::is($value['path'].'*')) ? 'active' : '' }}">
-				<a href="{{URL::to_action('cms::'.$value['path'])}}">{{LL('cms::menu.'.$key, CMSLANG)}}</a>
-			</li>
-			@endif
-		@endforeach
-		</ul>
+	<li class="{{ (URI::is('cms/page')) ? 'active' : '' }}">
+		<a href="{{URL::to_action('cms::'.$sections['pages']['path'])}}">{{LL('cms::menu.pages', CMSLANG)}}</a>
 	</li>
 </ul>
 @endif
@@ -38,7 +19,7 @@
 	<?php
 		$is_active = false;
 		if(URI::is('cms/blog*')) $is_active = true;
-		if(URI::is('cms/page*')) $is_active = true;
+		if(URI::is('cms/product*')) $is_active = true;
 	?>
 
 <ul class="nav">
@@ -81,6 +62,33 @@
 		</a>
 		<ul class="dropdown-menu">
 		@foreach ($sections['services'] as $key => $value)
+			@if (ROLE >= $value['level'])
+			<li class="{{ (URI::is($value['path'].'*')) ? 'active' : '' }}">
+				<a href="{{URL::to_action('cms::'.$value['path'])}}">{{LL('cms::menu.'.$key, CMSLANG)}}</a>
+			</li>
+			@endif
+		@endforeach
+		</ul>
+	</li>
+</ul>
+@endif
+
+@if (array_key_exists('access', $sections) and (ROLE >= $sections['access']['roles']['level'] or ROLE >= $sections['access']['users']['level']))
+
+	<?php
+		$is_active = false;
+		if(URI::is('cms/role*')) $is_active = true;
+		if(URI::is('cms/user*')) $is_active = true;
+	?>
+
+<ul class="nav">
+	<li class="dropdown{{($is_active) ? ' active' : ''}}" data-dorpdown="dropdown">
+		<a class="dropdown-toggle" data-toggle="dropdown" href="#">
+			{{LL('cms::menu.access', CMSLANG)}}
+			<b class="caret"></b>
+		</a>
+		<ul class="dropdown-menu">
+		@foreach ($sections['access'] as $key => $value)
 			@if (ROLE >= $value['level'])
 			<li class="{{ (URI::is($value['path'].'*')) ? 'active' : '' }}">
 				<a href="{{URL::to_action('cms::'.$value['path'])}}">{{LL('cms::menu.'.$key, CMSLANG)}}</a>
