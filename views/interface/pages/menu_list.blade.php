@@ -4,10 +4,7 @@
 	</div>
 	<div class="span6 toright">
 		@if (!empty($lang))
-		<div class="input-prepend">
-			<span class="add-on">{{LL('cms::form.page_display', CMSLANG)}}:</span>
-			{{Form::select('menu_lang', Config::get('cms::settings.langs'), $lang, array('id' => 'change_lang', 'class' => 'span2'))}}
-		</div>
+		{{Form::select('menu_lang', Config::get('cms::settings.langs'), $lang, array('id' => 'change_lang'))}}
 		@else
 		&nbsp;
 		@endif
