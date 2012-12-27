@@ -279,31 +279,25 @@
 
 						<legend class="space">{{LL('cms::form.page_legend_media_available', CMSLANG)}}</legend>
 
-						<!-- <div>
-							<div> -->
+						<ul class="thumbnails" id="media-box">
 
-								<ul class="thumbnails" id="media-box">
+							@forelse ($files as $file)
+							<li class="span1 media-box-block">
+								@if (MEDIA_TYPE($file->ext) == 'img')
+								<a href="{{BASE.$file->path}}" class="thumbnail fancy" rel="tooltip" data-original-title="{{$file->name}}">							
+									<img src="{{BASE.$file->thumb}}" width="50" heigth="50" alt="">							
+								</a>
+								@else
+								<a href="{{BASE.$file->path}}" class="thumbnail" rel="tooltip" data-original-title="{{$file->name}}">							
+									<img src="{{BASE}}/bundles/cms/img/{{$file->ext}}_ico.png" width="100" heigth="100" alt="">							
+								</a>
+								@endif
+							</li>
+							@empty
+							<li class="span3 none">{{LL('cms::alert.list_empty', CMSLANG)}}</li>
+							@endforelse
 
-									@forelse ($files as $file)
-									<li class="span1 media-box-block">
-										@if (MEDIA_TYPE($file->ext) == 'img')
-										<a href="{{BASE.$file->path}}" class="thumbnail fancy" rel="tooltip" data-original-title="{{$file->name}}">							
-											<img src="{{BASE.$file->thumb}}" width="50" heigth="50" alt="">							
-										</a>
-										@else
-										<a href="{{BASE.$file->path}}" class="thumbnail" rel="tooltip" data-original-title="{{$file->name}}">							
-											<img src="{{BASE}}/bundles/cms/img/{{$file->ext}}_ico.png" width="100" heigth="100" alt="">							
-										</a>
-										@endif
-									</li>
-									@empty
-									<li class="span3 none">{{LL('cms::alert.list_empty', CMSLANG)}}</li>
-									@endforelse
-
-								</ul>
-
-							<!-- </div>
-						</div> -->
+						</ul>
 
 					</div>
 
@@ -360,6 +354,7 @@
 								</div>
 							</fieldset>
 						{{Form::close()}}
+
 					</div>
 
 					<!-- ORDER TAB -->

@@ -459,6 +459,7 @@ class Cms_Page_Controller extends Cms_Base_Controller {
 		if(IS('cms::settings.wysiwyg', 'markitup')) {
 			Asset::container('footer')->add('markitup', 'bundles/cms/markitup/jquery.markitup.js', 'form');
 			Asset::container('footer')->add('sethtml', 'bundles/cms/markitup/sets/html/set.js', 'markitup');
+			Asset::container('footer')->add('ckcms', 'bundles/cms/js/ck.cms.js', 'jqadapter');
 			Asset::container('header')->add('csshtml', 'bundles/cms/markitup/sets/html/style.css');
 			Asset::container('header')->add('cssmarkitup', 'bundles/cms/markitup/skins/markitup/style.css');
 		}

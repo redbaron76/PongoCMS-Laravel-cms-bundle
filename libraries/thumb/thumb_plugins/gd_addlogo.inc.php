@@ -28,7 +28,7 @@ class GdAddLogo {
      * @param positionY - Position of logo image on X-axis ('top', 'center', 'bottom' or plain number)
      * @param alpha - alpha value for logo merging in percent
      */
-    public function addLogo($logoFileName, $positionX, $positionY, &$that)
+    public function addLogo($logoFileName, $positionX, $positionY, $that)
     {
         $logo_size                  = getimagesize($logoFileName);
         // bring stuff from the parent class into this class...
@@ -78,3 +78,4 @@ class GdAddLogo {
 
 $pt = PhpThumb::getInstance();
 $pt->registerPlugin('GdAddLogo', 'gd');
+

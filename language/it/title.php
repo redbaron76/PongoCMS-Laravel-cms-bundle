@@ -6,7 +6,7 @@ return array(
 
 	"loginnow" => "Esegui il login",
 	"homepage" => "Home Page",
-	"slogan" => "Gestore dei contenuti",
+	"slogan" => "Content manager",
 	"logout" => "Logout",
 
 	"dashboard"   => "Informazioni generali",

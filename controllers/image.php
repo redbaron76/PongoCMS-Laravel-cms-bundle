@@ -22,7 +22,7 @@ class Cms_Image_Controller extends Cms_Base_Controller {
 		if(!empty($wm)) $thumb->addLogo(path('public') . Config::get('cms::theme.watermark.path'),
 								Config::get('cms::theme.watermark.horizontal'),
 								Config::get('cms::theme.watermark.vertical'),
-								&$thumb);
+								$thumb);
 
 		$thumb->crop($x, $y, $w, $h);
 
@@ -44,7 +44,7 @@ class Cms_Image_Controller extends Cms_Base_Controller {
 		if(!empty($wm)) $thumb->addLogo(path('public') . Config::get('cms::theme.watermark.path'),
 								Config::get('cms::theme.watermark.horizontal'),
 								Config::get('cms::theme.watermark.vertical'),
-								&$thumb);
+								$thumb);
 
 		$thumb->cropFromCenter($w, $h);
 
@@ -66,7 +66,7 @@ class Cms_Image_Controller extends Cms_Base_Controller {
 		if(!empty($wm)) $thumb->addLogo(path('public') . Config::get('cms::theme.watermark.path'),
 								Config::get('cms::theme.watermark.horizontal'),
 								Config::get('cms::theme.watermark.vertical'),
-								&$thumb);
+								$thumb);
 
 		$thumb->adaptiveResize($w, $h);
 
@@ -88,7 +88,7 @@ class Cms_Image_Controller extends Cms_Base_Controller {
 		if($wm == 'wm')	$thumb->addLogo(path('public') . Config::get('cms::theme.watermark.path'),
 								Config::get('cms::theme.watermark.horizontal'),
 								Config::get('cms::theme.watermark.vertical'),
-								&$thumb);
+								$thumb);
 
 		$thumb->resize($w, $h);		
 
@@ -110,7 +110,7 @@ class Cms_Image_Controller extends Cms_Base_Controller {
 		if(!empty($wm)) $thumb->addLogo(path('public') . Config::get('cms::theme.watermark.path'),
 								Config::get('cms::theme.watermark.horizontal'),
 								Config::get('cms::theme.watermark.vertical'),
-								&$thumb);
+								$thumb);
 
 		$thumb->resizePercent($p);
 
