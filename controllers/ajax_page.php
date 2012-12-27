@@ -859,25 +859,22 @@ class Cms_Ajax_Page_Controller extends Cms_Base_Controller {
 
 	public function post_order_subpage()
 	{
-
-		if(Input::has('order')) {
-
-			$order = Input::get('order');
+		
+		$order = Input::get('order');
+		
+		if(is_array($order)) {
 			
-			if(is_array($order)) {
-				
-				//SET 1000
-				CmsPage::where_order_id(0)->update(array('order_id' => 1000000));
+			//SET 1000
+			CmsPage::where_order_id(0)->update(array('order_id' => 1000000));
 
-				foreach($order as $order_id => $item) {
-					$order_id++;
-					$p = explode("_", $item);
-					$page = CmsPage::find($p[1]);
-					$page->order_id = $order_id;
-					$page->save();
-				}
-				
+			foreach($order as $order_id => $item) {
+				$order_id++;
+				$p = explode("_", $item);
+				$page = CmsPage::find($p[1]);
+				$page->order_id = $order_id;
+				$page->save();
 			}
+			
 		}
 
 		return true;
@@ -887,29 +884,26 @@ class Cms_Ajax_Page_Controller extends Cms_Base_Controller {
 	public function post_order_element()
 	{
 
-		if(Input::has('order')) {
-
-			$order = Input::get('order');
+		$order = Input::get('order');
+		
+		if(is_array($order)) {
 			
-			if(is_array($order)) {
-				
-				foreach($order as $order_id => $item) {
-					$order_id++;
-					$p = explode("_", $item);
-					$element = CmsElement::find($p[1]);
+			foreach($order as $order_id => $item) {
+				$order_id++;
+				$p = explode("_", $item);
+				$element = CmsElement::find($p[1]);
 
-					$order = array(
-						'order_id' => $order_id
-					);
+				$order = array(
+					'order_id' => $order_id
+				);
 
-					DB::table('elements_pages')
-						->where_cmspage_id($p[0])
-						->where_cmselement_id($p[1])
-						->update($order);
+				DB::table('elements_pages')
+					->where_cmspage_id($p[0])
+					->where_cmselement_id($p[1])
+					->update($order);
 
-				}
-				
 			}
+			
 		}
 
 		return true;
