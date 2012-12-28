@@ -52,16 +52,16 @@ class Cms_Ajax_Gallery_Controller extends Cms_Base_Controller {
 			//DELETE CACHE
 			if(CACHE) Cache::forget('img_gallery_'.strtolower($input['gallery_name']));
 
-			$gid = $gallery->id;			
+			$gid = $gallery->id;
+
+			// Empty template
+			$template = '';
 
 			if(Input::get('file_id') !== '') {
 
 				$files = Input::get('file_id');
 
 				if(is_array($files)) {
-
-					// Empty template
-					$template = '';
 
 					foreach ($files as $fid) {
 
