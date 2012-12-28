@@ -142,25 +142,22 @@ class Cms_Ajax_Gallery_Controller extends Cms_Base_Controller {
 	public function post_order_gallery()
 	{
 
-		if(Input::has('order')) {
-
-			$order = Input::get('order');
+		$order = Input::get('order');
+		
+		if(is_array($order)) {
 			
-			if(is_array($order)) {
-				
-				foreach($order as $order_id => $item) {
-					$order_id++;
-					$p = explode("_", $item);
+			foreach($order as $order_id => $item) {
+				$order_id++;
+				$p = explode("_", $item);
 
-					$update = array(
-						'order_id' => $order_id
-					);
+				$update = array(
+					'order_id' => $order_id
+				);
 
-					DB::table('files_galleries')->where_cmsgallery_id($p[0])->where_cmsfile_id($p[1])->update($update);
+				DB::table('files_galleries')->where_cmsgallery_id($p[0])->where_cmsfile_id($p[1])->update($update);
 
-				}
-				
 			}
+			
 		}
 
 		return true;
