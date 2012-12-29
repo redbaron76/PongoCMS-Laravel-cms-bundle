@@ -175,6 +175,11 @@ return array(
 			'level' => 30,
 		),
 		
+		'pages' => array(
+			'path' => 'page',
+			'level' => 30
+		),
+		
 		'access' => array(
 			
 			'roles' => array(
@@ -193,11 +198,6 @@ return array(
 			'blog' => array(
 				'path' => 'blog',
 				'level' => 30,
-			),
-			
-			'pages' => array(
-				'path' => 'page',
-				'level' => 30
 			),
 			
 		),
