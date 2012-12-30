@@ -72,7 +72,7 @@ return array(
 	"element_name" => "Element ID",
 	"element_label" => "Element label",
 	"element_text" => "Element content",
-	"element_zone" => "Insertion zone",
+	"element_zone" => "Insert into",
 	"element_is_valid" => "Element enabled?",
 	"element_to_clone" => "Create new element",
 

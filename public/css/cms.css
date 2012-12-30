@@ -41,6 +41,10 @@ html, body {
     margin-top: 15px;
 }
 
+.top10 {
+    margin-top: 10px;
+}
+
 .v-top {
     vertical-align: top;
 }
@@ -221,20 +225,25 @@ h1 small { font-size: 20px; line-height: 20px; margin: 0; }
 #header-preview,
 #footer-preview,
 #layout-preview [class*="span"] {
-    border: 5px solid #EEEEEE;
+    border: 5px solid #eeeeee;
     padding: 5px;
+    word-wrap: break-word;
 }
 
 #header-preview {
-    margin-bottom: 5px;
+    margin-bottom: 0;
 }
 
 #footer-preview {
-    margin-top: 5px;
+    margin-top: 10px;
 }
 
 #layout-preview [class*="span"] {
     min-height: 200px;
+}
+
+#layout-preview .highlight {
+    border-color: #c2e4ea;
 }
 
 /* BUTTON DROPDOWN */
@@ -343,6 +352,10 @@ form .text-btn {
 
 .modal form {
     margin: 0;
+}
+
+#element_name {
+    width: 179px;
 }
 
 /* MODAL */

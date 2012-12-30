@@ -138,37 +138,37 @@
 
 								<div class="row">
 
-									<div class="span3">
+									<div class="span4">
 
 										<div class="control-group">
 											{{Form::label('page_template', LL('cms::form.page_template', CMSLANG), array('class' => 'control-label')) . "\n"}}
 											<div class="controls">
-												{{Form::select('page_template', $page_template, $page_template_selected, array('class' => 'span2', 'id' => 'page_template'))}}
+												{{Form::select('page_template', $page_template, $page_template_selected, array('class' => 'span3', 'id' => 'page_template'))}}
 											</div>
 										</div>
 
 										<div class="control-group">
 											{{Form::label('page_header', LL('cms::form.page_header', CMSLANG), array('class' => 'control-label')) . "\n"}}
 											<div class="controls">
-												{{Form::select('page_header', $page_header, $page_header_selected, array('class' => 'span2', 'id' => 'page_header'))}}
+												{{Form::select('page_header', $page_header, $page_header_selected, array('class' => 'span3', 'id' => 'page_header'))}}
 											</div>
 										</div>
 										<div class="control-group">
 											{{Form::label('page_layout', LL('cms::form.page_layout', CMSLANG), array('class' => 'control-label')) . "\n"}}
 											<div class="controls">
-												{{Form::select('page_layout', $page_layout, $page_layout_selected, array('class' => 'span2', 'id' => 'page_layout'))}}
+												{{Form::select('page_layout', $page_layout, $page_layout_selected, array('class' => 'span3', 'id' => 'page_layout'))}}
 											</div>
 										</div>
 										<div class="control-group">
 											{{Form::label('page_footer', LL('cms::form.page_footer', CMSLANG), array('class' => 'control-label')) . "\n"}}
 											<div class="controls">
-												{{Form::select('page_footer', $page_footer, $page_footer_selected, array('class' => 'span2', 'id' => 'page_footer'))}}
+												{{Form::select('page_footer', $page_footer, $page_footer_selected, array('class' => 'span3', 'id' => 'page_footer'))}}
 											</div>
 										</div>
 
 									</div>
 
-									<div class="span7" id="template-preview">
+									<div class="span6" id="template-preview">
 
 										<div class="row-fluid" id="header-preview">
 

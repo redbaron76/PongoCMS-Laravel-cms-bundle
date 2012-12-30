@@ -40,41 +40,73 @@
 							{{Form::hidden('element_id', $element_id, array('class' => 'element_id')) . "\n"}}
 							<fieldset>
 								<legend>{{LL('cms::form.element_settings_legend', CMSLANG)}}</legend>
-								<div class="control-group">
-									{{Form::label('page_lang', LL('cms::form.page_lang', CMSLANG), array('class' => 'control-label')) . "\n"}}
-									<div class="controls">
-										{{HTML::span(CONF('cms::settings.langs', LANG), array('class' => 'label label-warning')) . "\n"}}
-									</div>
-								</div>								
-								<div class="control-group" rel="element_label">
-									{{Form::label('element_label', LL('cms::form.element_label', CMSLANG), array('class' => 'control-label')) . "\n"}}
-									<div class="controls">
-										{{Form::text('element_label', $element_label, array('class' => 'span4', 'id' => 'element_label'))}}
-									</div>
-								</div>
-								<div class="control-group" rel="element_name">
-									{{Form::label('element_name', LL('cms::form.element_name', CMSLANG), array('class' => 'control-label')) . "\n"}}
-									<div class="controls">
-										<div class="input-prepend">
-											<span class="add-on">#</span>
-											{{Form::text('element_name', $element_name, array('class' => 'span3', 'id' => 'element_name'))}}
+
+								<div class="row">
+
+									<div class="span4">
+
+										<div class="control-group">
+											{{Form::label('page_lang', LL('cms::form.page_lang', CMSLANG), array('class' => 'control-label')) . "\n"}}
+											<div class="controls">
+												{{HTML::span(CONF('cms::settings.langs', LANG), array('class' => 'label label-warning')) . "\n"}}
+											</div>
+										</div>								
+										<div class="control-group" rel="element_label">
+											{{Form::label('element_label', LL('cms::form.element_label', CMSLANG), array('class' => 'control-label')) . "\n"}}
+											<div class="controls">
+												{{Form::text('element_label', $element_label, array('class' => 'span3', 'id' => 'element_label'))}}
+											</div>
 										</div>
+										<div class="control-group" rel="element_name">
+											{{Form::label('element_name', LL('cms::form.element_name', CMSLANG), array('class' => 'control-label')) . "\n"}}
+											<div class="controls">
+												<div class="input-prepend">
+													<span class="add-on">#</span>
+													{{Form::text('element_name', $element_name, array('class' => 'span2', 'id' => 'element_name'))}}
+												</div>
+											</div>
+										</div>
+										<div class="control-group" rel="element_zone">
+											{{Form::label('element_zone', LL('cms::form.element_zone', CMSLANG), array('class' => 'control-label')) . "\n"}}
+											<div class="controls">										
+												{{Form::select('element_zone', $element_zones, $element_zone_selected, array('id' => 'element_zone', 'class' => 'span3')) . "\n"}}
+											</div>
+										</div>
+										<div class="control-group">
+											<div class="controls">
+												<label class="checkbox">
+													{{Form::checkbox('is_valid', 1, $element_is_valid, array('id' => 'element_is_valid'))}}
+													{{LL('cms::form.element_is_valid', CMSLANG)}}
+												</label>
+											</div>
+										</div>
+
 									</div>
-								</div>
-								<div class="control-group" rel="element_zone">
-									{{Form::label('element_zone', LL('cms::form.element_zone', CMSLANG), array('class' => 'control-label')) . "\n"}}
-									<div class="controls">										
-										{{Form::select('element_zone', $element_zones, $element_zone_selected, array('id' => 'element_zone')) . "\n"}}
+
+									<div class="span6" id="template-preview">
+
+										<div class="row-fluid" id="header-preview">
+
+											{{ Config::get('cms::theme.header.'.$page_header_selected) }}
+
+										</div>
+
+										<div class="row-fluid" id="layout-preview">
+
+											{{ $page_layout_preview }}
+
+										</div>
+
+										<div class="row-fluid" id="footer-preview">
+
+											{{ Config::get('cms::theme.footer.'.$page_footer_selected) }}
+
+										</div>
+
 									</div>
+
 								</div>
-								<div class="control-group">
-									<div class="controls">
-										<label class="checkbox">
-											{{Form::checkbox('is_valid', 1, $element_is_valid, array('id' => 'element_is_valid'))}}
-											{{LL('cms::form.element_is_valid', CMSLANG)}}
-										</label>
-									</div>
-								</div>
+
 								<div class="form-actions">
 									<a href="#" class="btn btn-success save_form" rel="form_element_settings">
 										<i class="icon-ok icon-white"></i>

@@ -393,20 +393,27 @@ class CmsPage extends Eloquent {
 
 		// REPLACE ARRAY
 		$replace = array(
-			"row" => "row-fluid",
-			"{" => "",
-			"}" => "",
-			"$" => ""
+			'div' => 'div rel="preview"',
+			'container' => 'container percent100',
+			'row' => 'row-fluid top10',
+			'{{' => '<span>',
+			'}}' => '</span>'
 		);
 
 		// LAYOUT TEMPLATE ARRAY
 		$layout_array = Config::get('cms::theme.layout_'.$layout);
 
-		$to_replace = array_merge($replace, $layout_array);
+		foreach ($replace as $key => $value) {
 
-		foreach ($to_replace as $key => $value) {
-
+			// LOOP REPLACE
 			$preview_layout = str_replace($key, $value, $preview_layout);
+
+		}
+
+		foreach ($layout_array as $key => $value) {
+
+			// LOOP REPLACE LAYOUT TAGS
+			$preview_layout = str_replace('$'.$key, $value, $preview_layout);
 
 		}
 

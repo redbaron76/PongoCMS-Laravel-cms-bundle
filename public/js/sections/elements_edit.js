@@ -13,6 +13,9 @@ $(function() {
 
 	//LABEL ID SLUG
 	$.cms.label2Slug();
+
+	//CHANGE ZONE LAYOUT
+	$.cms.changeZone();
 	
 	//ENABLE CKEDITOR
 	if(WYSIWYG === 'ckeditor')
