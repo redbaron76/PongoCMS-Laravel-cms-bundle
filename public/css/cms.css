@@ -45,6 +45,10 @@ html, body {
     margin-top: 10px;
 }
 
+.percent100 {
+    width: 100% !important;
+}
+
 .v-top {
     vertical-align: top;
 }

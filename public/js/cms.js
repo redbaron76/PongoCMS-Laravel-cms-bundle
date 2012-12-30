@@ -106,6 +106,7 @@ $.cms = {
 	function() {
 
 		$.cms.highlightLayout();
+		$.cms.parseLayout();
 
 	},
 
@@ -135,7 +136,7 @@ $.cms = {
 			}
 		});
 
-		$.cms.parseLayout();		
+		$.cms.parseLayout();
 
 	},
 
