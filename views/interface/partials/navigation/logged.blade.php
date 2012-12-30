@@ -14,7 +14,7 @@
 	?>
 
 <ul class="nav">
-	<li class="{{ (URI::is($sections['pages']['path'])) ? 'active' : '' }}">
+	<li class="{{ (URI::is($sections['pages']['path'].'*')) ? 'active' : '' }}">
 		<a href="{{URL::to_action('cms::'.$sections['pages']['path'])}}">{{LL('cms::menu.pages', CMSLANG)}}</a>
 	</li>
 </ul>
