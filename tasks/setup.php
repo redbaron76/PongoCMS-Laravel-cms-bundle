@@ -193,17 +193,17 @@ class Cms_Setup_Task {
 				$asset_path = path('bundle').'cms/views/theme/'.$theme.'/public';
 				File::cpdir($asset_path, $public_path, false);
 
-				echo 'Theme '.$theme.' ready!'.PHP_EOL;
+				echo 'Theme ['.$theme.'] ready!'.PHP_EOL;
 
 			} else {
 
-				echo 'Theme '.$theme.' doesn\'t exists!'.PHP_EOL;
+				echo 'Theme ['.$theme.'] doesn\'t exists!'.PHP_EOL;
 
 			}
 
 		} else {
 
-			echo $theme.' theme folder doesn\'t exists!'.PHP_EOL;
+			echo '['.$theme.'] theme folder doesn\'t exists!'.PHP_EOL;
 
 		}
 

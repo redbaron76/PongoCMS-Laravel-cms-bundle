@@ -416,11 +416,17 @@ class Cms_Page_Controller extends Cms_Base_Controller {
 			'search' => false
 		);
 
+		//GET PAGE DATA
+		$page = CmsPage::find($page_id);
+
 		//GET ELEMENTS DATA
-		$elements = CmsPage::find($page_id)->elements;
+		$elements = $page->elements;
 
 		//GET FILE DATA
-		$files = CmsPage::find($page_id)->files;
+		$files = $page->files;
+
+		// LOAD LAYOUT PREVIEW
+		$preview_layout = CmsPage::preview_layout_create($page->layout);
 
 		$this->layout->content = View::make('cms::interface.pages.element_new_edit')
 		->with('role_fail', CmsRole::role_fail($page_id))
@@ -434,7 +440,11 @@ class Cms_Page_Controller extends Cms_Base_Controller {
 		->with('element_zone_selected', true)
 		->with('element_is_valid', true)
 		->with('elements', $elements)
-		->with('media', $files);
+		->with('media', $files)
+
+		->with('page_header_selected', $page->header)
+		->with('page_footer_selected', $page->footer)
+		->with('page_layout_preview', $preview_layout);
 		
 	}
 
@@ -495,11 +505,17 @@ class Cms_Page_Controller extends Cms_Base_Controller {
 
 			if(!empty($element)) {
 
+				//GET PAGE DATA
+				$page = CmsPage::find($page_id);
+
 				//GET ELEMENTS DATA
-				$elements = CmsPage::find($page_id)->elements;
+				$elements = $page->elements;
 
 				//GET FILE DATA
-				$files = CmsPage::find($page_id)->files;
+				$files = $page->files;
+
+				// LOAD LAYOUT PREVIEW
+				$preview_layout = CmsPage::preview_layout_create($page->layout);
 
 				$this->layout->content = View::make('cms::interface.pages.element_new_edit')
 				->with('role_fail', CmsRole::role_fail($page_id))
@@ -513,7 +529,11 @@ class Cms_Page_Controller extends Cms_Base_Controller {
 				->with('element_zone_selected', $element->zone)
 				->with('element_is_valid', (bool) $element->is_valid)
 				->with('elements', $elements)
-				->with('media', $files);
+				->with('media', $files)
+
+				->with('page_header_selected', $page->header)
+				->with('page_footer_selected', $page->footer)
+				->with('page_layout_preview', $preview_layout);
 
 			} else {
 

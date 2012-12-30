@@ -76,6 +76,39 @@ $.cms = {
 
 	//PAGE
 
+	parseLayout:
+	function() {		
+		// LAYOUT PARSER
+		$('div[rel=preview] span').each(function(index, el) {			
+			var content = el;
+			$(this).parent().empty().html(content);
+		});
+	},
+
+	highlightLayout:
+	function() {
+
+		var $el = $('#element_zone');
+
+		if($el.length > 0) {
+			var el_val = $el.val();
+			$('div[data-zone='+el_val+']').addClass('highlight');
+
+			$el.live('change', function() {
+				$('div.highlight').removeClass('highlight');
+				$('div[data-zone='+ $(this).val() +']').addClass('highlight');
+			});
+		}
+
+	},
+
+	changeZone:
+	function() {
+
+		$.cms.highlightLayout();
+
+	},
+
 	changeLayout:
 	function() {
 
@@ -97,9 +130,12 @@ $.cms = {
 					layout: layout
 				},function(data) {
 					$('#layout-preview').html(data);
+					$.cms.parseLayout();
 				});
 			}
 		});
+
+		$.cms.parseLayout();		
 
 	},
 

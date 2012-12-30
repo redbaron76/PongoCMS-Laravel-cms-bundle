@@ -55,16 +55,16 @@ class Cms_Ajax_Menu_Controller extends Cms_Base_Controller {
 
 			$menu->save();
 
-			$mid = $menu->id;			
+			$mid = $menu->id;
 
-			if(Input::has('page_id')) {
+			// Empty template
+			$template = '';
+
+			if(Input::get('page_id') !== '') {
 
 				$pages = Input::get('page_id');
 
-				if(is_array($pages)) {
-
-					// Empty template
-					$template = '';
+				if(is_array($pages)) {					
 
 					foreach ($pages as $pid) {
 
@@ -143,28 +143,25 @@ class Cms_Ajax_Menu_Controller extends Cms_Base_Controller {
 	public function post_order_menu()
 	{
 
-		if(Input::has('order')) {
-
-			$order = Input::get('order');
+		$order = Input::get('order');
+		
+		if(is_array($order)) {
 			
-			if(is_array($order)) {
-				
-				foreach($order as $order_id => $item) {
-					$order_id++;
-					$p = explode("_", $item);
+			foreach($order as $order_id => $item) {
+				$order_id++;
+				$p = explode("_", $item);
 
-					$update = array(
-						'order_id' => $order_id
-					);
+				$update = array(
+					'order_id' => $order_id
+				);
 
-					DB::table('menus_pages')
-						->where_cmsmenu_id($p[0])
-						->where_cmspage_id($p[1])
-						->update($update);
+				DB::table('menus_pages')
+					->where_cmsmenu_id($p[0])
+					->where_cmspage_id($p[1])
+					->update($update);
 
-				}
-				
 			}
+			
 		}
 
 		return true;

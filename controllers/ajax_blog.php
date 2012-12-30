@@ -318,7 +318,7 @@ class Cms_Ajax_Blog_Controller extends Cms_Base_Controller {
 			$bid = Input::get('blog_id');
 			$pid = Input::get('page_id');
 
-			if(Input::has('rel_id')) {
+			if(Input::get('rel_id') !== '') {
 
 				$rels = Input::get('rel_id');
 
@@ -399,7 +399,7 @@ class Cms_Ajax_Blog_Controller extends Cms_Base_Controller {
 			$bid = Input::get('blog_id');
 			$pid = Input::get('page_id');
 
-			if(Input::has('rel_id')) {
+			if(Input::get('rel_id') !== '') {
 
 				$rels = Input::get('rel_id');
 
@@ -503,7 +503,7 @@ class Cms_Ajax_Blog_Controller extends Cms_Base_Controller {
 			$bid = Input::get('blog_id');
 			$pid = Input::get('page_id');
 
-			if(Input::has('as_values_tags_id')) {
+			if(Input::get('as_values_tags_id') !== '') {
 
 				$tags = substr(Input::get('as_values_tags_id'), 0, -1);
 				if(substr($tags, 0, 1) == ',') $tags = substr($tags, 1);

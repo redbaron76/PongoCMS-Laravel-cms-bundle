@@ -72,7 +72,7 @@ return array(
 	"element_name" => "ID dell'elemento",
 	"element_label" => "Etichetta dell'elemento",
 	"element_text" => "Contenuto dell'elemento",
-	"element_zone" => "Zona di inserimento nel layout",
+	"element_zone" => "Inserisci in",
 	"element_is_valid" => "Elemento valido?",
 	"element_to_clone" => "Crea un nuovo elemento",
 
