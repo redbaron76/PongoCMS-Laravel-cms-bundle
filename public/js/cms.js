@@ -322,7 +322,7 @@ $.cms = {
 					if(data.detach) $(data.inject).children().detach();
 
 					// Append content if not already present
-					if($('#'+data.pageid+'_'+data.id).length == 0) {
+					if($('#'+data.pageid+'_'+data.id).length === 0) {
 						$(data.inject).append(data.template);
 					}					
 
