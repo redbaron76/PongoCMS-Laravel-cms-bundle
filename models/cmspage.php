@@ -21,8 +21,8 @@ class CmsPage extends Eloquent {
 	public function elements()
 	{
 		return $this->has_many_and_belongs_to('CmsElement', 'elements_pages')
-		->order_by('elements_pages.order_id', 'asc')
-		->order_by('zone', 'asc');
+		->order_by('zone', 'asc')
+		->order_by('elements_pages.order_id', 'asc');		
 	}
 
 	public function files()
