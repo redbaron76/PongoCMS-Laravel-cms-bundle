@@ -321,8 +321,10 @@ $.cms = {
 					// Clear content
 					if(data.detach) $(data.inject).children().detach();
 
-					// Append content
-					$(data.inject).append(data.template);
+					// Append content if not already present
+					if($('#'+data.pageid+'_'+data.id).length == 0) {
+						$(data.inject).append(data.template);
+					}					
 
 					//Renew tooltip
 					$.cms.toolTip();
