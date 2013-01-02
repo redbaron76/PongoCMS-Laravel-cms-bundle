@@ -3,6 +3,8 @@
 
 /* APPLICATION ROUTES */
 
+// SET SEGMENTS LIMIT
+Router::$segments = 10;
 
 //APPLICATION ROUTES
 
