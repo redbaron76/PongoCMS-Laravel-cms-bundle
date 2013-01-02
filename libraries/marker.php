@@ -1762,11 +1762,14 @@ class Marker {
 	*
 	* [$THUMB[{
 	*	"file":"<filename>",
-	*	"thumb":"thumb",
+	*	"type":"<type of crop>"			=> (default: resize | available: resize || crop)
+	*	"thumb":"<type of thumb>",		=> (default: thumb | available as mapped in theme.php thumb array)
 	*	"path":"img_path | !img_path"	=> (point to full image path or $caption || $alt slug - default: img_path)
 	*	"caption":"false"				=> (default: false)
 	*	"w":"100",						=> OPTIONAL (overrides thumb)
 	*	"h":"100",						=> OPTIONAL (overrides thumb)
+	*	"x":"0",						=> OPTIONAL (if type crop, crop start x)
+	*	"y":"0",						=> OPTIONAL (if type crop, crop start y)
 	*	"wm":"true | false",			=> OPTIONAL
 	*	"id":"<id>",					=> OPTIONAL (id of <a>)
 	*	"class":"<class>",				=> OPTIONAL
@@ -1787,6 +1790,9 @@ class Marker {
 		$_file = '';
 		if(isset($file) and !empty($file)) $_file = $file;
 
+		$_type = 'resize';
+		if(isset($type) and !empty($type)) $_type = $type;
+
 		$_thumb = 'thumb';
 		if(isset($thumb) and !empty($thumb)) $_thumb = $thumb;
 
@@ -1801,6 +1807,12 @@ class Marker {
 
 		$_h = '';
 		if(isset($h) and !empty($h)) $_h = $h;
+
+		$_x = 0;
+		if(isset($x) and !empty($x)) $_x = $x;
+
+		$_y = 0;
+		if(isset($y) and !empty($y)) $_y = $y;
 
 		$_wm = 'no';
 		if(isset($wm) and !empty($wm) and $wm == 'true') $_wm = 'wm';
@@ -1836,7 +1848,7 @@ class Marker {
 			}
 
 			//Get img dimension
-			if(!empty($file)) {
+			if(!empty($file) and !empty($_type)) {
 
 				if($_path == 'img_path') {
 
@@ -1847,19 +1859,34 @@ class Marker {
 
 				}
 
-				if(empty($_w) and empty($_h)) {
+				if($_type == 'resize') {
 
-					$_filename = MEDIA_NAME($_file, Config::get('cms::theme.thumb.'.$_thumb.'.suffix'));
-					$dim['w'] = Config::get('cms::theme.thumb.'.$_thumb.'.width');
-					$dim['h'] = Config::get('cms::theme.thumb.'.$_thumb.'.height');
-					$url = MEDIA_NAME($file->path, Config::get('cms::theme.thumb.'.$_thumb.'.suffix'));
+					// GET THUMB
+					if(!empty($_thumb) and empty($_w) and empty($_h)) {
 
-				} else {
+						$_filename = MEDIA_NAME($_file, Config::get('cms::theme.thumb.'.$_thumb.'.suffix'));
+						$dim['w'] = Config::get('cms::theme.thumb.'.$_thumb.'.width');
+						$dim['h'] = Config::get('cms::theme.thumb.'.$_thumb.'.height');
+						$url = MEDIA_NAME($file->path, Config::get('cms::theme.thumb.'.$_thumb.'.suffix'));
+
+					// OVERRIDE WITH W H
+					} else {
+
+						$_filename = $file->name;
+						$dim = MEDIA_DIM($file->w, $file->h, $_w, $_h);
+						$url = URL::to_action('cms::image@resize', array($_w, $_h, $_wm, $_filename));
+
+					}
+
+				}
+
+				if($_type == 'crop') {
 
 					$_filename = $file->name;
-					$dim = MEDIA_DIM($file->w, $file->h, $_w, $_h);
-					$url = URL::to_action('cms::image@resize', array($_w, $_h, $_wm, $_filename));
-				}
+					$dim = array('w' => $w, 'h' => $h);
+					$url = URL::to_action('cms::image@crop', array($_x, $_y, $_w, $_h, $_wm, $_filename));
+
+				}				
 
 				$full_path = $file->path;
 
@@ -1901,7 +1928,7 @@ class Marker {
 
 		}
 
-		$img = HTML::image($url, $alt, array('width' => $dim['w'], 'height' => $dim['h'], 'id' => $_id, 'class' => $_class));
+		$img = HTML::image($url, $alt, array('id' => $_id, 'class' => $_class));
 
 		$options = array(
 			'id' => $_id,
