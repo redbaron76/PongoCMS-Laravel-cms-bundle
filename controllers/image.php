@@ -8,9 +8,8 @@ class Cms_Image_Controller extends Cms_Base_Controller {
 	//DEFAULT IMG PATH
 	public static $img_path = 'img/';
 
-	
 	//CROP FROM CENTER IMAGE
-	public function get_crop($x = 0, $y = 0, $w = 100, $h = 100, $filename = '')
+	public function get_crop($x = 0, $y = 0, $w = 100, $h = 100, $wm = 'no', $filename = '')
 	{
 
 		$path = path('public') . Config::get('cms::settings.data') . self::$img_path . $filename;
@@ -19,7 +18,7 @@ class Cms_Image_Controller extends Cms_Base_Controller {
 
 		$thumb = PhpThumbFactory::create($path);
 
-		if(!empty($wm)) $thumb->addLogo(path('public') . Config::get('cms::theme.watermark.path'),
+		if($wm == 'wm') $thumb->addLogo(path('public') . Config::get('cms::theme.watermark.path'),
 								Config::get('cms::theme.watermark.horizontal'),
 								Config::get('cms::theme.watermark.vertical'),
 								$thumb);
@@ -32,7 +31,7 @@ class Cms_Image_Controller extends Cms_Base_Controller {
 	
 
 	//CROP FROM CENTER IMAGE
-	public function get_cropcenter($w = 100, $h = 100, $filename = '')
+	public function get_cropcenter($w = 100, $h = 100, $wm = 'no', $filename = '')
 	{
 
 		$path = path('public') . Config::get('cms::settings.data') . self::$img_path . $filename;
@@ -41,7 +40,7 @@ class Cms_Image_Controller extends Cms_Base_Controller {
 
 		$thumb = PhpThumbFactory::create($path);
 
-		if(!empty($wm)) $thumb->addLogo(path('public') . Config::get('cms::theme.watermark.path'),
+		if($wm == 'wm') $thumb->addLogo(path('public') . Config::get('cms::theme.watermark.path'),
 								Config::get('cms::theme.watermark.horizontal'),
 								Config::get('cms::theme.watermark.vertical'),
 								$thumb);
@@ -54,7 +53,7 @@ class Cms_Image_Controller extends Cms_Base_Controller {
 
 
 	//ADAPTIVE THUMB IMAGE
-	public function get_thumb($w = 100, $h = 100, $filename = '')
+	public function get_thumb($w = 100, $h = 100, $wm = 'no', $filename = '')
 	{
 
 		$path = path('public') . Config::get('cms::settings.data') . self::$img_path . $filename;
@@ -63,7 +62,7 @@ class Cms_Image_Controller extends Cms_Base_Controller {
 
 		$thumb = PhpThumbFactory::create($path);
 
-		if(!empty($wm)) $thumb->addLogo(path('public') . Config::get('cms::theme.watermark.path'),
+		if($wm == 'wm') $thumb->addLogo(path('public') . Config::get('cms::theme.watermark.path'),
 								Config::get('cms::theme.watermark.horizontal'),
 								Config::get('cms::theme.watermark.vertical'),
 								$thumb);
@@ -98,7 +97,7 @@ class Cms_Image_Controller extends Cms_Base_Controller {
 
 
 	//PERCENT RESIZE IMAGE
-	public function get_percent($p = 100, $filename = '')
+	public function get_percent($p = 100, $wm = 'no', $filename = '')
 	{
 
 		$path = path('public') . Config::get('cms::settings.data') . self::$img_path . $filename;
@@ -107,7 +106,7 @@ class Cms_Image_Controller extends Cms_Base_Controller {
 
 		$thumb = PhpThumbFactory::create($path);
 
-		if(!empty($wm)) $thumb->addLogo(path('public') . Config::get('cms::theme.watermark.path'),
+		if($wm == 'wm') $thumb->addLogo(path('public') . Config::get('cms::theme.watermark.path'),
 								Config::get('cms::theme.watermark.horizontal'),
 								Config::get('cms::theme.watermark.vertical'),
 								$thumb);
