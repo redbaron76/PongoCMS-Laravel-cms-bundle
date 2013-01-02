@@ -225,9 +225,14 @@ class CmsPage extends Eloquent {
 	public static function get_page_slug($pid)
 	{
 		
-		$page = self::find($pid);
+		if(!empty($pid)) {
+			
+			$page = self::find($pid);
 
-		return $page->slug;
+			return $page->slug . DS;
+		}
+		
+		return '';
 
 	}
 
