@@ -77,7 +77,7 @@ class Cms_Ajax_Gallery_Controller extends Cms_Base_Controller {
 
 						// Template returned
 						$template .= '<li id="'.$gid.'_'.$fid.'" class="span1">';
-						$template .= '<a class="thumbnail fancy" rel="tooltip" data-original-title="'.$img->name.'" href="'.BASE.$img->path.'">';
+						$template .= '<a class="thumbnail" rel="tooltip" data-original-title="'.$img->name.'" href="'.BASE.$img->path.'">';
 						$template .= '<img src="'.BASE.$img->thumb.'" />';
 						$template .= '</a>';
 						$template .= '</li>';

@@ -143,7 +143,7 @@
 
 						@forelse ($files_select as $file)
 							<li class="span1" id="{{$gallery_id}}_{{$file->id}}">
-								<a href="{{BASE.$file->path}}" class="thumbnail fancy" data-original-title="{{$file->name}}" rel="tooltip">
+								<a href="{{BASE.$file->path}}" class="thumbnail" data-original-title="{{$file->name}}" rel="tooltip">
 									<img src="{{BASE.$file->thumb}}" />
 								</a>
 							</li>
