@@ -347,6 +347,15 @@ class Cms_Page_Controller extends Cms_Base_Controller {
 					//DELETE FILES ASSOCIATION
 					$page->files()->delete();
 
+					//DELETE BLOG ASSOCIATIONS
+					$page->blogs()->delete();
+
+					//DELETE PAGE RELATIONS
+					$page->pagerels()->delete();
+
+					//DELETE MENU RELATIONS
+					$page->menus()->delete();
+
 					//DELETE PAGE
 					$page->delete();
 
