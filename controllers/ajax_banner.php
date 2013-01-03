@@ -88,7 +88,7 @@ class Cms_Ajax_Banner_Controller extends Cms_Base_Controller {
 								'url' => $url[$key],
 								'date_off' => $off_date,
 								'is_blank' => $blank,
-								'order_id' => 1000000
+								'order_id' => Config::get('cms::settings.order')
 							);
 							
 							$banner->files()->attach($fid, $add_array);

@@ -323,6 +323,13 @@ $.cms = {
 
 					// Append content if not already present
 					if($('#'+data.pageid+'_'+data.id).length === 0) {
+
+						// Remove <li> with no id
+						$(data.inject).find('li:not([id])').remove();
+
+						// Remove <li> not in ZONE
+						if(data.zone) $(data.inject).find('li:not([data-zone='+data.zone+'])').remove();
+
 						$(data.inject).append(data.template);
 					}					
 

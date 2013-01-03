@@ -68,7 +68,7 @@ class Cms_Ajax_Download_Controller extends Cms_Base_Controller {
 
 						if(empty($check)) {
 
-							$download->files()->attach($fid, array('order_id' => 1000000));
+							$download->files()->attach($fid, array('order_id' => Config::get('cms::settings.order')));
 
 						}
 

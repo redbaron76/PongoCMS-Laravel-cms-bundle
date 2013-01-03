@@ -346,6 +346,31 @@ function TEXT2IMG($text, $w = 320, $h = 200, $key = 0)
 }
 
 /**
+ * Format Prettify text
+ *
+ * @param  string
+ * @return string
+ */
+function PRETEXT($text)
+{
+	if((strpos($text, '<pre') !== false) and (strpos($text, 'prettyprint') !== false)) {
+
+		$content_processed = preg_replace_callback(
+			'#\<pre class=["\']prettyprint[\'"]\>(.+?)\<\/pre\>#s',
+			create_function(
+				'$matches',
+				'return "<pre class=\'prettyprint\'>".htmlentities($matches[1], ENT_HTML5, "UTF-8")."</pre>";'
+			), $text
+		);
+
+		return $content_processed;
+
+	}
+
+	return $text;
+}
+
+/**
  * Inserts values from $arr2 after (or before) $key in $arr1
  * if $key is not found, $arr2 is appended to $arr1 using array_merge()
  *

@@ -368,6 +368,7 @@ class CmsPage extends Eloquent {
     	//GET PAGE DATA
 		$data = self::where_parent_id($parent_id)
 				->order_by('order_id', 'asc')
+				->order_by('id', 'asc')
 				->get();
 
 		$new_data = array();

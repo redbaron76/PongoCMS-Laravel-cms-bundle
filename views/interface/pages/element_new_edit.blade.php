@@ -303,7 +303,7 @@
 						@if(!$role_fail)
 							@forelse ($elements as $element)
 								@if($element->zone == $element_zone_selected)
-									<li id="{{$page_id}}_{{$element->id}}">
+									<li id="{{$page_id}}_{{$element->id}}" data-zone="{{$element->zone}}">
 										<a href="#" class="btn">
 											<i class="icon-resize-vertical"></i>
 											{{$element->label}}

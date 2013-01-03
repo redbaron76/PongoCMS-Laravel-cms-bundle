@@ -800,8 +800,11 @@ class Marker {
 	*
 	* [$IMAGE[{
 	*	"file":"<filename>",
+	*	"type":"<type of crop>"	=> (default: resize | available: resize || crop)
 	*	"w":"100",
 	*	"h":"100",
+	*	"x":"0",				=> OPTIONAL (if type crop, crop start x)
+	*	"y":"0",				=> OPTIONAL (if type crop, crop start y)
 	*	"wm":"true | false",	=> OPTIONAL
 	*	"id":"<id>",			=> OPTIONAL
 	*	"class":"<class>"		=> OPTIONAL
@@ -821,11 +824,20 @@ class Marker {
 		$_file = '';
 		if(isset($file) and !empty($file)) $_file = $file;
 
+		$_type = 'resize';
+		if(isset($type) and !empty($type)) $_type = $type;
+
 		$_w = 100;
 		if(isset($w) and !empty($w)) $_w = $w;
 
 		$_h = 100;
 		if(isset($h) and !empty($h)) $_h = $h;
+
+		$_x = 0;
+		if(isset($x) and !empty($x)) $_x = $x;
+
+		$_y = 0;
+		if(isset($y) and !empty($y)) $_y = $y;
 
 		$_wm = 'no';
 		if(isset($wm) and !empty($wm) and $wm == 'true') $_wm = 'wm';
@@ -857,15 +869,29 @@ class Marker {
 						}))->where_name($_file)->first();
 			}
 
-			//Get img dimension
-			if(!empty($file)) {
+			if($_type == 'resize') {
 
-				$dim = MEDIA_DIM($file->w, $file->h, $_w, $_h);
+				//Get img dimension
+				if(!empty($file)) {
 
-			} else {
+					$dim = MEDIA_DIM($file->w, $file->h, $_w, $_h);
 
-				$dim['w'] = '';
-				$dim['h'] = '';
+				} else {
+
+					$dim['w'] = '';
+					$dim['h'] = '';
+
+				}
+
+				$url = URL::to_action('cms::image@resize', array($dim['w'], $dim['h'], $_wm, $_file));
+
+			}
+
+			if($_type == 'crop') {
+
+				$_filename = $file->name;
+				$dim = array('w' => $w, 'h' => $h);
+				$url = URL::to_action('cms::image@crop', array($_x, $_y, $_w, $_h, $_wm, $_filename));
 
 			}
 
@@ -890,10 +916,6 @@ class Marker {
 			$dim['h'] = '';
 
 		}
-
-		//Create URL path
-
-		$url = URL::to_action('cms::image@resize', array($dim['w'], $dim['h'], $_wm, $_file));
 
 		return HTML::image($url, $alt, array('width' => $dim['w'], 'height' => $dim['h'], 'id' => $_id, 'class' => $_class));
 

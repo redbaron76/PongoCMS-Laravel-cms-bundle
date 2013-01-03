@@ -103,7 +103,7 @@
 											<a href="{{action('cms::page@edit_element', array($page->id, $element->id))}}">			
 												<i class="icon-star<?php if($element->is_valid == 0) echo '-empty'; ?>"></i>
 												<span class="label label-info">{{strtoupper($element->zone)}}</span>
-												{{$element->label}}												
+												{{$element->label}}
 											</a>
 										</li>
 										@empty

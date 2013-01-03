@@ -94,7 +94,7 @@ ul.sortable li {
 }
 
 ul.sortable li a.btn {
-    width: 200px;
+    min-width: 200px;
     text-align: left;
 }
 

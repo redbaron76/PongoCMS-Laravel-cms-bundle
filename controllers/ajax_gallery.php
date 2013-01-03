@@ -69,7 +69,7 @@ class Cms_Ajax_Gallery_Controller extends Cms_Base_Controller {
 
 						if(empty($check)) {
 
-							$gallery->files()->attach($fid, array('order_id' => 1000000));
+							$gallery->files()->attach($fid, array('order_id' => Config::get('cms::settings.order')));
 
 						}
 

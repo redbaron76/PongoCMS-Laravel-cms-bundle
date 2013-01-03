@@ -14,7 +14,6 @@ Route::get('(.*)', array('as' => 'master', 'before' => 'init', function($url) {
 
 }));
 
-
 //APPLICATION CONTROLLERS
 
 Route::controller(Controller::detect());
