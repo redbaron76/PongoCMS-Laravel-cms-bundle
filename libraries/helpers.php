@@ -518,7 +518,7 @@ function date2Db($date)
 		
 		$mysql_date = $d->format('Y-m-d');
 
-		return $mysql_date;
+		return $mysql_date . ' 00:00:00';
 	}
 
 	return '0000-00-00';

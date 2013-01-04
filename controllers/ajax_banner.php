@@ -78,7 +78,7 @@ class Cms_Ajax_Banner_Controller extends Cms_Base_Controller {
 
 						} else {
 
-							$off_date = date2Db(substr($date_off[$key],0,10));
+							$off_date = date2Db($date_off[$key]);
 
 						}
 
