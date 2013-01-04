@@ -359,13 +359,53 @@ function PRETEXT($text)
 			'#\<pre class=["\']prettyprint[\'"]\>(.+?)\<\/pre\>#s',
 			create_function(
 				'$matches',
-				'return "<pre class=\'prettyprint\'>".htmlentities($matches[1], ENT_HTML5, "UTF-8")."</pre>";'
+				'return "<pre class=\'prettyprint\'>".ENCODETEXT($matches[1])."</pre>";'
 			), $text
 		);
 
 		return $content_processed;
 
 	}
+
+	return $text;
+}
+
+/**
+ * Encode Prettify text
+ *
+ * @param  string
+ * @return string
+ */
+function ENCODETEXT($text)
+{
+	if(!empty($text)) {
+
+		$text = htmlentities($text);
+		$text = str_replace(' ', '&nbsp;', $text);
+
+		return $text;
+
+	}
+
+	return $text;
+}
+
+/**
+ * Decode Prettify text
+ *
+ * @param  string
+ * @return string
+ */
+function DECODETEXT($text)
+{
+	if(!empty($text)) {
+
+		$text = html_entity_decode($text);
+		$text = str_replace('&nbsp;', ' ', $text);
+
+		return $text;
+
+	}	
 
 	return $text;
 }

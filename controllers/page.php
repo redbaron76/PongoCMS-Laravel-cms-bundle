@@ -533,7 +533,7 @@ class Cms_Page_Controller extends Cms_Base_Controller {
 				->with('element_id', $element_id)
 				->with('element_name', $element->name)
 				->with('element_label', $element->label)
-				->with('element_text', html_entity_decode($element->text, ENT_HTML5, "UTF-8"))
+				->with('element_text', DECODETEXT($element->text))
 				->with('element_zones', CmsElement::select_zone($page_id))
 				->with('element_zone_selected', $element->zone)
 				->with('element_is_valid', (bool) $element->is_valid)
