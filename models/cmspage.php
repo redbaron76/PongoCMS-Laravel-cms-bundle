@@ -229,10 +229,10 @@ class CmsPage extends Eloquent {
 			
 			$page = self::find($pid);
 
-			return $page->slug . DS;
+			return str_replace(DS.DS, DS, $page->slug . DS);
 		}
 		
-		return '';
+		return DS;
 
 	}
 
@@ -248,9 +248,9 @@ class CmsPage extends Eloquent {
 
 				$pag = self::find($page->id);
 
-				$slg = $parent . '/' . $slug . '/' . Str::slug($page->name);
-				$slg = str_replace('//', '/', $slg);
-				$slg = str_replace('//', '/', $slg);
+				$slg = $parent . DS . $slug . DS . Str::slug($page->name);
+				$slg = str_replace(DS.DS, DS, $slg);
+				$slg = str_replace(DS.DS, DS, $slg);
 
 				$pag->slug = $slg;
 				$pag->save();

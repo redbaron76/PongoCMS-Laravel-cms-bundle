@@ -267,7 +267,7 @@ class Cms_Blog_Controller extends Cms_Base_Controller {
 				->with('blog_parent', CmsPage::select_page_slug($blog->lang, array_search('blogs', $extra_ids)))
 				->with('blog_parent_selected', $page_id)
 				->with('blog_slug', substr($blog->slug, 1))
-				->with('blog_parent_slug', CmsPage::get_page_slug($page_id).'/')
+				->with('blog_parent_slug', CmsPage::get_page_slug($page_id))
 				->with('blog_zones', CmsElement::select_zone($page_id))
 				->with('blog_zone_selected', $blog->zone)
 				->with('blog_is_valid', (bool) $blog->is_valid)
