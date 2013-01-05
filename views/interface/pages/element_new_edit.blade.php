@@ -39,7 +39,7 @@
 							{{Form::hidden('page_id', $page_id, array('class' => 'page_id')) . "\n"}}
 							{{Form::hidden('element_id', $element_id, array('class' => 'element_id')) . "\n"}}
 							<fieldset>
-								<legend>{{LL('cms::form.element_settings_legend', CMSLANG)}}</legend>
+								<legend>{{$page_name}} / {{LL('cms::form.element_settings_legend', CMSLANG)}}</legend>
 
 								<div class="row">
 
@@ -139,7 +139,7 @@
 							{{Form::hidden('page_id', $page_id, array('class' => 'page_id')) . "\n"}}
 							{{Form::hidden('element_id', $element_id, array('class' => 'element_id')) . "\n"}}
 							<fieldset>
-								<legend>{{LL('cms::form.element_ckeditor_legend', CMSLANG)}}</legend>
+								<legend>{{$page_name}} / {{$element_name}} / {{LL('cms::form.element_ckeditor_legend', CMSLANG)}}</legend>
 								<div class="control-group">
 									{{Form::label('page_lang', LL('cms::form.page_lang', CMSLANG), array('class' => 'control-label')) . "\n"}}
 									<div class="controls">
@@ -191,7 +191,7 @@
 							{{Form::hidden('page_id', $page_id, array('class' => 'page_id')) . "\n"}}
 							{{Form::hidden('element_id', $element_id, array('class' => 'element_id')) . "\n"}}
 							<fieldset>
-								<legend>{{LL('cms::form.element_markitup_legend', CMSLANG)}}</legend>
+								<legend>{{$page_name}} / {{$element_name}} / {{LL('cms::form.element_markitup_legend', CMSLANG)}}</legend>
 								<div class="control-group">
 									{{Form::label('page_lang', LL('cms::form.page_lang', CMSLANG), array('class' => 'control-label')) . "\n"}}
 									<div class="controls">
@@ -238,7 +238,7 @@
 					<!-- MEDIA FORM -->
 					<div class="tab-pane" id="media">
 
-						<legend>{{LL('cms::form.page_legend_media', CMSLANG)}}</legend>
+						<legend>{{$page_name}} / {{LL('cms::form.page_legend_media', CMSLANG)}}</legend>
 
 						<div>
 							<div class="well">
@@ -297,7 +297,7 @@
 					<!-- ORDER TAB -->
 					<div class="tab-pane" id="order">
 						
-						<legend>{{LL('cms::form.element_legend_stack', CMSLANG)}}</legend>
+						<legend>{{$page_name}} / {{LL('cms::form.element_legend_stack', CMSLANG)}}</legend>
 
 						<ul class="sortable">
 						@if(!$role_fail)
