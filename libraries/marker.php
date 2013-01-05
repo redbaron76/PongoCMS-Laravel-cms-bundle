@@ -23,6 +23,8 @@ class Marker {
 
 			//STRING FOUND
 			$found = $matches[2][$key];
+
+			// CLEAN LAST COMMA
 			if(substr($found, -1) == ',') $found = substr($found, 0, -1);
 
 			//CLEAN HTML
@@ -46,7 +48,7 @@ class Marker {
 			}
 
 			//SKIP ! EXECUTION
-			if(substr($method, 0, 1) == '!') $tmp_text = str_replace('$!', '$', $tmp_text);
+			if(substr($method, 0, 1) == '!') $tmp_text = str_replace('$!', '&#36;', $tmp_text);
 
 		}
 
@@ -640,7 +642,7 @@ class Marker {
 		$_id = null;
 		if(isset($id) and !empty($id)) $_id = $id;
 
-		$_class = 'download  btn btn-primary';
+		$_class = 'download';
 		if(isset($class) and !empty($class)) $_class = $class;
 
 		$_tpl = 'download';
@@ -1076,7 +1078,7 @@ class Marker {
 		);
 
 		$view = LOAD_VIEW($_tpl);
-		$view['options'] = HTML::attributes($options);
+		$view['options'] = $options;
 
 		return $view;
 
