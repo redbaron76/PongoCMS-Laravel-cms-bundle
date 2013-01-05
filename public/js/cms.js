@@ -216,6 +216,13 @@ $.cms = {
 		$('.elastic').elastic();
 	},
 
+	checkAllClone:
+	function() {
+		$('#checkall_clone').click(function () {
+			$('.to_clone').attr('checked', this.checked);
+		});
+	},
+
 	//IAS paginator
 	paginator:
 	function(where, fancy) {

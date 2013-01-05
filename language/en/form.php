@@ -74,7 +74,8 @@ return array(
 	"element_text" => "Element content",
 	"element_zone" => "Insert into",
 	"element_is_valid" => "Element enabled?",
-	"element_to_clone" => "Create new element",
+	"element_to_clone" => "Separate element",
+	"element_separate" => "separate",
 
 	//LIST PAGE
 

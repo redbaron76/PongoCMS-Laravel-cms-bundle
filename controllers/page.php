@@ -204,7 +204,7 @@ class Cms_Page_Controller extends Cms_Base_Controller {
 			$subpages = CmsPage::where_parent_id($id)->order_by('order_id', 'asc')->get();
 
 			//GET PAGE DATA
-			$page = CmsPage::with(array('files', 'pagerels'))->find($id); 
+			$page = CmsPage::with(array('elements', 'files', 'pagerels'))->find($id); 
 			
 			if(!empty($page)) {
 
@@ -267,7 +267,8 @@ class Cms_Page_Controller extends Cms_Base_Controller {
 				->with('subpages', $subpages)
 				->with('files', $page->files)
 				->with('pagedata', $new_data)
-				->with('pagerels', $page->pagerels);
+				->with('pagerels', $page->pagerels)
+				->with('elements', $page->elements);
 
 			} else {
 
@@ -673,24 +674,24 @@ class Cms_Page_Controller extends Cms_Base_Controller {
 
 			}
 
-			if(Input::has('clone_elements') and Input::get('clone_elements')==1) {
+			// IF IS ARRAY CLONE_ELEMENTS
 
-				//GET NEW ID
+			if(is_array(Input::get('clone_elements'))) {
+
+				//GET NEW PAGE ID
 				$nid = $new_page->id;
 
-				//GET ALL ELEMENTS IN PIVOT WHERE OLD PAGE_ID
-				// $pivot = $page->elements()->pivot();
+				$elements_to_be_cloned = Input::get('clone_elements');
 
-				foreach (DB::table('elements_pages')->where_cmspage_id($pid)->get() as $value) {
+				// FOR EACH ELEMENT TO CLONE
+				foreach ($elements_to_be_cloned as $el) {
 					
-					//INSERT TO PIVOT
-
+					// LANG CHANGES
 					if($lang != LANG) {
 
-						//NEW ELEMENT IF LANG CHANGE
+						// ALWAYS SEPARATE ELEMENTS
 
-						//GET ELEMENT MODEL
-						$element = CmsElement::find($value->cmselement_id);
+						$element = CmsElement::find($el);
 
 						$new_element_attr = array(
 							'author_id' => AUTHORID,
@@ -704,28 +705,55 @@ class Cms_Page_Controller extends Cms_Base_Controller {
 
 						$new_element = new CmsElement($new_element_attr);
 						$page = CmsPage::find($nid);
-						$page->elements()->insert($new_element);
+						$page->elements()->insert($new_element, array('order_id' => Config::get('cms::settings.order')));
 
 					} else {
 
-						//CLONE ELEMENT
+						// CHECK IF ELEMENTS SEPARATE OR NOT
 
-						$clone_array = array(
-							'cmselement_id' => $value->cmselement_id,
-							'cmspage_id' => $nid,
-							'created_at' => $now,
-							'updated_at' => $now,
-						);
+						$separate_elements = Input::get('ele_separate');
 
-						DB::table('elements_pages')->insert($clone_array);
+						if(is_array($separate_elements) and in_array($el, $separate_elements)) {
+
+							// ELEMENT MUST BE SEPARATED
+
+							$element = CmsElement::find($el);
+
+							$new_element_attr = array(
+								'author_id' => AUTHORID,
+								'name' => $element->name,
+								'label' => $element->label,
+								'text' => $element->text,
+								'zone' => $element->zone,
+								'lang' => $lang,
+								'is_valid' => 0
+							);
+
+							$new_element = new CmsElement($new_element_attr);
+							$page = CmsPage::find($nid);
+							$page->elements()->insert($new_element, array('order_id' => Config::get('cms::settings.order')));
+
+						} else {
+
+							//CLONE ELEMENT
+
+							$clone_array = array(
+								'cmselement_id' => $el,
+								'cmspage_id' => $nid,
+								'order_id' => Config::get('cms::settings.order'),
+								'created_at' => $now,
+								'updated_at' => $now,
+							);
+
+							DB::table('elements_pages')->insert($clone_array);
+
+						}
 
 					}
 
 				}
 
 			}
-
-			
 
 			Notification::success(LL('cms::alert.clone_page_success', CMSLANG, array('element' => $page->name)), 1500);
 
@@ -737,7 +765,6 @@ class Cms_Page_Controller extends Cms_Base_Controller {
 			Notification::error(LL('cms::alert.clone_page_error', CMSLANG), 1500);
 
 			return Redirect::to_action('cms::page', array($lang));
-
 		}
 
 

@@ -24,6 +24,9 @@ $(function() {
 	//ELASTIC TEXTAREA
 	$.cms.elastic();
 
+	//CHECKALL CLONE
+	$.cms.checkAllClone();
+
 	//TOGGLE PREVIEW
 	$.cms.togglePreviewButton();
 

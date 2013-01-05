@@ -74,7 +74,8 @@ return array(
 	"element_text" => "Contenuto dell'elemento",
 	"element_zone" => "Inserisci in",
 	"element_is_valid" => "Elemento valido?",
-	"element_to_clone" => "Crea un nuovo elemento",
+	"element_to_clone" => "Elemento indipendente",
+	"element_separate" => "a parte",
 
 	//LIST PAGE
 

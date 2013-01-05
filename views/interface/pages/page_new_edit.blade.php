@@ -520,13 +520,28 @@
 		<p>{{LL('cms::form.modal_descr_clone_page', CMSLANG)}}</p>
 		<p>{{Form::select('lang', Config::get('cms::settings.langs'), LANG, array('class' => 'span6'))}}</p>
 		<label class="checkbox">
-			{{Form::checkbox('clone_elements', 1, null)}}
-			{{LL('cms::form.modal_page_clone_elements', CMSLANG)}}
-		</label>
-		<label class="checkbox">
 			{{Form::checkbox('clone_media', 1, null)}}
 			{{LL('cms::form.modal_page_clone_media', CMSLANG)}}
 		</label>
+		<label class="checkbox">
+			{{Form::checkbox('checkall_clone', null, null, array('id' => 'checkall_clone'))}}
+			{{LL('cms::form.modal_page_clone_elements', CMSLANG)}}
+		</label>		
+
+			@foreach($elements as $element)
+			<div>
+				<label class="checkbox inline">
+					<span class="label label-info">{{$element->zone}}</span>
+					{{Form::checkbox('clone_elements[]', $element->id, null, array('class' => 'to_clone'))}}
+					{{$element->label}}
+				</label>
+				<label class="checkbox inline pull-right">
+					{{LL('cms::form.element_separate', CMSLANG)}}
+					{{Form::checkbox('ele_separate[]', $element->id, null)}}
+				</label>
+			</div>
+			@endforeach
+
 		@else
 		<p>{{LL('cms::ajax_resp.ownership_error', CMSLANG)}}</p>
 		@endif
