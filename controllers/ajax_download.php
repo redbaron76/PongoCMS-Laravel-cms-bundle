@@ -53,7 +53,7 @@ class Cms_Ajax_Download_Controller extends Cms_Base_Controller {
 
 			$did = $download->id;			
 
-			if(Input::has('file_id')) {
+			if(Input::get('file_id') !== '') {
 
 				$files = Input::get('file_id');
 
