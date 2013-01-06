@@ -21,4 +21,9 @@ return array(
 
 	"crumb_here" => "qui",
 
+	//SEARCH
+	
+	"search" => "Cerca",
+	"search_placeholder" => "Cosa cerchi?",
+
 );

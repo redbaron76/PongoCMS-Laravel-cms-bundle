@@ -80,9 +80,5 @@ return array(
 	"new_tag" => "New Tag",
 	"add_tag" => "Add Tag",
 
-	
-
-
-
 
 );

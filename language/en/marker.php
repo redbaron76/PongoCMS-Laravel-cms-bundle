@@ -21,4 +21,9 @@ return array(
 
 	"crumb_here" => "here",
 
+	//SEARCH
+	
+	"search" => "Search",
+	"search_placeholder" => "Search something...",
+
 );
