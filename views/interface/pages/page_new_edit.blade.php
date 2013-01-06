@@ -94,7 +94,7 @@
 								<div class="control-group">
 									<div class="controls">
 
-										<?php $url_preview = URL::base().$page_parent_slug.'/'.$page_slug.'/preview' ?>
+										<?php $url_preview = URL::base().$page_parent_slug.'/'.$page_slug.Config::get('cms::settings.preview'); ?>
 
 										<a href="{{$url_preview}}" class="btn btn-mini span1 preview" target="_blank">{{LL('cms::button.page_preview', CMSLANG)}}</a>
 										<label class="checkbox">

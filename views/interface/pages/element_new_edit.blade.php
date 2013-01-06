@@ -139,7 +139,7 @@
 							{{Form::hidden('page_id', $page_id, array('class' => 'page_id')) . "\n"}}
 							{{Form::hidden('element_id', $element_id, array('class' => 'element_id')) . "\n"}}
 							<fieldset>
-								<legend>{{$page_name}} / {{$element_name}} / {{LL('cms::form.element_ckeditor_legend', CMSLANG)}}</legend>
+								<legend>{{$page_name}} / {{$element_label}} / {{LL('cms::form.element_ckeditor_legend', CMSLANG)}}</legend>
 								<div class="control-group">
 									{{Form::label('page_lang', LL('cms::form.page_lang', CMSLANG), array('class' => 'control-label')) . "\n"}}
 									<div class="controls">
@@ -191,7 +191,7 @@
 							{{Form::hidden('page_id', $page_id, array('class' => 'page_id')) . "\n"}}
 							{{Form::hidden('element_id', $element_id, array('class' => 'element_id')) . "\n"}}
 							<fieldset>
-								<legend>{{$page_name}} / {{$element_name}} / {{LL('cms::form.element_markitup_legend', CMSLANG)}}</legend>
+								<legend>{{$page_name}} / {{$element_label}} / {{LL('cms::form.element_markitup_legend', CMSLANG)}}</legend>
 								<div class="control-group">
 									{{Form::label('page_lang', LL('cms::form.page_lang', CMSLANG), array('class' => 'control-label')) . "\n"}}
 									<div class="controls">

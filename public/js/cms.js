@@ -320,7 +320,7 @@ $.cms = {
 				//Set page_id for extra and enable upload
 				if(data.pageid) $('.page_id').val(data.pageid);
 
-				if(data.full_slug) $('a.preview').attr('href', data.full_slug + '/preview');
+				if(data.full_slug) $('a.preview').attr('href', data.full_slug + PREVIEW);
 
 				// Template inject
 				if(data.inject && data.template) {
