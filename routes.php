@@ -71,29 +71,8 @@ Route::filter('init', function()
 });
 
 
-//APPLICATION DEFAULT COMPOSER (for /application/controllers/site.php)
 
-View::composer('cms::theme.'.Config::get('cms::settings.theme').'.templates.default', function($view)
-{
-	
-	CmsRender::asset();
 
-	//BASE JS
-	Asset::container('header')->add('base_js', Config::get('application.url').'/site/js');
-
-	if(!isset($view->title)) $view->title = Config::get('cms::theme.title');
-
-	if(!isset($view->descr)) $view->descr = Config::get('cms::theme.descr');
-
-	if(!isset($view->keyw)) $view->keyw = Config::get('cms::theme.keyw');
-
-	if(!isset($view->header)) $view->header = '';
-
-	if(!isset($view->layout)) $view->layout = '';
-
-	if(!isset($view->footer)) $view->footer = '';
-	
-});
 
 
 /* CMS INTERFACE ROUTES */

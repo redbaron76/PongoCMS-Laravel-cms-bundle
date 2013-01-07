@@ -74,19 +74,42 @@ class Site_Controller extends Base_Controller {
 	//SHOW USER LOGIN
 	public function get_login()
 	{		
+		
 		//LOAD VIEW
 		$view = View::make('cms::theme.'.THEME.'.partials.markers.login');
 		$view['options'] = array();
 
 		//LOAD LAYOUT
-		$layout = View::make('cms::theme.'.THEME.'.layouts.default');
-		$layout['ZONE1'] = $view;
+		$login_template = Config::get('cms::theme.login_template');
+		$login_header = Config::get('cms::theme.login_header');
+		$login_footer = Config::get('cms::theme.login_footer');
+		$login_layout = Config::get('cms::theme.login_layout');
+		$login_zone = Config::get('cms::theme.login_zone');
+		$layout = View::make('cms::theme.'.THEME.'.layouts.'.$login_layout);
+		
+
+		// IF LOGIN ZONE IS LAYOUT ZONE APPEND DATA ELSE EMPTY
+		foreach (Config::get('cms::theme.layout_'.$login_layout) as $zone => $name) {
+
+			// MAP ZONE CONTENT
+			$layout[$zone] = ($login_zone === $zone) ? $view : '';
+
+		}
+
+		//INIT PAGE
+		CmsRender::asset();
+
+		//BASE JS
+		Asset::container('header')->add('base_js', Config::get('application.url').'/site/js');
 
 		//LOAD TEMPLATE
-		$html = View::make('cms::theme.'.THEME.'.templates.default')
-		->nest('header', 'cms::theme.'.THEME.'.partials.header_default')
+		$html = View::make('cms::theme.'.THEME.'.templates.'.$login_template)
+		->nest('header', 'cms::theme.'.THEME.'.partials.header_'.$login_header)
+		->with('descr', Config::get('cms::theme.descr'))
+		->with('keyw', Config::get('cms::theme.keyw'))
+		->with('title', Config::get('cms::theme.title'))
 		->with('layout', $layout)
-		->nest('footer', 'cms::theme.'.THEME.'.partials.footer_default');
+		->nest('footer', 'cms::theme.'.THEME.'.partials.footer_'.$login_footer);
 
 		CmsRender::clean_code($html);
 
@@ -153,126 +176,12 @@ class Site_Controller extends Base_Controller {
 	}
 
 
-	//SHOW SEARCH PAGE
+	//SHOW SEARCH PAGE AFTER PAGINATION
 	public function get_search()
 	{
 
-		if(Input::has('q') and Input::has('source')) {
-
-			//GET q
-			$q = Input::get('q');
-
-			//GET page
-			$p = Input::get('page', 1);
-
-			//ITEMS PER PAGE
-			$npp = Config::get('cms::theme.site_pag');
-
-			//GET SOURCE WHERE TO SEARCH
-			$source = Input::get('source');
-
-			$sources = explode('-', $source);
-
-			$results = array();
-
-			//PAGES
-
-			$tot = 0;
-
-			if(is_numeric(array_search('pages', $sources))) {
-				
-			 	$elements = CmsElement::with(array('pages'))
-			 		->where('text', 'LIKE', '%'.$q.'%')
-			 		->where_lang(SITE_LANG)
-			 		->where_is_valid(1)
-			 		->get();
-
-			 	foreach ($elements as $key => $element) {
-
-			 		foreach ($element->pages as $page) {
-
-			 			$title = (strlen($page->title) > 0) ? $page->title : $page->name;
-
-			 			$results[$key+1]['source'] = LL('cms::label.pages', SITE_LANG)->get();
-			 			$results[$key+1]['title'] = $title;
-			 			$results[$key+1]['slug'] = $page->slug;
-			 			$results[$key+1]['descr'] = $page->descr;
-
-			 		}
-
-			 		$tot ++;
-
-			 	}
-
-			}
-
-			if(is_numeric(array_search('blogs', $sources))) {
-				
-			 	$blogs = CmsBlog::with(array('pages'))
-			 		->where('name', 'LIKE', '%'.$q.'%')
-			 		->or_where('preview', 'LIKE', '%'.$q.'%')
-			 		->or_where('text', 'LIKE', '%'.$q.'%')
-			 		->where_lang(SITE_LANG)
-			 		->where_is_valid(1)
-			 		->get();
-
-			 	foreach ($blogs as $key => $blog) {
-
-			 		foreach ($blog->pages as $page) {
-
-			 			$title = $blog->name;
-
-			 			$results[$tot+$key+1]['source'] = LL('cms::label.blogs', SITE_LANG)->get();
-			 			$results[$tot+$key+1]['title'] = $title;
-			 			$results[$tot+$key+1]['slug'] = $page->slug . $blog->slug;
-			 			$results[$tot+$key+1]['descr'] = $page->descr;
-
-			 		}
-
-			 		$tot ++;
-
-			 	}
-
-			}
-
-			$unique_results = array_unique($results, SORT_REGULAR);
-
-			$count_results = count($unique_results);
-
-			$output = array_slice($unique_results, (($npp*$p)-$npp), $npp);
-
-			$paginate = Paginator::make($output, $count_results, $npp);
-
-			//LOAD VIEW
-			$view = View::make('cms::theme.'.THEME.'.partials.search_results');
-			$view['results'] = $paginate;
-			$view['q'] = $q;
-			$view['source'] = $source;
-
-			//LOAD LAYOUT
-			$search_layout = Config::get('cms::theme.search_layout');
-			$layout = View::make('cms::theme.'.THEME.'.layouts.'.$search_layout);
-			$_zone = Config::get('cms::theme.search_zone');
-
-			// IF SEARCH ZONE IS LAYOUT ZONE APPEND DATA ELSE EMPTY
-			foreach (Config::get('cms::theme.layout_'.$search_layout) as $zone => $name) {
-				$layout[$zone] = ($_zone === $zone) ? $view : '';
-			}
-
-			//LOAD TEMPLATE
-			$html = View::make('cms::theme.'.THEME.'.templates.default')
-			->nest('header', 'cms::theme.'.THEME.'.partials.header_default')
-			->with('title', $q)
-			->with('layout', $layout)
-			->nest('footer', 'cms::theme.'.THEME.'.partials.footer_default');
-
-			CmsRender::clean_code($html);
-
-		} else {
-
-			return Redirect::home();
-
-		}
+		// USING POST_SEARCH METHOD
+		static::post_search();
 
 	}
 
@@ -374,21 +283,36 @@ class Site_Controller extends Base_Controller {
 			$view['source'] = $source;
 
 			//LOAD LAYOUT
+			$search_template = Config::get('cms::theme.search_template');
+			$search_header = Config::get('cms::theme.search_header');
+			$search_footer = Config::get('cms::theme.search_footer');
 			$search_layout = Config::get('cms::theme.search_layout');
+			$search_zone = Config::get('cms::theme.search_zone');
 			$layout = View::make('cms::theme.'.THEME.'.layouts.'.$search_layout);
-			$_zone = Config::get('cms::theme.search_zone');
+			
 
 			// IF SEARCH ZONE IS LAYOUT ZONE APPEND DATA ELSE EMPTY
 			foreach (Config::get('cms::theme.layout_'.$search_layout) as $zone => $name) {
-				$layout[$zone] = ($_zone === $zone) ? $view : '';
+
+				// MAP ZONE CONTENT
+				$layout[$zone] = ($search_zone === $zone) ? $view : '';
+
 			}
 
+			//INIT PAGE
+			CmsRender::asset();
+
+			//BASE JS
+			Asset::container('header')->add('base_js', Config::get('application.url').'/site/js');
+
 			//LOAD TEMPLATE
-			$html = View::make('cms::theme.'.THEME.'.templates.default')
-			->nest('header', 'cms::theme.'.THEME.'.partials.header_default')
+			$html = View::make('cms::theme.'.THEME.'.templates.'.$search_template)
+			->nest('header', 'cms::theme.'.THEME.'.partials.header_'.$search_header)
+			->with('descr', Config::get('cms::theme.descr'))
+			->with('keyw', Config::get('cms::theme.keyw'))
 			->with('title', $q)
 			->with('layout', $layout)
-			->nest('footer', 'cms::theme.'.THEME.'.partials.footer_default');
+			->nest('footer', 'cms::theme.'.THEME.'.partials.footer_'.$search_footer);
 
 			CmsRender::clean_code($html);
 

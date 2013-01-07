@@ -140,12 +140,27 @@ $THEME_SETTINGS = array(
 
 	/*
 	|--------------------------------------------------------------------------
-	| $SEARCH results layout 
+	| $SEARCH results layout | Map to existing items and zones
 	|--------------------------------------------------------------------------|
 	*/
 
-	'search_layout' => 'default',
-	'search_zone'	=> 'ZONE1',
+	'search_template' 	=> 'default',
+	'search_header' 	=> 'default',
+	'search_footer' 	=> 'default',
+	'search_layout' 	=> 'default',
+	'search_zone'		=> 'ZONE1',
+
+	/*
+	|--------------------------------------------------------------------------
+	| Authorization page layout | Map to existing items and zones
+	|--------------------------------------------------------------------------|
+	*/
+
+	'login_template' 	=> 'default',
+	'login_header' 		=> 'default',
+	'login_footer' 		=> 'default',
+	'login_layout' 		=> 'default',
+	'login_zone'		=> 'ZONE1',
 
 	/*
 	|--------------------------------------------------------------------------

@@ -90,7 +90,7 @@ class CmsRender {
 
 		// Page with lang = SITE_LANG and is_homepage = 1
 
-		if(SLUG_FULL == '/') {		// HOMEPAGE
+		if(SLUG_FULL == DS) {		// HOMEPAGE
 
 			$page = CmsPage::with(array('elements' => function($query) {
 
@@ -113,10 +113,10 @@ class CmsRender {
 
 			// Check slug is not lang
 
-			if(array_key_exists(str_replace('/', '', SLUG_FULL), Config::get('cms::settings.langs'))) {
+			if(array_key_exists(str_replace(DS, '', SLUG_FULL), Config::get('cms::settings.langs'))) {
 
 				//Redirect al cambio lingua
-				return Redirect::to_action('site@lang', array(str_replace('/', '', SLUG_FULL)));
+				return Redirect::to_action('site@lang', array(str_replace(DS, '', SLUG_FULL)));
 
 			}
 
@@ -258,12 +258,11 @@ class CmsRender {
 
 				if( ! empty($extra)) {
 
-					//EXTRA VIEW
-
+					//EXTRA VIEW ZOOM
 
 					$extra_what = CONF('cms::settings.extra_id', $page->extra_id);
 
-					$tmp_text = View::make('cms::theme.'.THEME.'.partials.preview.'.$extra_what);
+					$tmp_text = View::make('cms::theme.'.THEME.'.partials.details.'.$extra_what);
 					$tmp_text['text'] = $extra;
 
 					// Bind extra name
