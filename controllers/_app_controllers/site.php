@@ -83,7 +83,7 @@ class Site_Controller extends Base_Controller {
 		$layout['ZONE1'] = $view;
 
 		//LOAD TEMPLATE
-		$html = View::make('cms::theme.'.THEME.'.templates.'.TEMPLATE)
+		$html = View::make('cms::theme.'.THEME.'.templates.default')
 		->nest('header', 'cms::theme.'.THEME.'.partials.header_default')
 		->with('layout', $layout)
 		->nest('footer', 'cms::theme.'.THEME.'.partials.footer_default');
@@ -250,12 +250,17 @@ class Site_Controller extends Base_Controller {
 			$view['source'] = $source;
 
 			//LOAD LAYOUT
-			$layout = View::make('cms::theme.'.THEME.'.layouts.'.Config::get('cms::theme.search_layout'));
+			$search_layout = Config::get('cms::theme.search_layout');
+			$layout = View::make('cms::theme.'.THEME.'.layouts.'.$search_layout);
 			$_zone = Config::get('cms::theme.search_zone');
-			$layout[$_zone] = $view;
+
+			// IF SEARCH ZONE IS LAYOUT ZONE APPEND DATA ELSE EMPTY
+			foreach (Config::get('cms::theme.layout_'.$search_layout) as $zone => $name) {
+				$layout[$zone] = ($_zone === $zone) ? $view : '';
+			}
 
 			//LOAD TEMPLATE
-			$html = View::make('cms::theme.'.THEME.'.templates.'.TEMPLATE)
+			$html = View::make('cms::theme.'.THEME.'.templates.default')
 			->nest('header', 'cms::theme.'.THEME.'.partials.header_default')
 			->with('title', $q)
 			->with('layout', $layout)
@@ -369,12 +374,17 @@ class Site_Controller extends Base_Controller {
 			$view['source'] = $source;
 
 			//LOAD LAYOUT
-			$layout = View::make('cms::theme.'.THEME.'.layouts.'.Config::get('cms::theme.search_layout'));
+			$search_layout = Config::get('cms::theme.search_layout');
+			$layout = View::make('cms::theme.'.THEME.'.layouts.'.$search_layout);
 			$_zone = Config::get('cms::theme.search_zone');
-			$layout[$_zone] = $view;
+
+			// IF SEARCH ZONE IS LAYOUT ZONE APPEND DATA ELSE EMPTY
+			foreach (Config::get('cms::theme.layout_'.$search_layout) as $zone => $name) {
+				$layout[$zone] = ($_zone === $zone) ? $view : '';
+			}
 
 			//LOAD TEMPLATE
-			$html = View::make('cms::theme.'.THEME.'.templates.'.TEMPLATE)
+			$html = View::make('cms::theme.'.THEME.'.templates.default')
 			->nest('header', 'cms::theme.'.THEME.'.partials.header_default')
 			->with('title', $q)
 			->with('layout', $layout)
