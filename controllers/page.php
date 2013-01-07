@@ -687,6 +687,14 @@ class Cms_Page_Controller extends Cms_Base_Controller {
 
 				// FOR EACH ELEMENT TO CLONE
 				foreach ($elements_to_be_cloned as $el) {
+
+					//GET ORIGINAL ORDER_ID
+					$original_el = DB::table('elements_pages')
+									->where_cmspage_id($pid)
+									->where_cmselement_id($el)
+									->first();
+
+					$ororder = (!empty($original_el)) ? $original_el->order_id : Config::get('cms::settings.order');
 					
 					// LANG CHANGES
 					if($lang != LANG) {
@@ -707,7 +715,7 @@ class Cms_Page_Controller extends Cms_Base_Controller {
 
 						$new_element = new CmsElement($new_element_attr);
 						$page = CmsPage::find($nid);
-						$page->elements()->insert($new_element, array('order_id' => Config::get('cms::settings.order')));
+						$page->elements()->insert($new_element, array('order_id' => $ororder));
 
 					} else {
 
@@ -733,7 +741,7 @@ class Cms_Page_Controller extends Cms_Base_Controller {
 
 							$new_element = new CmsElement($new_element_attr);
 							$page = CmsPage::find($nid);
-							$page->elements()->insert($new_element, array('order_id' => Config::get('cms::settings.order')));
+							$page->elements()->insert($new_element, array('order_id' => $ororder));
 
 						} else {
 
@@ -741,10 +749,10 @@ class Cms_Page_Controller extends Cms_Base_Controller {
 
 							$clone_array = array(
 								'cmselement_id' => $el,
-								'cmspage_id' => $nid,
-								'order_id' => Config::get('cms::settings.order'),
-								'created_at' => $now,
-								'updated_at' => $now,
+								'cmspage_id' 	=> $nid,
+								'order_id' 		=> $ororder,
+								'created_at' 	=> $now,
+								'updated_at' 	=> $now,
 							);
 
 							DB::table('elements_pages')->insert($clone_array);
@@ -844,7 +852,7 @@ class Cms_Page_Controller extends Cms_Base_Controller {
 	{
 		$auth = Auth::check();
 		
-		if($auth) {
+		if($auth and is_numeric(AUTHORID)) {
 
 			if(Input::has('id')) {
 

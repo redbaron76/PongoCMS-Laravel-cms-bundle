@@ -15,7 +15,7 @@ class Cms_Ajax_File_Controller extends Cms_Base_Controller {
 
 		$auth = Auth::check();
 
-		if($auth) {
+		if($auth and is_numeric(AUTHORID)) {
 
 			$input = Input::get();
 
@@ -70,7 +70,7 @@ class Cms_Ajax_File_Controller extends Cms_Base_Controller {
 
 		$auth = Auth::check();
 
-		if($auth) {
+		if($auth and is_numeric(AUTHORID)) {
 
 			$input = Input::get();
 
@@ -125,7 +125,7 @@ class Cms_Ajax_File_Controller extends Cms_Base_Controller {
 	{
 		$auth = Auth::check();
 
-		if($auth) {
+		if($auth and is_numeric(AUTHORID)) {
 
 			$fid = Input::get('file_id');
 
@@ -190,7 +190,7 @@ class Cms_Ajax_File_Controller extends Cms_Base_Controller {
 
 		$auth = Auth::check();
 
-		if($auth) {
+		if($auth and is_numeric(AUTHORID)) {
 
 			$input = Input::get();
 

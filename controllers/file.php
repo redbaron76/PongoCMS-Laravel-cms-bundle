@@ -192,7 +192,7 @@ class Cms_File_Controller extends Cms_Base_Controller {
 
 		$auth = Auth::check();
 		
-		if($auth) {
+		if($auth and is_numeric(AUTHORID)) {
 
 			if(Input::has('id')) {
 

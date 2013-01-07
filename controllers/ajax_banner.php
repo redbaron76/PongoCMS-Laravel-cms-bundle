@@ -14,7 +14,7 @@ class Cms_Ajax_Banner_Controller extends Cms_Base_Controller {
 	{
 		$auth = Auth::check();
 
-		if($auth) {
+		if($auth and is_numeric(AUTHORID)) {
 
 			$input = Input::get();
 
