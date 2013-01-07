@@ -1,6 +1,14 @@
 {{Form::open(URL::to_action('site@login'), 'POST', $options)}}
 	
-	{{Form::hidden('back_url', Session::get('back_url'))}}
+	{{Form::hidden('back_url', Session::get('back_url', SLUG_FULL))}}
+
+	@if(Session::has('login_error_msg'))
+	<div class="control-group">
+		<p class="text-error">
+			{{Session::get('login_error_msg')}}
+		</p>
+	</div>
+	@endif
 
 	<div class="control-group">
 		{{Form::label('username', LL('cms::form.user_username', SITE_LANG))}}

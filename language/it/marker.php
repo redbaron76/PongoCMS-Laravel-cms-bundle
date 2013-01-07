@@ -26,4 +26,7 @@ return array(
 	"search" => "Cerca",
 	"search_placeholder" => "Cosa cerchi?",
 
+	//LOGIN
+	"login_error" => "L'utente :user non è autorizzato!",
+
 );

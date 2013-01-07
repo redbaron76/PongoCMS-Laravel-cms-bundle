@@ -140,9 +140,12 @@ class Site_Controller extends Base_Controller {
 		} else {
 
 			//ERROR LOGIN
-			return Redirect::to_action('site@login')
-			->with_input('only', array('username'))
-			->with('back_url', $back_url);
+			$redirect = (strlen($back_url) > 1) ? Redirect::to(url($back_url)) : Redirect::to_action('site@login');
+			$redirect->with_input('only', array('username'));
+			$redirect->with('back_url', $back_url);
+			$redirect->with('login_error_msg', LL('cms::marker.login_error', LANG, array('user' => Input::get('username')))->get());
+
+			return $redirect;
 
 		}
 

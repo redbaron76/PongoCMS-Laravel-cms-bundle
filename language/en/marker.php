@@ -26,4 +26,7 @@ return array(
 	"search" => "Search",
 	"search_placeholder" => "Search something...",
 
+	//LOGIN
+	"login_error" => "User :user not allowed!",
+
 );
