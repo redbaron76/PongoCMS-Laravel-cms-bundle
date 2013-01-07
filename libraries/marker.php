@@ -1821,7 +1821,15 @@ class Marker {
 	public static function TEST($vars = array())
 	{
 
-		$view = View::make('cms::theme.'.THEME.'.partials.markers.test');
+		//Get variables from array $vars
+		if( ! empty($vars)) extract($vars);
+
+		//Bind variables
+
+		$_tpl = 'test';
+		if(isset($tpl) and !empty($tpl)) $_tpl = $tpl;
+
+		$view = View::make('cms::theme.'.THEME.'.partials.markers.'.$_tpl);
 
 		return $view;
 
