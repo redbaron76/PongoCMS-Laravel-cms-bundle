@@ -353,6 +353,53 @@ class Marker {
 
 
 	/**
+    * ELEMENT Marker - Replicates element content
+    *
+	* [$CONTENT[{
+	*	"el":"<elem's id>"
+	* }]]
+    *
+    * @param  array
+    * @return string
+    */
+	public static function ELEMENT($vars = array())
+	{
+
+		//Get variables from array $vars
+		if( ! empty($vars)) extract($vars);
+
+		//Bind variables
+
+		$_el = '';
+		if(isset($el) and !empty($el)) $_el = $el;
+
+		if(!empty($_el)) {
+
+			//CACHE DATA
+			if(CACHE) {
+
+				$query = Cache::remember('page_element_'.$_el, function() {
+
+					return $menu = CmsElement::find($_el);
+
+				}, 1440);
+
+			} else {
+
+				$query = CmsElement::find($_el);
+
+			}
+
+			$txt = (!empty($query)) ? $query->text : '';
+
+			return (strlen($txt)>0) ? self::decode($txt, array()) : $txt;
+
+		}
+
+	}
+
+
+	/**
     * CRUMB Marker - Shows a BREADCRUMB style navigation menu
     *
 	* [$CRUMB[{
