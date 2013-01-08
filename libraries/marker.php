@@ -1940,20 +1940,20 @@ class Marker {
 
 				if($_type == 'resize') {
 
-					// GET THUMB
-					if(!empty($_thumb) and empty($_w) and empty($_h)) {
+					// GET W OR H
+					if(!empty($_w) or !empty($_h)) {
+
+						$_filename = $file->name;
+						$dim = MEDIA_DIM($file->w, $file->h, $_w, $_h);
+						$url = URL::to_action('cms::image@resize', array($_w, $_h, $_wm, $_filename));
+
+					// GET THUMB, DEFAULT THUMB IF NONE
+					} else {
 
 						$_filename = MEDIA_NAME($_file, Config::get('cms::theme.thumb.'.$_thumb.'.suffix'));
 						$dim['w'] = Config::get('cms::theme.thumb.'.$_thumb.'.width');
 						$dim['h'] = Config::get('cms::theme.thumb.'.$_thumb.'.height');
 						$url = MEDIA_NAME($file->path, Config::get('cms::theme.thumb.'.$_thumb.'.suffix'));
-
-					// OVERRIDE WITH W H
-					} else {
-
-						$_filename = $file->name;
-						$dim = MEDIA_DIM($file->w, $file->h, $_w, $_h);
-						$url = URL::to_action('cms::image@resize', array($_w, $_h, $_wm, $_filename));
 
 					}
 
