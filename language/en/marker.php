@@ -25,8 +25,12 @@ return array(
 	
 	"search" => "Search",
 	"search_placeholder" => "Search something...",
+	"search_results_title" => "Search results",
+	"search_found" => "Search results for: ':q'",
+	"search_not_found" => "No results found!",
 
 	//LOGIN
+
 	"login_error" => "User :user not allowed!",
 
 );

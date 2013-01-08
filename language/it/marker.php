@@ -25,8 +25,12 @@ return array(
 	
 	"search" => "Cerca",
 	"search_placeholder" => "Cosa cerchi?",
+	"search_results_title" => "Risultati della ricerca",
+	"search_found" => "Risultati trovati per: ':q'",
+	"search_not_found" => "Nessun risultato trovato!",
 
 	//LOGIN
+	
 	"login_error" => "L'utente :user non è autorizzato!",
 
 );

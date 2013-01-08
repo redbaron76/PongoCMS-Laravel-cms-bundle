@@ -140,7 +140,7 @@ $THEME_SETTINGS = array(
 
 	/*
 	|--------------------------------------------------------------------------
-	| $SEARCH results layout | Map to existing items and zones
+	| $SEARCH form layout | Map to existing items and zones
 	|--------------------------------------------------------------------------|
 	*/
 
@@ -149,6 +149,14 @@ $THEME_SETTINGS = array(
 	'search_footer' 	=> 'default',
 	'search_layout' 	=> 'default',
 	'search_zone'		=> 'ZONE1',
+
+	/*
+	|--------------------------------------------------------------------------
+	| $SEARCH results layout | in: /partials
+	|--------------------------------------------------------------------------|
+	*/
+
+	'search_results' 	=> 'search_results',
 
 	/*
 	|--------------------------------------------------------------------------

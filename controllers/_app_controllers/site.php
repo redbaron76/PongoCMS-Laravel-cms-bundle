@@ -279,8 +279,11 @@ class Site_Controller extends Base_Controller {
 
 			$paginate = Paginator::make($output, $count_results, $npp);
 
+			//GET SEARCH RESULTS VIEW
+			$search_results = Config::get('cms::theme.search_results');
+
 			//LOAD VIEW
-			$view = View::make('cms::theme.'.THEME.'.partials.search_results');
+			$view = View::make('cms::theme.'.THEME.'.partials.'.$search_results);
 			$view['results'] = $paginate;
 			$view['q'] = $q;
 			$view['source'] = $source;
