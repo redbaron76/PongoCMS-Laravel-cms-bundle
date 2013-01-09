@@ -2011,6 +2011,7 @@ class Marker {
 
 		$options = array(
 			'id' => $_id,
+			'class' => $_class,
 			'title' => $title
 		);
 
