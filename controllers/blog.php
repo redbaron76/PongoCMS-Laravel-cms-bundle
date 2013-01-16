@@ -86,7 +86,7 @@ class Cms_Blog_Controller extends Cms_Base_Controller {
 
 		//DATETIME PICKER
 		Asset::container('header')->add('jqueryuicss', 'bundles/cms/css/jquery.ui.css', 'main');
-		if(LANG !== 'en') Asset::container('footer')->add('local', 'bundles/cms/js/i18n/jquery.ui.datepicker-'.LANG.'.js', 'jquery');
+		if(CMSLANG !== 'en') Asset::container('footer')->add('local', 'bundles/cms/js/i18n/jquery.ui.datepicker-'.CMSLANG.'.js', 'jquery');
 		Asset::container('footer')->add('datepicker', 'bundles/cms/js/jquery.datepicker.js', 'local');		
 		Asset::container('footer')->add('timepicker', 'bundles/cms/js/jquery.timepicker.js', 'datepicker');
 
@@ -190,7 +190,7 @@ class Cms_Blog_Controller extends Cms_Base_Controller {
 
 		//DATETIME PICKER
 		Asset::container('header')->add('jqueryuicss', 'bundles/cms/css/jquery.ui.css', 'main');
-		if(LANG !== 'en') Asset::container('footer')->add('local', 'bundles/cms/js/i18n/jquery.ui.datepicker-'.LANG.'.js', 'jquery');
+		if(CMSLANG !== 'en') Asset::container('footer')->add('local', 'bundles/cms/js/i18n/jquery.ui.datepicker-'.CMSLANG.'.js', 'jquery');
 		Asset::container('footer')->add('datepicker', 'bundles/cms/js/jquery.datepicker.js', 'local');		
 		Asset::container('footer')->add('timepicker', 'bundles/cms/js/jquery.timepicker.js', 'datepicker');
 
