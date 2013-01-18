@@ -90,7 +90,7 @@ class CmsRender {
 
 		// Page with lang = SITE_LANG and is_homepage = 1
 
-		if(SLUG_FULL == DS) {		// HOMEPAGE
+		if(SLUG_FULL === '/') {		// HOMEPAGE
 
 			$page = CmsPage::with(array('elements' => function($query) {
 
