@@ -48,8 +48,6 @@
 
 				@forelse ($data as $page)
 
-				<?php $elements = $page->elements; ?>
-
 				<tr class="post">
 					<td>
 
@@ -100,8 +98,8 @@
 										</span>
 									</li>
 									<li class="divider"></li>
-									@if (!empty($elements))
-										@forelse ($elements as $element)
+									@if (!is_null($page->elements))
+										@forelse ($page->elements as $element)
 										<li>
 											<a href="{{action('cms::page@edit_element', array($page->id, $element->id))}}">			
 												<i class="icon-star<?php if($element->is_valid == 0) echo '-empty'; ?>"></i>
@@ -134,8 +132,8 @@
 										</span>
 									</li>
 									<li class="divider"></li>
-									@if (!empty($elements))
-										@forelse ($elements as $element)
+									@if (!is_null($page->elements))
+										@forelse ($page->elements as $element)
 										<li>
 											<a href="#element-delete-{{$page->id}}-{{$element->id}}" data-toggle="modal">			
 												<i class="icon-star<?php if($element->is_valid == 0) echo '-empty'; ?>"></i>
@@ -154,9 +152,9 @@
 							
 						</div>
 
-						@if (!empty($elements))
+						@if (!is_null($page->elements))
 
-							@foreach ($elements as $element)
+							@foreach ($page->elements as $element)
 							<div class="modal hide" id="element-delete-{{$page->id}}-{{$element->id}}">
 								{{Form::open(action('cms::page@delete_element', array($element->id)), 'POST')}}
 								{{Form::hidden('element_id', $element->id)}}
