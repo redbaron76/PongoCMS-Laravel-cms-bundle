@@ -28,7 +28,7 @@
 			if(is_null($w) and is_null($h)) {
 
 				$img = (strlen($thumb) > 0 and $wm == 'no') ?
-				MEDIA_NAME($image->name, $thumb) :
+				MEDIA_NAME($image->name, $thumb, true) :
 				URL::to_action('cms::image@resize', array($width, $height, $wm, $image->name));
 
 			} else {

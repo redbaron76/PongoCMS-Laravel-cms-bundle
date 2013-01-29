@@ -133,9 +133,10 @@ function MEDIA_TYPE($ext)
  *
  * @param  string  $filename
  * @param  string  $suffix
+ * @param  bool    $with_path
  * @return string
  */
-function MEDIA_NAME($filename, $suffix)
+function MEDIA_NAME($filename, $suffix, $with_path = false)
 {
 	
 	if(empty($suffix)) return $filename;
@@ -147,6 +148,8 @@ function MEDIA_NAME($filename, $suffix)
 	if(substr_count($tmp_filename, '/img/') > 0) {
 	$tmp_filename = str_replace('/img/', '/img/'.Config::get('cms::settings.thumb_path'), $tmp_filename);
 	}
+
+	if($with_path) return URL::to(Config::get('cms::settings.data').'img/'.Config::get('cms::settings.thumb_path').$tmp_filename);
 
 	return $tmp_filename;
 
