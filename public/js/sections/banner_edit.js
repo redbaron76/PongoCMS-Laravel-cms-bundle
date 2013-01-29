@@ -17,9 +17,6 @@ $(function() {
 	//SAVE AND CONTINUE
 	$.cms.saveContinue();
 
-	//INS PAGINATOR
-	$.cms.bannerPaginator();
-
 	//DATE PICKER
 	$.cms.bannerDatePicker();
 

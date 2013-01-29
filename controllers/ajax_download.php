@@ -51,16 +51,16 @@ class Cms_Ajax_Download_Controller extends Cms_Base_Controller {
 			//DELETE CACHE
 			if(CACHE) Cache::forget('file_list_'.strtolower($input['download_name']));
 
-			$did = $download->id;			
+			$did = $download->id;
+
+			// Empty template
+			$template = '';			
 
 			if(Input::get('file_id') !== '') {
 
 				$files = Input::get('file_id');
 
 				if(is_array($files)) {
-
-					// Empty template
-					$template = '';
 
 					foreach ($files as $fid) {
 
@@ -136,6 +136,88 @@ class Cms_Ajax_Download_Controller extends Cms_Base_Controller {
 
 		return json_encode($data);
 	}
+
+
+	//POST ADD download
+	public function post_add_download()
+	{
+
+		$auth = Auth::check();
+
+		if($auth and is_numeric(AUTHORID)) {
+
+			if(Input::get('download_id') !== '') {
+
+				$fid = Input::get('file_id');
+				$downloads = Input::get('download_id');
+
+				if(is_array($downloads)) {
+
+					foreach ($downloads as $key => $gid) {
+
+						$check = DB::table('files_downloads')->where_cmsfile_id($fid)->where_cmsdownload_id($gid)->count();
+
+						if($check == 0) {
+
+							$download = CmsDownload::find($gid);
+
+							$add_array = array(
+								'order_id' => Config::get('cms::settings.order')
+							);
+							
+							$download->files()->attach($fid, $add_array);
+
+						}
+
+					}
+
+					//DELETE NOT IN
+					DB::table('files_downloads')->where_cmsfile_id($fid)->where_not_in('cmsdownload_id', $downloads)->delete();
+
+					$response = 'success';
+					$msg = LL('cms::ajax_resp.download_save_success', CMSLANG)->get();
+					$backurl = Input::get('back_url');
+
+				} else {
+
+					//DELETE ALL
+					DB::table('files_downloads')->where_cmsfile_id($fid)->delete();
+
+					$response = 'success';
+					$msg = LL('cms::ajax_resp.download_save_success', CMSLANG)->get();
+					$backurl = '#';
+
+				}
+
+			} else {
+
+				$response = 'error';
+				$msg = LL('cms::ajax_resp.download_save_error', CMSLANG)->get();
+				$backurl = '#';
+
+			}
+
+		} else {
+
+			$response = 'error';
+			$msg = LL('cms::ajax_resp.download_save_error', CMSLANG)->get();
+			$backurl = '#';
+
+		}
+
+		$data = array(
+			'auth' => $auth,
+			'cls' => 'file_id',
+			'id' => $fid,
+			'response' => $response,
+			'message' => $msg,
+			'backurl' => $backurl
+		);
+
+		return json_encode($data);
+
+	}
+
 
 	//ORDER MENU
 	public function post_order_download()

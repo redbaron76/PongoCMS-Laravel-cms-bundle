@@ -362,6 +362,18 @@ form .text-btn {
     width: 179px;
 }
 
+.span3.url {
+    width: 226px;
+}
+
+.span2.date_off {
+    width: 75px;
+}
+
+.btn.edit_banner {
+    margin-right: 20px;
+}
+
 /* MODAL */
 
 #modal-media .modal-body {
@@ -370,7 +382,41 @@ form .text-btn {
 
 /* PAGE LIST */
 
-ul.page-list li.divider {
+#page_list .btn.toggle {
+    width: 12.5px;
+    padding: 0 2px;
+    line-height: 13px;
+    text-align: center;
+    vertical-align: text-top;
+}
+
+#page_list ol > li {
+    border-top: 1px solid #cccccc;
+    margin: 0;
+    padding: 5px 0 5px 5px;
+    background: #ffffff;
+}
+
+#page_list ol > li.active {
+    background: #ebfcff;
+}
+
+#page_list > ol:first-child > li:first-child {
+    border: none;
+    margin-top: 0;
+    padding-top: 0;
+}
+
+#page_list ol.list ol {
+    margin: 5px 0 -5px 25px;
+    display: none;
+}
+
+#page_list ol.list.open {
+    display: block;
+}
+
+/*ul.page-list li.divider {
     margin-top: 30px;
     margin-bottom: 15px;
     border-bottom: 1px solid #E5E5E5;
@@ -387,8 +433,8 @@ ul.page-list li.divider:first-child {
 }
 
 .sub-page[class*="right"]:first-child {
-    background: url('../img/subpage.png') 0 3px no-repeat;
-}
+    background: url('../img/subpage.png') top right no-repeat;
+}*/
 
 /* ERROR MESSAGES */
 
@@ -440,7 +486,7 @@ tbody.listing td:last-child .modal {
     margin: 5px 0;
 }
 
-table.fixed { table-layout:fixed; }
+table.fixed { table-layout:fixed; margin-bottom: 0; }
 /*table.fixed td { overflow: hidden; }*/
 
 table.v-middle td {
@@ -449,6 +495,10 @@ table.v-middle td {
 
 table td.toright {
     text-align: right;
+}
+
+table .wrap_name {
+    word-wrap: break-word;
 }
 
 .dropdown-menu li > span {

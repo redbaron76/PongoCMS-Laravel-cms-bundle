@@ -136,10 +136,15 @@ class Cms_Ajax_Page_Controller extends Cms_Base_Controller {
 				$page->footer = 'default';
 			}
 
-
 			$page->save();
 
 			$pid = $page->id;
+
+			// KEEP OPEN
+			Session::flash('keep_open_item', array(
+					'parent_id' => $input['page_parent'],
+					'page_id' => $pid)
+			);
 
 			if(CACHE) Cache::forget('page_'.$pid.'_details');
 
@@ -707,6 +712,12 @@ class Cms_Ajax_Page_Controller extends Cms_Base_Controller {
 
 			$page = CmsPage::find($page_id);
 
+			// KEEP OPEN
+			Session::flash('keep_open_item', array(
+					'parent_id' => $page->parent_id,
+					'page_id' => $page_id)
+			);
+
 			//IF NEW ADD TO PIVOT TABLE
 			if(empty($input['element_id']))
 				$page->elements()->attach($eid, array('order_id' => Config::get('cms::settings.order')));			
@@ -857,6 +868,28 @@ class Cms_Ajax_Page_Controller extends Cms_Base_Controller {
 		
 	}
 
+	//ORDER PAGE LIST
+
+	public function post_order_list()
+	{
+		
+		$order = Input::get('order');
+		
+		if(is_array($order)) {
+			
+			foreach($order as $order_id => $item) {
+				$order_id++;
+				$p = explode("_", $item);
+				$page = CmsPage::find($p[1]);
+				$page->order_id = $order_id;
+				$page->save();
+			}
+			
+		}
+
+		return true;
+
+	}
 
 	//ORDER SORTABLE
 

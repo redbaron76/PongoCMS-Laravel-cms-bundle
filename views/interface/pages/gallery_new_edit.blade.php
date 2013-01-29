@@ -36,23 +36,23 @@
 							{{Form::hidden('gallery_id', $gallery_id, array('class' => 'gallery_id', 'id' => 'gallery_id')) . "\n"}}
 							<div class="span4 nobottom">
 								
-									<fieldset>
+								<fieldset>
 
-										<div class="control-group" rel="gallery_name">
-											{{Form::label('gallery_name', LL('cms::form.gallery_name', CMSLANG), array('class' => 'control-label')) . "\n"}}
-											<div class="controls">
-												{{Form::text('gallery_name', $gallery_name, array('class' => 'span3', 'id' => 'gallery_name')) . "\n"}}
-											</div>
+									<div class="control-group" rel="gallery_name">
+										{{Form::label('gallery_name', LL('cms::form.gallery_name', CMSLANG), array('class' => 'control-label')) . "\n"}}
+										<div class="controls">
+											{{Form::text('gallery_name', $gallery_name, array('class' => 'span3', 'id' => 'gallery_name')) . "\n"}}
 										</div>
+									</div>
 
-										<div class="control-group">
-											{{Form::label('thumb', LL('cms::form.thumb_type', CMSLANG), array('class' => 'control-label')) . "\n"}}
-											<div class="controls">
-												{{Form::select('gallery_thumb', $gallery_thumbs, $gallery_thumb)}}
-											</div>
-										</div>										
+									<div class="control-group">
+										{{Form::label('thumb', LL('cms::form.thumb_type', CMSLANG), array('class' => 'control-label')) . "\n"}}
+										<div class="controls">
+											{{Form::select('gallery_thumb', $gallery_thumbs, $gallery_thumb)}}
+										</div>
+									</div>
 
-									</fieldset>
+								</fieldset>
 
 							</div>
 							<div class="span6">
@@ -60,29 +60,19 @@
 								<div class="trans-box hspace loading">
 									<table class="table table-striped fixed v-middle listing">
 										<col width="15%">
-										<col width="75%">
-										<col width="10%">
+										<col width="65%">
+										<col width="20%">
 										<tbody>
-											@forelse($files->results as $file)
+											@forelse($files as $file)
 											<tr>
 												<td>
 													<a href="{{BASE.$file->path}}" class="thumbnail fancy" rel="tooltip" data-original-title="{{$file->name}}">							
-														<img src="{{BASE.$file->thumb}}" width="50" heigth="50" alt="">							
+														<img src="{{BASE.$file->thumb}}">							
 													</a>
 												</td>
-												<td class="v-middle">{{$file->name}}</td>
+												<td class="v-middle"><small>{{$file->name}}</small></td>
 												<td>
-													<?php 
-														if(!empty($files_select)) {															
-															foreach($files_select as $image) {
-																$valid = ($image->pivot->cmsfile_id == $file->id) ? true : false;
-																if($image->pivot->cmsfile_id == $file->id) break;
-															}
-														} else {
-															$valid = false;
-														}															
-													?>
-													{{Form::checkbox('file_id[]', $file->id, $valid)}}
+													{{HTML::link_to_action('cms::file@edit', LL('cms::button.delete', CMSLANG), array($file->id), array('class' => 'btn btn-mini pull-right'))}}
 												</td>
 											</tr>
 											@empty
@@ -92,18 +82,6 @@
 												</td>
 											</tr>
 											@endforelse
-
-											<tr>
-												<td colspan="3">
-													@if($files->total > Config::get('cms::theme.pag') and $files->page < $files->last)
-													<div class="navigation">
-														<ul class="unstyled toright">
-															{{$files->next()}}
-														</ul>
-													</div>
-													@endif
-												</td>
-											</tr>
 
 										</tbody>
 
@@ -141,7 +119,7 @@
 
 						<ul class="thumbnails sortable">
 
-						@forelse ($files_select as $file)
+						@forelse ($files as $file)
 							<li class="span1" id="{{$gallery_id}}_{{$file->id}}">
 								<a href="{{BASE.$file->path}}" class="thumbnail" data-original-title="{{$file->name}}" rel="tooltip">
 									<img src="{{BASE.$file->thumb}}" />

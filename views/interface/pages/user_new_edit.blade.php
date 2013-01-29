@@ -19,6 +19,7 @@
 				<ul class="nav nav-tabs">
 					<li class="active"><a href="#account" data-toggle="tab">{{LL('cms::form.account', CMSLANG)}}</a></li>
 					<li{{DISABLED($user_id)}}><a href="#password" data-toggle="tab">{{LL('cms::form.password', CMSLANG)}}</a></li>
+					<li{{DISABLED($user_id)}}><a href="#details" data-toggle="tab">{{LL('cms::form.details', CMSLANG)}}</a></li>
 				</ul>
 
 			</div>
@@ -107,6 +108,102 @@
 								</div>
 								<div class="form-actions">
 									<a href="#" class="btn btn-success save_form" rel="form_password">
+										<i class="icon-ok icon-white"></i>
+										{{LL('cms::button.save_continue', CMSLANG)}}
+									</a>
+									<a href="{{action('cms::user')}}" class="btn btn-danger save_form" rel="form_account">
+										<i class="icon-ok icon-white"></i>
+										{{LL('cms::button.save_exit', CMSLANG)}}
+									</a>
+									<a href="{{action('cms::user')}}" class="btn">
+										<i class="icon-remove"></i>
+										{{LL('cms::button.page_exit', CMSLANG)}}
+									</a>
+								</div>
+
+							</fieldset>
+						{{Form::close()}}
+					</div>
+
+					<!-- DETAILS FORM TAB -->
+					<div class="tab-pane" id="details">
+						{{Form::open(action('cms::ajax_user@save_details'), 'POST', array('class' => 'form-vertical', 'id' => 'form_details')) . "\n"}}
+						{{Form::hidden('user_id', $user_id, array('class' => 'user_id')) . "\n"}}
+						{{Form::hidden('detail_id', $detail_id, array('class' => 'detail_id')) . "\n"}}
+							<fieldset>
+
+								<legend>{{LL('cms::form.user_details_legend', CMSLANG)}}</legend>
+
+								<div class="control-group" rel="user_name">
+									{{Form::label('user_name', LL('cms::form.user_name', CMSLANG), array('class' => 'control-label')) . "\n"}}
+									<div class="controls">
+										{{Form::text('user_name', $user_name, array('class' => 'span4', 'id' => 'user_name')) . "\n"}}
+									</div>
+								</div>
+								<div class="control-group" rel="user_surname">
+									{{Form::label('user_surname', LL('cms::form.user_surname', CMSLANG), array('class' => 'control-label')) . "\n"}}
+									<div class="controls">
+										{{Form::text('user_surname', $user_surname, array('class' => 'span4', 'id' => 'user_surname')) . "\n"}}
+									</div>
+								</div>
+								<div class="control-group" rel="user_address">
+									{{Form::label('user_address', LL('cms::form.user_address', CMSLANG), array('class' => 'control-label')) . "\n"}}
+									<div class="controls">
+										{{Form::text('user_address', $user_address, array('class' => 'span6', 'id' => 'user_address')) . "\n"}}
+									</div>
+								</div>
+								<div class="control-group" rel="user_number">
+									{{Form::label('user_number', LL('cms::form.user_number', CMSLANG), array('class' => 'control-label')) . "\n"}}
+									<div class="controls">
+										{{Form::text('user_number', $user_number, array('class' => 'span2', 'id' => 'user_number')) . "\n"}}
+									</div>
+								</div>
+								<div class="control-group" rel="user_city">
+									{{Form::label('user_city', LL('cms::form.user_city', CMSLANG), array('class' => 'control-label')) . "\n"}}
+									<div class="controls">
+										{{Form::text('user_city', $user_city, array('class' => 'span6', 'id' => 'user_city')) . "\n"}}
+									</div>
+								</div>
+								<div class="control-group" rel="user_zip">
+									{{Form::label('user_zip', LL('cms::form.user_zip', CMSLANG), array('class' => 'control-label')) . "\n"}}
+									<div class="controls">
+										{{Form::text('user_zip', $user_zip, array('class' => 'span2', 'id' => 'user_zip')) . "\n"}}
+									</div>
+								</div>
+								<div class="control-group" rel="user_state">
+									{{Form::label('user_state', LL('cms::form.user_state', CMSLANG), array('class' => 'control-label')) . "\n"}}
+									<div class="controls">
+										{{Form::text('user_state', $user_state, array('class' => 'span2', 'id' => 'user_state')) . "\n"}}
+									</div>
+								</div>
+								<div class="control-group" rel="user_country">
+									{{Form::label('user_country', LL('cms::form.user_country', CMSLANG), array('class' => 'control-label')) . "\n"}}
+									<div class="controls">
+										{{Form::text('user_country', $user_country, array('class' => 'span4', 'id' => 'user_country')) . "\n"}}
+									</div>
+								</div>
+								<div class="control-group" rel="user_tel">
+									{{Form::label('user_tel', LL('cms::form.user_tel', CMSLANG), array('class' => 'control-label')) . "\n"}}
+									<div class="controls">
+										{{Form::text('user_tel', $user_tel, array('class' => 'span4', 'id' => 'user_tel')) . "\n"}}
+									</div>
+								</div>
+								<div class="control-group" rel="user_cel">
+									{{Form::label('user_cel', LL('cms::form.user_cel', CMSLANG), array('class' => 'control-label')) . "\n"}}
+									<div class="controls">
+										{{Form::text('user_cel', $user_cel, array('class' => 'span4', 'id' => 'user_cel')) . "\n"}}
+									</div>
+								</div>
+
+								<div class="control-group" rel="user_info">
+									{{Form::label('user_info', LL('cms::form.user_info', CMSLANG), array('class' => 'control-label')) . "\n"}}
+									<div class="controls">
+										{{Form::textarea('user_info', $user_info, array('class' => 'span6', 'rows' => '5', 'id' => 'user_cel')) . "\n"}}
+									</div>
+								</div>
+
+								<div class="form-actions">
+									<a href="#" class="btn btn-success save_form" rel="form_details">
 										<i class="icon-ok icon-white"></i>
 										{{LL('cms::button.save_continue', CMSLANG)}}
 									</a>

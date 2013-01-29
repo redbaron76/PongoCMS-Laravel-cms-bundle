@@ -33,6 +33,9 @@ return array(
 	"user_password_error" => "Errore salvataggio Password!",
 	"user_nouser_error" => "Utente non ancora creato!",
 
+	"user_details_success" => "Anagrafica dell'utente aggiornata!",
+	"user_details_error" => "Errore di salvataggio anagrafica!",
+
 	"filetext_text_success" => "Descrizioni salvate!",
 	"filetext_text_error" => "Errore salvataggio Descrizioni!",
 

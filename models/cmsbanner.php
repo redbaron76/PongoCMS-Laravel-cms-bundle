@@ -11,7 +11,7 @@ class CmsBanner extends Eloquent {
 	public function files()
 	{
 		return $this->has_many_and_belongs_to('CmsFile', 'files_banners')
-		->with(array('url', 'date_off', 'is_blank', 'order_id'))
+		->with(array('url', 'date_off', 'is_blank', 'wm', 'order_id'))
 		->order_by('files_banners.order_id', 'asc');
 	}
 

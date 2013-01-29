@@ -68,6 +68,19 @@ function IS($config, $key)
 }
 
 /**
+ * Check object is_null and set alternatives
+ *
+ * @param  obj
+ * @param  obj property
+ * @param  string  $alt
+ * @return bool
+ */
+function NOTNULL($obj, $prop, $alt)
+{
+	return (!is_null($obj) and !empty($obj->$prop)) ? $obj->$prop : '-';
+}
+
+/**
  * Set is_valid true or false depending on /preview reequest
  *
  * @return bool
@@ -501,7 +514,7 @@ function LOAD_VIEW($tpl)
 	$tpl_view = 'cms::theme.'.THEME.'.partials.markers.'.$tpl;
 	$default_view = 'cms::theme.default.partials.markers.'.$tpl;
 
-	return  View::exists($tpl_view) ? View::make($tpl_view) : View::make($default_view); 
+	return View::exists($tpl_view) ? View::make($tpl_view) : View::make($default_view); 
 
 }
 

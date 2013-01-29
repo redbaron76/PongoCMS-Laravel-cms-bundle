@@ -168,7 +168,15 @@ $THEME_SETTINGS = array(
 	'login_header' 		=> 'default',
 	'login_footer' 		=> 'default',
 	'login_layout' 		=> 'default',
-	'login_zone'		=> 'ZONE1',
+	'login_zone'		=> 'ZONE3',
+
+	/*
+	|--------------------------------------------------------------------------
+	| SIGNUP form | in: /partials
+	|--------------------------------------------------------------------------|
+	*/
+
+	'signup_form' 		=> 'signup_form',
 
 	/*
 	|--------------------------------------------------------------------------

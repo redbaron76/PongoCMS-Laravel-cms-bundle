@@ -207,6 +207,44 @@ footer a:hover {
 	color: #ffffff;
 }
 
+/* TWEETS */
+
+#tweet-list {
+   max-width: 350px;
+   margin-left: 0;
+   list-style: none;
+}
+
+#tweet-list li:after {
+   content: '';
+   clear: both;
+   visibility: hidden;
+}
+
+#tweet-list img {
+   border: 0 !important;
+   padding: 0 !important;
+
+   float: left;
+   margin-top: 5px;
+   margin-right: 10px;
+   -webkit-border-radius: 5px;
+   -moz-border-radius: 5px;
+   border-radius: 5px;
+}
+
+#tweet-list p {
+   overflow: hidden;
+}
+
+#tweet-list p span {
+   float: right;
+   margin-right: 10px;
+   font-style: italic;
+   font-size: 80%;
+   color: #bababa;
+}
+
 /* BOOTSTRAP FIX */
 
 ul, ol {

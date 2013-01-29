@@ -99,24 +99,24 @@ class CmsPage extends Eloquent {
 
 	//PAGE SETTINGS POSITION DROPDOWN RECURSIVE
 	private static function sub_slug($path_top_name, $path_top_id, $self_id = 0) {
-        
-        $slugs = array();
-        
-        $rs = self::where_parent_id($path_top_id)
-        				->where('id', '<>', $self_id)
-                        ->order_by('order_id','asc')
-                        ->order_by('name','asc')
-                        ->get(array('id','parent_id','name'));
-                        
-        foreach ($rs as $path) {
-            $slugs[$path->id] = $path_top_name .' > '. $path->name;
-            $second = call_user_func_array('self::sub_slug', array($path_top_name .' > '. $path->name, $path->id, $self_id));
-            $slugs = ($slugs + $second);
-        }
-        
-        return $slugs;
-        
-    }
+		
+		$slugs = array();
+		
+		$rs = self::where_parent_id($path_top_id)
+						->where('id', '<>', $self_id)
+						->order_by('order_id','asc')
+						->order_by('name','asc')
+						->get(array('id','parent_id','name'));
+						
+		foreach ($rs as $path) {
+			$slugs[$path->id] = $path_top_name .' > '. $path->name;
+			$second = call_user_func_array('self::sub_slug', array($path_top_name .' > '. $path->name, $path->id, $self_id));
+			$slugs = ($slugs + $second);
+		}
+		
+		return $slugs;
+		
+	}
 
 	//PAGE SETTINGS POSITION DROPDOWN
 	public static function select_top_slug($lang, $self = 0, $first = true)
@@ -132,25 +132,25 @@ class CmsPage extends Eloquent {
 		}
 
 		$rs = self::where_parent_id(0)					
-                    ->where_lang($lang)
-                    ->where_is_home(0)
-                    ->where_is_valid(1)
-                    ->order_by('is_home', 'desc')
-                    ->order_by('order_id', 'asc')
-                    ->order_by('name', 'asc')
-                    ->get();
+					->where_lang($lang)
+					->where_is_home(0)
+					->where_is_valid(1)
+					->order_by('is_home', 'desc')
+					->order_by('order_id', 'asc')
+					->order_by('name', 'asc')
+					->get();
 
-        foreach ($rs as $path) {
+		foreach ($rs as $path) {
 
 			$slugs[$path->id] = $path->name;
 			$second = call_user_func_array('self::sub_slug', array($path->name, $path->id, $self));
 			$slugs = ($slugs + $second);
-            
-        }
+			
+		}
 
-        if($self>0) {
-        	unset($slugs[$self]);
-        }
+		if($self>0) {
+			unset($slugs[$self]);
+		}
 
 		return $slugs;
 
@@ -171,22 +171,22 @@ class CmsPage extends Eloquent {
 
 		$rs = self::where_parent_id(0)
 					->where('id', '<>', $self)
-                    ->where_lang($lang)
-                    ->where_is_home(0)
-                    ->where_extra_id($extra)
-                    ->where_is_valid(1)
-                    ->order_by('is_home', 'desc')
-                    ->order_by('order_id', 'asc')
-                    ->order_by('name', 'asc')
-                    ->get();
+					->where_lang($lang)
+					->where_is_home(0)
+					->where_extra_id($extra)
+					->where_is_valid(1)
+					->order_by('is_home', 'desc')
+					->order_by('order_id', 'asc')
+					->order_by('name', 'asc')
+					->get();
 
-        foreach ($rs as $path) {
-            
-            $slugs[$path->id] = $path->name;
-            $second = call_user_func_array('self::sub_slug', array($path->name, $path->id));
-            $slugs = ($slugs + $second);
-            
-        }
+		foreach ($rs as $path) {
+			
+			$slugs[$path->id] = $path->name;
+			$second = call_user_func_array('self::sub_slug', array($path->name, $path->id));
+			$slugs = ($slugs + $second);
+			
+		}
 
 		return $slugs;
 
@@ -272,10 +272,10 @@ class CmsPage extends Eloquent {
 
 
 	//RECURSIVE SITEMAP
-    public static function recursive_sitemap($parent_id)
-    {
+	public static function recursive_sitemap($parent_id)
+	{
 
-    	//GET PAGE DATA
+		//GET PAGE DATA
 		$data = self::with(array('user','elements'))
 				->where_parent_id($parent_id)
 				->order_by('order_id', 'asc')
@@ -291,13 +291,13 @@ class CmsPage extends Eloquent {
 
 		return $new_data;
 
-    }
+	}
 
-    //RECURSIVE SITE SITEMAP
-    public static function recursive_site_sitemap($parent_id)
-    {
+	//RECURSIVE SITE SITEMAP
+	public static function recursive_site_sitemap($parent_id)
+	{
 
-    	//GET PAGE DATA
+		//GET PAGE DATA
 		$data = self::with(array('files' => function($query) {
 			$query->where_is_image(1)->where_is_valid(1);
 		}))
@@ -315,13 +315,13 @@ class CmsPage extends Eloquent {
 
 		return $new_data;
 
-    }
+	}
 
-    //RECURSIVE FILE PAGES
-    public static function recursive_filespages($parent_id)
-    {
+	//RECURSIVE FILE PAGES
+	public static function recursive_filespages($parent_id)
+	{
 
-    	//GET PAGE DATA
+		//GET PAGE DATA
 		$data = self::with(array('files'))
 				->where_parent_id($parent_id)
 				->order_by('order_id', 'asc')
@@ -337,13 +337,13 @@ class CmsPage extends Eloquent {
 
 		return $new_data;
 
-    }
+	}
 
-    //RECURSIVE MENU PAGES
-    public static function recursive_menuspages($parent_id)
-    {
+	//RECURSIVE MENU PAGES
+	public static function recursive_menuspages($parent_id)
+	{
 
-    	//GET PAGE DATA
+		//GET PAGE DATA
 		$data = self::with(array('menus'))
 				->where_parent_id($parent_id)
 				->order_by('order_id', 'asc')
@@ -359,13 +359,13 @@ class CmsPage extends Eloquent {
 
 		return $new_data;
 
-    }
+	}
 
-    //RECURSIVE PAGES
-    public static function recursive_pages($parent_id)
-    {
+	//RECURSIVE PAGES
+	public static function recursive_pages($parent_id)
+	{
 
-    	//GET PAGE DATA
+		//GET PAGE DATA
 		$data = self::where_parent_id($parent_id)
 				->order_by('order_id', 'asc')
 				->order_by('id', 'asc')
@@ -381,17 +381,54 @@ class CmsPage extends Eloquent {
 
 		return $new_data;
 
-    }
+	}
+
+
+	// CREATE RECURSIVE PAGE LIST ITEM - ADMIN
+	public static function page_list_recursive($item, $parent = 0)
+	{
+		$has_child = false;
+
+		foreach ($item as $page) {
+
+			$_session = Session::get('keep_open_item');
+			
+			$open = ($_session['parent_id'] == $page->parent_id) ? ' open' : '';
+
+			if($page->parent_id == $parent) {
+
+				if(!$has_child) {
+					echo '<ol class="unstyled list'.$open.'" rel="'.$page->parent_id.'">';
+					$has_child = true;
+				}
+
+				// RENDERS page_item VIEW
+				$_view =  View::make('cms::interface.pages.page_item');
+				$_view['item'] = $item;
+				$_view['page'] = $page;
+				$_view['_active'] = $_session['page_id'];
+
+				echo $_view;
+
+			}			
+
+		}
+
+		if($has_child) {
+			echo '</ol>';
+		}
+
+	}
 
 
 
-    // LAYOUT PREVIEW PRE-PROCESS
-    public static function preview_layout_create($layout)
-    {
-    	// GET LAYOUT
-    	$preview_layout_view = View::make('cms::theme.'.Config::get('cms::settings.theme').'.layouts.'.$layout);
+	// LAYOUT PREVIEW PRE-PROCESS
+	public static function preview_layout_create($layout)
+	{
+		// GET LAYOUT
+		$preview_layout_view = View::make('cms::theme.'.Config::get('cms::settings.theme').'.layouts.'.$layout);
 
-    	// LOAD CONTENT
+		// LOAD CONTENT
 		$preview_layout = file_get_contents($preview_layout_view->path);
 
 		// STRIP HTML
@@ -425,7 +462,7 @@ class CmsPage extends Eloquent {
 
 		return $preview_layout;
 
-    }
+	}
 
 
 }

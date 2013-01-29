@@ -45,10 +45,12 @@ return array(
 	"page_legend_media_available" => "Media disponibili per la pagina",
 
 	//NEW - EDIT PAGE - PREVIEW
+
 	"page_preview" => "Contenuto della preview",
 	"page_legend_abstract" => "Riassunto della pagina",
 
 	//NEW - EDIT PAGE - ORDER
+
 	"page_legend_order_submenu" => "Ordine di visualizzazione dei sottomenu",
 
 	"page_legend_page_rels" => "Relazione tra questa pagina e altre pagine",
@@ -84,6 +86,7 @@ return array(
 	"page_delete_elements" => "Elimina elementi",
 
 	//MODAL LIST
+
 	"modal_title_page" => "Eliminare questa pagina?",
 	"modal_title_element" => "Eliminare questo elemento?",
 	"modal_title_clone_element" => "Duplicare questo elemento?",
@@ -93,6 +96,7 @@ return array(
 	"modal_title_sample" => "Inserisci Esempio",
 
 	//MODAL CLONE PAGE
+
 	"modal_title_clone_page" => "Duplicare questa pagina?",
 	"modal_descr_clone_page" => "Seleziona la lingua in cui duplicare la pagina:",
 	"modal_page_clone_elements" => "Duplicare tutti gli elementi ad essa associati?",
@@ -123,9 +127,10 @@ return array(
 
 	"user_account_legend" => "Imposta un account per l'utente",
 	"user_password_legend" => "Imposta un nuova password",
+	"user_details_legend" => "Modifica l'anagrafica dell'utente",
 
 	"account" => "Account",
-	"password" => "Password",
+	"details" => "Dettagli",
 
 	"user_username" => "Nome utente",
 	"user_email" => "Indirizzo e-mail utente",
@@ -138,6 +143,20 @@ return array(
 	"user_password_confirmation" => "Conferma password",
 
 	"modal_title_user" => "Eliminare questo utente?",
+
+	//USERS DETAILS
+	
+	"user_name" => "Nome",
+	"user_surname" => "Cognome",
+	"user_address" => "Indirizzo",
+	"user_number" => "Numero civico",
+	"user_city" => "Città",
+	"user_zip" => "CAP",
+	"user_state" => "Provincia",
+	"user_country" => "Nazione",
+	"user_tel" => "Telefono",
+	"user_cel" => "Cellulare",
+	"user_info" => "Informazioni",
 
 	//FILES
 
@@ -153,6 +172,9 @@ return array(
 	"file_filename_legend" => "Modifica il nome del file",
 	"available" => "Disponibilità",
 	"file_available_legend" => "Associa questo media alle pagine",
+	"file_add_banner" => "Associa questo media ai banner esistenti",
+	"file_add_gallery" => "Associa questo media alle gallerie esistenti",
+	"file_add_download" => "Associa questo media alle liste download esistenti",
 
 	//TRANSLATION
 
@@ -183,6 +205,7 @@ return array(
 	"banner_url" => "Link del banner",
 	"banner_dateoff" => "Scade il...",
 	"banner_target" => "Apri in una nuova finestra?",
+	"banner_watermark" => "Attiva watermark",
 
 	//DOWNLOAD
 

@@ -1,6 +1,6 @@
 <?php
 
-class Marker {
+class Marker extends CustomMarker {
 
 	/**
     * Substitute tag in text with specific HTML
@@ -124,7 +124,8 @@ class Marker {
 	*	"type":"<slider name>"	=> (default: none | available: nivo)
 	*	"theme":"<theme>"		=> (default: default)
 	*	"caption":"false"		=> (default: false)
-	*	"wm":"true | false",	=> OPTIONAL
+	*	"w":"",
+	*	"h":"",
 	*	"class":"<class>",		=> OPTIONAL
 	*	"tpl":"<tpl_name>"		=> OPTIONAL (in /partials/markers)
 	* }]]
@@ -155,8 +156,11 @@ class Marker {
 		$_caption = false;
 		if(isset($caption) and !empty($caption) and $caption == 'true') $_caption = true;
 
-		$_wm = 'no';
-		if(isset($wm) and !empty($wm) and $wm == 'true') $_wm = 'wm';
+		$_w = null;
+		if(isset($w) and !empty($w)) $_w = $w;
+
+		$_h = null;
+		if(isset($h) and !empty($h)) $_h = $h;
 
 		$_class = 'banner';
 		if(isset($class) and !empty($class)) $_class = $class;
@@ -243,7 +247,8 @@ class Marker {
 		$view['theme'] 		= $_theme;
 		$view['attr'] 		= $attr;
 		$view['caption'] 	= $_caption;
-		$view['wm']			= ($_wm == 'wm') ? true : false;
+		$view['w']			= $_w;
+		$view['h']			= $_h;
 		$view['options'] 	= HTML::attributes($options);
 
 		return $view;
@@ -346,53 +351,6 @@ class Marker {
 				return $view;
 
 			}
-
-		}
-
-	}
-
-
-	/**
-    * ELEMENT Marker - Replicates element content
-    *
-	* [$CONTENT[{
-	*	"el":"<elem's id>"
-	* }]]
-    *
-    * @param  array
-    * @return string
-    */
-	public static function ELEMENT($vars = array())
-	{
-
-		//Get variables from array $vars
-		if( ! empty($vars)) extract($vars);
-
-		//Bind variables
-
-		$_el = '';
-		if(isset($el) and !empty($el)) $_el = $el;
-
-		if(!empty($_el)) {
-
-			//CACHE DATA
-			if(CACHE) {
-
-				$query = Cache::remember('page_element_'.$_el, function() {
-
-					return $menu = CmsElement::find($_el);
-
-				}, 1440);
-
-			} else {
-
-				$query = CmsElement::find($_el);
-
-			}
-
-			$txt = (!empty($query)) ? $query->text : '';
-
-			return (strlen($txt)>0) ? self::decode($txt, array()) : $txt;
 
 		}
 
@@ -767,6 +725,53 @@ class Marker {
 
 
 	/**
+    * ELEMENT Marker - Replicates element content
+    *
+	* [$CONTENT[{
+	*	"el":"<elem's id>"
+	* }]]
+    *
+    * @param  array
+    * @return string
+    */
+	public static function ELEMENT($vars = array())
+	{
+
+		//Get variables from array $vars
+		if( ! empty($vars)) extract($vars);
+
+		//Bind variables
+
+		$_el = '';
+		if(isset($el) and !empty($el)) $_el = $el;
+
+		if(!empty($_el)) {
+
+			//CACHE DATA
+			if(CACHE) {
+
+				$query = Cache::remember('page_element_'.$_el, function() {
+
+					return $menu = CmsElement::find($_el);
+
+				}, 1440);
+
+			} else {
+
+				$query = CmsElement::find($_el);
+
+			}
+
+			$txt = (!empty($query)) ? $query->text : '';
+
+			return (strlen($txt)>0) ? self::decode($txt, array()) : $txt;
+
+		}
+
+	}
+
+
+	/**
     * GALLERY Marker - Shows an image gallery saved in Service / Gallery
     *
 	* [$GALLERY[{
@@ -1133,6 +1138,47 @@ class Marker {
 
 
 	/**
+    * LOGOUT Marker - Shows a logout button form
+    * Based on Twitter Bootstrap bootstrap.js dropdown
+    *
+	* [$LOGOUT[{
+	*	"id":"<id>"								=> OPTIONAL (form ID - default: logout)
+	*	"class":"<class>",						=> OPTIONAL (default: logout)
+	*	"tpl":"<tpl_name>"						=> OPTIONAL (in /partials/markers)
+	* }]]
+    *
+    * @param  array
+    * @return string
+    */
+	public static function LOGOUT($vars = array())
+	{
+
+		//Get variables from array $vars
+		if( ! empty($vars)) extract($vars);
+
+		$_id = 'logout';
+		if(isset($id) and !empty($id)) $_id = $id;
+
+		$_class = 'btn-group';
+		if(isset($class) and !empty($class)) $_class = $class;
+
+		$_tpl = 'logout';
+		if(isset($tpl) and !empty($tpl)) $_tpl = $tpl;
+
+		$options = array(
+			'id' => $_id,
+			'class' => $_class,
+		);
+
+		$view = LOAD_VIEW($_tpl);
+		$view['options'] = HTML::attributes($options);
+
+		if(Auth::check()) return $view;
+
+	}
+
+
+	/**
     * MAP Marker - Shows a Google Maps map
     *
 	* [$MAP[{
@@ -1307,7 +1353,6 @@ class Marker {
 				if(!empty($menu->pages)) {
 
 					$pages = $menu->pages;
-					// $nested = (bool) $m->is_nested;
 					$nested = (bool) $nested;
 
 				} else {

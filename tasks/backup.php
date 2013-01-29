@@ -25,6 +25,9 @@ class Cms_Backup_Task {
 	public function theme($arguments = array())
 	{
 
+		// SYNC PUBLIC TO THEME
+		shell_exec('php artisan cms::backup:sync');
+
 		$current_theme = Config::get('cms::settings.theme');
 
 		if (array_key_exists(0, $arguments)) {
@@ -62,6 +65,14 @@ class Cms_Backup_Task {
 		//COPY TO _BACKUP
 		File::cpdir($theme_path, $backup_path.DS.$theme, false);
 
+		// COPY CURRENT SETTINGS
+		$settings_path = path('bundle').'cms/config';
+		File::cpdir($settings_path, $backup_path.DS.$theme.DS.'_config', false);
+
+		// COPY CURRENT APP CONTROLLERS
+		$controllers_path = path('app').'/controllers';
+		File::cpdir($controllers_path, $backup_path.DS.$theme.DS.'_controllers', false);
+
 		echo PHP_EOL;
 		echo 'Backup for theme ['.$theme.'] completed!'.PHP_EOL;
 
@@ -77,13 +88,13 @@ class Cms_Backup_Task {
 	public function sync($arguments = array())
 	{
 
+		//ITEMS TO COPY
+		$items = array('css','img','js');
+
 		// COPY ASSET FROM PUBLIC/BUNDLES TO BUNDLES/PUBLIC
 
 		$from_path 	= path('public').'bundles/cms';
 		$to_path 	= path('bundle').'cms/public';
-
-		//ITEMS TO COPY
-		$items = array('css','img','js');
 
 		//ITERATE COPY
 		foreach ($items as $item) {
@@ -92,6 +103,37 @@ class Cms_Backup_Task {
 
 				//COPY TO BUNDLES/PUBLIC
 				File::cpdir($from_path.DS.$item, $to_path.DS.$item, false);
+
+			}
+
+		}
+
+		// COPY ASSET FROM PUBLIC TO CURRENT_THEME/PUBLIC
+
+		$current_theme = Config::get('cms::settings.theme');
+
+		if (array_key_exists(0, $arguments)) {
+
+			$theme = $arguments[0];
+
+		} else {
+
+			$theme = $current_theme;
+
+		}
+
+		//COPY THEME ASSETS FROM /PUBLIC TO THEME PUBLIC
+
+		$asset_path = path('bundle').'cms/views/theme/'.$theme.'/public';
+		$public_path = path('public');
+
+		//ITERATE COPY
+		foreach ($items as $item) {
+
+			if(is_dir($public_path.DS.$item)) {
+
+				//COPY TO BUNDLES/PUBLIC
+				File::cpdir($public_path.DS.$item, $asset_path.DS.$item, false);
 
 			}
 

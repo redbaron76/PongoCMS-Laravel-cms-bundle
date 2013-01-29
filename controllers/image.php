@@ -18,13 +18,13 @@ class Cms_Image_Controller extends Cms_Base_Controller {
 
 		$thumb = PhpThumbFactory::create($path);
 
+		$thumb->crop($x, $y, $w, $h);
+		
 		if($wm == 'wm') $thumb->addLogo(path('public') . Config::get('cms::theme.watermark.path'),
 								Config::get('cms::theme.watermark.horizontal'),
 								Config::get('cms::theme.watermark.vertical'),
 								$thumb);
-
-		$thumb->crop($x, $y, $w, $h);
-
+			
 		$thumb->show();
 
 	}
@@ -40,12 +40,12 @@ class Cms_Image_Controller extends Cms_Base_Controller {
 
 		$thumb = PhpThumbFactory::create($path);
 
+		$thumb->cropFromCenter($w, $h);
+		
 		if($wm == 'wm') $thumb->addLogo(path('public') . Config::get('cms::theme.watermark.path'),
 								Config::get('cms::theme.watermark.horizontal'),
 								Config::get('cms::theme.watermark.vertical'),
 								$thumb);
-
-		$thumb->cropFromCenter($w, $h);
 
 		$thumb->show();
 
@@ -62,12 +62,12 @@ class Cms_Image_Controller extends Cms_Base_Controller {
 
 		$thumb = PhpThumbFactory::create($path);
 
+		$thumb->adaptiveResize($w, $h);
+
 		if($wm == 'wm') $thumb->addLogo(path('public') . Config::get('cms::theme.watermark.path'),
 								Config::get('cms::theme.watermark.horizontal'),
 								Config::get('cms::theme.watermark.vertical'),
 								$thumb);
-
-		$thumb->adaptiveResize($w, $h);
 
 		$thumb->show();
 
@@ -84,12 +84,12 @@ class Cms_Image_Controller extends Cms_Base_Controller {
 
 		$thumb = PhpThumbFactory::create($path);	
 
+		$thumb->resize($w, $h);
+
 		if($wm == 'wm')	$thumb->addLogo(path('public') . Config::get('cms::theme.watermark.path'),
 								Config::get('cms::theme.watermark.horizontal'),
 								Config::get('cms::theme.watermark.vertical'),
 								$thumb);
-
-		$thumb->resize($w, $h);		
 
 		$thumb->show();
 
@@ -106,12 +106,12 @@ class Cms_Image_Controller extends Cms_Base_Controller {
 
 		$thumb = PhpThumbFactory::create($path);
 
+		$thumb->resizePercent($p);
+
 		if($wm == 'wm') $thumb->addLogo(path('public') . Config::get('cms::theme.watermark.path'),
 								Config::get('cms::theme.watermark.horizontal'),
 								Config::get('cms::theme.watermark.vertical'),
 								$thumb);
-
-		$thumb->resizePercent($p);
 
 		$thumb->show();
 

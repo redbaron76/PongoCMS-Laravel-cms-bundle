@@ -14,6 +14,11 @@ class Cms_Page_Controller extends Cms_Base_Controller {
     //PAGE LIST
     public function get_index($lang = LANG)
     {
+    	
+    	//SORTING
+		Asset::container('footer')->add('sortable', 'bundles/cms/js/jquery.sortable.js', 'jquery');
+		Asset::container('footer')->add('serialize', 'bundles/cms/js/jquery.serializetree.js', 'sortable');
+		
     	//LOAD JS LIBS
 		Asset::container('footer')->add('pages', 'bundles/cms/js/sections/pages_list.js', 'cms');
 

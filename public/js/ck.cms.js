@@ -108,7 +108,7 @@ $.ck = {
 
 			case 'CRUMB':
 				
-				return '[$CRUMB["separator":"|"]]';
+				return '[$CRUMB[{"separator":"|"}]]';
 				break;
 
 			case 'DISQUS':

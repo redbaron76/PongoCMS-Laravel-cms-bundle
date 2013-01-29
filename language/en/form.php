@@ -45,10 +45,12 @@ return array(
 	"page_legend_media_available" => "Available media",
 
 	//NEW - EDIT PAGE - PREVIEW
+
 	"page_preview" => "Preview content",
 	"page_legend_abstract" => "Page abstract",
 
 	//NEW - EDIT PAGE - ORDER
+
 	"page_legend_order_submenu" => "Submenu view order",
 
 	"page_legend_page_rels" => "Page relationship",
@@ -84,6 +86,7 @@ return array(
 	"page_delete_elements" => "Delete element",
 
 	//MODAL LIST
+
 	"modal_title_page" => "Delete this page?",
 	"modal_title_element" => "Delete this element?",
 	"modal_title_clone_element" => "Clone this element?",
@@ -93,6 +96,7 @@ return array(
 	"modal_title_sample" => "Insert Sample",
 
 	//MODAL CLONE PAGE
+
 	"modal_title_clone_page" => "Clone this page?",
 	"modal_descr_clone_page" => "Cloned page language:",
 	"modal_page_clone_elements" => "Clone all elements?",
@@ -123,9 +127,10 @@ return array(
 
 	"user_account_legend" => "Set user account",
 	"user_password_legend" => "Set new password",
+	"user_details_legend" => "Edit user details",
 
 	"account" => "Account",
-	"password" => "Password",
+	"details" => "Details",
 
 	"user_username" => "Username",
 	"user_email" => "E-mail address",
@@ -138,6 +143,20 @@ return array(
 	"user_password_confirmation" => "Confirm password",
 
 	"modal_title_user" => "Delete this user?",
+
+	//USERS DETAILS
+	
+	"user_name" => "Name",
+	"user_surname" => "Surname",
+	"user_address" => "Address",
+	"user_number" => "Number",
+	"user_city" => "City",
+	"user_zip" => "ZIP",
+	"user_state" => "State",
+	"user_country" => "Country",
+	"user_tel" => "Telephone",
+	"user_cel" => "Mobile phone",
+	"user_info" => "Info",
 
 	//FILES
 
@@ -153,6 +172,9 @@ return array(
 	"file_filename_legend" => "Modify file name",
 	"available" => "Availability",
 	"file_available_legend" => "Link this media to pages",
+	"file_add_banner" => "Add this media to available banners",
+	"file_add_gallery" => "Add this media to available galleries",
+	"file_add_download" => "Add this media to available download lists",
 
 	//TRANSLATION
 
@@ -183,6 +205,7 @@ return array(
 	"banner_url" => "Banner link",
 	"banner_dateoff" => "Expires on...",
 	"banner_target" => "Open in a new window?",
+	"banner_watermark" => "Enable watermark",
 
 	//DOWNLOAD
 

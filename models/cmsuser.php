@@ -28,6 +28,11 @@ class CmsUser extends Eloquent {
 		return $this->has_many('CmsBlog', 'author_id');
 	}
 
+	public function details()
+	{
+		return $this->has_one('CmsUserDetail', 'user_id');
+	}
+
 
 	
 

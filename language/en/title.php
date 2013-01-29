@@ -100,7 +100,7 @@ return array(
 
 	"banner_new" => "New banner",
 	"banner_edit" => "Edit banner",
-	"banner_files" => "Available files",
+	"banner_files_active" => "Active banners",
 
 	//DOWNLOAD
 

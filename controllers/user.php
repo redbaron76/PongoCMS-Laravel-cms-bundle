@@ -64,7 +64,21 @@ class Cms_User_Controller extends Cms_Base_Controller {
 		->with('user_role_selected', null)
 		->with('user_lang', Config::get('cms::settings.interface'))
 		->with('user_lang_selected', LANG)
-		->with('user_is_valid', true);
+		->with('user_is_valid', true)
+		
+		// USER DETAILS
+		->with('detail_id', '')
+		->with('user_name', '')
+		->with('user_surname', '')
+		->with('user_address', '')
+		->with('user_info', '')
+		->with('user_number', '')
+		->with('user_city', '')
+		->with('user_zip', '')
+		->with('user_state', '')
+		->with('user_country', '')
+		->with('user_tel', '')
+		->with('user_cel', '');
 
     }
 
@@ -87,6 +101,8 @@ class Cms_User_Controller extends Cms_Base_Controller {
 		//GET PAGE DATA
 		$user = CmsUser::find($id);
 
+		$has_details = !is_null($user->details);
+
 		$this->layout->content = View::make('cms::interface.pages.user_new_edit')
 		->with('title', LL('cms::title.users_edit', CMSLANG))
 		->with('user_id', $id)
@@ -96,7 +112,21 @@ class Cms_User_Controller extends Cms_Base_Controller {
 		->with('user_role_selected', $user->role_id)
 		->with('user_lang', Config::get('cms::settings.interface'))
 		->with('user_lang_selected', $user->lang)
-		->with('user_is_valid', (bool) $user->is_valid);
+		->with('user_is_valid', (bool) $user->is_valid)
+
+		// USER DETAILS
+		->with('detail_id', $has_details ? $user->details->id : '')
+		->with('user_name', $has_details ? $user->details->name : '')
+		->with('user_surname', $has_details ? $user->details->surname : '')
+		->with('user_address', $has_details ? $user->details->address : '')
+		->with('user_info', $has_details ? $user->details->info : '')
+		->with('user_number', $has_details ? $user->details->number : '')
+		->with('user_city', $has_details ? $user->details->city : '')
+		->with('user_zip', $has_details ? $user->details->zip : '')
+		->with('user_state', $has_details ? $user->details->state : '')
+		->with('user_country', $has_details ? $user->details->country : '')
+		->with('user_tel', $has_details ? $user->details->tel : '')
+		->with('user_cel', $has_details ? $user->details->cel : '');
 
     }
 
@@ -118,6 +148,8 @@ class Cms_User_Controller extends Cms_Base_Controller {
 				return Redirect::to_action('cms::user');
 
 			} else {
+
+				$user->details->delete();
 
 				$user->delete();
 

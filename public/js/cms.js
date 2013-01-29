@@ -76,6 +76,31 @@ $.cms = {
 
 	//PAGE
 
+	togglePageList:
+	function() {
+
+		var $open = $('ol.list.open');
+
+		$open.parents('ol').addClass('open');
+		$open.parents('li[rel=0]').find('button.toggle').html('-');
+
+		$('button.toggle').click(function() {
+			
+			var el = $(this).attr('rel');
+			var $list = $('ol[rel='+el+']');
+
+			if ($list.is(':hidden')) {
+				$list.show();
+				$(this).html('-');     
+			} else {
+				$list.hide();
+				$(this).html('+');     
+			}
+
+			return false;
+		});
+	},
+
 	parseLayout:
 	function() {		
 		// LAYOUT PARSER
@@ -249,7 +274,7 @@ $.cms = {
 		var $link = $('.navigation a');
 		var $span = $('.navigation span.disabled');
 
-		$link.addClass('btn');
+		$link.addClass('btn btn-mini');
 		$span.css('visibility', 'hidden');
 		
 		$link.live('click', function(e) {			
@@ -258,7 +283,7 @@ $.cms = {
 			$url = $(this).attr('href');
 			$('.loading').append($('<div>').load($url + ' .listing', function() {
 				$.cms.fancyBox();
-				$('.navigation a').addClass('btn');
+				$('.navigation a').addClass('btn btn-mini');
 				$('.navigation span.disabled').css('visibility', 'hidden');
 				$(btn).parents('.navigation').remove();
 				if(where) $.cms.popOver(where);
@@ -513,6 +538,15 @@ $.cms = {
 	},
 
 	//SORTABLE
+
+	sortableListPage:
+	function() {
+
+		$('.list').sortable({'items':'li.sortable','update' : function () {
+			$.post(BASE+'/cms/ajax/page/list/order',$(this).serializeTree('id', 'order'));		
+		}});
+
+	},
 
 	sortableListSubpage:
 	function() {
@@ -864,30 +898,6 @@ $.cms = {
 	bannerDatePicker:
 	function() {
 		$('.date_off').datepicker();
-	},
-
-	bannerPaginator:
-	function() {
-		
-		var $link = $('.navigation a');
-		var $span = $('.navigation span.disabled');
-
-		$link.addClass('btn');
-		$span.css('visibility', 'hidden');
-		
-		$link.live('click', function(e) {			
-			e.preventDefault();
-			var btn = this;
-			$url = $(this).attr('href');
-			$('.loading').append($('<div>').load($url + ' .listing', function() {
-				$.cms.fancyBox();
-				$.cms.bannerDatePicker();
-				$('.navigation a').addClass('btn');
-				$('.navigation span.disabled').css('visibility', 'hidden');
-				$(btn).parents('.navigation').remove();
-			})).append('</form>');
-			return false;
-		});
 	},
 
 	//DASHBOARD

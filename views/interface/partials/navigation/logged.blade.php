@@ -25,7 +25,12 @@
 	<?php
 		$is_active = false;
 		if(URI::is('cms/blog*')) $is_active = true;
+		if(URI::is('cms/calendar*')) $is_active = true;
 	?>
+
+	@foreach ($sections['contents'] as $key => $value)
+		<?php if(URI::is('cms/'.$value['path'].'*')) $is_active = true; ?>
+	@endforeach
 
 <ul class="nav">
 	<li class="dropdown{{($is_active) ? ' active' : ''}}" data-dorpdown="dropdown">
