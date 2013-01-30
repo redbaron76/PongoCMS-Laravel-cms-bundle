@@ -794,7 +794,7 @@ class Marker extends CustomMarker {
 		$_name = '';
 		if(isset($name) and !empty($name)) $_name = $name;
 
-		$_class = 'gallery clearfix';
+		$_class = 'inline';
 		if(isset($class) and !empty($class)) $_class = $class;
 
 		$_tpl = 'gallery';
@@ -944,7 +944,7 @@ class Marker extends CustomMarker {
 			if($_type == 'crop') {
 
 				$_filename = $file->name;
-				$dim = array('w' => $w, 'h' => $h);
+				$dim = array('w' => $_w, 'h' => $_h);
 				$url = URL::to_action('cms::image@crop', array($_x, $_y, $_w, $_h, $_wm, $_filename));
 
 			}
@@ -1990,7 +1990,7 @@ class Marker extends CustomMarker {
 
 						$_filename = $file->name;
 						$dim = MEDIA_DIM($file->w, $file->h, $_w, $_h);
-						$url = URL::to_action('cms::image@resize', array($_w, $_h, $_wm, $_filename));
+						$url = URL::to_action('cms::image@resize', array($dim['w'], $dim['h'], $_wm, $_filename));
 
 					// GET THUMB, DEFAULT THUMB IF NONE
 					} else {
@@ -2007,7 +2007,7 @@ class Marker extends CustomMarker {
 				if($_type == 'crop') {
 
 					$_filename = $file->name;
-					$dim = array('w' => $w, 'h' => $h);
+					$dim = array('w' => $_w, 'h' => $_h);
 					$url = URL::to_action('cms::image@crop', array($_x, $_y, $_w, $_h, $_wm, $_filename));
 
 				}				

@@ -658,6 +658,12 @@ class Cms_Page_Controller extends Cms_Base_Controller {
 			$new_page = new CmsPage($new_page_attr);
 			$new_page->save();
 
+			// KEEP OPEN
+			Session::flash('keep_open_item', array(
+					'parent_id' => $parent_id,
+					'page_id' => $new_page->id)
+			);
+
 			if(Input::has('clone_media') and Input::get('clone_media')==1) {
 
 				//GET NEW ID
