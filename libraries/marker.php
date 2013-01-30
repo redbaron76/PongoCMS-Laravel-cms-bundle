@@ -776,6 +776,7 @@ class Marker extends CustomMarker {
     *
 	* [$GALLERY[{
 	*	"name":"<gallery name>",
+	*	"wm":"true | false",	=> OPTIONAL
 	*	"class":"<class>",		=> OPTIONAL
 	*	"tpl":"<tpl_name>"		=> OPTIONAL (in /partials/markers)
 	* }]]
@@ -793,6 +794,9 @@ class Marker extends CustomMarker {
 
 		$_name = '';
 		if(isset($name) and !empty($name)) $_name = $name;
+
+		$_wm = 'no';
+		if(isset($wm) and !empty($wm) and $wm == 'true') $_wm = 'wm';
 
 		$_class = 'inline';
 		if(isset($class) and !empty($class)) $_class = $class;
@@ -841,6 +845,7 @@ class Marker extends CustomMarker {
 		$view = LOAD_VIEW($_tpl);
 		$view['images'] 	= $images;
 		$view['thumb']		= $thumb;
+		$view['wm']			= ($_wm == 'wm') ? 'true' : 'no';
 		$view['options'] 	= HTML::attributes($options);
 
 		return $view;
