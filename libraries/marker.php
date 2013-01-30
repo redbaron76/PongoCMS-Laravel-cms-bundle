@@ -331,6 +331,7 @@ class Marker extends CustomMarker {
 						->order_by('datetime_on', $_order)
 						->take($_n)
 						->get();
+						
 			}
 
 			if(!empty($list)) {

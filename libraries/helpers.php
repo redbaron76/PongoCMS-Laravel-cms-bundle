@@ -346,7 +346,7 @@ function TEXT2IMG($text, $w = 320, $h = 200, $key = 0)
 			$file = str_replace($val['suffix'], '', $file);
 		}				
 
-		$url = URL::to_action('cms::image@thumb', array($w, $h, $file));
+		$url = URL::to_action('cms::image@thumb', array($w, $h, 'no', $file));
 
 		return HTML::image($url, '', array('width' => $w, 'height' => $h));
 
@@ -354,7 +354,7 @@ function TEXT2IMG($text, $w = 320, $h = 200, $key = 0)
 
 		$thumbs = Config::get('cms::theme.thumb');
 
-		$url = URL::to_action('cms::image@thumb', array($w, $h, 'img_default.jpg'));
+		$url = URL::to_action('cms::image@thumb', array($w, $h, 'no', 'img_default.jpg'));
 
 		return HTML::image($url, '', array('width' => $w, 'height' => $h));
 
