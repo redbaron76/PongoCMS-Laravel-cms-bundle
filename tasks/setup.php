@@ -59,23 +59,26 @@ class Cms_Setup_Task {
 		File::put($session_path, $session_conf);
 
 		//DISABLE ROUTES AND FILTERS
+
+		$backup_path = path('base').'_backup';
+
+		//COPY routes.php TO _backup/routes_original.php
 		$routes_file = path('app').'routes'.EXT;
+		File::cpdir($routes_file, $backup_path.DS.'routes_original'.EXT, false);
 
-		$routes = File::get($routes_file);
-
-		$routes = str_replace('/*', '', $routes);
-		$routes = str_replace('*/', '', $routes);
-		$routes = str_replace('|', '//|', $routes);
-
-		$routes = str_replace('Route::', '/*Route::', $routes);
-		$routes = str_replace('Event::', '/*Event::', $routes);
-		$routes = str_replace('});', '});*/', $routes);
-
-		File::put($routes_file, $routes);
+		//MOVE /controllers/routes.php TO /application
+		rename($controller_path.DS.'routes'.EXT, path('app').'routes'.EXT);
 
 		//DELETE HOME CONTROLLER
 		$home_file = path('app').'controllers'.DS.'home'.EXT;
 		if(file_exists($home_file)) unlink($home_file);
+
+		//INSTALL SWIFTMAILER BUNDLE
+		$result = shell_exec('php artisan bundle:install swiftmailer');
+
+		//MOVE start_swiftmailer_bundle.php TO /cms/bundles/swiftmailer
+		$sw_path = path('bundle').'swiftmailer'
+		rename($controller_path.DS.'start_swiftmailer_bundle'.EXT, $sw_path.'start'.EXT);
 
 		//INSTALL MIGRATION
 		$result = shell_exec('php artisan migrate:install'.$env);
