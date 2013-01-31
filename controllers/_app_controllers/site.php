@@ -243,9 +243,9 @@ class Site_Controller extends Base_Controller {
 
 		// SEND MAIL
 
-		// LOAD MAIL VIEW - NEED SWIFTMAILER BUNDLE for Laravael
+		// LOAD MAIL VIEW - NEED SWIFTMAILER BUNDLE for Laravel
 
-		/*$mail_view = View::make('cms::theme.'.THEME.'.partials.mail_signup');
+		$mail_view = View::make('cms::theme.'.THEME.'.partials.mail_signup');
 		$mail_view['name'] = $input['signup_name'];
 		$mail_view['username'] = $input['signup_email'];
 		$mail_view['password'] = $input['password'];
@@ -261,7 +261,7 @@ class Site_Controller extends Base_Controller {
 		// Construct the message
 		$message = Mail::prepare(
 			$html,
-			'Mail subject',
+			Config::get('cms::theme.email_data.signup_subject'),
 			$to = array(
 				$input['signup_email']
 			),
@@ -269,7 +269,7 @@ class Site_Controller extends Base_Controller {
 		);
 
 		// Send the email
-		$mailer->send($message);*/
+		$mailer->send($message);
 
 		Session::flash('account_created', true);
 

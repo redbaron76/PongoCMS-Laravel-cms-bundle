@@ -159,6 +159,11 @@ return array(
 	"user_cel" => "Cellulare",
 	"user_info" => "Informazioni",
 
+	"user_signup_title" => 'Iscriviti al servizio',
+	"user_signup_contact_title" => 'I tuoi contatti',
+	"user_signup_contact_account" => 'Il tuo account',
+	"user_signup_mandatory" => 'campi obbligatori',
+
 	//FILES
 
 	"modal_title_file" => "Eliminare questo file?",

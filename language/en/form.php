@@ -159,6 +159,11 @@ return array(
 	"user_cel" => "Mobile phone",
 	"user_info" => "Info",
 
+	"user_signup_title" => 'Signup to service',
+	"user_signup_contact_title" => 'Your contact details',
+	"user_signup_contact_account" => 'Your account',
+	"user_signup_mandatory" => 'fields are mandatory',
+
 	//FILES
 
 	"modal_title_file" => "Delete this file?",

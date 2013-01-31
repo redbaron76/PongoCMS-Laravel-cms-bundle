@@ -140,7 +140,7 @@ $THEME_SETTINGS = array(
 
 	/*
 	|--------------------------------------------------------------------------
-	| $SEARCH form layout | Map to existing items and zones
+	| $SEARCH marker results ZONE in layout | Map to existing zone
 	|--------------------------------------------------------------------------|
 	*/
 
@@ -148,7 +148,7 @@ $THEME_SETTINGS = array(
 
 	/*
 	|--------------------------------------------------------------------------
-	| $SEARCH results layout | in: /partials
+	| $SEARCH marker results view | in: /partials
 	|--------------------------------------------------------------------------|
 	*/
 
@@ -156,7 +156,7 @@ $THEME_SETTINGS = array(
 
 	/*
 	|--------------------------------------------------------------------------
-	| Authorization page layout | Map to existing items and zones
+	| $LOGIN marker form ZONE in layout | Map to existing zone
 	|--------------------------------------------------------------------------|
 	*/
 
@@ -164,7 +164,7 @@ $THEME_SETTINGS = array(
 
 	/*
 	|--------------------------------------------------------------------------
-	| SIGNUP form | in: /partials
+	| SIGNUP view form | Same ZONE of login_zone | in: /partials
 	|--------------------------------------------------------------------------|
 	*/
 
@@ -271,7 +271,15 @@ $THEME_SETTINGS = array(
 	*/
 
 	'email' => array(
+		
 		'email@address.tld' => 'PongoCMS'
+
+	),
+
+	'email_data' => array(
+		
+		'signup_subject' => 'Welcome to PongoCMS',
+
 	),
 
 

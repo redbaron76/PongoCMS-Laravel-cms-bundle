@@ -5,7 +5,7 @@ class Mail {
 	/*
 	*	Prepare mail
 	*
-	*
+	*	This leverages SwiftMailer bundle for Laravel
 	*/
 	public static function prepare($html, $subject, $to = array(), $bcc = array())
 	{
