@@ -80,6 +80,9 @@ class Cms_Setup_Task {
 		$sw_path = path('bundle').'swiftmailer'
 		rename($controller_path.DS.'start_swiftmailer_bundle'.EXT, $sw_path.'start'.EXT);
 
+		//MOVE NEW bundles.php to /application
+		rename($controller_path.DS.'bundles'.EXT, path('app').'bundles'.EXT);
+
 		//INSTALL MIGRATION
 		$result = shell_exec('php artisan migrate:install'.$env);
 
