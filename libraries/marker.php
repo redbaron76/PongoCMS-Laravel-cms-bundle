@@ -2072,7 +2072,7 @@ class Marker extends CustomMarker {
 
 		} else {
 
-			$full_path = SLUG_FULL . DS . Str::slug(($alt != '') ? $alt : $caption);
+			$full_path = SLUG_FULL . '/' . Str::slug(($alt != '') ? $alt : $caption);
 
 		}
 

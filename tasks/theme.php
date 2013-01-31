@@ -11,7 +11,7 @@ class Cms_Theme_Task {
 		if(!empty($new_theme)) {
 
 			//CLONE DEFAULT THEME
-			$theme_folder = path('bundle').'cms/views/theme/';
+			$theme_folder = path('bundle').'cms'.DS.'views'.DS.'theme'.DS;
 
 			if(!file_exists($theme_folder . $new_theme)) {
 

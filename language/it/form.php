@@ -136,6 +136,7 @@ return array(
 	"user_email" => "Indirizzo e-mail utente",
 	"user_role" => "Livello di accesso",
 	"user_lang" => "Lingua utente",
+	"user_editor" => "Editor contenuti",
 	"user_is_valid" => "Utente attivo?",
 	"user_remember" => "Ricorda i miei dati",
 

@@ -64,6 +64,8 @@ class Cms_User_Controller extends Cms_Base_Controller {
 		->with('user_role_selected', null)
 		->with('user_lang', Config::get('cms::settings.interface'))
 		->with('user_lang_selected', LANG)
+		->with('user_editor', Config::get('cms::settings.editor'))
+		->with('user_editor_selected', null)
 		->with('user_is_valid', true)
 		
 		// USER DETAILS
@@ -112,6 +114,8 @@ class Cms_User_Controller extends Cms_Base_Controller {
 		->with('user_role_selected', $user->role_id)
 		->with('user_lang', Config::get('cms::settings.interface'))
 		->with('user_lang_selected', $user->lang)
+		->with('user_editor', Config::get('cms::settings.editor'))
+		->with('user_editor_selected', $user->editor)
 		->with('user_is_valid', (bool) $user->is_valid)
 
 		// USER DETAILS

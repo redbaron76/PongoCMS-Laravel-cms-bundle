@@ -171,6 +171,14 @@ class Cms_Ajax_File_Controller extends Cms_Base_Controller {
 
 			}
 
+		}  else {
+
+			$fid = null;
+
+			$response = 'error';
+			$msg = LL('cms::ajax_resp.filename_fileavailable_error', CMSLANG)->get();
+			$backurl = '#';
+
 		}
 
 		$data = array(

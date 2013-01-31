@@ -136,6 +136,7 @@ return array(
 	"user_email" => "E-mail address",
 	"user_role" => "Access level",
 	"user_lang" => "Language",
+	"user_editor" => "Content editor",
 	"user_is_valid" => "User enabled?",
 	"user_remember" => "Remember credentials",
 

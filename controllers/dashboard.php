@@ -59,6 +59,15 @@ class Cms_Dashboard_Controller extends Cms_Base_Controller {
 	}
 
 
+	//CHANGE INTERFACE EDITOR
+	public function get_editor($editor)
+	{
+
+		//SET NEW INTERFACE EDITOR
+		Session::put('EDITOR', $editor);
+		return Redirect::to_action('cms::dashboard');
+
+	}
 
 
 	//GET ANALYTICS DATA

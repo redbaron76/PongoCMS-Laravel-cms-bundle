@@ -17,10 +17,10 @@
 				
 				<ul class="nav nav-tabs">
 					<li class="active"><a href="#element" data-toggle="tab">{{LL('cms::form.element_settings', CMSLANG)}}</a></li>
-					@if(IS('cms::settings.wysiwyg', 'ckeditor'))
+					@if(EDITOR == 'ckeditor')
 					<li{{DISABLED($element_id)}}><a href="#ckeditor" data-toggle="tab">{{LL('cms::form.element_content', CMSLANG)}}</a></li>
 					@endif
-					@if(IS('cms::settings.wysiwyg', 'markitup'))
+					@if(EDITOR == 'markitup')
 					<li{{DISABLED($element_id)}}><a href="#markit" data-toggle="tab">{{LL('cms::form.element_content', CMSLANG)}}</a></li>
 					@endif
 					<li{{DISABLED($element_id)}}><a href="#media" data-toggle="tab">{{LL('cms::button.page_media', CMSLANG)}}</a></li>
@@ -132,7 +132,7 @@
 					</div>
 
 					<!-- CKEDITOR FORM TAB -->
-					@if(IS('cms::settings.wysiwyg', 'ckeditor'))
+					@if(EDITOR == 'ckeditor')
 					<div class="tab-pane" id="ckeditor">
 						
 						{{Form::open(action('cms::ajax_page@save_element_text'), 'POST', array('class' => 'form-vertical', 'id' => 'form_ckeditor')) . "\n"}}
@@ -184,7 +184,7 @@
 					@endif
 
 					<!-- MARKITUP FORM TAB -->
-					@if(IS('cms::settings.wysiwyg', 'markitup'))
+					@if(EDITOR == 'markitup')
 					<div class="tab-pane" id="markit">
 						
 						{{Form::open(action('cms::ajax_page@save_element_text'), 'POST', array('class' => 'form-vertical', 'id' => 'form_markitup')) . "\n"}}

@@ -30,7 +30,7 @@ return array(
 	|--------------------------------------------------------------------------|
 	*/
 
-	'copyright' => 'PongoCMS v1.2 rc1.1.30 &copy; pongoweb.it',
+	'copyright' => 'PongoCMS v1.2 rc1.2.0 &copy; pongoweb.it',
 
 	/*
 	|--------------------------------------------------------------------------
@@ -304,11 +304,17 @@ return array(
 
 	/*
 	|--------------------------------------------------------------------------
-	| CMS :: WYSIWYG editor -> ckeditor || markitup
+	| CMS :: Default WYSIWYG editor -> ckeditor || markitup
 	|--------------------------------------------------------------------------|
 	*/
 
-	'wysiwyg' => 'ckeditor',
+	'editor' => array(
+		
+		'ckeditor' => 'CKEditor',
+
+		'markitup' => 'MarkitUp'
+
+	),
 
 	/*
 	|--------------------------------------------------------------------------
@@ -383,6 +389,16 @@ return array(
 	*/
 
 	'clear_engine' => true,
+
+	/*
+	|--------------------------------------------------------------------------
+	| SwiftMailer :: Swift_SmtpTransport credentials | NEED SwiftMailer bundle!
+	|--------------------------------------------------------------------------|
+	*/
+
+	'mail_smtp' 	=> 'smtp.yourhosting.tld',
+	'mail_username' => 'smtp.login',
+	'mail_password' => 'smtp.password'
 
 
 );

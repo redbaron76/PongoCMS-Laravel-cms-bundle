@@ -209,6 +209,7 @@ define('USERNAME', Session::get('USERNAME'));
 define('AUTHORID', Session::get('AUTHORID'));
 define('ROLE', Session::get('ROLE', 0));
 define('LANG', Session::get('LANG', Config::get('cms::settings.language')));
+define('EDITOR', Session::get('EDITOR', array_keys(Config::get('cms::settings.editor'))[0]));
 define('CMSLANG', Session::get('CMSLANG', Config::get('cms::settings.language')));
 define('CACHE', Config::get('cms::settings.cache_engine'));
 define('BASE', Config::get('application.url'));

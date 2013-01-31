@@ -41,10 +41,10 @@ class Cms_Backup_Task {
 		}
 
 		//COPY THEME ASSETS FROM /PUBLIC TO THEME PUBLIC
-		$asset_path = path('bundle').'cms/views/theme/'.$theme.'/public';
+		$asset_path = path('bundle').'cms'.DS.'views'.DS.'theme'.DS.$theme.DS.'public';
 		$public_path = path('public');
 
-		$theme_path = path('bundle').'cms/views/theme/'.$theme;
+		$theme_path = path('bundle').'cms'.DS.'views'.DS.'theme'.DS.$theme;
 		$backup_path = path('base').'_backup';
 
 		//ITEMS TO COPY
@@ -66,11 +66,11 @@ class Cms_Backup_Task {
 		File::cpdir($theme_path, $backup_path.DS.$theme, false);
 
 		// COPY CURRENT SETTINGS
-		$settings_path = path('bundle').'cms/config';
+		$settings_path = path('bundle').'cms'.DS.'config';
 		File::cpdir($settings_path, $backup_path.DS.$theme.DS.'_config', false);
 
 		// COPY CURRENT APP CONTROLLERS
-		$controllers_path = path('app').'/controllers';
+		$controllers_path = path('app').DS.'controllers';
 		File::cpdir($controllers_path, $backup_path.DS.$theme.DS.'_controllers', false);
 
 		echo PHP_EOL;
@@ -93,8 +93,8 @@ class Cms_Backup_Task {
 
 		// COPY ASSET FROM PUBLIC/BUNDLES TO BUNDLES/PUBLIC
 
-		$from_path 	= path('public').'bundles/cms';
-		$to_path 	= path('bundle').'cms/public';
+		$from_path 	= path('public').'bundles'.DS.'cms';
+		$to_path 	= path('bundle').'cms'.DS.'public';
 
 		//ITERATE COPY
 		foreach ($items as $item) {
@@ -124,7 +124,7 @@ class Cms_Backup_Task {
 
 		//COPY THEME ASSETS FROM /PUBLIC TO THEME PUBLIC
 
-		$asset_path = path('bundle').'cms/views/theme/'.$theme.'/public';
+		$asset_path = path('bundle').'cms'.DS.'views'.DS.'theme'.DS.$theme.DS.'public';
 		$public_path = path('public');
 
 		//ITERATE COPY
@@ -166,11 +166,11 @@ class Cms_Backup_Task {
 
 		}
 
-		$backup_path = path('base').'_backup/'.$theme;
+		$backup_path = path('base').'_backup'.DS.$theme;
 
 		if(file_exists($backup_path)) {
 
-			$theme_path = path('bundle').'cms/views/theme/'.$theme;
+			$theme_path = path('bundle').'cms'.DS.'views'.DS.'theme'.DS.$theme;
 
 			//COPY FROM _BACKUP TO THEME
 			File::cpdir($backup_path, $theme_path, false);

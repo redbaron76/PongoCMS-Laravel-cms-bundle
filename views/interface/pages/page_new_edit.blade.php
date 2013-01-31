@@ -330,13 +330,13 @@
 											{{LL('cms::button.marker_pick', CMSLANG)}}
 										</a>
 									</div>
-									@if(IS('cms::settings.wysiwyg', 'ckeditor'))
+									@if(EDITOR == 'ckeditor')
 									<div class="controls">
 										{{Form::textarea('page_preview', $page_preview, array('class' => 'span6 editorck', 'id' => 'preview_text', 'rows' => 8))}}
 									</div>
 									@endif
 																		
-									@if(IS('cms::settings.wysiwyg', 'markitup'))
+									@if(EDITOR == 'markitup')
 									<div class="controls">
 										{{Form::textarea('page_preview', $page_preview, array('class' => 'html', 'id' => 'markitup', 'rows' => 8))}}
 									</div>

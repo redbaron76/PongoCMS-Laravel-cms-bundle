@@ -189,6 +189,7 @@ Route::filter('save_session_credentials', function()
 		Session::put('ROLE', Auth::user()->role_level);
 		Session::put('CMSLANG', Auth::user()->lang);
 		Session::put('LANG', Config::get('cms::settings.language'));
+		Session::put('EDITOR', Auth::user()->editor);
 	}
 });
 

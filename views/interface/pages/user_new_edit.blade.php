@@ -59,6 +59,12 @@
 										{{Form::select('user_lang', $user_lang, $user_lang_selected, array('class' => 'span3', 'id' => 'user_lang')) . "\n"}}
 									</div>
 								</div>
+								<div class="control-group" rel="user_editor">
+									{{Form::label('user_editor', LL('cms::form.user_editor', CMSLANG), array('class' => 'control-label')) . "\n"}}
+									<div class="controls">
+										{{Form::select('user_editor', $user_editor, $user_editor_selected, array('class' => 'span3', 'id' => 'user_editor')) . "\n"}}
+									</div>
+								</div>
 								<div class="control-group">
 									<div class="controls">
 										<label class="checkbox">

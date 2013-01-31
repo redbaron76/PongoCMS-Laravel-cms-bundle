@@ -54,6 +54,7 @@ class Cms_Ajax_User_Controller extends Cms_Base_Controller {
 			$user->email = $input['user_email'];
 			$user->role_id = $input['user_role'];
 			$user->lang = $input['user_lang'];
+			$user->editor = $input['user_editor'];
 			$user->is_valid = Input::has('is_valid') ? 1 : 0;
 
 			//SET DEFAULT PASSWORD AS USERNAME

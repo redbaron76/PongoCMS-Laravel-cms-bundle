@@ -73,45 +73,19 @@ class Site_Controller extends Base_Controller {
 
 	//SHOW USER LOGIN
 	public function get_login()
-	{		
+	{
 		
+		if(Auth::check()) return Redirect::home();
+
 		//LOAD VIEW
 		$view = View::make('cms::theme.'.THEME.'.partials.markers.login');
 		$view['options'] = array();
 
-		//LOAD LAYOUT
-		$login_template = Config::get('cms::theme.login_template');
-		$login_header = Config::get('cms::theme.login_header');
-		$login_footer = Config::get('cms::theme.login_footer');
-		$login_layout = Config::get('cms::theme.login_layout');
+		//LOGIN ZONE
 		$login_zone = Config::get('cms::theme.login_zone');
-		$layout = View::make('cms::theme.'.THEME.'.layouts.'.$login_layout);
-		
 
-		// IF LOGIN ZONE IS LAYOUT ZONE APPEND DATA ELSE EMPTY
-		foreach (Config::get('cms::theme.layout_'.$login_layout) as $zone => $name) {
-
-			// MAP ZONE CONTENT
-			$layout[$zone] = ($login_zone === $zone) ? $view : '';
-
-		}
-
-		//INIT PAGE
-		CmsRender::asset();
-
-		//BASE JS
-		Asset::container('header')->add('base_js', Config::get('application.url').'/site/js');
-
-		//LOAD TEMPLATE
-		$html = View::make('cms::theme.'.THEME.'.templates.'.$login_template)
-		->nest('header', 'cms::theme.'.THEME.'.partials.header_'.$login_header)
-		->with('descr', Config::get('cms::theme.descr'))
-		->with('keyw', Config::get('cms::theme.keyw'))
-		->with('title', Config::get('cms::theme.title'))
-		->with('layout', $layout)
-		->nest('footer', 'cms::theme.'.THEME.'.partials.footer_'.$login_footer);
-
-		CmsRender::clean_code($html);
+		// RENDER THE PAGE
+		CmsRender::page('/', array('zone' => $login_zone, 'view' => $view));
 
 	}
 
@@ -164,6 +138,146 @@ class Site_Controller extends Base_Controller {
 	}
 
 
+	//SHOW SIGNUP FORM
+	public function get_signup()
+	{		
+		
+		//GET SEARCH RESULTS VIEW
+		$signup_form = Config::get('cms::theme.signup_form');
+
+		//LOAD VIEW
+		$view = View::make('cms::theme.'.THEME.'.partials.'.$signup_form);
+
+		//LOGIN ZONE
+		$login_zone = Config::get('cms::theme.login_zone');
+		
+		// RENDER THE PAGE
+		CmsRender::page('/', array('zone' => $login_zone, 'view' => $view));
+		
+
+	}
+
+	//PERFORM SIGNUP POST
+	public function post_signup()
+	{
+
+		$input = Input::get();
+
+		//VALIDATION CHECK
+
+		$rules = array(
+			'signup_name'  => 'required',
+			'signup_surname'  => 'required',
+			'signup_address'  => 'required',
+			'signup_number'  => 'required',
+			'signup_city'  => 'required',
+			'signup_zip'  => 'required',
+			'signup_state'  => 'required',
+			'signup_country'  => 'required',
+			'signup_cel'  => 'required',
+			'signup_email'  => 'required|email|unique:users,email',
+			'password' => 'required|confirmed|min:6'
+		);
+
+		$messages = array(
+			'required' => LL('cms::validation.required', CMSLANG)->get(),
+			'email' => LL('cms::validation.required', CMSLANG)->get(),
+			'unique' => LL('cms::validation.unique_account', CMSLANG)->get(),
+			'confirmed' => LL('cms::validation.confirmed', CMSLANG)->get()
+		);
+
+		$validation = Validator::make($input, $rules, $messages);
+
+		if ($validation->fails())
+		{
+			return Redirect::to_action('site@signup')->with_input()
+			->with('signup_name_error', $validation->errors->first('signup_name'))
+			->with('signup_surname_error', $validation->errors->first('signup_surname'))
+			->with('signup_address_error', $validation->errors->first('signup_address'))
+			->with('signup_number_error', $validation->errors->first('signup_number'))
+			->with('signup_city_error', $validation->errors->first('signup_city'))
+			->with('signup_state_error', $validation->errors->first('signup_state'))
+			->with('signup_zip_error', $validation->errors->first('signup_zip'))
+			->with('signup_country_error', $validation->errors->first('signup_country'))
+			->with('signup_cel_error', $validation->errors->first('signup_cel'))
+			->with('signup_email_error', $validation->errors->first('signup_email'))
+			->with('signup_password_error', $validation->errors->first('password'));
+		}
+
+		// OK, CREATE ACCOUNT
+
+		$role_id = 4;	// AS cms::settings.roles.user indexof
+
+		$user = new CmsUser();
+
+		$user->role_id = $role_id;
+		$user->username = $input['signup_email'];
+		$user->email =  $input['signup_email'];
+		$user->password = Hash::make($input['password']);
+		$user->role_level = Config::get('cms::settings.roles.user');
+		$user->lang = LANG;
+		$user->is_valid = 1;
+
+		$user->save();
+
+		$uid = $user->id;
+
+		// SAVE DETAILS
+
+		$details = new CmsUserDetail();
+
+		$details->user_id = $uid;
+		$details->name = $input['signup_name'];
+		$details->surname = $input['signup_surname'];
+		$details->address = $input['signup_address'];
+		$details->info = '';
+		$details->number = $input['signup_number'];
+		$details->city = $input['signup_city'];
+		$details->zip = $input['signup_zip'];
+		$details->state = $input['signup_state'];
+		$details->country = $input['signup_country'];
+		$details->tel = $input['signup_tel'];
+		$details->cel = $input['signup_cel'];
+
+		$details->save();
+
+		// SEND MAIL
+
+		// LOAD MAIL VIEW - NEED SWIFTMAILER BUNDLE for Laravael
+
+		/*$mail_view = View::make('cms::theme.'.THEME.'.partials.mail_signup');
+		$mail_view['name'] = $input['signup_name'];
+		$mail_view['username'] = $input['signup_email'];
+		$mail_view['password'] = $input['password'];
+
+		// GET MAIL TEMPLATE
+
+		$html = View::make('cms::theme.'.THEME.'.templates.mail')->with('content', $mail_view);
+
+		// OK, SEND A MAIL
+
+		$mailer = IoC::resolve('mailer');
+
+		// Construct the message
+		$message = Mail::prepare(
+			$html,
+			'Mail subject',
+			$to = array(
+				$input['signup_email']
+			),
+			$bcc = Config::get('cms::theme.email')
+		);
+
+		// Send the email
+		$mailer->send($message);*/
+
+		Session::flash('account_created', true);
+
+		return Redirect::to_action('site@login')->with_input('only', array('signup_email'));;
+
+	}
+
+
 	//PERFORM CHANGE LANG
 	public function get_lang($lang = SITE_LANG)
 	{
@@ -200,6 +314,9 @@ class Site_Controller extends Base_Controller {
 
 			//GET page
 			$p = Input::get('page', 1);
+
+			// GET FROM WHERE
+			$url = Input::get('url', SLUG_FULL);
 
 			//ITEMS PER PAGE
 			$npp = Config::get('cms::theme.site_pag');
@@ -288,39 +405,11 @@ class Site_Controller extends Base_Controller {
 			$view['q'] = $q;
 			$view['source'] = $source;
 
-			//LOAD LAYOUT
-			$search_template = Config::get('cms::theme.search_template');
-			$search_header = Config::get('cms::theme.search_header');
-			$search_footer = Config::get('cms::theme.search_footer');
-			$search_layout = Config::get('cms::theme.search_layout');
+			//LOAD ZONE TO INJECT IN
 			$search_zone = Config::get('cms::theme.search_zone');
-			$layout = View::make('cms::theme.'.THEME.'.layouts.'.$search_layout);
-			
 
-			// IF SEARCH ZONE IS LAYOUT ZONE APPEND DATA ELSE EMPTY
-			foreach (Config::get('cms::theme.layout_'.$search_layout) as $zone => $name) {
-
-				// MAP ZONE CONTENT
-				$layout[$zone] = ($search_zone === $zone) ? $view : '';
-
-			}
-
-			//INIT PAGE
-			CmsRender::asset();
-
-			//BASE JS
-			Asset::container('header')->add('base_js', Config::get('application.url').'/site/js');
-
-			//LOAD TEMPLATE
-			$html = View::make('cms::theme.'.THEME.'.templates.'.$search_template)
-			->nest('header', 'cms::theme.'.THEME.'.partials.header_'.$search_header)
-			->with('descr', Config::get('cms::theme.descr'))
-			->with('keyw', Config::get('cms::theme.keyw'))
-			->with('title', $q)
-			->with('layout', $layout)
-			->nest('footer', 'cms::theme.'.THEME.'.partials.footer_'.$search_footer);
-
-			CmsRender::clean_code($html);
+			// RENDER THE PAGE
+			CmsRender::page($url, array('zone' => $search_zone, 'view' => $view));
 
 		} else {
 

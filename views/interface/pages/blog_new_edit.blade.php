@@ -86,13 +86,13 @@
 											{{LL('cms::button.marker_pick', CMSLANG)}}
 										</a>
 									</div>
-									@if(IS('cms::settings.wysiwyg', 'ckeditor'))
+									@if(EDITOR == 'ckeditor')
 									<div class="controls">
 										{{Form::textarea('blog_text', $blog_text, array('class' => 'span6 editorck', 'id' => 'blog_text', 'rows' => 8))}}
 									</div>
 									@endif
 									
-									@if(IS('cms::settings.wysiwyg', 'markitup'))
+									@if(EDITOR == 'markitup')
 									<div class="controls">
 										{{Form::textarea('blog_text', $blog_text, array('class' => 'html', 'id' => 'markitup', 'rows' => 8))}}
 									</div>
@@ -183,13 +183,13 @@
 											{{LL('cms::button.marker_pick', CMSLANG)}}
 										</a>
 									</div>
-									@if(IS('cms::settings.wysiwyg', 'ckeditor'))
+									@if(EDITOR == 'ckeditor')
 									<div class="controls">
 										{{Form::textarea('blog_preview', $blog_preview, array('class' => 'span6 editorck', 'id' => 'blog_preview', 'rows' => 8))}}
 									</div>
 									@endif
 																		
-									@if(IS('cms::settings.wysiwyg', 'markitup'))
+									@if(EDITOR == 'markitup')
 									<div class="controls">
 										{{Form::textarea('blog_preview', $blog_preview, array('class' => 'html', 'id' => 'markitup', 'rows' => 8))}}
 									</div>

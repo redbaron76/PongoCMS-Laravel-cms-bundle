@@ -144,10 +144,6 @@ $THEME_SETTINGS = array(
 	|--------------------------------------------------------------------------|
 	*/
 
-	'search_template' 	=> 'default',
-	'search_header' 	=> 'default',
-	'search_footer' 	=> 'default',
-	'search_layout' 	=> 'default',
 	'search_zone'		=> 'ZONE1',
 
 	/*
@@ -164,11 +160,7 @@ $THEME_SETTINGS = array(
 	|--------------------------------------------------------------------------|
 	*/
 
-	'login_template' 	=> 'default',
-	'login_header' 		=> 'default',
-	'login_footer' 		=> 'default',
-	'login_layout' 		=> 'default',
-	'login_zone'		=> 'ZONE3',
+	'login_zone'		=> 'ZONE1',
 
 	/*
 	|--------------------------------------------------------------------------
@@ -271,6 +263,16 @@ $THEME_SETTINGS = array(
 							'horizontal' => 'right',
 							'vertical' => 'bottom',
 						),
+
+	/*
+	|--------------------------------------------------------------------------
+	| Application Email Sender | NEED SwiftMailer bundle!!
+	|--------------------------------------------------------------------------
+	*/
+
+	'email' => array(
+		'email@address.tld' => 'PongoCMS'
+	),
 
 
 );

@@ -123,19 +123,31 @@
 			<b class="caret"></b>
 		</a>
 		<ul class="dropdown-menu">
+
+			<li class="nav-header">{{LL('cms::label.editor', CMSLANG)}}</li>
+
+			@foreach (Config::get('cms::settings.editor') as $editor => $name)
+
+			<li{{(EDITOR == $editor) ? ' class="active"' : ''}}>
+				<a href="{{URL::to_action('cms::dashboard@editor', array($editor))}}">{{$name}}</a>
+			</li>
+			@endforeach
+
+			<li class="divider"></li>
+
+			<li class="nav-header">{{LL('cms::label.language', CMSLANG)}}</li>
+
 			@foreach ($interface as $code => $lang)
 
-			<?php
-				$is_lang = false;
-				if(CMSLANG == $code) $is_lang = true;
-			?>
-
-			<li{{($is_lang) ? ' class="active"' : ''}}>
+			<li{{(CMSLANG == $code) ? ' class="active"' : ''}}>
 				<a href="{{URL::to_action('cms::dashboard@lang', array($code))}}">{{$lang}}</a>
 			</li>
 			@endforeach
+
 			<li class="divider"></li>
+
 			<li><a href="{{URL::to_action('cms::login@logout')}}">{{LL('cms::title.logout', CMSLANG)}}</a></li>
+
 		</ul>		
 	</li>
 </ul>

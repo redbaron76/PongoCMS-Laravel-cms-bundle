@@ -24,6 +24,7 @@ return array(
 	"roles" => "Gestione ruoli",
 	"menus" => "Gestione menu",
 	"tags" => "Gestione tag",
+	"calendar" => "Calendario corsi",
 	"translations" => "Gestione traduzioni",
 	"orders" => "Gestione ordini",
 	"products" => "Gestione prodotti",
