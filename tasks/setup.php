@@ -64,7 +64,7 @@ class Cms_Setup_Task {
 
 		//COPY routes.php TO _backup/routes_original.php
 		$routes_file = path('app').'routes'.EXT;
-		rename($routes_file, $backup_path.DS.'routes_original'.EXT, false);
+		rename($routes_file, $backup_path.DS.'routes_original'.EXT);
 
 		//MOVE /controllers/routes.php TO /application
 		rename($app_controller_path.DS.'routes'.EXT, path('app').'routes'.EXT);
