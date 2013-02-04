@@ -117,7 +117,7 @@ class Cms_Setup_Task {
 		//MOVE start_swiftmailer_bundle.php TO /cms/bundles/swiftmailer
 		if(strlen($swiftmailer) > 0) {
 			$sw_path = path('bundle').'swiftmailer';
-			rename($app_controller_path.DS.'start_swiftmailer_bundle'.EXT, $sw_path.DS.'start'.EXT);
+			if(file_exists($sw_path)) rename($app_controller_path.DS.'start_swiftmailer_bundle'.EXT, $sw_path.DS.'start'.EXT);
 			echo $swiftmailer;
 		}
 
