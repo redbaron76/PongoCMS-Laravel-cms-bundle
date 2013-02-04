@@ -74,11 +74,13 @@ class Cms_Setup_Task {
 		if(file_exists($home_file)) unlink($home_file);
 
 		//INSTALL SWIFTMAILER BUNDLE
-		$result = shell_exec('php artisan bundle:install swiftmailer');
+		$swiftmailer = shell_exec('php artisan bundle:install swiftmailer');
 
 		//MOVE start_swiftmailer_bundle.php TO /cms/bundles/swiftmailer
-		$sw_path = path('bundle').'swiftmailer'
-		rename($controller_path.DS.'start_swiftmailer_bundle'.EXT, $sw_path.'start'.EXT);
+		if($swiftmailer) {
+			$sw_path = path('bundle').'swiftmailer';
+			rename($controller_path.DS.'start_swiftmailer_bundle'.EXT, $sw_path.DS.'start'.EXT);
+		}
 
 		//MOVE NEW bundles.php to /application
 		rename($controller_path.DS.'bundles'.EXT, path('app').'bundles'.EXT);
