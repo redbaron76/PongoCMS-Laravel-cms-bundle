@@ -61,6 +61,7 @@ class Cms_Setup_Task {
 		//DISABLE ROUTES AND FILTERS
 
 		$backup_path = path('base').'_backup';
+		mkdir($backup_path);
 
 		//COPY routes.php TO _backup/routes_original.php
 		$routes_file = path('app').'routes'.EXT;
