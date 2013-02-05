@@ -8,6 +8,9 @@ class Cms_Setup_Task {
 		
 		$env = (!empty($arguments)) ? ' --env='.$arguments[0] : '';
 
+		//INSTALL SWIFTMAILER BUNDLE
+		$swiftmailer = shell_exec('php artisan bundle:install swiftmailer');
+
 		//COPY CONTROLLERS
 		$controller_path = path('bundle').'cms'.DS.'controllers'.DS.'_app_controllers';
 		$app_controller_path = path('app').'controllers';
@@ -70,6 +73,13 @@ class Cms_Setup_Task {
 		//MOVE /controllers/routes.php TO /application
 		rename($app_controller_path.DS.'routes'.EXT, path('app').'routes'.EXT);
 
+		//MOVE start_swiftmailer_bundle.php TO /cms/bundles/swiftmailer
+		$sw_path = path('bundle').'swiftmailer';
+		if(file_exists($sw_path)) {			
+			rename($app_controller_path.DS.'start_swiftmailer_bundle'.EXT, $sw_path.DS.'start'.EXT);
+			echo $swiftmailer;
+		}
+
 		//DELETE HOME CONTROLLER
 		$home_file = path('app').'controllers'.DS.'home'.EXT;
 		if(file_exists($home_file)) unlink($home_file);
@@ -109,16 +119,6 @@ class Cms_Setup_Task {
 
 			DB::query($query);
 
-		}
-
-		//INSTALL SWIFTMAILER BUNDLE
-		$swiftmailer = shell_exec('php artisan bundle:install swiftmailer');
-
-		//MOVE start_swiftmailer_bundle.php TO /cms/bundles/swiftmailer
-		if(strlen($swiftmailer) > 0) {
-			$sw_path = path('bundle').'swiftmailer';
-			if(file_exists($sw_path)) rename($app_controller_path.DS.'start_swiftmailer_bundle'.EXT, $sw_path.DS.'start'.EXT);
-			echo $swiftmailer;
 		}
 
 		echo PHP_EOL;
