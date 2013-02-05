@@ -25,7 +25,7 @@ Route::filter('init', function()
 {
 
 	//SAVE SESSION CREDENTIAL
-	if(Auth::check()) {
+	if(Auth::check() and is_numeric(AUTHORID)) {
 
 		Session::put('USERID', Auth::user()->id);
 		Session::put('USERNAME', Auth::user()->username);

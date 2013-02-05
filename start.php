@@ -42,7 +42,7 @@ View::composer('cms::interface.layouts.default', function($view)
 
 	if(!isset($view->header_data)) $view->header_data = array('title' => Config::get('cms::settings.name'));
 
-	$topbar = (Auth::check() and (ROLE >= Config::get('cms::settings.roles.editor'))) ?
+	$topbar = (Auth::check() and is_numeric(AUTHORID) and (ROLE >= Config::get('cms::settings.roles.editor'))) ?
 	'cms::interface.partials.navigation.logged' : 'cms::interface.partials.navigation.login';
 
 	$view->menu = View::make('cms::interface.partials.menu')->nest('topbar', $topbar, array(
