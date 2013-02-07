@@ -38,6 +38,8 @@ return array(
 	"unique_lang" 	=> "Dato già presente in questa lingua.",
 	"unique_filename" 	=> "Il nome del file è già in uso.",
 	"unique_element_page" 	=> "Nome già presente in questa pagina.",
+	"unique_account" => "Account già presente",
+	"confirmed" => "Password non corrispondente",
 	"required_slug" => "URL breve non inserito.",
 
 

@@ -38,6 +38,8 @@ return array(
 	"unique_lang" 	=> "Item already present in this language.",
 	"unique_filename" 	=> "File name already in use.",
 	"unique_element_page" 	=> "Name already present in this page.",
+	"unique_account" => "Account already present.",
+	"confirmed" => "Password doesn't match.",
 	"required_slug" => "Short URL not set.",
 
 

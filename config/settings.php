@@ -31,9 +31,13 @@ return array(
 	*/
 
 <<<<<<< HEAD
+<<<<<<< HEAD
 	'copyright' => 'PongoCMS v1.3 rc0.0.1 &copy; Pongoweb.it',
 =======
 	'copyright' => 'PongoCMS v1.2 rc1.1.10 &copy; pongoweb.it',
+>>>>>>> 1.2
+=======
+	'copyright' => 'PongoCMS v1.2 rc1.2.1 &copy; pongoweb.it',
 >>>>>>> 1.2
 
 	/*
@@ -51,6 +55,14 @@ return array(
 	*/
 
 	'url' => '/cms',
+
+	/*
+	|--------------------------------------------------------------------------
+	| CMS :: preview url path
+	|--------------------------------------------------------------------------|
+	*/
+
+	'preview' => '/preview',
 
 	/*
 	|--------------------------------------------------------------------------
@@ -329,11 +341,17 @@ return array(
 
 	/*
 	|--------------------------------------------------------------------------
-	| CMS :: WYSIWYG editor -> ckeditor || markitup
+	| CMS :: Default WYSIWYG editor -> ckeditor || markitup
 	|--------------------------------------------------------------------------|
 	*/
 
-	'wysiwyg' => 'ckeditor',
+	'editor' => array(
+		
+		'ckeditor' => 'CKEditor',
+
+		'markitup' => 'MarkitUp'
+
+	),
 
 	/*
 	|--------------------------------------------------------------------------
@@ -408,6 +426,16 @@ return array(
 	*/
 
 	'clear_engine' => true,
+
+	/*
+	|--------------------------------------------------------------------------
+	| SwiftMailer :: Swift_SmtpTransport credentials | NEED SwiftMailer bundle!
+	|--------------------------------------------------------------------------|
+	*/
+
+	'mail_smtp' 	=> 'smtp.yourhosting.tld',
+	'mail_username' => 'smtp.login',
+	'mail_password' => 'smtp.password'
 
 
 );

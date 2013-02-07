@@ -8,9 +8,8 @@ class Cms_Image_Controller extends Cms_Base_Controller {
 	//DEFAULT IMG PATH
 	public static $img_path = 'img/';
 
-	
 	//CROP FROM CENTER IMAGE
-	public function get_crop($x = 0, $y = 0, $w = 100, $h = 100, $filename = '')
+	public function get_crop($x = 0, $y = 0, $w = 100, $h = 100, $wm = 'no', $filename = '')
 	{
 
 		$path = path('public') . Config::get('cms::settings.data') . self::$img_path . $filename;
@@ -19,20 +18,20 @@ class Cms_Image_Controller extends Cms_Base_Controller {
 
 		$thumb = PhpThumbFactory::create($path);
 
-		if(!empty($wm)) $thumb->addLogo(path('public') . Config::get('cms::theme.watermark.path'),
+		$thumb->crop($x, $y, $w, $h);
+		
+		if($wm == 'wm') $thumb->addLogo(path('public') . Config::get('cms::theme.watermark.path'),
 								Config::get('cms::theme.watermark.horizontal'),
 								Config::get('cms::theme.watermark.vertical'),
 								$thumb);
-
-		$thumb->crop($x, $y, $w, $h);
-
+			
 		$thumb->show();
 
 	}
 	
 
 	//CROP FROM CENTER IMAGE
-	public function get_cropcenter($w = 100, $h = 100, $filename = '')
+	public function get_cropcenter($w = 100, $h = 100, $wm = 'no', $filename = '')
 	{
 
 		$path = path('public') . Config::get('cms::settings.data') . self::$img_path . $filename;
@@ -41,12 +40,12 @@ class Cms_Image_Controller extends Cms_Base_Controller {
 
 		$thumb = PhpThumbFactory::create($path);
 
-		if(!empty($wm)) $thumb->addLogo(path('public') . Config::get('cms::theme.watermark.path'),
+		$thumb->cropFromCenter($w, $h);
+		
+		if($wm == 'wm') $thumb->addLogo(path('public') . Config::get('cms::theme.watermark.path'),
 								Config::get('cms::theme.watermark.horizontal'),
 								Config::get('cms::theme.watermark.vertical'),
 								$thumb);
-
-		$thumb->cropFromCenter($w, $h);
 
 		$thumb->show();
 
@@ -54,7 +53,7 @@ class Cms_Image_Controller extends Cms_Base_Controller {
 
 
 	//ADAPTIVE THUMB IMAGE
-	public function get_thumb($w = 100, $h = 100, $filename = '')
+	public function get_thumb($w = 100, $h = 100, $wm = 'no', $filename = '')
 	{
 
 		$path = path('public') . Config::get('cms::settings.data') . self::$img_path . $filename;
@@ -63,12 +62,12 @@ class Cms_Image_Controller extends Cms_Base_Controller {
 
 		$thumb = PhpThumbFactory::create($path);
 
-		if(!empty($wm)) $thumb->addLogo(path('public') . Config::get('cms::theme.watermark.path'),
+		$thumb->adaptiveResize($w, $h);
+
+		if($wm == 'wm') $thumb->addLogo(path('public') . Config::get('cms::theme.watermark.path'),
 								Config::get('cms::theme.watermark.horizontal'),
 								Config::get('cms::theme.watermark.vertical'),
 								$thumb);
-
-		$thumb->adaptiveResize($w, $h);
 
 		$thumb->show();
 
@@ -85,12 +84,12 @@ class Cms_Image_Controller extends Cms_Base_Controller {
 
 		$thumb = PhpThumbFactory::create($path);	
 
+		$thumb->resize($w, $h);
+
 		if($wm == 'wm')	$thumb->addLogo(path('public') . Config::get('cms::theme.watermark.path'),
 								Config::get('cms::theme.watermark.horizontal'),
 								Config::get('cms::theme.watermark.vertical'),
 								$thumb);
-
-		$thumb->resize($w, $h);		
 
 		$thumb->show();
 
@@ -98,7 +97,7 @@ class Cms_Image_Controller extends Cms_Base_Controller {
 
 
 	//PERCENT RESIZE IMAGE
-	public function get_percent($p = 100, $filename = '')
+	public function get_percent($p = 100, $wm = 'no', $filename = '')
 	{
 
 		$path = path('public') . Config::get('cms::settings.data') . self::$img_path . $filename;
@@ -107,12 +106,12 @@ class Cms_Image_Controller extends Cms_Base_Controller {
 
 		$thumb = PhpThumbFactory::create($path);
 
-		if(!empty($wm)) $thumb->addLogo(path('public') . Config::get('cms::theme.watermark.path'),
+		$thumb->resizePercent($p);
+
+		if($wm == 'wm') $thumb->addLogo(path('public') . Config::get('cms::theme.watermark.path'),
 								Config::get('cms::theme.watermark.horizontal'),
 								Config::get('cms::theme.watermark.vertical'),
 								$thumb);
-
-		$thumb->resizePercent($p);
 
 		$thumb->show();
 

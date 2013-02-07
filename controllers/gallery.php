@@ -60,21 +60,13 @@ class Cms_Gallery_Controller extends Cms_Base_Controller {
 			'search' => false
 		);
 
-		//GET FILE DATA
-		$files = CmsFile::where_is_image(1)
-				->where_is_valid(1)
-				->order_by('name', 'asc')
-				->order_by('id', 'asc')
-				->paginate(Config::get('cms::settings.pag'));
-
 		$this->layout->content = View::make('cms::interface.pages.gallery_new_edit')
 		->with('title', LL('cms::title.gallery_new', CMSLANG))
 		->with('gallery_id', '')
 		->with('gallery_name', '')
 		->with('gallery_thumb', '')
 		->with('gallery_thumbs', CmsGallery::select_thumb())
-		->with('files', $files)
-		->with('files_select', array());
+		->with('files', array());
 
     }
 
@@ -105,21 +97,13 @@ class Cms_Gallery_Controller extends Cms_Base_Controller {
 		//GET GALLERY DATA
 		$gallery = CmsGallery::with(array('files'))->find($id);
 
-		//GET FILE DATA
-		$files = CmsFile::where_is_image(1)
-				->where_is_valid(1)
-				->order_by('name', 'asc')
-				->order_by('id', 'asc')
-				->paginate(Config::get('cms::settings.pag'));
-
 		$this->layout->content = View::make('cms::interface.pages.gallery_new_edit')
 		->with('title', LL('cms::title.gallery_edit', CMSLANG))
 		->with('gallery_id', $id)
 		->with('gallery_name', $gallery->name)
 		->with('gallery_thumb', $gallery->thumb)
 		->with('gallery_thumbs', CmsGallery::select_thumb())
-		->with('files', $files)
-		->with('files_select', $gallery->files);
+		->with('files', $gallery->files);
 
     }
 

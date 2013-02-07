@@ -8,8 +8,11 @@ class Cms_Setup_Task {
 		
 		$env = (!empty($arguments)) ? ' --env='.$arguments[0] : '';
 
+		//INSTALL SWIFTMAILER BUNDLE
+		$swiftmailer = shell_exec('php artisan bundle:install swiftmailer');
+
 		//COPY CONTROLLERS
-		$controller_path = path('bundle').'cms/controllers/_app_controllers';
+		$controller_path = path('bundle').'cms'.DS.'controllers'.DS.'_app_controllers';
 		$app_controller_path = path('app').'controllers';
 		File::cpdir($controller_path, $app_controller_path, false);
 
@@ -17,7 +20,7 @@ class Cms_Setup_Task {
 		$result = shell_exec('php artisan bundle:publish cms'.$env);
 
 		//COPY THEME ASSETS
-		$asset_path = path('bundle').'cms/views/theme/'.Config::get('cms::settings.theme').'/public';
+		$asset_path = path('bundle').'cms'.DS.'views'.DS.'theme'.DS.Config::get('cms::settings.theme').DS.'public';
 		$public_path = path('public');
 		File::cpdir($asset_path, $public_path, false);
 
@@ -32,7 +35,7 @@ class Cms_Setup_Task {
 			'model' => array('User', 'CmsUser'),
 		);
 
-		$app_file = path('app').'config/auth'.EXT;
+		$app_file = path('app').'config'.DS.'auth'.EXT;
 
 		$config = File::get($app_file);
 
@@ -43,7 +46,7 @@ class Cms_Setup_Task {
 		File::put($app_file, $config);
 
 		//SET DB PREFIX
-		$db_path = path('app').'config/database'.EXT;
+		$db_path = path('app').'config'.DS.'database'.EXT;
 
 		$db_conf = File::get($db_path);
 		$db_conf = str_replace("'prefix'   => '',", "'prefix'   => 'pongo_',", $db_conf);
@@ -51,7 +54,7 @@ class Cms_Setup_Task {
 		File::put($db_path, $db_conf);
 
 		//SET SESSION DRIVER
-		$session_path = path('app').'config/session'.EXT;
+		$session_path = path('app').'config'.DS.'session'.EXT;
 
 		$session_conf = File::get($session_path);
 		$session_conf = str_replace("'driver' => 'cookie',", "'driver' => 'file',", $session_conf);
@@ -59,23 +62,30 @@ class Cms_Setup_Task {
 		File::put($session_path, $session_conf);
 
 		//DISABLE ROUTES AND FILTERS
+
+		$backup_path = path('base').'_backup';
+		mkdir($backup_path);
+
+		//COPY routes.php TO _backup/routes_original.php
 		$routes_file = path('app').'routes'.EXT;
+		rename($routes_file, $backup_path.DS.'routes_original'.EXT);
 
-		$routes = File::get($routes_file);
+		//MOVE /controllers/routes.php TO /application
+		rename($app_controller_path.DS.'routes'.EXT, path('app').'routes'.EXT);
 
-		$routes = str_replace('/*', '', $routes);
-		$routes = str_replace('*/', '', $routes);
-		$routes = str_replace('|', '//|', $routes);
-
-		$routes = str_replace('Route::', '/*Route::', $routes);
-		$routes = str_replace('Event::', '/*Event::', $routes);
-		$routes = str_replace('});', '});*/', $routes);
-
-		File::put($routes_file, $routes);
+		//MOVE start_swiftmailer_bundle.php TO /cms/bundles/swiftmailer
+		$sw_path = path('bundle').'swiftmailer';
+		if(file_exists($sw_path)) {			
+			rename($app_controller_path.DS.'start_swiftmailer_bundle'.EXT, $sw_path.DS.'start'.EXT);
+			echo $swiftmailer;
+		}
 
 		//DELETE HOME CONTROLLER
-		$home_file = path('app').'controllers/home'.EXT;
+		$home_file = path('app').'controllers'.DS.'home'.EXT;
 		if(file_exists($home_file)) unlink($home_file);
+
+		//MOVE NEW bundles.php to /application
+		rename($app_controller_path.DS.'bundles'.EXT, path('app').'bundles'.EXT);
 
 		//INSTALL MIGRATION
 		$result = shell_exec('php artisan migrate:install'.$env);
@@ -84,7 +94,7 @@ class Cms_Setup_Task {
 		$result = shell_exec('php artisan migrate cms'.$env);
 
 		//INSERT DEFAULT DATA
-		$default_data = path('bundle').'cms/default_content';
+		$default_data = path('bundle').'cms'.DS.'default_content';
 		$row_data = File::get($default_data);
 
 		$data = explode("');", $row_data);
@@ -138,18 +148,18 @@ class Cms_Setup_Task {
 
 		//CHECK THEME FOLDER EXISTENCE
 
-		$theme_settings = path('bundle').'cms/views/theme/'.$theme.'/theme'.EXT;
+		$theme_settings = path('bundle').'cms'.DS.'views'.DS.'theme'.DS.$theme.DS.'theme'.EXT;
 
 		if(file_exists($theme_settings)) {
 
 			//SET NEW THEME NAME IN SETTINGS
-			$theme_path = path('bundle').'cms/config/settings'.EXT;
+			$theme_path = path('bundle').'cms'.DS.'config'.DS.'settings'.EXT;
 			$theme_conf = File::get($theme_path);
 			$theme_conf = str_replace("'theme' => '".$current_theme."',", "'theme' => '{$theme}',", $theme_conf);
 			File::put($theme_path, $theme_conf);
 
 			//COPY ASSETS
-			$asset_path = path('bundle').'cms/views/theme/'.$theme.'/public';
+			$asset_path = path('bundle').'cms'.DS.'views'.DS.'theme'.DS.$theme.DS.'public';
 
 			if(file_exists($asset_path)) {
 
@@ -190,7 +200,7 @@ class Cms_Setup_Task {
 				}
 
 				//COPY PUBLIC ASSETTS
-				$asset_path = path('bundle').'cms/views/theme/'.$theme.'/public';
+				$asset_path = path('bundle').'cms'.DS.'views'.DS.'theme'.DS.$theme.DS.'public';
 				File::cpdir($asset_path, $public_path, false);
 
 				echo 'Theme ['.$theme.'] ready!'.PHP_EOL;
@@ -219,15 +229,15 @@ class Cms_Setup_Task {
 			
 			foreach ($objects as $object) {
 
-				if ($object != "." && $object != "..") {
+				if ($object != '.' && $object != '..') {
 
-					if (filetype($dir."/".$object) == "dir") {
+					if (filetype($dir.DS.$object) == 'dir') {
 
-						self::rrmdir($dir."/".$object);
+						self::rrmdir($dir.DS.$object);
 
 					} else {
 
-						unlink($dir."/".$object);
+						unlink($dir.DS.$object);
 
 					}
 				}

@@ -20,7 +20,7 @@ $.site = {
 
 	nivoSlider:
 	function() {
-		$('#slider').nivoSlider();
+		$('.banner').nivoSlider();
 	},
 
 	scrollTop:

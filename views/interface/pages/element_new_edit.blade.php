@@ -17,10 +17,10 @@
 				
 				<ul class="nav nav-tabs">
 					<li class="active"><a href="#element" data-toggle="tab">{{LL('cms::form.element_settings', CMSLANG)}}</a></li>
-					@if(IS('cms::settings.wysiwyg', 'ckeditor'))
+					@if(EDITOR == 'ckeditor')
 					<li{{DISABLED($element_id)}}><a href="#ckeditor" data-toggle="tab">{{LL('cms::form.element_content', CMSLANG)}}</a></li>
 					@endif
-					@if(IS('cms::settings.wysiwyg', 'markitup'))
+					@if(EDITOR == 'markitup')
 					<li{{DISABLED($element_id)}}><a href="#markit" data-toggle="tab">{{LL('cms::form.element_content', CMSLANG)}}</a></li>
 					@endif
 					<li{{DISABLED($element_id)}}><a href="#media" data-toggle="tab">{{LL('cms::button.page_media', CMSLANG)}}</a></li>
@@ -39,7 +39,7 @@
 							{{Form::hidden('page_id', $page_id, array('class' => 'page_id')) . "\n"}}
 							{{Form::hidden('element_id', $element_id, array('class' => 'element_id')) . "\n"}}
 							<fieldset>
-								<legend>{{LL('cms::form.element_settings_legend', CMSLANG)}}</legend>
+								<legend>{{$page_name}} / {{LL('cms::form.element_settings_legend', CMSLANG)}}</legend>
 
 								<div class="row">
 
@@ -132,14 +132,14 @@
 					</div>
 
 					<!-- CKEDITOR FORM TAB -->
-					@if(IS('cms::settings.wysiwyg', 'ckeditor'))
+					@if(EDITOR == 'ckeditor')
 					<div class="tab-pane" id="ckeditor">
 						
 						{{Form::open(action('cms::ajax_page@save_element_text'), 'POST', array('class' => 'form-vertical', 'id' => 'form_ckeditor')) . "\n"}}
 							{{Form::hidden('page_id', $page_id, array('class' => 'page_id')) . "\n"}}
 							{{Form::hidden('element_id', $element_id, array('class' => 'element_id')) . "\n"}}
 							<fieldset>
-								<legend>{{LL('cms::form.element_ckeditor_legend', CMSLANG)}}</legend>
+								<legend>{{$page_name}} / {{$element_label}} / {{LL('cms::form.element_ckeditor_legend', CMSLANG)}}</legend>
 								<div class="control-group">
 									{{Form::label('page_lang', LL('cms::form.page_lang', CMSLANG), array('class' => 'control-label')) . "\n"}}
 									<div class="controls">
@@ -184,14 +184,14 @@
 					@endif
 
 					<!-- MARKITUP FORM TAB -->
-					@if(IS('cms::settings.wysiwyg', 'markitup'))
+					@if(EDITOR == 'markitup')
 					<div class="tab-pane" id="markit">
 						
 						{{Form::open(action('cms::ajax_page@save_element_text'), 'POST', array('class' => 'form-vertical', 'id' => 'form_markitup')) . "\n"}}
 							{{Form::hidden('page_id', $page_id, array('class' => 'page_id')) . "\n"}}
 							{{Form::hidden('element_id', $element_id, array('class' => 'element_id')) . "\n"}}
 							<fieldset>
-								<legend>{{LL('cms::form.element_markitup_legend', CMSLANG)}}</legend>
+								<legend>{{$page_name}} / {{$element_label}} / {{LL('cms::form.element_markitup_legend', CMSLANG)}}</legend>
 								<div class="control-group">
 									{{Form::label('page_lang', LL('cms::form.page_lang', CMSLANG), array('class' => 'control-label')) . "\n"}}
 									<div class="controls">
@@ -238,7 +238,7 @@
 					<!-- MEDIA FORM -->
 					<div class="tab-pane" id="media">
 
-						<legend>{{LL('cms::form.page_legend_media', CMSLANG)}}</legend>
+						<legend>{{$page_name}} / {{LL('cms::form.page_legend_media', CMSLANG)}}</legend>
 
 						<div>
 							<div class="well">
@@ -297,13 +297,13 @@
 					<!-- ORDER TAB -->
 					<div class="tab-pane" id="order">
 						
-						<legend>{{LL('cms::form.element_legend_stack', CMSLANG)}}</legend>
+						<legend>{{$page_name}} / {{LL('cms::form.element_legend_stack', CMSLANG)}}</legend>
 
 						<ul class="sortable">
 						@if(!$role_fail)
 							@forelse ($elements as $element)
 								@if($element->zone == $element_zone_selected)
-									<li id="{{$page_id}}_{{$element->id}}">
+									<li id="{{$page_id}}_{{$element->id}}" data-zone="{{$element->zone}}">
 										<a href="#" class="btn">
 											<i class="icon-resize-vertical"></i>
 											{{$element->label}}

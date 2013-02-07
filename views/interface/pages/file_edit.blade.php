@@ -32,6 +32,15 @@
 					<li class="active"><a href="#text" data-toggle="tab">{{LL('cms::form.texts', CMSLANG)}}</a></li>
 					<li{{DISABLED($file_id)}}><a href="#available" data-toggle="tab">{{LL('cms::form.available', CMSLANG)}}</a></li>
 					<li{{DISABLED($file_id)}}><a href="#filename" data-toggle="tab">{{LL('cms::form.filename', CMSLANG)}}</a></li>
+					@if (MEDIA_TYPE($file_ext) == 'img')
+					<li{{DISABLED($file_id)}}><a href="#banner" data-toggle="tab">{{LL('cms::menu.banners', CMSLANG)}}</a></li>
+					@endif
+					@if (MEDIA_TYPE($file_ext) == 'img')
+					<li{{DISABLED($file_id)}}><a href="#gallery" data-toggle="tab">{{LL('cms::menu.galleries', CMSLANG)}}</a></li>
+					@endif
+					@if (MEDIA_TYPE($file_ext) !== 'img')
+					<li{{DISABLED($file_id)}}><a href="#download" data-toggle="tab">{{LL('cms::menu.downloads', CMSLANG)}}</a></li>
+					@endif
 				</ul>
 
 			</div>
@@ -177,7 +186,7 @@
 													<div class="controls">
 														<label class="checkbox">
 															<?php 
-																if(!empty($page->files)) {															
+																if(!empty($page->files)) {
 																	foreach($page->files as $file) {
 																		$valid = ($file->pivot->cmsfile_id == $file_id) ? true : false;
 																		if($file->pivot->cmsfile_id == $file_id) break;
@@ -237,6 +246,196 @@
 
 								<div class="form-actions">
 									<a href="#" class="btn btn-success save_form" rel="form_filename">
+										<i class="icon-ok icon-white"></i>
+										{{LL('cms::button.save_continue', CMSLANG)}}
+									</a>
+									<a href="{{action('cms::file')}}" class="btn">
+										<i class="icon-remove"></i>
+										{{LL('cms::button.page_exit', CMSLANG)}}
+									</a>
+								</div>
+
+							</fieldset>
+						{{Form::close()}}
+					</div>
+
+					<!-- BANNER FORM TAB -->
+					<div class="tab-pane" id="banner">
+						{{Form::open(action('cms::ajax_banner@add_banner'), 'POST', array('class' => 'form-vertical', 'id' => 'form_banner')) . "\n"}}
+						{{Form::hidden('file_id', $file_id, array('class' => 'file_id')) . "\n"}}
+							<fieldset>
+
+								<legend>{{LL('cms::form.file_add_banner', CMSLANG)}}</legend>
+
+
+									<ul class="unstyled page-list">
+										
+										<?php $c = 0; ?>
+
+										@forelse($banners as $banner)
+
+											<?php if($c == 0) $lang = $banner->lang; ?>
+											<?php
+												if($banner->lang != $lang) {
+											 		$lang = $banner->lang;
+											 		$c = 0;
+											 	}
+											?>
+
+											@if($c == 0)										
+											<li class="divider">
+												<h4>{{CONF('cms::settings.langs', $lang)}}</h4>
+											</li>
+											@endif
+
+
+											<li>
+												
+												<div class="control-group">
+													<div class="controls">
+														<label class="checkbox">
+															<?php
+																if(!empty($banner->files)) {
+																	foreach($banner->files as $file) {
+																		$valid = ($file->pivot->cmsfile_id == $file_id) ? true : false;
+																		if($file->pivot->cmsfile_id == $file_id) break;
+																	}
+																} else {
+																	$valid = false;
+																}															
+															?>
+															{{Form::checkbox('banner_id[]', $banner->id, $valid)}}
+															{{$banner->name}}
+															{{HTML::link_to_action('cms::banner@edit', LL('cms::button.edit', CMSLANG), array($banner->id), array('class' => 'btn btn-mini pull-right'))}}
+														</label>
+													</div>
+												</div>
+
+											</li>
+											
+											<?php $c++;	?>
+
+										@empty
+											<li>{{LL('cms::alert.list_empty', CMSLANG)}}</li>
+										@endforelse
+									</ul>
+
+								<div class="form-actions">
+									<a href="#" class="btn btn-success save_form" rel="form_banner">
+										<i class="icon-ok icon-white"></i>
+										{{LL('cms::button.save_continue', CMSLANG)}}
+									</a>
+									<a href="{{action('cms::file')}}" class="btn">
+										<i class="icon-remove"></i>
+										{{LL('cms::button.page_exit', CMSLANG)}}
+									</a>
+								</div>
+
+							</fieldset>
+						{{Form::close()}}
+					</div>
+
+					<!-- GALLERY FORM TAB -->
+					<div class="tab-pane" id="gallery">
+						{{Form::open(action('cms::ajax_gallery@add_gallery'), 'POST', array('class' => 'form-vertical', 'id' => 'form_gallery')) . "\n"}}
+						{{Form::hidden('file_id', $file_id, array('class' => 'file_id')) . "\n"}}
+							<fieldset>
+
+								<legend>{{LL('cms::form.file_add_gallery', CMSLANG)}}</legend>
+
+
+									<ul class="unstyled page-list">
+
+										@forelse($galleries as $gallery)
+
+											<li>
+												
+												<div class="control-group">
+													<div class="controls">
+														<label class="checkbox">
+															<?php
+																if(!empty($gallery->files)) {
+																	foreach($gallery->files as $file) {
+																		$valid = ($file->pivot->cmsfile_id == $file_id) ? true : false;
+																		if($file->pivot->cmsfile_id == $file_id) break;
+																	}
+																} else {
+																	$valid = false;
+																}															
+															?>
+															{{Form::checkbox('gallery_id[]', $gallery->id, $valid)}}
+															{{$gallery->name}}
+															{{HTML::link_to_action('cms::gallery@edit', LL('cms::button.edit', CMSLANG), array($gallery->id), array('class' => 'btn btn-mini pull-right'))}}
+														</label>
+													</div>
+												</div>
+
+											</li>
+
+										@empty
+											<li>{{LL('cms::alert.list_empty', CMSLANG)}}</li>
+										@endforelse
+									</ul>
+
+								<div class="form-actions">
+									<a href="#" class="btn btn-success save_form" rel="form_gallery">
+										<i class="icon-ok icon-white"></i>
+										{{LL('cms::button.save_continue', CMSLANG)}}
+									</a>
+									<a href="{{action('cms::file')}}" class="btn">
+										<i class="icon-remove"></i>
+										{{LL('cms::button.page_exit', CMSLANG)}}
+									</a>
+								</div>
+
+							</fieldset>
+						{{Form::close()}}
+					</div>
+
+					<!-- DOWNLOAD FORM TAB -->
+					<div class="tab-pane" id="download">
+						{{Form::open(action('cms::ajax_download@add_download'), 'POST', array('class' => 'form-vertical', 'id' => 'form_download')) . "\n"}}
+						{{Form::hidden('file_id', $file_id, array('class' => 'file_id')) . "\n"}}
+							<fieldset>
+
+								<legend>{{LL('cms::form.file_add_download', CMSLANG)}}</legend>
+
+
+									<ul class="unstyled page-list">
+
+										@forelse($downloads as $download)
+
+											<li>
+												
+												<div class="control-group">
+													<div class="controls">
+														<label class="checkbox">
+															<?php
+																if(!empty($download->files)) {
+																	foreach($download->files as $file) {
+																		$valid = ($file->pivot->cmsfile_id == $file_id) ? true : false;
+																		if($file->pivot->cmsfile_id == $file_id) break;
+																	}
+																} else {
+																	$valid = false;
+																}															
+															?>
+															{{Form::checkbox('download_id[]', $download->id, $valid)}}
+															{{$download->name}}
+															{{HTML::link_to_action('cms::download@edit', LL('cms::button.edit', CMSLANG), array($download->id), array('class' => 'btn btn-mini pull-right'))}}
+														</label>
+													</div>
+												</div>
+
+											</li>
+
+										@empty
+											<li>{{LL('cms::alert.list_empty', CMSLANG)}}</li>
+										@endforelse
+									</ul>
+
+								<div class="form-actions">
+									<a href="#" class="btn btn-success save_form" rel="form_download">
 										<i class="icon-ok icon-white"></i>
 										{{LL('cms::button.save_continue', CMSLANG)}}
 									</a>

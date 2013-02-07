@@ -15,7 +15,8 @@ class CmsElement extends Eloquent {
 
 	public function pages()
 	{
-		return $this->has_many_and_belongs_to('CmsPage', 'elements_pages')
+		return $this->has_many_and_belongs_to('CmsPage', 'elements_pages')		
+		->order_by('zone', 'asc')
 		->order_by('elements_pages.order_id', 'asc');
 	}
 

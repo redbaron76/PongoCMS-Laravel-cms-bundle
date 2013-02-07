@@ -68,6 +68,19 @@ function IS($config, $key)
 }
 
 /**
+ * Check object is_null and set alternatives
+ *
+ * @param  obj
+ * @param  obj property
+ * @param  string  $alt
+ * @return bool
+ */
+function NOTNULL($obj, $prop, $alt)
+{
+	return (!is_null($obj) and !empty($obj->$prop)) ? $obj->$prop : '-';
+}
+
+/**
  * Set is_valid true or false depending on /preview reequest
  *
  * @return bool
@@ -120,9 +133,10 @@ function MEDIA_TYPE($ext)
  *
  * @param  string  $filename
  * @param  string  $suffix
+ * @param  bool    $with_path
  * @return string
  */
-function MEDIA_NAME($filename, $suffix)
+function MEDIA_NAME($filename, $suffix, $with_path = false)
 {
 	
 	if(empty($suffix)) return $filename;
@@ -134,6 +148,8 @@ function MEDIA_NAME($filename, $suffix)
 	if(substr_count($tmp_filename, '/img/') > 0) {
 	$tmp_filename = str_replace('/img/', '/img/'.Config::get('cms::settings.thumb_path'), $tmp_filename);
 	}
+
+	if($with_path) return URL::to(Config::get('cms::settings.data').'img/'.Config::get('cms::settings.thumb_path').$tmp_filename);
 
 	return $tmp_filename;
 
@@ -330,7 +346,7 @@ function TEXT2IMG($text, $w = 320, $h = 200, $key = 0)
 			$file = str_replace($val['suffix'], '', $file);
 		}				
 
-		$url = URL::to_action('cms::image@thumb', array($w, $h, $file));
+		$url = URL::to_action('cms::image@thumb', array($w, $h, 'no', $file));
 
 		return HTML::image($url, '', array('width' => $w, 'height' => $h));
 
@@ -338,11 +354,76 @@ function TEXT2IMG($text, $w = 320, $h = 200, $key = 0)
 
 		$thumbs = Config::get('cms::theme.thumb');
 
-		$url = URL::to_action('cms::image@thumb', array($w, $h, 'img_default.jpg'));
+		$url = URL::to_action('cms::image@thumb', array($w, $h, 'no', 'img_default.jpg'));
 
 		return HTML::image($url, '', array('width' => $w, 'height' => $h));
 
 	}
+}
+
+/**
+ * Format Prettify text
+ *
+ * @param  string
+ * @return string
+ */
+function PRETEXT($text)
+{
+	if((strpos($text, '<pre') !== false) and (strpos($text, 'prettyprint') !== false)) {
+
+		$content_processed = preg_replace_callback(
+			'#\<pre class=["\']prettyprint[\'"]\>(.+?)\<\/pre\>#s',
+			create_function(
+				'$matches',
+				'return "<pre class=\'prettyprint\'>".ENCODETEXT($matches[1])."</pre>";'
+			), $text
+		);
+
+		return $content_processed;
+
+	}
+
+	return $text;
+}
+
+/**
+ * Encode Prettify text
+ *
+ * @param  string
+ * @return string
+ */
+function ENCODETEXT($text)
+{
+	if(!empty($text)) {
+
+		$text = htmlentities($text);
+		$text = str_replace(' ', '&nbsp;', $text);
+
+		return $text;
+
+	}
+
+	return $text;
+}
+
+/**
+ * Decode Prettify text
+ *
+ * @param  string
+ * @return string
+ */
+function DECODETEXT($text)
+{
+	if(!empty($text)) {
+
+		$text = html_entity_decode($text);
+		$text = str_replace('&nbsp;', ' ', $text);
+
+		return $text;
+
+	}	
+
+	return $text;
 }
 
 /**
@@ -436,7 +517,7 @@ function LOAD_VIEW($tpl)
 	$tpl_view = 'cms::theme.'.THEME.'.partials.markers.'.$tpl;
 	$default_view = 'cms::theme.default.partials.markers.'.$tpl;
 
-	return  View::exists($tpl_view) ? View::make($tpl_view) : View::make($default_view); 
+	return View::exists($tpl_view) ? View::make($tpl_view) : View::make($default_view); 
 
 }
 
@@ -493,7 +574,7 @@ function date2Db($date)
 		
 		$mysql_date = $d->format('Y-m-d');
 
-		return $mysql_date;
+		return $mysql_date . ' 00:00:00';
 	}
 
 	return '0000-00-00';

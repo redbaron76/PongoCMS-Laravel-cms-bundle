@@ -76,6 +76,31 @@ $.cms = {
 
 	//PAGE
 
+	togglePageList:
+	function() {
+
+		var $open = $('ol.list.open');
+
+		$open.parents('ol').addClass('open');
+		$open.parents('li[rel=0]').find('button.toggle').html('-');
+
+		$('button.toggle').click(function() {
+			
+			var el = $(this).attr('rel');
+			var $list = $('ol[rel='+el+']');
+
+			if ($list.is(':hidden')) {
+				$list.show();
+				$(this).html('-');     
+			} else {
+				$list.hide();
+				$(this).html('+');     
+			}
+
+			return false;
+		});
+	},
+
 	parseLayout:
 	function() {		
 		// LAYOUT PARSER
@@ -106,6 +131,7 @@ $.cms = {
 	function() {
 
 		$.cms.highlightLayout();
+		$.cms.parseLayout();
 
 	},
 
@@ -135,7 +161,7 @@ $.cms = {
 			}
 		});
 
-		$.cms.parseLayout();		
+		$.cms.parseLayout();
 
 	},
 
@@ -215,6 +241,13 @@ $.cms = {
 		$('.elastic').elastic();
 	},
 
+	checkAllClone:
+	function() {
+		$('#checkall_clone').click(function () {
+			$('.to_clone').attr('checked', this.checked);
+		});
+	},
+
 	//IAS paginator
 	paginator:
 	function(where, fancy) {
@@ -241,7 +274,7 @@ $.cms = {
 		var $link = $('.navigation a');
 		var $span = $('.navigation span.disabled');
 
-		$link.addClass('btn');
+		$link.addClass('btn btn-mini');
 		$span.css('visibility', 'hidden');
 		
 		$link.live('click', function(e) {			
@@ -250,7 +283,7 @@ $.cms = {
 			$url = $(this).attr('href');
 			$('.loading').append($('<div>').load($url + ' .listing', function() {
 				$.cms.fancyBox();
-				$('.navigation a').addClass('btn');
+				$('.navigation a').addClass('btn btn-mini');
 				$('.navigation span.disabled').css('visibility', 'hidden');
 				$(btn).parents('.navigation').remove();
 				if(where) $.cms.popOver(where);
@@ -312,7 +345,7 @@ $.cms = {
 				//Set page_id for extra and enable upload
 				if(data.pageid) $('.page_id').val(data.pageid);
 
-				if(data.full_slug) $('a.preview').attr('href', data.full_slug + '/preview');
+				if(data.full_slug) $('a.preview').attr('href', data.full_slug + PREVIEW);
 
 				// Template inject
 				if(data.inject && data.template) {
@@ -320,8 +353,17 @@ $.cms = {
 					// Clear content
 					if(data.detach) $(data.inject).children().detach();
 
-					// Append content
-					$(data.inject).append(data.template);
+					// Append content if not already present
+					if($('#'+data.pageid+'_'+data.id).length === 0) {
+
+						// Remove <li> with no id
+						$(data.inject).find('li:not([id])').remove();
+
+						// Remove <li> not in ZONE
+						if(data.zone) $(data.inject).find('li:not([data-zone='+data.zone+'])').remove();
+
+						$(data.inject).append(data.template);
+					}					
 
 					//Renew tooltip
 					$.cms.toolTip();
@@ -496,6 +538,15 @@ $.cms = {
 	},
 
 	//SORTABLE
+
+	sortableListPage:
+	function() {
+
+		$('.list').sortable({'items':'li.sortable','update' : function () {
+			$.post(BASE+'/cms/ajax/page/list/order',$(this).serializeTree('id', 'order'));		
+		}});
+
+	},
 
 	sortableListSubpage:
 	function() {
@@ -847,30 +898,6 @@ $.cms = {
 	bannerDatePicker:
 	function() {
 		$('.date_off').datepicker();
-	},
-
-	bannerPaginator:
-	function() {
-		
-		var $link = $('.navigation a');
-		var $span = $('.navigation span.disabled');
-
-		$link.addClass('btn');
-		$span.css('visibility', 'hidden');
-		
-		$link.live('click', function(e) {			
-			e.preventDefault();
-			var btn = this;
-			$url = $(this).attr('href');
-			$('.loading').append($('<div>').load($url + ' .listing', function() {
-				$.cms.fancyBox();
-				$.cms.bannerDatePicker();
-				$('.navigation a').addClass('btn');
-				$('.navigation span.disabled').css('visibility', 'hidden');
-				$(btn).parents('.navigation').remove();
-			})).append('</form>');
-			return false;
-		});
 	},
 
 	//DASHBOARD

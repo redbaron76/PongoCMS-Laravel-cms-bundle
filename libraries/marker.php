@@ -1,6 +1,6 @@
 <?php
 
-class Marker {
+class Marker extends CustomMarker {
 
 	/**
     * Substitute tag in text with specific HTML
@@ -23,6 +23,8 @@ class Marker {
 
 			//STRING FOUND
 			$found = $matches[2][$key];
+
+			// CLEAN LAST COMMA
 			if(substr($found, -1) == ',') $found = substr($found, 0, -1);
 
 			//CLEAN HTML
@@ -46,7 +48,7 @@ class Marker {
 			}
 
 			//SKIP ! EXECUTION
-			if(substr($method, 0, 1) == '!') $tmp_text = str_replace('$!', '$', $tmp_text);
+			if(substr($method, 0, 1) == '!') $tmp_text = str_replace('$!', '&#36;', $tmp_text);
 
 		}
 
@@ -122,7 +124,8 @@ class Marker {
 	*	"type":"<slider name>"	=> (default: none | available: nivo)
 	*	"theme":"<theme>"		=> (default: default)
 	*	"caption":"false"		=> (default: false)
-	*	"wm":"true | false",	=> OPTIONAL
+	*	"w":"",
+	*	"h":"",
 	*	"class":"<class>",		=> OPTIONAL
 	*	"tpl":"<tpl_name>"		=> OPTIONAL (in /partials/markers)
 	* }]]
@@ -153,8 +156,11 @@ class Marker {
 		$_caption = false;
 		if(isset($caption) and !empty($caption) and $caption == 'true') $_caption = true;
 
-		$_wm = 'no';
-		if(isset($wm) and !empty($wm) and $wm == 'true') $_wm = 'wm';
+		$_w = null;
+		if(isset($w) and !empty($w)) $_w = $w;
+
+		$_h = null;
+		if(isset($h) and !empty($h)) $_h = $h;
 
 		$_class = 'banner';
 		if(isset($class) and !empty($class)) $_class = $class;
@@ -241,7 +247,8 @@ class Marker {
 		$view['theme'] 		= $_theme;
 		$view['attr'] 		= $attr;
 		$view['caption'] 	= $_caption;
-		$view['wm']			= ($_wm == 'wm') ? true : false;
+		$view['w']			= $_w;
+		$view['h']			= $_h;
 		$view['options'] 	= HTML::attributes($options);
 
 		return $view;
@@ -324,6 +331,7 @@ class Marker {
 						->order_by('datetime_on', $_order)
 						->take($_n)
 						->get();
+						
 			}
 
 			if(!empty($list)) {
@@ -640,7 +648,7 @@ class Marker {
 		$_id = null;
 		if(isset($id) and !empty($id)) $_id = $id;
 
-		$_class = 'download  btn btn-primary';
+		$_class = 'download';
 		if(isset($class) and !empty($class)) $_class = $class;
 
 		$_tpl = 'download';
@@ -718,10 +726,58 @@ class Marker {
 
 
 	/**
+    * ELEMENT Marker - Replicates element content
+    *
+	* [$CONTENT[{
+	*	"el":"<elem's id>"
+	* }]]
+    *
+    * @param  array
+    * @return string
+    */
+	public static function ELEMENT($vars = array())
+	{
+
+		//Get variables from array $vars
+		if( ! empty($vars)) extract($vars);
+
+		//Bind variables
+
+		$_el = '';
+		if(isset($el) and !empty($el)) $_el = $el;
+
+		if(!empty($_el)) {
+
+			//CACHE DATA
+			if(CACHE) {
+
+				$query = Cache::remember('page_element_'.$_el, function() {
+
+					return $menu = CmsElement::find($_el);
+
+				}, 1440);
+
+			} else {
+
+				$query = CmsElement::find($_el);
+
+			}
+
+			$txt = (!empty($query)) ? $query->text : '';
+
+			return (strlen($txt)>0) ? self::decode($txt, array()) : $txt;
+
+		}
+
+	}
+
+
+	/**
     * GALLERY Marker - Shows an image gallery saved in Service / Gallery
     *
 	* [$GALLERY[{
 	*	"name":"<gallery name>",
+	*	"wm":"true | false",	=> OPTIONAL
 	*	"class":"<class>",		=> OPTIONAL
 	*	"tpl":"<tpl_name>"		=> OPTIONAL (in /partials/markers)
 	* }]]
@@ -740,7 +796,10 @@ class Marker {
 		$_name = '';
 		if(isset($name) and !empty($name)) $_name = $name;
 
-		$_class = 'gallery clearfix';
+		$_wm = 'no';
+		if(isset($wm) and !empty($wm) and $wm == 'true') $_wm = 'wm';
+
+		$_class = 'inline';
 		if(isset($class) and !empty($class)) $_class = $class;
 
 		$_tpl = 'gallery';
@@ -787,6 +846,7 @@ class Marker {
 		$view = LOAD_VIEW($_tpl);
 		$view['images'] 	= $images;
 		$view['thumb']		= $thumb;
+		$view['wm']			= ($_wm == 'wm') ? 'true' : 'no';
 		$view['options'] 	= HTML::attributes($options);
 
 		return $view;
@@ -800,8 +860,11 @@ class Marker {
 	*
 	* [$IMAGE[{
 	*	"file":"<filename>",
+	*	"type":"<type of crop>"	=> (default: resize | available: resize || crop)
 	*	"w":"100",
 	*	"h":"100",
+	*	"x":"0",				=> OPTIONAL (if type crop, crop start x)
+	*	"y":"0",				=> OPTIONAL (if type crop, crop start y)
 	*	"wm":"true | false",	=> OPTIONAL
 	*	"id":"<id>",			=> OPTIONAL
 	*	"class":"<class>"		=> OPTIONAL
@@ -821,11 +884,20 @@ class Marker {
 		$_file = '';
 		if(isset($file) and !empty($file)) $_file = $file;
 
+		$_type = 'resize';
+		if(isset($type) and !empty($type)) $_type = $type;
+
 		$_w = 100;
 		if(isset($w) and !empty($w)) $_w = $w;
 
 		$_h = 100;
 		if(isset($h) and !empty($h)) $_h = $h;
+
+		$_x = 0;
+		if(isset($x) and !empty($x)) $_x = $x;
+
+		$_y = 0;
+		if(isset($y) and !empty($y)) $_y = $y;
 
 		$_wm = 'no';
 		if(isset($wm) and !empty($wm) and $wm == 'true') $_wm = 'wm';
@@ -857,15 +929,29 @@ class Marker {
 						}))->where_name($_file)->first();
 			}
 
-			//Get img dimension
-			if(!empty($file)) {
+			if($_type == 'resize') {
 
-				$dim = MEDIA_DIM($file->w, $file->h, $_w, $_h);
+				//Get img dimension
+				if(!empty($file)) {
 
-			} else {
+					$dim = MEDIA_DIM($file->w, $file->h, $_w, $_h);
 
-				$dim['w'] = '';
-				$dim['h'] = '';
+				} else {
+
+					$dim['w'] = '';
+					$dim['h'] = '';
+
+				}
+
+				$url = URL::to_action('cms::image@resize', array($dim['w'], $dim['h'], $_wm, $_file));
+
+			}
+
+			if($_type == 'crop') {
+
+				$_filename = $file->name;
+				$dim = array('w' => $_w, 'h' => $_h);
+				$url = URL::to_action('cms::image@crop', array($_x, $_y, $_w, $_h, $_wm, $_filename));
 
 			}
 
@@ -890,10 +976,6 @@ class Marker {
 			$dim['h'] = '';
 
 		}
-
-		//Create URL path
-
-		$url = URL::to_action('cms::image@resize', array($dim['w'], $dim['h'], $_wm, $_file));
 
 		return HTML::image($url, $alt, array('width' => $dim['w'], 'height' => $dim['h'], 'id' => $_id, 'class' => $_class));
 
@@ -1054,9 +1136,50 @@ class Marker {
 		);
 
 		$view = LOAD_VIEW($_tpl);
-		$view['options'] = HTML::attributes($options);
+		$view['options'] = $options;
 
 		return $view;
+
+	}
+
+
+	/**
+    * LOGOUT Marker - Shows a logout button form
+    * Based on Twitter Bootstrap bootstrap.js dropdown
+    *
+	* [$LOGOUT[{
+	*	"id":"<id>"								=> OPTIONAL (form ID - default: logout)
+	*	"class":"<class>",						=> OPTIONAL (default: logout)
+	*	"tpl":"<tpl_name>"						=> OPTIONAL (in /partials/markers)
+	* }]]
+    *
+    * @param  array
+    * @return string
+    */
+	public static function LOGOUT($vars = array())
+	{
+
+		//Get variables from array $vars
+		if( ! empty($vars)) extract($vars);
+
+		$_id = 'logout';
+		if(isset($id) and !empty($id)) $_id = $id;
+
+		$_class = 'btn-group';
+		if(isset($class) and !empty($class)) $_class = $class;
+
+		$_tpl = 'logout';
+		if(isset($tpl) and !empty($tpl)) $_tpl = $tpl;
+
+		$options = array(
+			'id' => $_id,
+			'class' => $_class,
+		);
+
+		$view = LOAD_VIEW($_tpl);
+		$view['options'] = HTML::attributes($options);
+
+		if(Auth::check()) return $view;
 
 	}
 
@@ -1236,7 +1359,6 @@ class Marker {
 				if(!empty($menu->pages)) {
 
 					$pages = $menu->pages;
-					// $nested = (bool) $m->is_nested;
 					$nested = (bool) $nested;
 
 				} else {
@@ -1750,7 +1872,15 @@ class Marker {
 	public static function TEST($vars = array())
 	{
 
-		$view = View::make('cms::theme.'.THEME.'.partials.markers.test');
+		//Get variables from array $vars
+		if( ! empty($vars)) extract($vars);
+
+		//Bind variables
+
+		$_tpl = 'test';
+		if(isset($tpl) and !empty($tpl)) $_tpl = $tpl;
+
+		$view = View::make('cms::theme.'.THEME.'.partials.markers.'.$_tpl);
 
 		return $view;
 
@@ -1762,11 +1892,14 @@ class Marker {
 	*
 	* [$THUMB[{
 	*	"file":"<filename>",
-	*	"thumb":"thumb",
+	*	"type":"<type of crop>"			=> (default: resize | available: resize || crop)
+	*	"thumb":"<type of thumb>",		=> (default: thumb | available as mapped in theme.php thumb array)
 	*	"path":"img_path | !img_path"	=> (point to full image path or $caption || $alt slug - default: img_path)
 	*	"caption":"false"				=> (default: false)
 	*	"w":"100",						=> OPTIONAL (overrides thumb)
 	*	"h":"100",						=> OPTIONAL (overrides thumb)
+	*	"x":"0",						=> OPTIONAL (if type crop, crop start x)
+	*	"y":"0",						=> OPTIONAL (if type crop, crop start y)
 	*	"wm":"true | false",			=> OPTIONAL
 	*	"id":"<id>",					=> OPTIONAL (id of <a>)
 	*	"class":"<class>",				=> OPTIONAL
@@ -1787,6 +1920,9 @@ class Marker {
 		$_file = '';
 		if(isset($file) and !empty($file)) $_file = $file;
 
+		$_type = 'resize';
+		if(isset($type) and !empty($type)) $_type = $type;
+
 		$_thumb = 'thumb';
 		if(isset($thumb) and !empty($thumb)) $_thumb = $thumb;
 
@@ -1801,6 +1937,12 @@ class Marker {
 
 		$_h = '';
 		if(isset($h) and !empty($h)) $_h = $h;
+
+		$_x = 0;
+		if(isset($x) and !empty($x)) $_x = $x;
+
+		$_y = 0;
+		if(isset($y) and !empty($y)) $_y = $y;
 
 		$_wm = 'no';
 		if(isset($wm) and !empty($wm) and $wm == 'true') $_wm = 'wm';
@@ -1836,7 +1978,7 @@ class Marker {
 			}
 
 			//Get img dimension
-			if(!empty($file)) {
+			if(!empty($file) and !empty($_type)) {
 
 				if($_path == 'img_path') {
 
@@ -1847,19 +1989,34 @@ class Marker {
 
 				}
 
-				if(empty($_w) and empty($_h)) {
+				if($_type == 'resize') {
 
-					$_filename = MEDIA_NAME($_file, Config::get('cms::theme.thumb.'.$_thumb.'.suffix'));
-					$dim['w'] = Config::get('cms::theme.thumb.'.$_thumb.'.width');
-					$dim['h'] = Config::get('cms::theme.thumb.'.$_thumb.'.height');
-					$url = MEDIA_NAME($file->path, Config::get('cms::theme.thumb.'.$_thumb.'.suffix'));
+					// GET W OR H
+					if(!empty($_w) or !empty($_h)) {
 
-				} else {
+						$_filename = $file->name;
+						$dim = MEDIA_DIM($file->w, $file->h, $_w, $_h);
+						$url = URL::to_action('cms::image@resize', array($dim['w'], $dim['h'], $_wm, $_filename));
+
+					// GET THUMB, DEFAULT THUMB IF NONE
+					} else {
+
+						$_filename = MEDIA_NAME($_file, Config::get('cms::theme.thumb.'.$_thumb.'.suffix'));
+						$dim['w'] = Config::get('cms::theme.thumb.'.$_thumb.'.width');
+						$dim['h'] = Config::get('cms::theme.thumb.'.$_thumb.'.height');
+						$url = MEDIA_NAME($file->path, Config::get('cms::theme.thumb.'.$_thumb.'.suffix'));
+
+					}
+
+				}
+
+				if($_type == 'crop') {
 
 					$_filename = $file->name;
-					$dim = MEDIA_DIM($file->w, $file->h, $_w, $_h);
-					$url = URL::to_action('cms::image@resize', array($_w, $_h, $_wm, $_filename));
-				}
+					$dim = array('w' => $_w, 'h' => $_h);
+					$url = URL::to_action('cms::image@crop', array($_x, $_y, $_w, $_h, $_wm, $_filename));
+
+				}				
 
 				$full_path = $file->path;
 
@@ -1901,10 +2058,11 @@ class Marker {
 
 		}
 
-		$img = HTML::image($url, $alt, array('width' => $dim['w'], 'height' => $dim['h'], 'id' => $_id, 'class' => $_class));
+		$img = HTML::image($url, $alt, array('id' => $_id, 'class' => $_class));
 
 		$options = array(
 			'id' => $_id,
+			'class' => $_class,
 			'title' => $title
 		);
 
@@ -1914,7 +2072,7 @@ class Marker {
 
 		} else {
 
-			$full_path = SLUG_FULL . DS . Str::slug(($alt != '') ? $alt : $caption);
+			$full_path = SLUG_FULL . '/' . Str::slug(($alt != '') ? $alt : $caption);
 
 		}
 

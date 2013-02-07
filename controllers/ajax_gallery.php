@@ -14,7 +14,7 @@ class Cms_Ajax_Gallery_Controller extends Cms_Base_Controller {
 	{
 		$auth = Auth::check();
 
-		if($auth) {
+		if($auth and is_numeric(AUTHORID)) {
 
 			$input = Input::get();
 
@@ -69,7 +69,7 @@ class Cms_Ajax_Gallery_Controller extends Cms_Base_Controller {
 
 						if(empty($check)) {
 
-							$gallery->files()->attach($fid, array('order_id' => 1000000));
+							$gallery->files()->attach($fid, array('order_id' => Config::get('cms::settings.order')));
 
 						}
 
@@ -77,7 +77,7 @@ class Cms_Ajax_Gallery_Controller extends Cms_Base_Controller {
 
 						// Template returned
 						$template .= '<li id="'.$gid.'_'.$fid.'" class="span1">';
-						$template .= '<a class="thumbnail fancy" rel="tooltip" data-original-title="'.$img->name.'" href="'.BASE.$img->path.'">';
+						$template .= '<a class="thumbnail" rel="tooltip" data-original-title="'.$img->name.'" href="'.BASE.$img->path.'">';
 						$template .= '<img src="'.BASE.$img->thumb.'" />';
 						$template .= '</a>';
 						$template .= '</li>';
@@ -136,6 +136,86 @@ class Cms_Ajax_Gallery_Controller extends Cms_Base_Controller {
 		);
 
 		return json_encode($data);
+	}
+
+	//POST ADD GALLERY
+	public function post_add_gallery()
+	{
+
+		$auth = Auth::check();
+
+		if($auth and is_numeric(AUTHORID)) {
+
+			if(Input::get('gallery_id') !== '') {
+
+				$fid = Input::get('file_id');
+				$galleries = Input::get('gallery_id');
+
+				if(is_array($galleries)) {
+
+					foreach ($galleries as $key => $gid) {
+
+						$check = DB::table('files_galleries')->where_cmsfile_id($fid)->where_cmsgallery_id($gid)->count();
+
+						if($check == 0) {
+
+							$gallery = CmsGallery::find($gid);
+
+							$add_array = array(
+								'order_id' => Config::get('cms::settings.order')
+							);
+							
+							$gallery->files()->attach($fid, $add_array);
+
+						}
+
+					}
+
+					//DELETE NOT IN
+					DB::table('files_galleries')->where_cmsfile_id($fid)->where_not_in('cmsgallery_id', $galleries)->delete();
+
+					$response = 'success';
+					$msg = LL('cms::ajax_resp.gallery_save_success', CMSLANG)->get();
+					$backurl = Input::get('back_url');
+
+				} else {
+
+					//DELETE ALL
+					DB::table('files_galleries')->where_cmsfile_id($fid)->delete();
+
+					$response = 'success';
+					$msg = LL('cms::ajax_resp.gallery_save_success', CMSLANG)->get();
+					$backurl = '#';
+
+				}
+
+			} else {
+
+				$response = 'error';
+				$msg = LL('cms::ajax_resp.gallery_save_error', CMSLANG)->get();
+				$backurl = '#';
+
+			}
+
+		} else {
+
+			$response = 'error';
+			$msg = LL('cms::ajax_resp.gallery_save_error', CMSLANG)->get();
+			$backurl = '#';
+
+		}
+
+		$data = array(
+			'auth' => $auth,
+			'cls' => 'file_id',
+			'id' => $fid,
+			'response' => $response,
+			'message' => $msg,
+			'backurl' => $backurl
+		);
+
+		return json_encode($data);
+
 	}
 
 	//ORDER MENU

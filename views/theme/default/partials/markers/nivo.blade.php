@@ -9,6 +9,7 @@
 			<?php
 
 				$target = ((bool) $image->pivot->is_blank) ? ' target="_blank"' : '';
+				$wm = ((bool) $image->pivot->wm) ? 'wm' : 'no';
 				$title = '';
 				$alt = '';
 
@@ -24,18 +25,38 @@
 
 				}
 
+				// CHECK IF W AND H
+
+				$width = (is_null($w) and is_null($h)) ? $image->w : $w;
+				$height = (is_null($h) and is_null($w)) ? $image->h : $h;
+
+				// RESIZE IMAGE IF W AND H
+
+				if(is_null($w) and is_null($h)) {
+
+					$img = (strlen($thumb) > 0 and $wm == 'no') ?
+					MEDIA_NAME($image->name, $thumb, true) :
+					URL::to_action('cms::image@resize', array($width, $height, $wm, $image->name));
+
+				} else {
+
+					$img = URL::to_action('cms::image@thumb', array($width, $height, $wm, $image->name));
+
+				}
+
+				// CHECK LINK EXISTS
+
+				$is_link = (strlen($image->pivot->url) > 0) ? true : false;
+
 			?>
 
-			@if(strlen($image->pivot->url) > 0)
+			@if($is_link)
 			<a href="{{SLUG($image->pivot->url)}}"{{$target}}{{$title}}>
 			@endif
 
-				<?php $img = ($wm) ? URL::to_action('cms::image@resize', array($image->w, $image->h, 'wm', $image->name))
-								   : MEDIA_NAME($image->path, $thumb); ?>
-
 				{{HTML::image($img, $alt, array('title' => $titles[$key]))}}
 
-			@if(strlen($image->pivot->url) > 0)
+			@if($is_link)
 			</a>
 			@endif
 

@@ -34,6 +34,20 @@
 
 		<tr>
 			<td>
+				<strong>$BLOGVIEW</strong>
+			</td>
+			<td>
+				{{LL('cms::marker.blogview_descr', CMSLANG)}}
+			</td>
+			<td class="toright">
+				<a href="#" class="btn btn-primary as_text" data-tag="BLOGVIEW">
+					{{LL('cms::button.insert', CMSLANG)}}
+				</a>
+			</td>
+		</tr>
+
+		<tr>
+			<td>
 				<strong>$CRUMB</strong>
 			</td>
 			<td>
@@ -69,6 +83,20 @@
 			</td>
 			<td class="toright">
 				<a href="#" class="btn btn-primary as_text" data-tag="DOWNLIST">
+					{{LL('cms::button.insert', CMSLANG)}}
+				</a>
+			</td>
+		</tr>
+
+		<tr>
+			<td>
+				<strong>$ELEMENT</strong>
+			</td>
+			<td>
+				{{LL('cms::marker.element_descr', CMSLANG)}}
+			</td>
+			<td class="toright">
+				<a href="#" class="btn btn-primary as_text" data-tag="ELEMENT">
 					{{LL('cms::button.insert', CMSLANG)}}
 				</a>
 			</td>
@@ -160,6 +188,20 @@
 
 		<tr>
 			<td>
+				<strong>$PREVNEXT</strong>
+			</td>
+			<td>
+				{{LL('cms::marker.prevnext_descr', CMSLANG)}}
+			</td>
+			<td class="toright">
+				<a href="#" class="btn btn-primary as_text" data-tag="PREVNEXT">
+					{{LL('cms::button.insert', CMSLANG)}}
+				</a>
+			</td>
+		</tr>
+
+		<tr>
+			<td>
 				<strong>$SOCIAL</strong>
 			</td>
 			<td>
@@ -181,6 +223,20 @@
 			</td>
 			<td class="toright">
 				<a href="#" class="btn btn-primary as_text" data-tag="TRANSLATION">
+					{{LL('cms::button.insert', CMSLANG)}}
+				</a>
+			</td>
+		</tr>
+
+		<tr>
+			<td>
+				<strong>$TWEETS</strong>
+			</td>
+			<td>
+				{{LL('cms::marker.tweets_descr', CMSLANG)}}
+			</td>
+			<td class="toright">
+				<a href="#" class="btn btn-primary as_text" data-tag="TWEETS">
 					{{LL('cms::button.insert', CMSLANG)}}
 				</a>
 			</td>

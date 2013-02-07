@@ -24,6 +24,7 @@ return array(
 	"roles" => "Gestione ruoli",
 	"menus" => "Gestione menu",
 	"tags" => "Gestione tag",
+	"calendar" => "Calendario corsi",
 	"translations" => "Gestione traduzioni",
 	"orders" => "Gestione ordini",
 	"products" => "Gestione prodotti",
@@ -100,7 +101,7 @@ return array(
 
 	"banner_new" => "Nuovo banner",
 	"banner_edit" => "Modifica banner",
-	"banner_files" => "File disponibili",
+	"banner_files_active" => "Banner attivi",
 
 	//DOWNLOAD
 

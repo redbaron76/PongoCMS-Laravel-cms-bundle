@@ -3,6 +3,8 @@
 
 /* APPLICATION ROUTES */
 
+// SET SEGMENTS LIMIT
+Router::$segments = 10;
 
 //APPLICATION ROUTES
 
@@ -11,7 +13,6 @@ Route::get('(.*)', array('as' => 'master', 'before' => 'init', function($url) {
 	return CmsRender::page();
 
 }));
-
 
 //APPLICATION CONTROLLERS
 
@@ -24,7 +25,7 @@ Route::filter('init', function()
 {
 
 	//SAVE SESSION CREDENTIAL
-	if(Auth::check()) {
+	if(Auth::check() and is_numeric(AUTHORID)) {
 
 		Session::put('USERID', Auth::user()->id);
 		Session::put('USERNAME', Auth::user()->username);
@@ -66,9 +67,9 @@ Route::filter('init', function()
 	define('SITE_HOMEPAGE', CmsUtility::home_page());
 
 	define('THEME', Config::get('cms::settings.theme'));
-	// define('TEMPLATE', Config::get('cms::theme.template'));
 
 });
+
 
 
 
@@ -134,6 +135,7 @@ Route::post('(:bundle)/ajax/populate/tags/(:any)', 'cms::ajax_tag@populate_tags'
 Route::post('(:bundle)/ajax/add/tags', 'cms::ajax_tag@add_tags');
 
 //SORTING ROUTE (cms.js)
+Route::post('(:bundle)/ajax/page/list/order', 'cms::ajax_page@order_list');
 Route::post('(:bundle)/ajax/page/element/order', 'cms::ajax_page@order_element');
 Route::post('(:bundle)/ajax/page/subpage/order', 'cms::ajax_page@order_subpage');
 Route::post('(:bundle)/ajax/menu/page/order', 'cms::ajax_menu@order_menu');
@@ -151,6 +153,9 @@ Route::any('(:bundle)/page/search', 'cms::search@search_page');
 Route::any('(:bundle)/role/search', 'cms::search@search_role');
 Route::any('(:bundle)/tag/search', 'cms::search@search_tag');
 Route::any('(:bundle)/user/search', 'cms::search@search_user');
+
+// CALENDAR SEARCH
+Route::any('(:bundle)/calendar/search', 'cms::search@search_calendar');
 
 
 //CMS CONTROLLERS
@@ -184,6 +189,7 @@ Route::filter('save_session_credentials', function()
 		Session::put('ROLE', Auth::user()->role_level);
 		Session::put('CMSLANG', Auth::user()->lang);
 		Session::put('LANG', Config::get('cms::settings.language'));
+		Session::put('EDITOR', Auth::user()->editor);
 	}
 });
 

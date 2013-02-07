@@ -18,6 +18,7 @@ class Cms_Create_Users {
 			$table->string('password', 64);
 			$table->integer('role_level');
 			$table->string('lang', 5);
+			$table->string('editor', 20);
 			$table->boolean('is_valid');
 			$table->timestamps();
 		});
@@ -33,6 +34,7 @@ class Cms_Create_Users {
 			'password' => Hash::make(Config::get('cms::settings.admin_setup.password')),
 			'role_level' => Config::get('cms::settings.roles.admin'),
 			'lang' => Config::get('application.language'),
+			'editor' => 'ckeditor',
 			'is_valid' => 1
 		));
 

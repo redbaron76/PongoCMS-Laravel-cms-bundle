@@ -54,6 +54,6 @@ return array(
 	"delete_blog_success" => "Post <strong>:blog</strong> has been deleted!",	
 
 	"delete_tag_error" => "Tag not deleted!",
-	"delete_tag_success" => "Tag <strong>:tag</strong> has been deleted!",	
+	"delete_tag_success" => "Tag <strong>:tag</strong> has been deleted!",
 
 );

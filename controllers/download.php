@@ -56,19 +56,11 @@ class Cms_Download_Controller extends Cms_Base_Controller {
 			'search' => false
 		);
 
-		//GET FILE DATA
-		$files = CmsFile::where_is_image(0)
-				->where_is_valid(1)
-				->order_by('name', 'asc')
-				->order_by('id', 'asc')
-				->paginate(Config::get('cms::settings.pag'));
-
 		$this->layout->content = View::make('cms::interface.pages.download_new_edit')
 		->with('title', LL('cms::title.download_new', CMSLANG))
 		->with('download_id', '')
 		->with('download_name', '')
-		->with('files', $files)
-		->with('files_select', array());
+		->with('files', array());
 
     }
 
@@ -95,19 +87,11 @@ class Cms_Download_Controller extends Cms_Base_Controller {
 		//GET DOWNLOAD DATA
 		$download = CmsDownload::with(array('files'))->find($id);
 
-		//GET FILE DATA
-		$files = CmsFile::where_is_image(0)
-				->where_is_valid(1)
-				->order_by('name', 'asc')
-				->order_by('id', 'asc')
-				->paginate(Config::get('cms::settings.pag'));
-
 		$this->layout->content = View::make('cms::interface.pages.download_new_edit')
 		->with('title', LL('cms::title.download_edit', CMSLANG))
 		->with('download_id', $id)
 		->with('download_name', $download->name)
-		->with('files', $files)
-		->with('files_select', $download->files);
+		->with('files', $download->files);
 
     }
 

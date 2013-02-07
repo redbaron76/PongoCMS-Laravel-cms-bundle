@@ -33,6 +33,9 @@ return array(
 	"user_password_error" => "Password error!",
 	"user_nouser_error" => "User not yet created!",
 
+	"user_details_success" => "User details saved!",
+	"user_details_error" => "User details not saved!",
+
 	"filetext_text_success" => "Descriptions saved!",
 	"filetext_text_error" => "Descriptions error!",
 
@@ -79,5 +82,10 @@ return array(
 
 	"tag_save_success" => "Tag created!",
 	"tag_save_error" => "Tag not created!",
+
+	// CALENDAR
+
+	"calendar_success" => "Course saved!",
+	"calendar_error" => "Course not saved!",
 
 );

@@ -101,9 +101,14 @@ $.ck = {
 				return '[$BANNER[{"name":""}]]';
 				break;
 
+			case 'BLOGVIEW':
+				
+				return '[$BLOGVIEW[{"n":"5"}]]';
+				break;
+
 			case 'CRUMB':
 				
-				return '[$CRUMB[]]';
+				return '[$CRUMB[{"separator":"|"}]]';
 				break;
 
 			case 'DISQUS':
@@ -121,6 +126,11 @@ $.ck = {
 				return '[$DOWNLOAD[{"file":"'+filename+'"}]]';
 				break;
 
+			case 'ELEMENT':
+				
+				return '[$ELEMENT[{"el":""}]]';
+				break;
+
 			case 'GALLERY':
 				
 				return '[$GALLERY[{"name":""}]]';
@@ -128,7 +138,7 @@ $.ck = {
 			
 			case 'IMAGE':
 				
-				return '[$IMAGE[{"file":"'+filename+'", "w":"100", "h":"100", "wm":"true | false"}]]';
+				return '[$IMAGE[{"file":"'+filename+'", "w":"100", "h":"100"}]]';
 				break;
 
 			case 'MAP':
@@ -156,6 +166,11 @@ $.ck = {
 				return '[$PREVIEW[{"source":"blogs"}]]';
 				break;
 
+			case 'PREVNEXT':
+				
+				return '[$PREVNEXT[{"separator":"|"}]]';
+				break;
+
 			case 'SOCIAL':
 				
 				return '[$SOCIAL[{"what":"facebook-twitter"}]]';
@@ -168,12 +183,17 @@ $.ck = {
 
 			case 'TRANSLATION':
 				
-				return '[$TRANSLATION[{"key":"", "style":"lower | upper | capital | allcapital"}]]';
+				return '[$TRANSLATION[{"key":""}]]';
+				break;
+
+			case 'TWEETS':
+				
+				return '[$TWEETS[{"user":""}]]';
 				break;
 
 			case 'VIDEO':
 				
-				return '[$VIDEO[{"code":"file_name"}]]';
+				return '[$VIDEO[{"code":"file_code"}]]';
 				break;
 
 		}

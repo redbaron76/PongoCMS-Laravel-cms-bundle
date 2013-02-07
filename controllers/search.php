@@ -17,7 +17,7 @@ class Cms_Search_Controller extends Cms_Searchbase_Controller {
 	{
 		$auth = Auth::check();
 		
-		if($auth) {
+		if($auth and is_numeric(AUTHORID)) {
 
 			//LOAD JS LIBS
 			Asset::container('footer')->add('ias', 'bundles/cms/js/jquery.ias.js', 'jquery');
@@ -126,7 +126,7 @@ class Cms_Search_Controller extends Cms_Searchbase_Controller {
 	{
 		$auth = Auth::check();
 		
-		if($auth) {
+		if($auth and is_numeric(AUTHORID)) {
 
 			//LOAD FANCYBOX LIBS
 			Asset::container('header')->add('fancyboxcss', 'bundles/cms/css/fancybox.css', 'main');
@@ -192,7 +192,7 @@ class Cms_Search_Controller extends Cms_Searchbase_Controller {
 	{
 		$auth = Auth::check();
 		
-		if($auth) {
+		if($auth and is_numeric(AUTHORID)) {
 
 			//LOAD JS LIBS
 			Asset::container('footer')->add('ias', 'bundles/cms/js/jquery.ias.js', 'jquery');
@@ -257,7 +257,7 @@ class Cms_Search_Controller extends Cms_Searchbase_Controller {
 	{
 		$auth = Auth::check();
 		
-		if($auth) {
+		if($auth and is_numeric(AUTHORID)) {
 
 			//LOAD JS LIBS
 			Asset::container('footer')->add('pages', 'bundles/cms/js/sections/roles_list.js', 'cms');
@@ -311,7 +311,7 @@ class Cms_Search_Controller extends Cms_Searchbase_Controller {
 	{
 		$auth = Auth::check();
 		
-		if($auth) {
+		if($auth and is_numeric(AUTHORID)) {
 
 			//LOAD JS LIBS
 			Asset::container('footer')->add('ias', 'bundles/cms/js/jquery.ias.js', 'jquery');
@@ -373,7 +373,7 @@ class Cms_Search_Controller extends Cms_Searchbase_Controller {
 	{
 		$auth = Auth::check();
 		
-		if($auth) {
+		if($auth and is_numeric(AUTHORID)) {
 
 			//LOAD JS LIBS
 			Asset::container('footer')->add('ias', 'bundles/cms/js/jquery.ias.js', 'jquery');

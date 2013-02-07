@@ -6,7 +6,7 @@
 
 	<url>
 
-		<loc>{{$base}}/{{$url->lang}}{{SLUG($url->slug)}}</loc>
+		<loc>{{$base}}/{{$url->lang}}{{$url->slug}}</loc>
 		<lastmod>{{$url->sitemap_update}}</lastmod>
 		<changefreq>daily</changefreq>
 

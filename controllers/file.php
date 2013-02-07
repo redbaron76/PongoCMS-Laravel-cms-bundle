@@ -93,14 +93,21 @@ class Cms_File_Controller extends Cms_Base_Controller {
 
 		//GET PAGE DATA
 		$data = CmsPage::with(array('files'))
-				//->where_lang(LANG)
 				->where_parent_id(0)
 				->order_by('lang', 'asc')
 				->order_by('is_home', 'desc')
 				->order_by('order_id', 'asc')
 				->get();
 
-		
+		$banners = CmsBanner::with(array('files'))
+				->order_by('lang', 'asc')
+				->get();
+
+		$galleries = CmsGallery::with(array('files'))
+				->get();
+
+		$downloads = CmsDownload::with(array('files'))
+				->get();
 
 		//GET SITEMAP ORDER
 
@@ -127,7 +134,10 @@ class Cms_File_Controller extends Cms_Base_Controller {
 		->with('filetext_title', $filetext_title)
 		->with('filetext_alt', $filetext_alt)
 		->with('filetext_caption', $filetext_caption)
-		->with('filetext_label', $filetext_label);
+		->with('filetext_label', $filetext_label)
+		->with('banners', $banners)
+		->with('galleries', $galleries)
+		->with('downloads', $downloads);
 
     }
 
@@ -192,7 +202,7 @@ class Cms_File_Controller extends Cms_Base_Controller {
 
 		$auth = Auth::check();
 		
-		if($auth) {
+		if($auth and is_numeric(AUTHORID)) {
 
 			if(Input::has('id')) {
 

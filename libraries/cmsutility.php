@@ -169,14 +169,14 @@ class CmsUtility {
 		// CHECK PREVIEW REQUEST
 		$is_preview = false;
 
-		if('/'.end($segments) === '/preview') {
+		if('/'.end($segments) === Config::get('cms::settings.preview')) {
 
 			$is_preview = true;
 
 			$remove_preview = array_pop($segments);
 
 			//REMOVE PREVIEW FROM TMP_URL
-			$tmp_url = str_replace('/preview', '', $tmp_url);
+			$tmp_url = str_replace(Config::get('cms::settings.preview'), '', $tmp_url);
 
 		}
 

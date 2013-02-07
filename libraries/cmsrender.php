@@ -85,12 +85,16 @@ class CmsRender {
 	*
 	* @return string
 	*/
-	public static function page()
+	public static function page($slug = null, $inject = array())
 	{
+
+		// CHECK $slug IS NOT NULL
+
+		$SLUG_FULL = is_null($slug) ? SLUG_FULL : $slug;
 
 		// Page with lang = SITE_LANG and is_homepage = 1
 
-		if(SLUG_FULL == '/') {		// HOMEPAGE
+		if($SLUG_FULL === '/') {		// HOMEPAGE
 
 			$page = CmsPage::with(array('elements' => function($query) {
 
@@ -113,16 +117,16 @@ class CmsRender {
 
 			// Check slug is not lang
 
-			if(array_key_exists(str_replace('/', '', SLUG_FULL), Config::get('cms::settings.langs'))) {
+			if(array_key_exists(str_replace('/', '', $SLUG_FULL), Config::get('cms::settings.langs'))) {
 
 				//Redirect al cambio lingua
-				return Redirect::to_action('site@lang', array(str_replace('/', '', SLUG_FULL)));
+				return Redirect::to_action('site@lang', array(str_replace('/', '', $SLUG_FULL)));
 
 			}
 
 			// Get page
 
-			$page = self::page_base(SLUG_FULL);
+			$page = self::page_base($SLUG_FULL);
 
 			// Check page exists
 
@@ -185,7 +189,7 @@ class CmsRender {
 
 			if(SITE_ROLE < $page->access_level) {
 				return Redirect::to_action('site@login')
-				->with('back_url', SLUG_FULL);
+				->with('back_url', $SLUG_FULL);
 			}
 
 			// Set page_layout from DB or default if not set
@@ -233,6 +237,13 @@ class CmsRender {
 						$zone[$item->zone][] = $tmp_text;
 					}
 
+					// INJECT EXTERNAL ELEMENT INTO ZONE
+					if(!empty($inject)) {
+
+						$zone[$inject['zone']][0] = $inject['view'];
+
+					}
+
 					// Bind pageitem text to ZONE which become layout variable
 					foreach($page->elements as $item) {							
 						$layout[strtoupper($item->zone)] = trim(implode("\n", $zone[$item->zone]));
@@ -258,12 +269,11 @@ class CmsRender {
 
 				if( ! empty($extra)) {
 
-					//EXTRA VIEW
-
+					//EXTRA VIEW ZOOM
 
 					$extra_what = CONF('cms::settings.extra_id', $page->extra_id);
 
-					$tmp_text = View::make('cms::theme.'.THEME.'.partials.preview.'.$extra_what);
+					$tmp_text = View::make('cms::theme.'.THEME.'.partials.details.'.$extra_what);
 					$tmp_text['text'] = $extra;
 
 					// Bind extra name

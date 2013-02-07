@@ -56,7 +56,7 @@ class Cms_Ajax_Page_Controller extends Cms_Base_Controller {
 
 		$auth = Auth::check();
 
-		if($auth) {
+		if($auth and is_numeric(AUTHORID)) {
 
 			$input = Input::get();
 
@@ -136,10 +136,15 @@ class Cms_Ajax_Page_Controller extends Cms_Base_Controller {
 				$page->footer = 'default';
 			}
 
-
 			$page->save();
 
 			$pid = $page->id;
+
+			// KEEP OPEN
+			Session::flash('keep_open_item', array(
+					'parent_id' => $input['page_parent'],
+					'page_id' => $pid)
+			);
 
 			if(CACHE) Cache::forget('page_'.$pid.'_details');
 
@@ -188,7 +193,7 @@ class Cms_Ajax_Page_Controller extends Cms_Base_Controller {
 
 		$auth = Auth::check();
 
-		if($auth) {
+		if($auth and is_numeric(AUTHORID)) {
 
 			$input = Input::get();
 
@@ -253,7 +258,7 @@ class Cms_Ajax_Page_Controller extends Cms_Base_Controller {
 
 		$auth = Auth::check();
 
-		if($auth) {
+		if($auth and is_numeric(AUTHORID)) {
 
 			$input = Input::get();
 
@@ -333,7 +338,7 @@ class Cms_Ajax_Page_Controller extends Cms_Base_Controller {
 	{
 		$auth = Auth::check();
 
-		if($auth) {
+		if($auth and is_numeric(AUTHORID)) {
 
 			$input = Input::all();
 
@@ -488,7 +493,7 @@ class Cms_Ajax_Page_Controller extends Cms_Base_Controller {
 
 		$auth = Auth::check();
 
-		if($auth) {
+		if($auth and is_numeric(AUTHORID)) {
 
 			$input = Input::get();
 
@@ -507,7 +512,7 @@ class Cms_Ajax_Page_Controller extends Cms_Base_Controller {
 
 			$page->author_id = AUTHORID;
 
-			$page->preview = $input['page_preview'];
+			$page->preview = PRETEXT($input['page_preview']);
 
 			$page->save();
 
@@ -547,7 +552,7 @@ class Cms_Ajax_Page_Controller extends Cms_Base_Controller {
 
 		$auth = Auth::check();
 
-		if($auth) {
+		if($auth and is_numeric(AUTHORID)) {
 
 			$input = Input::get();
 
@@ -650,7 +655,7 @@ class Cms_Ajax_Page_Controller extends Cms_Base_Controller {
 
 		$auth = Auth::check();
 
-		if($auth) {
+		if($auth and is_numeric(AUTHORID)) {
 
 			$input = Input::get();
 
@@ -707,16 +712,22 @@ class Cms_Ajax_Page_Controller extends Cms_Base_Controller {
 
 			$page = CmsPage::find($page_id);
 
+			// KEEP OPEN
+			Session::flash('keep_open_item', array(
+					'parent_id' => $page->parent_id,
+					'page_id' => $page_id)
+			);
+
 			//IF NEW ADD TO PIVOT TABLE
 			if(empty($input['element_id']))
-				$page->elements()->attach($eid);			
+				$page->elements()->attach($eid, array('order_id' => Config::get('cms::settings.order')));			
 
 			$response = 'success';
 			$msg = LL('cms::ajax_resp.element_success', CMSLANG)->get();
 			$backurl = $input['back_url'];
 
 			// Template returned
-			$template  = '<li id="'.$page_id.'_'.$eid.'">';
+			$template  = '<li id="'.$page_id.'_'.$eid.'" data-zone="'.$input['element_zone'].'">';
 			$template .= '<a class="btn" href="#">';
 			$template .= '<i class="icon-resize-vertical"></i>';
 			$template .= $input['element_label'];
@@ -725,6 +736,7 @@ class Cms_Ajax_Page_Controller extends Cms_Base_Controller {
 
 			// Inject container
 			$inject = 'ul.sortable';
+			$zone = $input['element_zone'];
 			$detach = false;
 
 		} else {
@@ -739,6 +751,7 @@ class Cms_Ajax_Page_Controller extends Cms_Base_Controller {
 
 			$template = '';
 			$inject = '';
+			$zone = '';
 			$detach = false;
 
 		}
@@ -753,6 +766,7 @@ class Cms_Ajax_Page_Controller extends Cms_Base_Controller {
 			'backurl' => $backurl,
 			'detach' => $detach,
 			'inject' => $inject,
+			'zone' => $zone,
 			'template' => $template
 		);
 
@@ -766,7 +780,7 @@ class Cms_Ajax_Page_Controller extends Cms_Base_Controller {
 
 		$auth = Auth::check();
 
-		if($auth) {
+		if($auth and is_numeric(AUTHORID)) {
 
 			$input = Input::get();
 
@@ -786,7 +800,7 @@ class Cms_Ajax_Page_Controller extends Cms_Base_Controller {
 				$element = CmsElement::find($input['element_id']);
 
 			$element->author_id = AUTHORID;			
-			$element->text = $input['element_text'];
+			$element->text = PRETEXT($input['element_text']);
 			$element->lang = LANG;
 
 			$element->save();
@@ -854,6 +868,28 @@ class Cms_Ajax_Page_Controller extends Cms_Base_Controller {
 		
 	}
 
+	//ORDER PAGE LIST
+
+	public function post_order_list()
+	{
+		
+		$order = Input::get('order');
+		
+		if(is_array($order)) {
+			
+			foreach($order as $order_id => $item) {
+				$order_id++;
+				$p = explode("_", $item);
+				$page = CmsPage::find($p[1]);
+				$page->order_id = $order_id;
+				$page->save();
+			}
+			
+		}
+
+		return true;
+
+	}
 
 	//ORDER SORTABLE
 
@@ -865,7 +901,7 @@ class Cms_Ajax_Page_Controller extends Cms_Base_Controller {
 		if(is_array($order)) {
 			
 			//SET 1000
-			CmsPage::where_order_id(0)->update(array('order_id' => 1000000));
+			CmsPage::where_order_id(0)->update(array('order_id' => Config::get('cms::settings.order')));
 
 			foreach($order as $order_id => $item) {
 				$order_id++;

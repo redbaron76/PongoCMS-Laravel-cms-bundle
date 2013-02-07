@@ -57,52 +57,35 @@
 
 						<div class="row">
 							<div class="span10">
-								<h4>{{LL('cms::title.banner_files', CMSLANG)}}</h4>
-								<div class="trans-box hspace loading">
-									<table class="table table-striped fixed v-middle listing">
+								<h4>{{LL('cms::title.banner_files_active', CMSLANG)}}</h4>
+								<div class="trans-box hspace">
+									<table class="table table-striped fixed v-middle">
 										<col width="10%">
-										<col width="82%">
-										<col width="8%">
+										<col width="80%">
 										<tbody>
-											@forelse($files->results as $file)
+											@forelse($files_select as $file)
 											<tr>
-
-												<?php 
-													if(!empty($files_select)) {	
-
-														foreach($files_select as $image) {
-															$valid = ($image->pivot->cmsfile_id == $file->id) ? true : false;
-															$url = ($valid) ? $image->pivot->url : '';
-															$date_off = ($valid) ? db2Date($image->pivot->date_off, false) : '';
-															$is_blank = ($valid) ? ((bool) $image->pivot->is_blank) : false;
-															if($image->pivot->cmsfile_id == $file->id) break;
-														}
-													} else {
-														$valid = false;
-														$url = '';
-														$date_off = '';
-														$is_blank = false;
-													}
-												?>
-
 												<td>
-													<a href="{{BASE.$file->path}}" class="thumbnail fancy" rel="tooltip" data-original-title="{{$file->name}}">							
-														<img src="{{BASE.$file->thumb}}" width="50" heigth="50" alt="">							
+													<a href="{{BASE.$file->path}}" class="thumbnail fancy" data-original-title="{{$file->name}}">							
+														<img src="{{BASE.$file->thumb}}">
 													</a>
 												</td>
 												<td class="v-middle">
+													{{HTML::link_to_action('cms::file@edit', LL('cms::button.delete', CMSLANG), array($file->id), array('class' => 'edit_banner btn btn-mini'))}}
 													{{$file->name}}
 													<div class="hspace">
-														{{Form::text('url['.$file->id.']', $url, array('class' => 'span6', 'placeholder' => LL('cms::form.banner_url', CMSLANG)))}}
-														{{Form::text('date_off['.$file->id.']', $date_off, array('class' => 'span2 date_off', 'placeholder' => LL('cms::form.banner_dateoff', CMSLANG)))}}
-														<label class="checkbox">
-															{{Form::checkbox('is_blank['.$file->id.']', 1, $is_blank)}}
+														{{Form::text('url['.$file->id.']', $file->pivot->url, array('class' => 'span7', 'placeholder' => LL('cms::form.banner_url', CMSLANG)))}}
+														{{Form::text('date_off['.$file->id.']', db2Date($file->pivot->date_off, false), array('class' => 'span2 date_off', 'placeholder' => LL('cms::form.banner_dateoff', CMSLANG)))}}					
+														<label class="checkbox inline">
+															{{Form::checkbox('is_blank['.$file->id.']', 1, $file->pivot->is_blank)}}
 															{{LL('cms::form.banner_target', CMSLANG)}}
 														</label>
+														<label class="checkbox inline">
+															{{Form::checkbox('wm['.$file->id.']', 1, $file->pivot->wm)}}
+															{{LL('cms::form.banner_watermark', CMSLANG)}}
+														</label>
+														{{Form::hidden('file_id['.$file->id.']', $file->id)}}														
 													</div>
-												</td>
-												<td>													
-													{{Form::checkbox('file_id['.$file->id.']', $file->id, $valid)}}
 												</td>
 											</tr>
 											@empty
@@ -112,19 +95,6 @@
 												</td>
 											</tr>
 											@endforelse
-
-											<tr>
-												<td colspan="3">
-													@if($files->total > Config::get('cms::theme.pag') and $files->page < $files->last)
-													<div class="navigation">
-														<ul class="unstyled toright">
-															{{$files->next()}}
-														</ul>
-													</div>
-													@endif
-												</td>
-											</tr>
-
 										</tbody>
 
 									</table>
@@ -163,7 +133,7 @@
 
 						@forelse ($files_select as $file)
 							<li class="span1" id="{{$banner_id}}_{{$file->id}}">
-								<a href="{{BASE.$file->path}}" class="thumbnail fancy" data-original-title="{{$file->name}}" rel="tooltip">
+								<a href="#" class="thumbnail" data-original-title="{{$file->name}}">
 									<img src="{{BASE.$file->thumb}}" width="50" heigth="50" alt="">							
 								</a>
 							</li>

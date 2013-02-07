@@ -17,6 +17,7 @@ class Cms_Create_Files_Banners {
 			$table->string('url', 255);
 			$table->date('date_off');
 			$table->boolean('is_blank');
+			$table->boolean('wm');
 			$table->integer('order_id')->defaults(Config::get('cms::settings.order'));
 			$table->timestamps();
 		});

@@ -16,7 +16,7 @@ class Cms_Ajax_Blog_Controller extends Cms_Base_Controller {
 
 		$auth = Auth::check();
 
-		if($auth) {
+		if($auth and is_numeric(AUTHORID)) {
 
 			$input = Input::get();
 
@@ -79,7 +79,7 @@ class Cms_Ajax_Blog_Controller extends Cms_Base_Controller {
         	$blog->role_id = $page->role_id;        	
         	$blog->role_level = $page->role_level;
 
-        	$blog->text = $input['blog_text'];
+        	$blog->text = PRETEXT($input['blog_text']);
 
         	$blog->datetime_on = dateTime2Db($input['blog_date_on']);
 
@@ -157,7 +157,7 @@ class Cms_Ajax_Blog_Controller extends Cms_Base_Controller {
 
 		$auth = Auth::check();
 
-		if($auth) {
+		if($auth and is_numeric(AUTHORID)) {
 
 			$input = Input::get();
 
@@ -176,7 +176,7 @@ class Cms_Ajax_Blog_Controller extends Cms_Base_Controller {
 
 			$blog->author_id = AUTHORID;
 
-			$blog->preview = $input['blog_preview'];
+			$blog->preview = PRETEXT($input['blog_preview']);
 
 			$blog->save();
 
@@ -217,7 +217,7 @@ class Cms_Ajax_Blog_Controller extends Cms_Base_Controller {
 
 		$auth = Auth::check();
 
-		if($auth) {
+		if($auth and is_numeric(AUTHORID)) {
 
 			$input = Input::get();
 
@@ -298,7 +298,7 @@ class Cms_Ajax_Blog_Controller extends Cms_Base_Controller {
 
 		$auth = Auth::check();
 
-		if($auth) {
+		if($auth and is_numeric(AUTHORID)) {
 
 			$input = Input::get();
 
@@ -379,7 +379,7 @@ class Cms_Ajax_Blog_Controller extends Cms_Base_Controller {
 
 		$auth = Auth::check();
 
-		if($auth) {
+		if($auth and is_numeric(AUTHORID)) {
 
 			$input = Input::get();
 
@@ -483,7 +483,7 @@ class Cms_Ajax_Blog_Controller extends Cms_Base_Controller {
 
 		$auth = Auth::check();
 
-		if($auth) {
+		if($auth and is_numeric(AUTHORID)) {
 
 			$input = Input::get();
 

@@ -56,14 +56,14 @@ class Cms_Blog_Controller extends Cms_Base_Controller {
 		Asset::container('footer')->add('slug', 'bundles/cms/js/jquery.stringtoslug.js', 'jquery');
 
 		//CKEDITOR
-		if(IS('cms::settings.wysiwyg', 'ckeditor')) {
+		if(EDITOR == 'ckeditor') {
 			Asset::container('footer')->add('ckeditor', 'bundles/cms/ckeditor/ckeditor.js', 'form');
 			Asset::container('footer')->add('jqadapter', 'bundles/cms/ckeditor/adapters/jquery.js', 'form');
 			Asset::container('footer')->add('ckcms', 'bundles/cms/js/ck.cms.js', 'jqadapter');
 		}
 
 		//MARKITUP
-		if(IS('cms::settings.wysiwyg', 'markitup')) {
+		if(EDITOR == 'markitup') {
 			Asset::container('footer')->add('markitup', 'bundles/cms/markitup/jquery.markitup.js', 'form');
 			Asset::container('footer')->add('sethtml', 'bundles/cms/markitup/sets/html/set.js', 'markitup');
 			Asset::container('footer')->add('ckcms', 'bundles/cms/js/ck.cms.js', 'jqadapter');
@@ -86,7 +86,7 @@ class Cms_Blog_Controller extends Cms_Base_Controller {
 
 		//DATETIME PICKER
 		Asset::container('header')->add('jqueryuicss', 'bundles/cms/css/jquery.ui.css', 'main');
-		if(LANG !== 'en') Asset::container('footer')->add('local', 'bundles/cms/js/i18n/jquery.ui.datepicker-'.LANG.'.js', 'jquery');
+		if(CMSLANG !== 'en') Asset::container('footer')->add('local', 'bundles/cms/js/i18n/jquery.ui.datepicker-'.CMSLANG.'.js', 'jquery');
 		Asset::container('footer')->add('datepicker', 'bundles/cms/js/jquery.datepicker.js', 'local');		
 		Asset::container('footer')->add('timepicker', 'bundles/cms/js/jquery.timepicker.js', 'datepicker');
 
@@ -160,14 +160,14 @@ class Cms_Blog_Controller extends Cms_Base_Controller {
 		Asset::container('footer')->add('ckcms', 'bundles/cms/js/ck.cms.js', 'jqadapter');
 
 		//CKEDITOR
-		if(IS('cms::settings.wysiwyg', 'ckeditor')) {
+		if(EDITOR == 'ckeditor') {
 			Asset::container('footer')->add('ckeditor', 'bundles/cms/ckeditor/ckeditor.js', 'form');
 			Asset::container('footer')->add('jqadapter', 'bundles/cms/ckeditor/adapters/jquery.js', 'form');
 			Asset::container('footer')->add('ckcms', 'bundles/cms/js/ck.cms.js', 'jqadapter');
 		}
 
 		//MARKITUP
-		if(IS('cms::settings.wysiwyg', 'markitup')) {
+		if(EDITOR == 'markitup') {
 			Asset::container('footer')->add('markitup', 'bundles/cms/markitup/jquery.markitup.js', 'form');
 			Asset::container('footer')->add('sethtml', 'bundles/cms/markitup/sets/html/set.js', 'markitup');
 			Asset::container('footer')->add('ckcms', 'bundles/cms/js/ck.cms.js', 'jqadapter');
@@ -190,7 +190,7 @@ class Cms_Blog_Controller extends Cms_Base_Controller {
 
 		//DATETIME PICKER
 		Asset::container('header')->add('jqueryuicss', 'bundles/cms/css/jquery.ui.css', 'main');
-		if(LANG !== 'en') Asset::container('footer')->add('local', 'bundles/cms/js/i18n/jquery.ui.datepicker-'.LANG.'.js', 'jquery');
+		if(CMSLANG !== 'en') Asset::container('footer')->add('local', 'bundles/cms/js/i18n/jquery.ui.datepicker-'.CMSLANG.'.js', 'jquery');
 		Asset::container('footer')->add('datepicker', 'bundles/cms/js/jquery.datepicker.js', 'local');		
 		Asset::container('footer')->add('timepicker', 'bundles/cms/js/jquery.timepicker.js', 'datepicker');
 
@@ -215,8 +215,14 @@ class Cms_Blog_Controller extends Cms_Base_Controller {
 
 			$pivot = DB::table('blogs_pages')->where_cmsblog_id($id)->where_is_default(1)->first();
 
+			//PAGE ID
+			$page_id = !empty($pivot) ? $pivot->cmspage_id : '';
+
 			//FILES OF PAGE
-			$files = CmsPage::find($pivot->cmspage_id)->files;
+			$files = !empty($pivot) ? CmsPage::find($page_id)->files : array();
+
+			//ROLE FAIL
+			$role_fail = !empty($pivot) ? CmsRole::role_fail($page_id) : true;
 			
 			if(!empty($blog)) {
 
@@ -252,17 +258,17 @@ class Cms_Blog_Controller extends Cms_Base_Controller {
 				if(empty($new_data)) $new_data = array();
 
 				$this->layout->content = View::make('cms::interface.pages.blog_new_edit')
-				->with('role_fail', CmsRole::role_fail($pivot->cmspage_id))
+				->with('role_fail', $role_fail)
 				->with('title', LL('cms::title.blog_edit', CMSLANG))
 				->with('blog_id', $id)
-				->with('page_id', $pivot->cmspage_id)
+				->with('page_id', $page_id)
 				->with('blog_lang', $blog->lang)
 				->with('blog_name', $blog->name)
 				->with('blog_parent', CmsPage::select_page_slug($blog->lang, array_search('blogs', $extra_ids)))
-				->with('blog_parent_selected', $pivot->cmspage_id)
+				->with('blog_parent_selected', $page_id)
 				->with('blog_slug', substr($blog->slug, 1))
-				->with('blog_parent_slug', CmsPage::get_page_slug($pivot->cmspage_id).'/')
-				->with('blog_zones', CmsElement::select_zone($pivot->cmspage_id))
+				->with('blog_parent_slug', CmsPage::get_page_slug($page_id))
+				->with('blog_zones', CmsElement::select_zone($page_id))
 				->with('blog_zone_selected', $blog->zone)
 				->with('blog_is_valid', (bool) $blog->is_valid)
 				->with('blog_date_on', $blog->get_datetime_on())
@@ -329,7 +335,7 @@ class Cms_Blog_Controller extends Cms_Base_Controller {
 	{
 		$auth = Auth::check();
 		
-		if($auth) {
+		if($auth and is_numeric(AUTHORID)) {
 
 			if(Input::has('id')) {
 

@@ -16,7 +16,7 @@ class Cms_Ajax_Translation_Controller extends Cms_Base_Controller {
 
 		$auth = Auth::check();
 
-		if($auth) {
+		if($auth and is_numeric(AUTHORID)) {
 
 			$input = Input::get();
 
@@ -91,7 +91,7 @@ class Cms_Ajax_Translation_Controller extends Cms_Base_Controller {
 
 		$auth = Auth::check();
 
-		if($auth) {
+		if($auth and is_numeric(AUTHORID)) {
 
 			$id = Input::get('id');
 

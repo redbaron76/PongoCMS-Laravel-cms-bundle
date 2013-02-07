@@ -1,45 +1,29 @@
-<h1>Ricerca</h1>
+<div class="{{Config::get('cms::theme.ele_class')}}">
 
-<ul class="unstyled horiz crumb">
-	<li>
-		<a href="/">home</a>
-	</li>
-	<li class="separator">|</li>
-	<li class="selected">
-		<a href="{{URL::current()}}">ricerca</a>
-	</li>
-</ul>
+	<h2>{{LL('cms::marker.search_results_title')}}</h2>
 
-<div class="search elements">
+	<h5>{{LL('cms::marker.search_found', SITE_LANG, array('q' => $q))}}</h5>
 
-	<div class="element">
+	<ul class="search_results unstyled">
 
-		<h2>Risultati della ricerca: "{{$q}}"</h2>
+		@forelse($results->results as $result)
+		<li>
+			
+			<strong>{{$result['source']}}</strong> &gt; <a href="{{SLUG($result['slug'])}}">{{$result['title']}} </a>
 
-		<ul class="unstyled">
+			@if(!empty($result['descr']))
+			<p>{{$result['descr']}}</p>
+			@endif
 
-			@forelse($results->results as $result)
-			<li>
+		</li>
+		@empty
+		<li>
+			<p>{{LL('cms::marker.search_not_found')}}</p>
+		</li>
+		@endforelse
 
-				<h3>{{$result['source']}} &gt; 
-					<a href="{{SLUG($result['slug'])}}">{{$result['title']}}</a>
-				</h3>
+	</ul>
 
-				@if(!empty($result['descr']))
-				<p>{{$result['descr']}}</p>
-				@endif
+	{{$results->appends(array('q' => $q, 'source' => $source))->links()}}
 
-			</li>
-			@empty
-			<li>
-				<h3>Nessun risultato trovato</h3>
-			</li>
-			@endforelse
-
-		</ul>
-
-		{{$results->appends(array('q' => $q, 'source' => $source))->links()}}
-
-	</div>
-	
 </div>

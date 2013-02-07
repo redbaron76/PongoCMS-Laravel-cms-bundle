@@ -140,12 +140,35 @@ $THEME_SETTINGS = array(
 
 	/*
 	|--------------------------------------------------------------------------
-	| $SEARCH results layout 
+	| $SEARCH marker results ZONE in layout | Map to existing zone
 	|--------------------------------------------------------------------------|
 	*/
 
-	'search_layout' => 'default',
-	'search_zone'	=> 'ZONE1',
+	'search_zone'		=> 'ZONE1',
+
+	/*
+	|--------------------------------------------------------------------------
+	| $SEARCH marker results view | in: /partials
+	|--------------------------------------------------------------------------|
+	*/
+
+	'search_results' 	=> 'search_results',
+
+	/*
+	|--------------------------------------------------------------------------
+	| $LOGIN marker form ZONE in layout | Map to existing zone
+	|--------------------------------------------------------------------------|
+	*/
+
+	'login_zone'		=> 'ZONE1',
+
+	/*
+	|--------------------------------------------------------------------------
+	| SIGNUP view form | Same ZONE of login_zone | in: /partials
+	|--------------------------------------------------------------------------|
+	*/
+
+	'signup_form' 		=> 'signup_form',
 
 	/*
 	|--------------------------------------------------------------------------
@@ -240,6 +263,24 @@ $THEME_SETTINGS = array(
 							'horizontal' => 'right',
 							'vertical' => 'bottom',
 						),
+
+	/*
+	|--------------------------------------------------------------------------
+	| Application Email Sender | NEED SwiftMailer bundle!!
+	|--------------------------------------------------------------------------
+	*/
+
+	'email' => array(
+		
+		'email@address.tld' => 'PongoCMS'
+
+	),
+
+	'email_data' => array(
+		
+		'signup_subject' => 'Welcome to PongoCMS',
+
+	),
 
 
 );

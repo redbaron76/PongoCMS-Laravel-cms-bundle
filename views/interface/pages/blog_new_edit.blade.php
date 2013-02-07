@@ -86,13 +86,13 @@
 											{{LL('cms::button.marker_pick', CMSLANG)}}
 										</a>
 									</div>
-									@if(IS('cms::settings.wysiwyg', 'ckeditor'))
+									@if(EDITOR == 'ckeditor')
 									<div class="controls">
 										{{Form::textarea('blog_text', $blog_text, array('class' => 'span6 editorck', 'id' => 'blog_text', 'rows' => 8))}}
 									</div>
 									@endif
 									
-									@if(IS('cms::settings.wysiwyg', 'markitup'))
+									@if(EDITOR == 'markitup')
 									<div class="controls">
 										{{Form::textarea('blog_text', $blog_text, array('class' => 'html', 'id' => 'markitup', 'rows' => 8))}}
 									</div>
@@ -125,7 +125,7 @@
 								<div class="control-group">
 									<div class="controls">
 
-										<?php $url_preview = URL::base().$blog_parent_slug.$blog_slug.'/preview' ?>
+										<?php $url_preview = URL::base().$blog_parent_slug.$blog_slug.Config::get('cms::settings.preview'); ?>
 
 										<a href="{{$url_preview}}" class="btn btn-mini span1 preview" target="_blank">{{LL('cms::button.page_preview', CMSLANG)}}</a>
 										<label class="checkbox">
@@ -183,13 +183,13 @@
 											{{LL('cms::button.marker_pick', CMSLANG)}}
 										</a>
 									</div>
-									@if(IS('cms::settings.wysiwyg', 'ckeditor'))
+									@if(EDITOR == 'ckeditor')
 									<div class="controls">
 										{{Form::textarea('blog_preview', $blog_preview, array('class' => 'span6 editorck', 'id' => 'blog_preview', 'rows' => 8))}}
 									</div>
 									@endif
 																		
-									@if(IS('cms::settings.wysiwyg', 'markitup'))
+									@if(EDITOR == 'markitup')
 									<div class="controls">
 										{{Form::textarea('blog_preview', $blog_preview, array('class' => 'html', 'id' => 'markitup', 'rows' => 8))}}
 									</div>

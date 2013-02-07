@@ -14,6 +14,11 @@ class Cms_Page_Controller extends Cms_Base_Controller {
     //PAGE LIST
     public function get_index($lang = LANG)
     {
+    	
+    	//SORTING
+		Asset::container('footer')->add('sortable', 'bundles/cms/js/jquery.sortable.js', 'jquery');
+		Asset::container('footer')->add('serialize', 'bundles/cms/js/jquery.serializetree.js', 'sortable');
+		
     	//LOAD JS LIBS
 		Asset::container('footer')->add('pages', 'bundles/cms/js/sections/pages_list.js', 'cms');
 
@@ -62,14 +67,14 @@ class Cms_Page_Controller extends Cms_Base_Controller {
 		Asset::container('footer')->add('slug', 'bundles/cms/js/jquery.stringtoslug.js', 'jquery');
 
 		//CKEDITOR
-		if(IS('cms::settings.wysiwyg', 'ckeditor')) {
+		if(EDITOR == 'ckeditor') {
 			Asset::container('footer')->add('ckeditor', 'bundles/cms/ckeditor/ckeditor.js', 'form');
 			Asset::container('footer')->add('jqadapter', 'bundles/cms/ckeditor/adapters/jquery.js', 'form');
 			Asset::container('footer')->add('ckcms', 'bundles/cms/js/ck.cms.js', 'jqadapter');
 		}
 
 		//MARKITUP
-		if(IS('cms::settings.wysiwyg', 'markitup')) {
+		if(EDITOR == 'markitup') {
 			Asset::container('footer')->add('markitup', 'bundles/cms/markitup/jquery.markitup.js', 'form');
 			Asset::container('footer')->add('sethtml', 'bundles/cms/markitup/sets/html/set.js', 'markitup');
 			Asset::container('footer')->add('ckcms', 'bundles/cms/js/ck.cms.js', 'jqadapter');
@@ -160,14 +165,14 @@ class Cms_Page_Controller extends Cms_Base_Controller {
 		Asset::container('footer')->add('slug', 'bundles/cms/js/jquery.stringtoslug.js', 'jquery');
 
 		//CKEDITOR
-		if(IS('cms::settings.wysiwyg', 'ckeditor')) {
+		if(EDITOR == 'ckeditor') {
 			Asset::container('footer')->add('ckeditor', 'bundles/cms/ckeditor/ckeditor.js', 'form');
 			Asset::container('footer')->add('jqadapter', 'bundles/cms/ckeditor/adapters/jquery.js', 'form');
 			Asset::container('footer')->add('ckcms', 'bundles/cms/js/ck.cms.js', 'jqadapter');
 		}
 
 		//MARKITUP
-		if(IS('cms::settings.wysiwyg', 'markitup')) {
+		if(EDITOR == 'markitup') {
 			Asset::container('footer')->add('markitup', 'bundles/cms/markitup/jquery.markitup.js', 'form');
 			Asset::container('footer')->add('sethtml', 'bundles/cms/markitup/sets/html/set.js', 'markitup');
 			Asset::container('footer')->add('ckcms', 'bundles/cms/js/ck.cms.js', 'jqadapter');
@@ -204,7 +209,7 @@ class Cms_Page_Controller extends Cms_Base_Controller {
 			$subpages = CmsPage::where_parent_id($id)->order_by('order_id', 'asc')->get();
 
 			//GET PAGE DATA
-			$page = CmsPage::with(array('files', 'pagerels'))->find($id); 
+			$page = CmsPage::with(array('elements', 'files', 'pagerels'))->find($id); 
 			
 			if(!empty($page)) {
 
@@ -267,7 +272,8 @@ class Cms_Page_Controller extends Cms_Base_Controller {
 				->with('subpages', $subpages)
 				->with('files', $page->files)
 				->with('pagedata', $new_data)
-				->with('pagerels', $page->pagerels);
+				->with('pagerels', $page->pagerels)
+				->with('elements', $page->elements);
 
 			} else {
 
@@ -347,6 +353,15 @@ class Cms_Page_Controller extends Cms_Base_Controller {
 					//DELETE FILES ASSOCIATION
 					$page->files()->delete();
 
+					//DELETE BLOG ASSOCIATIONS
+					$page->blogs()->delete();
+
+					//DELETE PAGE RELATIONS
+					$page->pagerels()->delete();
+
+					//DELETE MENU RELATIONS
+					$page->menus()->delete();
+
 					//DELETE PAGE
 					$page->delete();
 
@@ -377,14 +392,14 @@ class Cms_Page_Controller extends Cms_Base_Controller {
 		Asset::container('footer')->add('slug', 'bundles/cms/js/jquery.stringtoslug.js', 'jquery');
 
 		//CKEDITOR
-		if(IS('cms::settings.wysiwyg', 'ckeditor')) {
+		if(EDITOR == 'ckeditor') {
 			Asset::container('footer')->add('ckeditor', 'bundles/cms/ckeditor/ckeditor.js', 'form');
 			Asset::container('footer')->add('jqadapter', 'bundles/cms/ckeditor/adapters/jquery.js', 'form');
 			Asset::container('footer')->add('ckcms', 'bundles/cms/js/ck.cms.js', 'jqadapter');
 		}
 
 		//MARKITUP
-		if(IS('cms::settings.wysiwyg', 'markitup')) {
+		if(EDITOR == 'markitup') {
 			Asset::container('footer')->add('markitup', 'bundles/cms/markitup/jquery.markitup.js', 'form');
 			Asset::container('footer')->add('sethtml', 'bundles/cms/markitup/sets/html/set.js', 'markitup');
 			Asset::container('footer')->add('ckcms', 'bundles/cms/js/ck.cms.js', 'jqadapter');
@@ -432,6 +447,7 @@ class Cms_Page_Controller extends Cms_Base_Controller {
 		->with('role_fail', CmsRole::role_fail($page_id))
 		->with('title', LL('cms::title.element_new', CMSLANG))
 		->with('page_id', $page_id)
+		->with('page_name', $page->name)
 		->with('element_id', '')
 		->with('element_name', '')
 		->with('element_label', '')
@@ -459,14 +475,14 @@ class Cms_Page_Controller extends Cms_Base_Controller {
 		Asset::container('footer')->add('slug', 'bundles/cms/js/jquery.stringtoslug.js', 'jquery');
 
 		//CKEDITOR
-		if(IS('cms::settings.wysiwyg', 'ckeditor')) {
+		if(EDITOR == 'ckeditor') {
 			Asset::container('footer')->add('ckeditor', 'bundles/cms/ckeditor/ckeditor.js', 'form');
 			Asset::container('footer')->add('jqadapter', 'bundles/cms/ckeditor/adapters/jquery.js', 'form');
 			Asset::container('footer')->add('ckcms', 'bundles/cms/js/ck.cms.js', 'jqadapter');
 		}
 
 		//MARKITUP
-		if(IS('cms::settings.wysiwyg', 'markitup')) {
+		if(EDITOR == 'markitup') {
 			Asset::container('footer')->add('markitup', 'bundles/cms/markitup/jquery.markitup.js', 'form');
 			Asset::container('footer')->add('sethtml', 'bundles/cms/markitup/sets/html/set.js', 'markitup');
 			Asset::container('footer')->add('ckcms', 'bundles/cms/js/ck.cms.js', 'jqadapter');
@@ -521,10 +537,11 @@ class Cms_Page_Controller extends Cms_Base_Controller {
 				->with('role_fail', CmsRole::role_fail($page_id))
 				->with('title', LL('cms::title.element_edit', CMSLANG))
 				->with('page_id', $page_id)
+				->with('page_name', $page->name)
 				->with('element_id', $element_id)
 				->with('element_name', $element->name)
 				->with('element_label', $element->label)
-				->with('element_text', $element->text)
+				->with('element_text', DECODETEXT($element->text))
 				->with('element_zones', CmsElement::select_zone($page_id))
 				->with('element_zone_selected', $element->zone)
 				->with('element_is_valid', (bool) $element->is_valid)
@@ -641,6 +658,12 @@ class Cms_Page_Controller extends Cms_Base_Controller {
 			$new_page = new CmsPage($new_page_attr);
 			$new_page->save();
 
+			// KEEP OPEN
+			Session::flash('keep_open_item', array(
+					'parent_id' => $parent_id,
+					'page_id' => $new_page->id)
+			);
+
 			if(Input::has('clone_media') and Input::get('clone_media')==1) {
 
 				//GET NEW ID
@@ -664,24 +687,32 @@ class Cms_Page_Controller extends Cms_Base_Controller {
 
 			}
 
-			if(Input::has('clone_elements') and Input::get('clone_elements')==1) {
+			// IF IS ARRAY CLONE_ELEMENTS
 
-				//GET NEW ID
+			if(is_array(Input::get('clone_elements'))) {
+
+				//GET NEW PAGE ID
 				$nid = $new_page->id;
 
-				//GET ALL ELEMENTS IN PIVOT WHERE OLD PAGE_ID
-				// $pivot = $page->elements()->pivot();
+				$elements_to_be_cloned = Input::get('clone_elements');
 
-				foreach (DB::table('elements_pages')->where_cmspage_id($pid)->get() as $value) {
+				// FOR EACH ELEMENT TO CLONE
+				foreach ($elements_to_be_cloned as $el) {
+
+					//GET ORIGINAL ORDER_ID
+					$original_el = DB::table('elements_pages')
+									->where_cmspage_id($pid)
+									->where_cmselement_id($el)
+									->first();
+
+					$ororder = (!empty($original_el)) ? $original_el->order_id : Config::get('cms::settings.order');
 					
-					//INSERT TO PIVOT
-
+					// LANG CHANGES
 					if($lang != LANG) {
 
-						//NEW ELEMENT IF LANG CHANGE
+						// ALWAYS SEPARATE ELEMENTS
 
-						//GET ELEMENT MODEL
-						$element = CmsElement::find($value->cmselement_id);
+						$element = CmsElement::find($el);
 
 						$new_element_attr = array(
 							'author_id' => AUTHORID,
@@ -695,28 +726,55 @@ class Cms_Page_Controller extends Cms_Base_Controller {
 
 						$new_element = new CmsElement($new_element_attr);
 						$page = CmsPage::find($nid);
-						$page->elements()->insert($new_element);
+						$page->elements()->insert($new_element, array('order_id' => $ororder));
 
 					} else {
 
-						//CLONE ELEMENT
+						// CHECK IF ELEMENTS SEPARATE OR NOT
 
-						$clone_array = array(
-							'cmselement_id' => $value->cmselement_id,
-							'cmspage_id' => $nid,
-							'created_at' => $now,
-							'updated_at' => $now,
-						);
+						$separate_elements = Input::get('ele_separate');
 
-						DB::table('elements_pages')->insert($clone_array);
+						if(is_array($separate_elements) and in_array($el, $separate_elements)) {
+
+							// ELEMENT MUST BE SEPARATED
+
+							$element = CmsElement::find($el);
+
+							$new_element_attr = array(
+								'author_id' => AUTHORID,
+								'name' => $element->name,
+								'label' => $element->label,
+								'text' => $element->text,
+								'zone' => $element->zone,
+								'lang' => $lang,
+								'is_valid' => 0
+							);
+
+							$new_element = new CmsElement($new_element_attr);
+							$page = CmsPage::find($nid);
+							$page->elements()->insert($new_element, array('order_id' => $ororder));
+
+						} else {
+
+							//CLONE ELEMENT
+
+							$clone_array = array(
+								'cmselement_id' => $el,
+								'cmspage_id' 	=> $nid,
+								'order_id' 		=> $ororder,
+								'created_at' 	=> $now,
+								'updated_at' 	=> $now,
+							);
+
+							DB::table('elements_pages')->insert($clone_array);
+
+						}
 
 					}
 
 				}
 
 			}
-
-			
 
 			Notification::success(LL('cms::alert.clone_page_success', CMSLANG, array('element' => $page->name)), 1500);
 
@@ -728,7 +786,6 @@ class Cms_Page_Controller extends Cms_Base_Controller {
 			Notification::error(LL('cms::alert.clone_page_error', CMSLANG), 1500);
 
 			return Redirect::to_action('cms::page', array($lang));
-
 		}
 
 
@@ -806,7 +863,7 @@ class Cms_Page_Controller extends Cms_Base_Controller {
 	{
 		$auth = Auth::check();
 		
-		if($auth) {
+		if($auth and is_numeric(AUTHORID)) {
 
 			if(Input::has('id')) {
 

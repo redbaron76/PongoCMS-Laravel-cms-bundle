@@ -9,7 +9,11 @@
 <<<<<<< HEAD
 @if (array_key_exists('pages', $sections) and ROLE >= $sections['pages']['level'])
 <ul class="nav">
+<<<<<<< HEAD
 	<li class="{{ (URI::is('cms/page')) ? 'active' : '' }}">
+=======
+	<li class="{{ (URI::is($sections['pages']['path'].'*')) ? 'active' : '' }}">
+>>>>>>> 1.2
 		<a href="{{URL::to_action('cms::'.$sections['pages']['path'])}}">{{LL('cms::menu.pages', CMSLANG)}}</a>
 	</li>
 </ul>
@@ -20,8 +24,16 @@
 	<?php
 		$is_active = false;
 		if(URI::is('cms/blog*')) $is_active = true;
+<<<<<<< HEAD
 		if(URI::is('cms/product*')) $is_active = true;
+=======
+		if(URI::is('cms/calendar*')) $is_active = true;
+>>>>>>> 1.2
 	?>
+
+	@foreach ($sections['contents'] as $key => $value)
+		<?php if(URI::is('cms/'.$value['path'].'*')) $is_active = true; ?>
+	@endforeach
 
 <ul class="nav">
 	<li class="dropdown{{($is_active) ? ' active' : ''}}" data-dorpdown="dropdown">
@@ -157,19 +169,31 @@
 			<b class="caret"></b>
 		</a>
 		<ul class="dropdown-menu">
+
+			<li class="nav-header">{{LL('cms::label.editor', CMSLANG)}}</li>
+
+			@foreach (Config::get('cms::settings.editor') as $editor => $name)
+
+			<li{{(EDITOR == $editor) ? ' class="active"' : ''}}>
+				<a href="{{URL::to_action('cms::dashboard@editor', array($editor))}}">{{$name}}</a>
+			</li>
+			@endforeach
+
+			<li class="divider"></li>
+
+			<li class="nav-header">{{LL('cms::label.language', CMSLANG)}}</li>
+
 			@foreach ($interface as $code => $lang)
 
-			<?php
-				$is_lang = false;
-				if(CMSLANG == $code) $is_lang = true;
-			?>
-
-			<li{{($is_lang) ? ' class="active"' : ''}}>
+			<li{{(CMSLANG == $code) ? ' class="active"' : ''}}>
 				<a href="{{URL::to_action('cms::dashboard@lang', array($code))}}">{{$lang}}</a>
 			</li>
 			@endforeach
+
 			<li class="divider"></li>
+
 			<li><a href="{{URL::to_action('cms::login@logout')}}">{{LL('cms::title.logout', CMSLANG)}}</a></li>
+
 		</ul>		
 	</li>
 </ul>

@@ -100,6 +100,10 @@ return array(
 
 	"tagname" => "Nome del tag",
 
+	//EDITOR
+	
+	"editor" => "Editor",
+
 	//TABLES
 
 	"pages" => "Pagina",
