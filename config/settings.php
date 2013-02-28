@@ -267,9 +267,9 @@ return array(
 
 	'locale' => array(		
 		
-		'en' => 'en_US'
+		'en' => 'en_US',
 
-		'it' => 'it_IT',
+		'it' => 'it_IT'
 	),
 
 	/*
