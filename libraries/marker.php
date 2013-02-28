@@ -872,10 +872,10 @@ class Marker extends CustomMarker {
 
 		//Bind variables
 
-		$_path = URL::base();
-		if(isset($path) and !empty($path)) $_path = URL::base() . '/' . $path;
+		$_path = '';
+		$_path = (isset($path) and !empty($path)) ?  URL::to($path) : URL::base();
 
-		return str_replace('//', '/', $_path);
+		return $_path;
 
 	}
 
