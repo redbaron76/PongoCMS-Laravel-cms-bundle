@@ -68,6 +68,10 @@ Route::filter('init', function()
 
 	define('THEME', Config::get('cms::settings.theme'));
 
+	//SET LOCALE
+
+	setlocale(LC_ALL, Config::get('cms::settings.locale.'.SITE_LANG), Config::get('cms::settings.locale.'.SITE_LANG).'.utf8');
+
 });
 
 
