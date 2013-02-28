@@ -185,7 +185,7 @@ class Marker extends CustomMarker {
 			//CACHE DATA
 			if(CACHE) {
 
-				$list = Cache::remember('img_banner_'.$_name, function() use ($_name) {
+				$list = Cache::remember('img_banner_'.$_name.'_'.SITE_LANG, function() use ($_name) {
 					return CmsBanner::with(array(
 						'files' => function($query) {
 						
@@ -308,7 +308,7 @@ class Marker extends CustomMarker {
 			//CACHE DATA
 			if(CACHE) {
 
-				$list = Cache::remember('blog_last', function() use ($_sign, $_order, $_n) {
+				$list = Cache::remember('blog_last_'.SITE_LANG, function() use ($_sign, $_order, $_n) {
 
 					return CmsBlog::with(array('pages'))
 						->where_lang(SITE_LANG)
@@ -564,7 +564,7 @@ class Marker extends CustomMarker {
 
 			//CACHE DATA
 			if(CACHE) {
-				$list = Cache::remember('file_list_'.$_name, function() use ($_name) {
+				$list = Cache::remember('file_list_'.$_name.'_'.SITE_LANG, function() use ($_name) {
 					return CmsDownload::with(array(
 						'files',
 						'files.filetexts' => function($query) {
@@ -853,6 +853,31 @@ class Marker extends CustomMarker {
 
 	}
 
+
+	/**
+    * HOME Marker - It links to home
+	*
+	* [$HOME[{
+	*	"path":"<url path>"		=> OPTIONAL (if empty, to home page)
+	* }]]
+    *
+    * @param  array
+    * @return string
+    */
+	public static function HOME($vars = array())
+	{
+
+		//Get variables from array $vars
+		if( ! empty($vars)) extract($vars);
+
+		//Bind variables
+
+		$_path = URL::base();
+		if(isset($path) and !empty($path)) $_path = URL::base() . '/' . $path;
+
+		return str_replace('//', '/', $_path);
+
+	}
 
 
 	/**
