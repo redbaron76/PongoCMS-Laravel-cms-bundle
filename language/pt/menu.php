@@ -22,7 +22,7 @@ return array(
 	"contents" => "Conteúdos",
 	"shop"	=> "Loja",
     "settings"	=> "Configurações",
-    "translations"	=> "Translations",
+    "translations"	=> "Traduções",
     "langs" => "Languages",
     "services" => "Services",
 	
