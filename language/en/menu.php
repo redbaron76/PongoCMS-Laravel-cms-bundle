@@ -22,7 +22,6 @@ return array(
 	"contents" => "Contents",
 	"shop"	=> "Shop",
     "settings"	=> "Settings",
-    "orders"	=> "Orders",
     "translations"	=> "Translations",
     "langs" => "Languages",
     "services" => "Services",

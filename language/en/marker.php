@@ -14,7 +14,7 @@ return array(
 	"menu_descr" => "Create a menu as saved in \"Services => Menu\".",
 	"menu_custom_descr" => "Create a custom menu.",
 	"menu_sub_descr" => "Create a static menu linked within page elements.",
-	"preview_descr" => "Get posts, pages, etc previews and it makes them browsable through pagination.",
+	"preview_descr" => "Get previews from posts, pages, etc. And make them browsable through pagination.",
 	"prevnext_descr" => "Create a paginator \"prev / next\" to browse pages.",
 	"social_descr" => "Create social buttons.",
 	"translation_descr" => "Create a translated excerpt as saved in \"Services => Translation\".",
