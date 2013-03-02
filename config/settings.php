@@ -291,7 +291,9 @@ return array(
 
 		'en' => 'English',
 
-		'it' => 'Italiano'
+		'it' => 'Italiano',
+			
+		'pt' => 'Português'
 	),
 
 	/*
@@ -304,7 +306,9 @@ return array(
 
 		'en' => 'English',
 
-		'it' => 'Italiano'
+		'it' => 'Italiano',
+			
+		'pt' => 'Português'
 	),
 
 	/*
