@@ -24,6 +24,6 @@ return array(
     "settings"	=> "Configurações",
     "translations"	=> "Traduções",
     "langs" => "Languages",
-    "services" => "Services",
+    "services" => "Serviços",
 	
 );
