@@ -316,7 +316,9 @@ class Site_Controller extends Base_Controller {
 			$p = Input::get('page', 1);
 
 			// GET FROM WHERE
-			$url = Input::get('url', SLUG_FULL);
+			if(Input::has('url')) Session::put('URL', Input::get('url', SLUG_FULL));
+
+			$url = Session::get('URL', '/');
 
 			//ITEMS PER PAGE
 			$npp = Config::get('cms::theme.site_pag');
