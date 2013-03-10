@@ -22,7 +22,6 @@ return array(
 	"contents" => "Contenuti",
 	"shop"	=> "Negozio",
     "settings"	=> "Impostazioni",
-    "orders"	=> "Ordini",
     "translations"	=> "Traduzioni",
     "langs" => "Lingue",
     "services" => "Servizi",
