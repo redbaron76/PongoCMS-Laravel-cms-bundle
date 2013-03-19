@@ -269,7 +269,9 @@ return array(
 		
 		'en' => 'en_US',
 
-		'it' => 'it_IT'
+		'it' => 'it_IT',
+                
+                'pl' => 'pl_PL'
 	),
 
 	/*
@@ -293,7 +295,9 @@ return array(
 
 		'it' => 'Italiano',
 			
-		'pt' => 'Português'
+		'pt' => 'Português',
+                
+                'pl' => 'Polski'
 	),
 
 	/*
@@ -308,7 +312,9 @@ return array(
 
 		'it' => 'Italiano',
 			
-		'pt' => 'Português'
+		'pt' => 'Português',
+            
+                'pl' => 'Polski'
 	),
 
 	/*
