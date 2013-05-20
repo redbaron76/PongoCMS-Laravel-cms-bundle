@@ -17,7 +17,9 @@ class Cms_Login_Controller extends Cms_Base_Controller {
 	{
 
 		$this->layout->header_data = array(
-			'title' => 'Esegui il Login!'
+			//'title' => 'Esegui il Login!'
+			'title' => LL('cms::title.loginnow', CMSLANG)
+			
 		);
 
 		$this->layout->content = View::make('cms::interface.pages.login');
