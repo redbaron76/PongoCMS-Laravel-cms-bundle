@@ -178,8 +178,7 @@ class CmsRender {
 
 			}			
 
-		}	
-
+		}
 
 		//Bind $elements / $extra to ZONE
 
@@ -196,6 +195,11 @@ class CmsRender {
 			$page_layout = $page->layout;
 			if(empty($page->layout)) $page_layout = 'default';
 
+			//INJECT PAGE LAYOUT
+			if(!empty($inject)) {
+				$page_layout = ( ! empty($inject['layout'])) ? $inject['layout'] : $page_layout;
+			}
+
 			// Get layouts from config.design
 			$arr_layout = Config::get('cms::theme.layout_'.$page_layout);
 
@@ -204,6 +208,7 @@ class CmsRender {
 
 			// Bind page name
 			$layout['NAME'] = $page->name;
+			$layout['CLASSNAME'] = Str::slug($page->name);
 
 			// Check layout exists
 			if( ! empty($arr_layout)) {
@@ -240,13 +245,19 @@ class CmsRender {
 					// INJECT EXTERNAL ELEMENT INTO ZONE
 					if(!empty($inject)) {
 
+						// Clean content
+						unset($zone);
+
+						// Append results
 						$zone[$inject['zone']][0] = $inject['view'];
 
 					}
 
 					// Bind pageitem text to ZONE which become layout variable
 					foreach($page->elements as $item) {							
+
 						$layout[strtoupper($item->zone)] = trim(implode("\n", $zone[$item->zone]));
+						
 					} 
 
 				} 
@@ -278,6 +289,7 @@ class CmsRender {
 
 					// Bind extra name
 					$layout['NAME'] = $extra->name;
+					$layout['CLASSNAME'] = Str::slug($page->name);
 
 					// Bind pageitem text to ZONE which become layout variable
 					$layout[strtoupper($extra->zone)] = trim(implode("\n", array($tmp_text)));
@@ -322,7 +334,14 @@ class CmsRender {
 		$header = ( ! empty($page->header)) ? $page->header : 'default';
 		$footer = ( ! empty($page->footer)) ? $page->footer : 'default';
 
+		// INJECT PAGE PARTIALS
+		if(!empty($inject)) {
 
+			$template = ( ! empty($inject['template'])) ? $inject['template'] : $template;
+			$header = ( ! empty($inject['header'])) ? $inject['header'] : $header;
+			$footer = ( ! empty($inject['footer'])) ? $inject['footer'] : $footer;
+
+		}
 
 		//APPLICATION COMPOSER
 

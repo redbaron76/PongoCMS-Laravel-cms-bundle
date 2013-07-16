@@ -540,3 +540,7 @@ table .wrap_name {
 .media-box-block {
     height: 70px;
 }*/
+
+.row-fluid [class*="span"] {
+    margin-left: 0;
+}

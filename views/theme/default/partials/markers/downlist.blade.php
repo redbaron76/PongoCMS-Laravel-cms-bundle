@@ -6,9 +6,9 @@
 
 			$label = $file->name;
 
-			if(!empty($file->filetexts[$key])) {
-			 	$title = (strlen($file->filetexts[$key]->title) > 0) ? ' title="'.$file->filetexts[$key]->title.'"' : '';
-			 	$label = (strlen($file->filetexts[$key]->label) > 0) ? $file->filetexts[$key]->label : $file->name;
+			if(!empty($file->filetexts[0])) {
+			 	$title = (strlen($file->filetexts[0]->title) > 0) ? ' title="'.$file->filetexts[0]->title.'"' : '';
+			 	$label = (strlen($file->filetexts[0]->label) > 0) ? $file->filetexts[0]->label : $file->name;
 			}
 
 		?>

@@ -140,15 +140,19 @@ $THEME_SETTINGS = array(
 
 	/*
 	|--------------------------------------------------------------------------
-	| $SEARCH marker results ZONE in layout | Map to existing zone
+	| $SEARCH form layout | Map to existing items and zones
 	|--------------------------------------------------------------------------|
 	*/
 
+	'search_template' 	=> 'default',
+	'search_header' 	=> 'default',
+	'search_footer' 	=> 'default',
+	'search_layout' 	=> 'default',
 	'search_zone'		=> 'ZONE1',
 
 	/*
 	|--------------------------------------------------------------------------
-	| $SEARCH marker results view | in: /partials
+	| $SEARCH results layout | in: /partials
 	|--------------------------------------------------------------------------|
 	*/
 
@@ -156,15 +160,19 @@ $THEME_SETTINGS = array(
 
 	/*
 	|--------------------------------------------------------------------------
-	| $LOGIN marker form ZONE in layout | Map to existing zone
+	| Authorization page layout | Map to existing items and zones
 	|--------------------------------------------------------------------------|
 	*/
 
+	'login_template' 	=> 'default',
+	'login_header' 		=> 'default',
+	'login_footer' 		=> 'default',
+	'login_layout' 		=> 'default',
 	'login_zone'		=> 'ZONE1',
 
 	/*
 	|--------------------------------------------------------------------------
-	| SIGNUP view form | Same ZONE of login_zone | in: /partials
+	| SIGNUP form | in: /partials
 	|--------------------------------------------------------------------------|
 	*/
 

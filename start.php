@@ -209,6 +209,8 @@ define('CMSLANG', Session::get('CMSLANG', Config::get('cms::settings.language'))
 define('CACHE', Config::get('cms::settings.cache_engine'));
 define('BASE', Config::get('application.url'));
 
+// CMS INTERFACE LOCALE
+setlocale(LC_ALL, Config::get('cms::settings.locale.'.LANG), Config::get('cms::settings.locale.'.LANG).'.utf8');
 
 //BUNDLE REQUIREMENTS
 

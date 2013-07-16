@@ -133,7 +133,6 @@ class CmsPage extends Eloquent {
 
 		$rs = self::where_parent_id(0)					
 					->where_lang($lang)
-					->where_is_home(0)
 					->where_is_valid(1)
 					->order_by('is_home', 'desc')
 					->order_by('order_id', 'asc')
@@ -169,10 +168,8 @@ class CmsPage extends Eloquent {
 
 		}
 
-		$rs = self::where_parent_id(0)
-					->where('id', '<>', $self)
+		$rs = self::where('id', '<>', $self)
 					->where_lang($lang)
-					->where_is_home(0)
 					->where_extra_id($extra)
 					->where_is_valid(1)
 					->order_by('is_home', 'desc')
@@ -439,9 +436,15 @@ class CmsPage extends Eloquent {
 			'div' => 'div rel="preview"',
 			'container' => 'container percent100',
 			'row' => 'row-fluid top10',
-			'{{' => '<span>',
-			'}}' => '</span>'
+			// '{{' => '<span>',
+			// '}}' => '</span>'
+			'{{' => '',
+			'}}' => ''
 		);
+
+		preg_match_all('/\{\{\$([^\$]*)\}\}/i', $preview_layout, $matches);
+
+		$clear_array = $matches[1];
 
 		// LAYOUT TEMPLATE ARRAY
 		$layout_array = Config::get('cms::theme.layout_'.$layout);
@@ -457,6 +460,13 @@ class CmsPage extends Eloquent {
 
 			// LOOP REPLACE LAYOUT TAGS
 			$preview_layout = str_replace('$'.$key, $value, $preview_layout);
+
+		}
+
+		foreach ($clear_array as $value) {
+
+			// LOOP REPLACE LAYOUT TAGS
+			$preview_layout = str_replace('$'.$value, '', $preview_layout);
 
 		}
 

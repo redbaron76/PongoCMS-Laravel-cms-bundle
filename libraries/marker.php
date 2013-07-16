@@ -799,7 +799,7 @@ class Marker extends CustomMarker {
 		$_wm = 'no';
 		if(isset($wm) and !empty($wm) and $wm == 'true') $_wm = 'wm';
 
-		$_class = 'inline';
+		$_class = 'gallery unstyled';
 		if(isset($class) and !empty($class)) $_class = $class;
 
 		$_tpl = 'gallery';
@@ -886,8 +886,8 @@ class Marker extends CustomMarker {
 	* [$IMAGE[{
 	*	"file":"<filename>",
 	*	"type":"<type of crop>"	=> (default: resize | available: resize || crop)
-	*	"w":"100",
-	*	"h":"100",
+	*	"w":"",
+	*	"h":"",
 	*	"x":"0",				=> OPTIONAL (if type crop, crop start x)
 	*	"y":"0",				=> OPTIONAL (if type crop, crop start y)
 	*	"wm":"true | false",	=> OPTIONAL
@@ -912,10 +912,10 @@ class Marker extends CustomMarker {
 		$_type = 'resize';
 		if(isset($type) and !empty($type)) $_type = $type;
 
-		$_w = 100;
+		$_w = '';
 		if(isset($w) and !empty($w)) $_w = $w;
 
-		$_h = 100;
+		$_h = '';
 		if(isset($h) and !empty($h)) $_h = $h;
 
 		$_x = 0;
@@ -1248,8 +1248,17 @@ class Marker extends CustomMarker {
 		$_h = 240;
 		if(isset($h) and !empty($h)) $_h = $h;
 
+		$_lat = '';
+		if(isset($lat) and !empty($lat)) $_lat = $lat;
+
+		$_lng = '';
+		if(isset($lng) and !empty($lng)) $_lng = $lng;
+
 		$_type = '';
 		if(isset($type) and !empty($type)) $_type = $type;
+
+		$_icon = '';
+		if(isset($icon) and !empty($icon)) $_icon = MEDIA('img/'.$icon);
 
 		$_id = 'map';
 		if(isset($id) and !empty($id)) $_id = $id;
@@ -1260,7 +1269,7 @@ class Marker extends CustomMarker {
 		$_tpl = 'map';
 		if(isset($tpl) and !empty($tpl)) $_tpl = $tpl;
 
-		if(!empty($_address)) {
+		if(!empty($_address) or (!empty($_lat) and !empty($_lng))) {
 
 			//LOAD GOOLE MAPS LIBS
 			Asset::container('header')->add('googlemaps', 'http://maps.google.com/maps/api/js?sensor=false', 'jquery');
@@ -1286,8 +1295,12 @@ class Marker extends CustomMarker {
 			$view['zoom'] 		= $_zoom;
 			$view['w']			= $_w;
 			$view['h']			= $_h;
+			$view['lat']		= $_lat;
+			$view['lng']		= $_lng;
 			$view['maptype']	= $map_type;
-			$view['id']			= $_id;			
+			$view['icon']		= $_icon;
+			$view['id']			= $_id;
+			$view['class']		= $_class;
 			$view['options'] 	= HTML::attributes($options);
 
 			return $view;
@@ -1838,6 +1851,7 @@ class Marker extends CustomMarker {
 	* [$SOCIAL[{
 	*	"what":"facebook",	=> (available: facebook-twitter-linkedin-google-follow)
 	*	"user":"[username]" => OPTIONAL (MANDATORY if 'what' includes 'follow or linkedin')
+	*	"url":"[url]"		=> OPTIONAL (target url)
 	*	"class":"<class>",		=> OPTIONAL (default: social)
 	*	"tpl":"<tpl_name>"		=> OPTIONAL (in /partials/markers)
 	* }]]
@@ -1859,6 +1873,9 @@ class Marker extends CustomMarker {
 		$_user = '';
 		if(isset($user) and !empty($user)) $_user = $user;
 
+		$_url = '';
+		if(isset($url) and !empty($url)) $_url = $url;
+
 		$_class = 'addthis_toolbox addthis_default_style social';
 		if(isset($class) and !empty($class)) $_class = $class;
 
@@ -1878,7 +1895,8 @@ class Marker extends CustomMarker {
 
 			$view = LOAD_VIEW($_tpl);
 			$view['services'] 	= $services;
-			$view['user']		= $_user;		
+			$view['user']		= $_user;
+			$view['url']		= $_url;
 			$view['options'] 	= HTML::attributes($options);
 
 			return $view;

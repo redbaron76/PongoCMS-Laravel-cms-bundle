@@ -1,8 +1,14 @@
+<?php
+
+	$addthis_url = (!empty($url)) ? $url : Config::get('application.url').SLUG_FULL;
+
+?>
+
 <div{{$options}}>
 	@foreach($services as $service)
 
 		@if($service == 'facebook')
-		<a class="addthis_button_facebook_like" fb:like:layout="button_count" fb:like:width="105" addthis:url="{{Config::get('application.url').SLUG_FULL}}"></a>
+		<a class="addthis_button_facebook_like" fb:like:layout="button_count" fb:like:width="105" addthis:url="{{$addthis_url}}"></a>
 		@endif
 
 		@if($service == 'twitter')

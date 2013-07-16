@@ -113,17 +113,15 @@ $.cms = {
 	highlightLayout:
 	function() {
 
-		var $el = $('#element_zone');
+		var el_var, $el = $('#element_zone');
 
-		if($el.length > 0) {
-			var el_val = $el.val();
-			$('div[data-zone='+el_val+']').addClass('highlight');
+		$el.live('change', function() {
+			el_val = $el.val();
+			console.log(el_val);
 
-			$el.live('change', function() {
-				$('div.highlight').removeClass('highlight');
-				$('div[data-zone='+ $(this).val() +']').addClass('highlight');
-			});
-		}
+			$('div.highlight').removeClass('highlight');
+			$('div[data-zone='+ $(this).val() +']').parent().addClass('highlight');
+		});
 
 	},
 

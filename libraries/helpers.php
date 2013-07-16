@@ -149,7 +149,7 @@ function MEDIA_NAME($filename, $suffix, $with_path = false)
 	$tmp_filename = str_replace('/img/', '/img/'.Config::get('cms::settings.thumb_path'), $tmp_filename);
 	}
 
-	if($with_path) return URL::to(Config::get('cms::settings.data').'img/'.Config::get('cms::settings.thumb_path').$tmp_filename);
+	if($with_path) return URL::to($tmp_filename);
 
 	return $tmp_filename;
 
@@ -227,13 +227,30 @@ function MEDIA_NOPOINT($path)
 */
 function MEDIA_DIM($ow, $oh, $w, $h)
 {
-	if($ow >= $oh) {
-	$h = intval(($oh * $w) / $ow);
+
+	if(!empty($w) and empty($h)) {
+
+		$_w = $w;
+		$_h = intval(($oh * $w) / $ow);
+
+	} else if(empty($w) and !empty($h)) {
+
+		$_h = $h;
+		$_w = intval(($ow * $h) / $oh);
+
+	} else if(!empty($w) and !empty($h)) {
+
+		$_w = $w;
+		$_h = $h;
+
 	} else {
-	$w = intval(($ow * $h) / $oh);
+
+		$_w = $ow;
+		$_h = $oh;
+
 	}
 
-	return array('w' => $w, 'h' => $h);
+	return array('w' => $_w, 'h' => $_h);
 
 }
 
@@ -255,8 +272,11 @@ function MEDIA_URL($file_name)
 * @return string
 */
 function MEDIA($path)
-{	
-	return Config::get('application.url') . '/' . $path;
+{
+	
+	if(substr($path, 0) != '/') $path = '/' . $path;
+
+	return Config::get('application.url') . $path;
 }
 
 /**
@@ -310,7 +330,7 @@ function TEXTPREVIEW($obj, $max = false, $strip_tags = false, $decode = true, $e
 
 		if($decode) $text = Marker::decode($text);
 
-		if($strip_tags) $text = strip_tags($text);
+		if($strip_tags) $text = strip_tags($text, '<a><strong><ul><li>');
 
 		if(is_numeric($max)) $text = substr($text, 0, $max) . $end;
 
@@ -329,7 +349,7 @@ function TEXTPREVIEW($obj, $max = false, $strip_tags = false, $decode = true, $e
 * @param  string
 * @return string
 */
-function TEXT2IMG($text, $w = 320, $h = 200, $key = 0)
+function TEXT2IMG($text, $w = 320, $h = 200, $class = '', $key = 0)
 {
 	$tmp_text = trim($text);
 	$tmp_text = Marker::decode($tmp_text);
@@ -348,7 +368,7 @@ function TEXT2IMG($text, $w = 320, $h = 200, $key = 0)
 
 		$url = URL::to_action('cms::image@thumb', array($w, $h, 'no', $file));
 
-		return HTML::image($url, '', array('width' => $w, 'height' => $h));
+		return HTML::image($url, '', array('width' => $w, 'height' => $h, 'class' => $class));
 
 	} else {
 
@@ -356,7 +376,43 @@ function TEXT2IMG($text, $w = 320, $h = 200, $key = 0)
 
 		$url = URL::to_action('cms::image@thumb', array($w, $h, 'no', 'img_default.jpg'));
 
-		return HTML::image($url, '', array('width' => $w, 'height' => $h));
+		return HTML::image($url, '', array('width' => $w, 'height' => $h, 'class' => $class));
+
+	}
+}
+
+/**
+* Extract image from text as thumbnail
+*
+* @param  string
+* @return string
+*/
+function TEXT2THUMB($text, $w = 320, $h = 200, $class = '', $key = 0)
+{
+	$tmp_text = trim($text);
+	$tmp_text = Marker::decode($tmp_text);
+
+	preg_match_all('/src="([^"]*)"/i', $tmp_text, $matches);
+
+	if(!empty($matches[1])) {
+
+		$file = PATH2FILE($matches[1][$key]);
+
+		$thumbs = Config::get('cms::theme.thumb');
+
+		foreach ($thumbs as $val) {
+			$file = str_replace($val['suffix'], '', $file);
+		}
+
+		return Marker::THUMB(array('file' => $file, 'w' => $w, 'class' => $class));
+
+	} else {
+
+		$thumbs = Config::get('cms::theme.thumb');
+
+		$url = URL::to_action('cms::image@thumb', array($w, $h, 'no', 'img_default.jpg'));
+
+		return HTML::image($url, '', array('width' => $w, 'height' => $h, 'class' => $class));
 
 	}
 }
