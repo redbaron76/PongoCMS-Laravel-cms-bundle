@@ -1,0 +1,22 @@
+/* CKEDITOR BASE STYLES */
+
+/* Remove background from editor */
+
+body {
+	background-image: none;
+	background-color: #ffffff;
+	padding: 10px;
+	width: 723px;
+}
+
+/* higlight P tag */
+
+body p {
+	border: 1px dashed #ff0000;
+}
+
+/* higlight DIV tag */
+
+body div {
+	border: 1px dashed #0000cc;
+}

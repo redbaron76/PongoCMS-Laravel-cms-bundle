@@ -1,0 +1,1 @@
+<iframe src="http://player.vimeo.com/video/{{$code}}?title=0&amp;byline=0&amp;portrait=0&amp;color=ede8ce" width="{{$w}}" height="{{$h}}" frameborder="0"{{$options}}></iframe>

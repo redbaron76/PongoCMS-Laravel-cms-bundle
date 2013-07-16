@@ -1,0 +1,542 @@
+/* BASE */
+
+html, body {
+    background-color: #E6ECB5;
+}
+
+/* COMMON */
+.left {
+    float: left;
+}
+
+.right {
+    float: right;
+}
+
+.toleft {
+    text-align: left !important;
+}
+
+.toright {
+    text-align: right;
+}
+
+.block {
+    display: block;
+}
+
+.inline {
+    display: inline;
+}
+
+.relative {
+    position: relative;
+}
+
+.space {
+    margin-top: 30px;
+}
+
+.hspace {
+    margin-top: 15px;
+}
+
+.top10 {
+    margin-top: 10px;
+}
+
+.percent100 {
+    width: 100% !important;
+}
+
+.v-top {
+    vertical-align: top;
+}
+
+.right20 {
+    margin-right: 20px;
+}
+
+.w-right20 {
+    width: 20px;
+}
+
+.w-right40 {
+    width: 40px;
+}
+
+.w-right60 {
+    width: 60px;
+}
+
+.w-right80 {
+    width: 80px;
+}
+
+.w-right100 {
+    width: 100px;
+}
+
+.left20 {
+    margin-left: 20px;
+}
+
+.v-middle {
+    vertical-align: middle;
+}
+
+ul.sortable {
+    list-style: none;
+}
+
+ul.sortable li {
+    margin-bottom: 5px;
+}
+
+ul.sortable li a.btn {
+    min-width: 200px;
+    text-align: left;
+}
+
+/* NAVBAR */
+
+.navbar form {
+    margin: 5px 0 0 0;
+}
+
+.navbar form input {
+    margin: 0;
+}
+
+.navbar .btn {
+    margin-top: 0;
+}
+
+.nav > li > span.label {
+    margin-top: 8px;
+    padding: 5px;
+}
+
+.nav > li > span {
+    display: block;
+    float: none;
+    text-decoration: none;
+}
+
+/* TYPOGRAPHY */
+
+h1 { font-size: 32px; line-height: 32px; margin: 0; }
+h2 { font-size: 26px; line-height: 28px; margin: 0; }
+h1 small { font-size: 20px; line-height: 20px; margin: 0; }
+
+/* CONTAINER GENERIC */
+
+.row {
+    position: relative;
+}
+
+.side {
+    position: relative;
+    text-align: right;
+}
+
+.side .nav-tabs {
+    float: right;
+    margin-right: -1px;
+    margin-top: 36px;
+    text-align: right;
+}
+
+.body {
+    border-left: 1px solid #DDDDDD;
+    margin-left: 0;
+    padding-left: 19px;
+}
+
+.body form, .body .form-actions {
+    margin-bottom: 0;
+}
+
+.nobottom {
+    margin-left: 0;
+    padding-left: 20px;
+}
+
+.nobottom form, .nobottom .form-actions {
+    margin-bottom: 0;
+}
+
+.content {
+    background-color: #FFFFFF;
+    -webkit-border-radius: 0 0 6px 6px;
+    -moz-border-radius: 0 0 6px 6px;
+    border-radius: 0 0 6px 6px;
+    box-shadow: 0 1px 2px rgba(0, 0, 0, 0.15);
+    margin: 0 -20px;
+    margin-top: 40px;
+    padding: 20px;
+}
+
+.container.compact .content {
+    -webkit-border-radius: 6px;
+    -moz-border-radius: 6px;
+    border-radius: 6px;
+}
+
+.container.compact .page-header.top-page {
+    -webkit-border-radius: 6px 6px 0 0;
+    -moz-border-radius: 6px 6px 0 0;
+    border-radius: 6px 6px 0 0;
+}
+
+.page-header.top-page {
+    position: relative;
+    background-color: #F5F5F5;
+    margin: -20px -20px 20px;
+    padding: 20px 0;
+}
+
+.page-header form {
+    margin-top: 2px;
+    margin-bottom: 0;
+}
+
+.page-header input {
+    margin: 0;
+}
+
+.container.compact {
+    width: 350px !important;
+}
+
+.container > footer {
+    margin-top: 20px;
+}
+
+.container > footer p {
+    text-align: center;
+    font-size: 11px;
+}
+
+/* PAGE PREVIEW */
+
+#template-preview div {
+    -moz-box-sizing: border-box;
+    -webkit-box-sizing: border-box;
+    box-sizing: border-box;
+}
+
+#header-preview,
+#footer-preview,
+#layout-preview [class*="span"] {
+    border: 5px solid #eeeeee;
+    padding: 5px;
+    word-wrap: break-word;
+}
+
+#header-preview {
+    margin-bottom: 0;
+}
+
+#footer-preview {
+    margin-top: 10px;
+}
+
+#layout-preview [class*="span"] {
+    min-height: 200px;
+}
+
+#layout-preview .highlight {
+    border-color: #c2e4ea;
+}
+
+/* BUTTON DROPDOWN */
+
+.btn-group.open {
+    position: relative;
+    text-align: left;
+}
+
+.btn-group.open .dropdown-menu {
+    left: auto;
+    right: 0;
+}
+
+.btn-mini .caret,
+.btn-small .caret,
+.btn-large .caret {
+    margin-top: 8px;
+}
+
+/* BADGET */
+
+.badge-mini {
+  padding: 1px 4px 2px;
+  font-size: 9px;
+  font-weight: bold;
+  white-space: nowrap;
+  color: #ffffff;
+  -webkit-border-radius: 6px;
+  -moz-border-radius: 6px;
+  border-radius: 6px;
+}
+
+/* FORM */
+
+form legend,
+div > legend {
+    line-height: 36px;
+}
+
+form .controls span.help-inline {
+    vertical-align: super;
+}
+
+form .controls p.help-block {
+    color: #bebebe;
+    font-size: 11px;
+    line-height: 15px;
+    margin-top: -5px;
+    margin-left: 5px;
+}
+
+form .controls .input-prepend p.help-block {
+    margin-top: 5px;
+}
+
+form .controls span.label {
+    display: inline-block;
+    margin-top: 8px;
+    padding: 5px;
+    margin-bottom: 9px;
+}
+
+form .control-label {
+    /*font-weight: bold;*/
+}
+
+form a.preview {
+    position: absolute;
+    left: 50px;
+}
+
+/* LEGEND FIX */
+
+legend + * {
+    -webkit-margin-top-collapse : separate;
+    margin-top                  : 27px;
+}
+
+/* FORM FIX */
+
+form.form-vertical .input-prepend input[class*="span"] {
+    margin-left: -4px;
+}
+
+form.form-vertical .input-append input[class*="span"] {
+    margin-right: -4px;
+}
+
+form.form-vertical .input-prepend .add-on,
+form.form-vertical .input-append .add-on,
+form.form-vertical .input-prepend .btn,
+form.form-vertical .input-append .btn {
+    margin-bottom: 10px;
+}
+
+form.form-vertical .input-prepend .add-on {
+    margin-right: 3px;
+}
+
+form .text-btn {
+    position: absolute;
+    top: -10px;
+    right: 0;
+}
+
+.modal form {
+    margin: 0;
+}
+
+#element_name {
+    width: 179px;
+}
+
+.span3.url {
+    width: 226px;
+}
+
+.span2.date_off {
+    width: 75px;
+}
+
+.btn.edit_banner {
+    margin-right: 20px;
+}
+
+/* MODAL */
+
+#modal-media .modal-body {
+    min-height: 200px;
+}
+
+/* PAGE LIST */
+
+#page_list .btn.toggle {
+    width: 12.5px;
+    padding: 0 2px;
+    line-height: 13px;
+    text-align: center;
+    vertical-align: text-top;
+}
+
+#page_list ol > li {
+    border-top: 1px solid #cccccc;
+    margin: 0;
+    padding: 5px 0 5px 5px;
+    background: #ffffff;
+}
+
+#page_list ol > li.active {
+    background: #ebfcff;
+}
+
+#page_list > ol:first-child > li:first-child {
+    border: none;
+    margin-top: 0;
+    padding-top: 0;
+}
+
+#page_list ol.list ol {
+    margin: 5px 0 -5px 25px;
+    display: none;
+}
+
+#page_list ol.list.open {
+    display: block;
+}
+
+/*ul.page-list li.divider {
+    margin-top: 30px;
+    margin-bottom: 15px;
+    border-bottom: 1px solid #E5E5E5;
+}
+
+ul.page-list li.divider:first-child {
+    margin-top: 0px;
+}
+
+.sub-page {
+    display: inline-block;
+    vertical-align: top;
+    height: 34px;
+}
+
+.sub-page[class*="right"]:first-child {
+    background: url('../img/subpage.png') top right no-repeat;
+}*/
+
+/* ERROR MESSAGES */
+
+.alert-messages {
+    position: fixed;
+    top: 100px;
+    left: 50%;
+    width: 460px;
+    margin-left: -230px;
+}
+
+/* TRANS */
+
+.trans-box {
+    /*background: lime;*/
+    height: 436px;
+    overflow: auto;
+}
+
+/* TABLE FIX */
+
+.table th.toright,
+.table td.toright {
+    text-align: right;
+}
+
+.table .btn-toolbar {
+    margin: 0;
+}
+
+.table.listing {
+    margin-bottom: 0;
+}
+
+thead th:last-child {
+    text-align: right;
+}
+
+tbody.listing td:last-child {
+    text-align: right;
+}
+
+tbody.listing td:last-child .modal {
+    text-align: left;
+}
+
+.ias_loader {
+    text-align:center;
+    margin: 5px 0;
+}
+
+table.fixed { table-layout:fixed; margin-bottom: 0; }
+/*table.fixed td { overflow: hidden; }*/
+
+table.v-middle td {
+    vertical-align: middle;
+}
+
+table td.toright {
+    text-align: right;
+}
+
+table .wrap_name {
+    word-wrap: break-word;
+}
+
+.dropdown-menu li > span {
+    clear: both;
+    color: #555555;
+    display: block;
+    font-weight: normal;
+    line-height: 18px;
+    padding: 3px 15px;
+    white-space: nowrap;
+}
+
+.page_url {
+    font-size: 9px;
+    color: #BEBEBE;
+}
+
+.upload_list {
+    margin-top: 10px;
+}
+
+.upload_list span.label {
+    margin-left: 10px;
+}
+
+#media-container {
+    overflow: hidden;
+    display: none;
+}
+
+/*#media-box {
+    margin-top: 0px;
+}
+
+#media-box .thumbnails {
+    margin-top: 28px;
+}
+
+.media-box-block {
+    height: 70px;
+}*/

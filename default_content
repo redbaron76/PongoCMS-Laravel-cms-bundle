@@ -1,0 +1,154 @@
+INSERT INTO "pongo_files" VALUES(1,'fabio_fumis.jpg','jpg',50647,480,480,'/files/img/fabio_fumis.jpg','/files/img/thumb/fabio_fumis_thumb.jpg',1,1,'2012-07-10 15:17:52','2012-07-10 15:17:52');
+INSERT INTO "pongo_files" VALUES(2,'pongoweb_logo.png','png',58934,500,300,'/files/img/pongoweb_logo.png','/files/img/thumb/pongoweb_logo_thumb.png',1,1,'2012-07-10 15:17:52','2012-07-10 15:17:52');
+
+INSERT INTO "pongo_files_pages" VALUES(1,1,2,'2012-07-10 15:17:52','2012-07-10 15:17:52');
+INSERT INTO "pongo_files_pages" VALUES(2,2,2,'2012-07-10 15:17:52','2012-07-10 15:17:52');
+INSERT INTO "pongo_files_pages" VALUES(3,1,4,'2012-07-10 15:17:52','2012-07-10 15:17:52');
+INSERT INTO "pongo_files_pages" VALUES(4,2,4,'2012-07-10 15:17:52','2012-07-10 15:17:52');
+
+INSERT INTO "pongo_elements" VALUES(1,1,'credits','credits','<h1>About us</h1>
+
+[$IMAGE[{"file":"pongoweb_logo.png", "w":"400"}]]
+
+<p><strong>PongoCMS</strong> is an Open Source project brought to you by <a href="http://www.pongoweb.it" target="_blank">PongoWEB</a></p>
+
+[$SOCIAL[{"what":"follow","user":"PongoWEB"}]]','ZONE1','en',1,'2012-07-10 15:18:35','2012-07-10 17:14:30');
+INSERT INTO "pongo_elements" VALUES(2,1,'author','author','<h2>About the author</h2>
+
+<p>[$IMAGE[{"file":"fabio_fumis.jpg", "w":"90", "h":"90"}]]<strong>Fabio Fumis</strong> is a professional web developer based in <strong>Monfalcone</strong> - <strong>ITALY</strong>.<br>He began to take interest in web development since 1996, when he was 20.<br>In his portfolio an e-commerce website for a leading clothing italian company, a social community website <strong>Bisiacaria.com</strong> and many company websites.<br>Today he loves to stay informed about new web technologies, playing with <strong>Laravel</strong> framework, coding new <strong>jQuery</strong> plugins and riding his <strong>Ducati Monster 900</strong> motorbike.</p>
+
+[$SOCIAL[{"what":"follow","user":"FFumis"}]]','ZONE2','en',1,'2012-07-10 15:23:10','2012-07-10 17:14:41');
+INSERT INTO "pongo_elements" VALUES(3,1,'intro','intro','<h1>Welcome to PongoCMS!</h1>
+
+<p>Hello Cms User and welcome to the <strong>demo site</strong> of PongoCMS, the brand new Open Source PHP5 CMS built on top of <strong><a href="http://laravel.com">Laravel 3.2 PHP Framework</a></strong> and <strong><a href="http://twitter.github.com/bootstrap/">Twitter Bootstrap 2.x</a></strong></p>
+
+<h3>Where and how to start?</h3>
+
+<p>Building a new website with PongoCMS means <strong>adding and editing content</strong> trough its <strong>backend interface</strong> and then <strong>designing a new HTML / CSS theme</strong> to display the <strong>site frontend</strong> aspect.</p>
+
+<p>This green frontend layout is based on <strong>default theme</strong> located at <code>/bundles/cms/views/theme</code> that you automatically installed during setup process through the Laravel''s Artisan CLI command: <code>php artisan cms::setup</code></p>
+
+<p>You will certainly want to build your own theme but before talking about frontend and building up a custom theme, let''s see how to gain access to backend interface.</p>
+
+<h3>Time to play with the interface</h3>
+
+<p>To gain access to the PongoCMS admin interface, just add <code>/cms</code> slug to the end of your site base url or [$LINK[{"url":"cms","label":"click here","target":"_blank"}]] to open it right now and use your first setup access credentials to log in: <code>admin // admin</code></p>
+
+<h3>Ready to build your own theme?</h3>
+
+<p>Connect to <a href="http://pongocms.com" target="_blank">pongocms.com</a> and follow the <a href="http://pongocms.com/theme-tutorial" target="_blank">PongoCMS Theme Tutorial</a>.</p>','ZONE1','en',1,'2012-07-10 15:34:52','2012-07-10 15:39:20');
+INSERT INTO "pongo_elements" VALUES(4,1,'guide','quick guide','<h2>Quick start guide</h2>
+
+<ol>
+<li>Clone <strong>default</strong> theme in <code>/bundles/cms/views/theme</code> and give it a <strong>name without spaces</strong>.</li>
+<li>Open theme''s <strong>theme.php</strong> and set<br><code>name</code>, <code>template</code>, <code>header</code>, <code>footer</code> and <code>layout</code> array keys as <strong>/layouts</strong>, <strong>/partials</strong> and <strong>/templates</strong> theme filenames.</li>
+<li>Map <code>''ZONEXX'' => ''Zone_Name''</code> to your <strong>/layouts</strong> files placeholders for each <code>''layout_NAME''</code>.</li>
+<li>Set <code>asset</code> array key with all your asset details, then copy your asset fils into <strong>/public</strong> theme folder.</li>
+<li>Run <code>php artisan cms::setup:theme theme_name</code> to <strong>activate</strong> it.</li>	
+</ol>','ZONE2','en',1,'2012-07-10 15:40:13','2012-07-10 15:40:53');
+INSERT INTO "pongo_elements" VALUES(5,1,'intro','intro','<h1>Benvenuto in PongoCMS!</h1>
+
+<p>Salve Utente e benvenuto nel sito demo di PongoCMS, il nuovo CMS Open Source in PHP5 sviluppato con <strong><a href="http://laravel.com">Laravel 3.2 PHP Framework</a></strong> e <strong><a href="http://twitter.github.com/bootstrap/">Twitter Bootstrap 2.x</a></strong></p>
+
+<h3>Dove e come iniziare?</h3>
+
+<p>Costruire un sito web con PongoCMS significa <strong>aggiungere e modificare contenuti</strong> attraverso la sua <strong>interfaccia di amministrazione</strong> e <strong>impostare un nuovo tema con HTML e CSS</strong>.</p>
+
+<p>Questo layout "verde" è basato sul <strong>tema di default</strong> situato in <code>/bundles/cms/views/theme</code> che hai automaticamente installato durante la fase di setup attraverso l''uso del comando <code>php artisan cms::setup</code> messo a disposizione dalla Artisan CLI di Laravel.</p>
+
+<p>Molto probabilmente vorrai creare un tuo tema personalizzato ma prima di parlare del frontend e di come costruire un tema personalizzato, diamo un''occhiata su come accedere all''interfaccia di amministrazione.</p>
+
+<h3>E'' ora di provare l''amministrazione</h3>
+
+<p>Per ottenere l''accesso all''interfaccia di amministrazione di PongoCMS, aggiungi semplicemente <code>/cms</code> alla fine del tuo indirizzo web base oppure [$LINK[{"url":"cms","label":"clicca qui","target":"_blank"}]] per aprirla subito. Usa queste credenziali per eseguire il primo login: <code>admin // admin</code></p>
+
+<h3>Pronto per costruire il tuo tema?</h3>
+
+<p>Connettiti a <a href="http://pongocms.com" target="_blank">pongocms.com</a> e segui il <a href="http://pongocms.com/theme-tutorial" target="_blank">PongoCMS Theme Tutorial</a>.</p>','ZONE1','it',1,'2012-07-10 18:00:25','2012-07-10 18:25:08');
+INSERT INTO "pongo_elements" VALUES(6,1,'guida','guida','<h2>Per iniziare velocemente</h2>
+
+<ol>
+<li>Duplica il tema <strong>default</strong> in <code>/bundles/cms/views/theme</code> e dagli un nome <strong>senza spazi</strong>.</li>
+<li>Apri <strong>theme.php</strong> del tema e imposta le array keys <code>name</code>, <code>template</code>, <code>header</code>, <code>footer</code> <br>e <code>layout</code> con i nomi dei file del tema presenti in <strong>/layouts</strong>, <strong>/partials</strong> e <strong>/templates</strong>.</li>
+<li>Mappa un <code>''ZONEXX'' => ''Nome_Zona''</code> in ogni array<br><code>''layout_NAME''</code> e per ogni placeholder presente nei file di layout dentro a <strong>/layouts</strong>.</li>
+<li>Imposta l''array key <code>asset</code> con tutti i dettagli degli asset, poi copia i file degli asset nella cartella <strong>/public</strong> del tema.</li>
+<li>Avvia <code>php artisan cms::setup:theme theme_name</code> per <strong>attivare</strong> il tema.</li>	
+</ol>','ZONE2','it',1,'2012-07-10 18:01:03','2012-07-10 18:46:08');
+INSERT INTO "pongo_elements" VALUES(7,1,'credits','credits','<h1>Chi siamo</h1>
+
+[$IMAGE[{"file":"pongoweb_logo.png", "w":"400"}]]
+
+<p><strong>PongoCMS</strong> un progetto Open Source sviluppato da <a href="http://www.pongoweb.it" target="_blank">PongoWEB</a></p>
+
+[$SOCIAL[{"what":"follow","user":"PongoWEB"}]]','ZONE1','it',1,'2012-07-10 18:48:18','2012-07-10 19:04:57');
+INSERT INTO "pongo_elements" VALUES(8,1,'author','author','<h2>Note sull''autore</h2>
+
+<p>[$IMAGE[{"file":"fabio_fumis.jpg", "w":"90", "h":"90"}]]<strong>Fabio Fumis</strong> è uno sviluppatore web con base a <strong>Monfalcone</strong> - <strong>ITALY</strong>.<br>Si è interessato di sviluppo web fin dal 1996, quando aveva 20 anni.<br>Tra i suoi lavori, un sistema e-commerce per un''importante brand di abbigliamento italiano, una community social <strong>Bisiacaria.com</strong> e moltissimi siti aziendali e istituzionali.<br>Attualmente ama tenersi sempre informato riguardo le ultime novità web, giocare con il framework <strong>Laravel</strong>, sviluppare nuovi plugin <strong>jQuery</strong> e scorrazzare con la sua <strong>Ducati Monster 900.</strong></p>
+
+[$SOCIAL[{"what":"follow","user":"FFumis"}]]','ZONE2','it',1,'2012-07-10 18:48:18','2012-07-10 19:11:48');
+INSERT INTO "pongo_elements" VALUES(9,1,'blog_preview','blog','[$PREVIEW[{"source":"blogs","n":"2"}]]','ZONE1','en',1,'2012-07-15 10:43:13','2012-07-15 16:13:54');
+
+INSERT INTO "pongo_elements_pages" VALUES(1,1,2,1000000,'2012-07-10 15:17:52','2012-07-10 15:17:52');
+INSERT INTO "pongo_elements_pages" VALUES(2,2,2,1000000,'2012-07-10 15:17:52','2012-07-10 15:17:52');
+INSERT INTO "pongo_elements_pages" VALUES(3,3,1,1000000,'2012-07-10 15:17:52','2012-07-10 15:17:52');
+INSERT INTO "pongo_elements_pages" VALUES(4,4,1,1000000,'2012-07-10 15:17:52','2012-07-10 15:17:52');
+INSERT INTO "pongo_elements_pages" VALUES(5,5,3,1000000,'2012-07-10 15:17:52','2012-07-10 15:17:52');
+INSERT INTO "pongo_elements_pages" VALUES(6,6,3,1000000,'2012-07-10 15:17:52','2012-07-10 15:17:52');
+INSERT INTO "pongo_elements_pages" VALUES(7,7,4,1000000,'2012-07-10 15:17:52','2012-07-10 15:17:52');
+INSERT INTO "pongo_elements_pages" VALUES(8,8,4,1000000,'2012-07-10 15:17:52','2012-07-10 15:17:52');
+INSERT INTO "pongo_elements_pages" VALUES(9,9,5,1000000,'2012-07-10 15:17:52','2012-07-10 15:17:52');
+
+INSERT INTO "pongo_translations" VALUES(1,'en','site language','scegli la lingua','it','2012-07-09 21:09:08','2012-07-10 16:03:51');
+INSERT INTO "pongo_translations" VALUES(2,'en','a CMS built upon Laravel 3.2 PHP Framework','un CMS basato su Laravel 3.2 PHP Framework','it','2012-07-10 15:10:24','2012-07-10 15:10:24');
+
+INSERT INTO "pongo_menus" VALUES(1,'nav','en',0,0,'2012-07-10 15:17:52','2012-07-10 15:17:52');
+INSERT INTO "pongo_menus" VALUES(2,'nav','it',0,0,'2012-07-10 15:17:52','2012-07-10 15:17:52');
+
+INSERT INTO "pongo_menus_pages" VALUES(1,1,1,1000000,'2012-07-10 15:17:52','2012-07-10 15:17:52');
+INSERT INTO "pongo_menus_pages" VALUES(2,1,2,1000000,'2012-07-10 15:17:52','2012-07-10 15:17:52');
+INSERT INTO "pongo_menus_pages" VALUES(3,2,3,1000000,'2012-07-10 15:17:52','2012-07-10 15:17:52');
+INSERT INTO "pongo_menus_pages" VALUES(4,2,4,1000000,'2012-07-10 15:17:52','2012-07-10 15:17:52');
+INSERT INTO "pongo_menus_pages" VALUES(5,1,5,1000000,'2012-07-10 15:17:52','2012-07-10 15:17:52');
+
+INSERT INTO "pongo_blogs" VALUES(1,1,50,1,'/this-is-my-first-post','this is my first post','2012-05-15 12:25:00','2014-05-15 12:25:00','<p>
+	Aenean lacinia bibendum nulla sed consectetur. Vivamus sagittis lacus vel augue laoreet rutrum faucibus dolor auctor. Maecenas sed diam eget risus varius blandit sit amet non magna. Fusce dapibus, tellus ac cursus commodo, tortor mauris condimentum nibh, ut fermentum massa justo sit amet risus. Etiam porta sem malesuada magna mollis euismod.</p>
+','<p>
+	Morbi leo risus, porta ac consectetur ac, vestibulum at eros. Nullam quis risus eget urna mollis ornare vel eu leo. Cras justo odio, dapibus ac facilisis in, egestas eget quam. Duis mollis, est non commodo luctus, nisi erat porttitor ligula, eget lacinia odio sem nec elit. Vestibulum id ligula porta felis euismod semper. Sed posuere consectetur est at lobortis.<br />
+	<br />
+	Cras justo odio, dapibus ac facilisis in, egestas eget quam. Fusce dapibus, tellus ac cursus commodo, tortor mauris condimentum nibh, ut fermentum massa justo sit amet risus. Cras justo odio, dapibus ac facilisis in, egestas eget quam. Cras justo odio, dapibus ac facilisis in, egestas eget quam. Cum sociis natoque penatibus et magnis dis parturient montes, nascetur ridiculus mus. Praesent commodo cursus magna, vel scelerisque nisl consectetur et. Aenean lacinia bibendum nulla sed consectetur.<br />
+	<br />
+	Curabitur blandit tempus porttitor. Vestibulum id ligula porta felis euismod semper. Donec id elit non mi porta gravida at eget metus. Integer posuere erat a ante venenatis dapibus posuere velit aliquet. Lorem ipsum dolor sit amet, consectetur adipiscing elit. Maecenas sed diam eget risus varius blandit sit amet non magna.<br />
+	<br />
+	Morbi leo risus, porta ac consectetur ac, vestibulum at eros. Donec ullamcorper nulla non metus auctor fringilla. Maecenas faucibus mollis interdum. Lorem ipsum dolor sit amet, consectetur adipiscing elit. Vestibulum id ligula porta felis euismod semper. Etiam porta sem malesuada magna mollis euismod.</p>
+',NULL,NULL,NULL,'ZONE1','en',1,'2012-07-15 10:28:45','2012-07-15 10:30:33');
+INSERT INTO "pongo_blogs" VALUES(2,1,50,1,'/my-second-blog-post','my second blog post','2012-06-15 12:31:00','2014-06-15 12:31:00','Cras justo odio, dapibus ac facilisis in, egestas eget quam. Cum sociis natoque penatibus et magnis dis parturient montes, nascetur ridiculus mus. Nullam quis risus eget urna mollis ornare vel eu leo. Vivamus sagittis lacus vel augue laoreet rutrum faucibus dolor auctor.','<p>
+	Integer posuere erat a ante venenatis dapibus posuere velit aliquet. Nullam id dolor id nibh ultricies vehicula ut id elit. Sed posuere consectetur est at lobortis. Morbi leo risus, porta ac consectetur ac, vestibulum at eros. Donec sed odio dui. Nullam quis risus eget urna mollis ornare vel eu leo. Nullam id dolor id nibh ultricies vehicula ut id elit.<br />
+	<br />
+	Integer posuere erat a ante venenatis dapibus posuere velit aliquet. Cras justo odio, dapibus ac facilisis in, egestas eget quam. Maecenas sed diam eget risus varius blandit sit amet non magna. Etiam porta sem malesuada magna mollis euismod. Maecenas sed diam eget risus varius blandit sit amet non magna.<br />
+	<br />
+	Aenean eu leo quam. Pellentesque ornare sem lacinia quam venenatis vestibulum. Duis mollis, est non commodo luctus, nisi erat porttitor ligula, eget lacinia odio sem nec elit. Nullam id dolor id nibh ultricies vehicula ut id elit. Praesent commodo cursus magna, vel scelerisque nisl consectetur et.<br />
+	<br />
+	Aenean eu leo quam. Pellentesque ornare sem lacinia quam venenatis vestibulum. Aenean lacinia bibendum nulla sed consectetur. Etiam porta sem malesuada magna mollis euismod. Morbi leo risus, porta ac consectetur ac, vestibulum at eros. Aenean lacinia bibendum nulla sed consectetur.</p>
+',NULL,NULL,NULL,'ZONE1','en',1,'2012-07-15 10:32:33','2012-07-15 10:32:47');
+INSERT INTO "pongo_blogs" VALUES(3,1,50,1,'/this-is-a-demo-blog-post','this is a demo blog post','2012-07-15 12:33:00','2014-07-15 12:33:00','<p>
+	Fusce dapibus, tellus ac cursus commodo, tortor mauris condimentum nibh, ut fermentum massa justo sit amet risus. Curabitur blandit tempus porttitor. Cras mattis consectetur purus sit amet fermentum. Nullam id dolor id nibh ultricies vehicula ut id elit. Vivamus sagittis lacus vel augue laoreet rutrum faucibus dolor auctor.</p>
+','<p>
+	Donec ullamcorper nulla non metus auctor fringilla. Sed posuere consectetur est at lobortis. Maecenas faucibus mollis interdum. Donec ullamcorper nulla non metus auctor fringilla.<br />
+	<br />
+	Vivamus sagittis lacus vel augue laoreet rutrum faucibus dolor auctor. Curabitur blandit tempus porttitor. Vestibulum id ligula porta felis euismod semper. Curabitur blandit tempus porttitor.<br />
+	<br />
+	Maecenas sed diam eget risus varius blandit sit amet non magna. Cum sociis natoque penatibus et magnis dis parturient montes, nascetur ridiculus mus. Nulla vitae elit libero, a pharetra augue. Maecenas faucibus mollis interdum. Donec sed odio dui. Cras mattis consectetur purus sit amet fermentum. Nullam id dolor id nibh ultricies vehicula ut id elit.<br />
+	<br />
+	Etiam porta sem malesuada magna mollis euismod. Maecenas sed diam eget risus varius blandit sit amet non magna. Aenean lacinia bibendum nulla sed consectetur. Fusce dapibus, tellus ac cursus commodo, tortor mauris condimentum nibh, ut fermentum massa justo sit amet risus. Maecenas faucibus mollis interdum. Praesent commodo cursus magna, vel scelerisque nisl consectetur et.</p>
+',NULL,NULL,NULL,'ZONE1','en',1,'2012-07-15 10:34:16','2012-07-15 10:35:05');
+
+INSERT INTO "pongo_blogs_pages" VALUES(1,1,5,1,'2012-07-10 15:17:52','2012-07-10 15:17:52');
+INSERT INTO "pongo_blogs_pages" VALUES(2,2,5,1,'2012-07-10 15:17:52','2012-07-10 15:17:52');
+INSERT INTO "pongo_blogs_pages" VALUES(3,3,5,1,'2012-07-10 15:17:52','2012-07-10 15:17:52');
+
+INSERT INTO "pongo_pages" VALUES(1,0,1,50,1,'/home','Home','','A multilingual PHP CMS','','','default','default','home','default',0,0,1000000,'en',1,1,'2012-07-09 19:27:04','2012-07-10 19:15:26');
+INSERT INTO "pongo_pages" VALUES(2,0,1,50,1,'/about-us','About us','','About this PHP CMS','','','default','default','home','default',0,0,1000000,'en',0,1,'2012-07-10 15:00:38','2012-07-10 19:15:42');
+INSERT INTO "pongo_pages" VALUES(3,0,1,50,1,'/home','Home','','Un CMS in PHP per gestire siti multilingua','','','default','default','home','default',0,0,1000000,'it',1,1,'2012-07-10 15:12:36','2012-07-10 19:13:30');
+INSERT INTO "pongo_pages" VALUES(4,0,1,50,1,'/chi-siamo','Chi siamo','','Notizie su questo CMS in PHP','','','default','default','home','default',0,0,1000000,'it',0,1,'2012-07-10 18:48:18','2012-07-10 19:14:03');
+INSERT INTO "pongo_pages" VALUES(5,0,1,50,1,'/blog','Blog','','PongoCMS Blog','','','default','default','default','default',0,1,1000000,'en',0,1,'2012-07-15 09:46:28','2012-07-15 09:47:09');
+
