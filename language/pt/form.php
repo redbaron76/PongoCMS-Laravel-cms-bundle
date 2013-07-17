@@ -165,6 +165,8 @@ return array(
 
 	//FILES
 
+	"owned_by" => "Owned by",
+	"any_page" => "ANY PAGE",
 	"modal_title_file" => "Eliminar este ficheiro?",
 	"texts" => "Descrição",
 	"filename" => "Nome do ficheiro",

@@ -150,10 +150,22 @@ class Site_Controller extends Base_Controller {
 
 		//LOGIN ZONE
 		$login_zone = Config::get('cms::theme.login_zone');
-		
+
+		//LOGIN PAGE DETAILS
+		$login_template = Config::get('cms::theme.login_template');
+		$login_header = Config::get('cms::theme.login_header');
+		$login_footer = Config::get('cms::theme.login_footer');
+		$login_layout = Config::get('cms::theme.login_layout');
+
 		// RENDER THE PAGE
-		CmsRender::page('/', array('zone' => $login_zone, 'view' => $view));
-		
+		CmsRender::page('/', array(
+			'template' => $login_template,
+			'header' => $login_header,
+			'footer' => $login_footer,
+			'layout' => $login_layout,
+			'zone' => $login_zone,
+			'view' => $view)
+		);		
 
 	}
 
@@ -410,8 +422,21 @@ class Site_Controller extends Base_Controller {
 			//LOAD ZONE TO INJECT IN
 			$search_zone = Config::get('cms::theme.search_zone');
 
+			//SEARCH PAGE DETAILS
+			$search_template = Config::get('cms::theme.search_template');
+			$search_header = Config::get('cms::theme.search_header');
+			$search_footer = Config::get('cms::theme.search_footer');
+			$search_layout = Config::get('cms::theme.search_layout');
+
 			// RENDER THE PAGE
-			CmsRender::page($url, array('zone' => $search_zone, 'view' => $view));
+			CmsRender::page($url, array(
+				'template' => $search_template,
+				'header' => $search_header,
+				'footer' => $search_footer,
+				'layout' => $search_layout,
+				'zone' => $search_zone,
+				'view' => $view)
+			);
 
 		} else {
 

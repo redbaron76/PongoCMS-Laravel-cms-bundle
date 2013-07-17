@@ -166,6 +166,8 @@ return array(
 
 	//FILES
 
+	"owned_by" => "Owned by",
+	"any_page" => "ANY PAGE",
 	"modal_title_file" => "Delete this file?",
 	"texts" => "Descriptions",
 	"filename" => "File name",

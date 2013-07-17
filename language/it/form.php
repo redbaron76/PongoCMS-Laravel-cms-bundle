@@ -166,6 +166,8 @@ return array(
 
 	//FILES
 
+	"owned_by" => "Presenti in",
+	"any_page" => "TUTTE LE PAGINE",
 	"modal_title_file" => "Eliminare questo file?",
 	"texts" => "Descrizioni",
 	"filename" => "Nome file",

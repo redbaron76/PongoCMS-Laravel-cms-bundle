@@ -113,15 +113,17 @@ $.cms = {
 	highlightLayout:
 	function() {
 
-		var el_var, $el = $('#element_zone');
+		var $el = $('#element_zone');
 
-		$el.live('change', function() {
-			el_val = $el.val();
-			console.log(el_val);
+		if($el.length > 0) {
+			var el_val = $el.val();
+			$('div[data-zone='+el_val+']').addClass('highlight');
 
-			$('div.highlight').removeClass('highlight');
-			$('div[data-zone='+ $(this).val() +']').parent().addClass('highlight');
-		});
+			$el.live('change', function() {
+				$('div.highlight').removeClass('highlight');
+				$('div[data-zone='+ $(this).val() +']').addClass('highlight');
+			});
+		}
 
 	},
 
@@ -345,6 +347,9 @@ $.cms = {
 
 				if(data.full_slug) $('a.preview').attr('href', data.full_slug + PREVIEW);
 
+				// Set element name
+				if(data.element) $('legend > span').html(data.element);
+
 				// Template inject
 				if(data.inject && data.template) {
 
@@ -517,6 +522,18 @@ $.cms = {
 	},
 
 	//FILES
+
+	fileChangePath:
+	function() {
+		$('#change_file_path').live('change', function() {
+			var id = $(this).val();
+			if(id != 0) {
+				window.location = BASE+'/cms/file/'+id;
+			} else {
+				window.location = BASE+'/cms/file';
+			}
+		});
+	},
 
 	fileChangeLang:
 	function() {

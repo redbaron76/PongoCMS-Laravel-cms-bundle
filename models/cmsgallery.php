@@ -24,7 +24,7 @@ class CmsGallery extends Eloquent {
 
         foreach ($arr as $thumb => $value) {
 
-            $thumbs[$thumb] = $thumb;            
+            $thumbs[$thumb] = $thumb . ' (' . $value['width'] . 'x' . $value['height'] . ')';            
 
         }
 

@@ -261,7 +261,7 @@ class Marker extends CustomMarker {
     *
 	* [$BLOGVIEW[{
 	*	"source":"<source label>",	=> (available: blogs, products...)
-	*	"time":"<time label>",		=> (available: future, past, null - default: null)
+	*	"time":"<time label>",		=> (available: future, present, past - default: present)
 	*	"n":"<n items per page>",	=> (default: 5)
 	*	"order":"desc",				=> OPTIONAL (asc, desc default: desc)
 	*	"id":"<id>",				=> OPTIONAL <ul> id
@@ -280,7 +280,7 @@ class Marker extends CustomMarker {
 
 		//Bind variables
 
-		$_time = null;
+		$_time = 'present';
 		if(isset($time) and !empty($time)) $_time = $time;
 
 		$_n = 5;
@@ -302,8 +302,10 @@ class Marker extends CustomMarker {
 
 		if($_n > 0) {
 
-			$_sign = '<';
-			if($_time == 'future') $_sign = '>';
+			$_sign = '<>';
+
+			if($_time == 'future') $_sign = '>=';
+			if($_time == 'past') $_sign = '<=';
 
 			//CACHE DATA
 			if(CACHE) {
@@ -312,7 +314,7 @@ class Marker extends CustomMarker {
 
 					return CmsBlog::with(array('pages'))
 						->where_lang(SITE_LANG)
-						->where('datetime_on', $_sign.'=', date('Y-m-d H:i:s'))
+						->where('datetime_on', $_sign, date('Y-m-d H:i:s'))
 						->where('datetime_off', '>', date('Y-m-d H:i:s'))
 						->where_is_valid(1)
 						->order_by('datetime_on', $_order)
@@ -325,7 +327,7 @@ class Marker extends CustomMarker {
 
 				$list = CmsBlog::with(array('pages'))
 						->where_lang(SITE_LANG)
-						->where('datetime_on', $_sign.'=', date('Y-m-d H:i:s'))
+						->where('datetime_on', $_sign, date('Y-m-d H:i:s'))
 						->where('datetime_off', '>', date('Y-m-d H:i:s'))
 						->where_is_valid(1)
 						->order_by('datetime_on', $_order)
@@ -1565,7 +1567,7 @@ class Marker extends CustomMarker {
     *
 	* [$PREVIEW[{
 	*	"source":"<source label>",	=> (available: blogs, products...)
-	*	"time":"<time label>",		=> (available: future, past, null - default: null)
+	*	"time":"<time label>",		=> (available: future, past, present - default: present)
 	*	"n":"<n items per page>",	=> (default: config.design.pag)
 	*	"id":"<id>",				=> OPTIONAL <ul> id
 	*	"class":"<class>",			=> OPTIONAL <ul><li> class (default: list)
@@ -1586,7 +1588,7 @@ class Marker extends CustomMarker {
 		$_source = '';
 		if(isset($source) and !empty($source)) $_source = $source;
 
-		$_time = null;
+		$_time = 'present';
 		if(isset($time) and !empty($time)) $_time = $time;
 
 		$_n = Config::get('cms::theme.site_pag');
@@ -1607,7 +1609,7 @@ class Marker extends CustomMarker {
 
 			$_source = $_source . '_preview';
 
-			if(!is_null($_time)) $_source = $_source . '_' . $_time;
+			if($_time != 'present') $_source = $_source . '_' . $_time;
 
 			//CACHE DATA
 			if(CACHE) {

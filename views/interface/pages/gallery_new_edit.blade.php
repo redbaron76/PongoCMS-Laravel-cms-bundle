@@ -56,7 +56,10 @@
 
 							</div>
 							<div class="span6">
-								<h4>{{LL('cms::title.gallery_files', CMSLANG)}}</h4>
+								<h4>
+									{{LL('cms::title.gallery_files', CMSLANG)}}
+									{{HTML::link_to_action('cms::file@index', LL('cms::button.add_pic', CMSLANG), false, array('class' => 'btn btn-mini btn-primary pull-right'))}}
+								</h4>
 								<div class="trans-box hspace loading">
 									<table class="table table-striped fixed v-middle listing">
 										<col width="15%">

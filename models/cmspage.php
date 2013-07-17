@@ -119,11 +119,11 @@ class CmsPage extends Eloquent {
 	}
 
 	//PAGE SETTINGS POSITION DROPDOWN
-	public static function select_top_slug($lang, $self = 0, $first = true)
+	public static function select_top_slug($lang, $self = 0, $first = true, $label = 'form.page_topcat')
 	{
 		if($first) {
 			
-			$slugs = array(0 => LL('cms::form.page_topcat', CMSLANG));
+			$slugs = array(0 => LL('cms::'.$label, CMSLANG));
 
 		} else {
 

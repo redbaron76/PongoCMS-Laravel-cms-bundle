@@ -66,6 +66,7 @@ return array(
 	//GALLERY
 
 	"new_gallery" => "Nova Galeria",
+	"add_pic" => "Add picture",
 
 	//BLOG
 

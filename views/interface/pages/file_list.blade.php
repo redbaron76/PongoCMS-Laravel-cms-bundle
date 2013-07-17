@@ -1,9 +1,12 @@
 <div class="row">
-	<div class="span10">
+	<div class="span6">
 		<h2>{{LL('cms::title.files', CMSLANG)}}</h2>
 	</div>
-	<div class="span2">
-
+	<div class="span6 toright">
+		<div class="input-prepend">
+			<span class="add-on">{{LL('cms::form.owned_by', CMSLANG)}}:</span>
+			{{Form::select('file_path', CmsPage::select_top_slug(LANG, 0, true, 'form.any_page'), $page, array('id' => 'change_file_path', 'class' => 'span5'))}}
+		</div>
 	</div>
 </div>
 

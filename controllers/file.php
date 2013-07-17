@@ -12,8 +12,8 @@ class Cms_File_Controller extends Cms_Base_Controller {
 	}
 
 	//LIST ALL FILES
-    public function get_index()
-    {
+	public function get_index($page = 0)
+	{
 
 		//LOAD FANCYBOX LIBS
 		Asset::container('header')->add('fancyboxcss', 'bundles/cms/css/fancybox.css', 'main');
@@ -33,30 +33,49 @@ class Cms_File_Controller extends Cms_Base_Controller {
 		);
 
 		//GET DATA
-		$data = CmsFile::with('pages')
-				->order_by('name', 'asc')
-				->order_by('ext', 'asc')
-				->order_by('size', 'desc')				
-				->paginate(Config::get('cms::settings.pag'));
+
+		if($page == 0) {
+
+			$data = CmsFile::with(array('pages'))
+					->order_by('name', 'asc')
+					->order_by('ext', 'asc')
+					->order_by('size', 'desc')
+					->paginate(Config::get('cms::settings.pag'));
+
+		} else {
+
+			$data = DB::table('files')
+					->join('files_pages', 'files.id', '=', 'files_pages.cmsfile_id')
+					->where('files_pages.cmspage_id', '=', $page)
+					->order_by('name', 'asc')
+					->order_by('ext', 'asc')
+					->order_by('size', 'desc')
+					->paginate(Config::get('cms::settings.pag'));
+
+
+		}
+
+		// D($data);
 
 		$this->layout->content = View::make('cms::interface.pages.file_list')
-		->with('data', $data);
+		->with('data', $data)
+		->with('page', $page);
 
-    }
+	}
 
-    //EDIT FILE
-    public function get_edit($id)
-    {
+	//EDIT FILE
+	public function get_edit($id)
+	{
 
-    	//LOAD FANCYBOX LIBS
+		//LOAD FANCYBOX LIBS
 		Asset::container('header')->add('fancyboxcss', 'bundles/cms/css/fancybox.css', 'main');
 		Asset::container('footer')->add('fancybox', 'bundles/cms/js/jquery.fancybox.js', 'jquery');
 
-    	//LOAD JS LIBS
+		//LOAD JS LIBS
 		Asset::container('footer')->add('form', 'bundles/cms/js/jquery.form.js', 'jquery');
 		Asset::container('footer')->add('files', 'bundles/cms/js/sections/files_edit.js', 'cms');
 
-    	$this->layout->header_data = array(
+		$this->layout->header_data = array(
 			'title' => LL('cms::title.file_edit', CMSLANG)
 		);
 
@@ -139,12 +158,12 @@ class Cms_File_Controller extends Cms_Base_Controller {
 		->with('galleries', $galleries)
 		->with('downloads', $downloads);
 
-    }
+	}
 
-    //DETELE FILE
-    public function post_delete()
-    {
-    	if(Input::has('file_id')) {
+	//DETELE FILE
+	public function post_delete()
+	{
+		if(Input::has('file_id')) {
 
 			$fid = Input::get('file_id');
 
@@ -190,10 +209,10 @@ class Cms_File_Controller extends Cms_Base_Controller {
 
 			return Redirect::to_action('cms::file');
 		}
-    }
+	}
 
 
-    
+	
 
 
 	//GET FILE POPOVER DETAILS

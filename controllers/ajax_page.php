@@ -764,6 +764,7 @@ class Cms_Ajax_Page_Controller extends Cms_Base_Controller {
 			'response' => $response,
 			'message' => $msg,
 			'backurl' => $backurl,
+			'element' => $input['element_name'],
 			'detach' => $detach,
 			'inject' => $inject,
 			'zone' => $zone,
