@@ -246,7 +246,7 @@ class CmsRender {
 					if(!empty($inject)) {
 
 						// Clean content
-						unset($zone);
+						// unset($zone);
 
 						// Append results
 						$zone[$inject['zone']][0] = $inject['view'];

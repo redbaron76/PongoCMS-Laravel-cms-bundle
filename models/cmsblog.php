@@ -44,47 +44,47 @@ class CmsBlog extends Eloquent {
 
 	public function get_updated_date()
 	{
-		return strftime('%d %b %Y - %H:%M', strtotime($this->get_attribute('updated_at')));
+		return utf8_encode(strftime('%d %b %Y - %H:%M', strtotime($this->get_attribute('updated_at')))));
 	}
 
 	public function get_created_date()
 	{
-		return strftime('%d %b %Y - %H:%M', strtotime($this->get_attribute('created_at')));
+		return utf8_encode(strftime('%d %b %Y - %H:%M', strtotime($this->get_attribute('created_at'))));
 	}
 
 	public function get_dmy()
 	{
-		return strftime('%d/%m/%Y', strtotime($this->get_attribute('datetime_on')));
+		return utf8_encode(strftime('%d/%m/%Y', strtotime($this->get_attribute('datetime_on'))));
 	}
 
 	public function get_datetime_blog()
 	{
-		return strftime('%A %d %B %H:%M', strtotime($this->get_attribute('datetime_on')));
+		return utf8_encode(strftime('%A %d %B %H:%M', strtotime($this->get_attribute('datetime_on'))));
 	}
 
 	public function get_date_blog()
 	{
-		return strftime('%A %d %B', strtotime($this->get_attribute('datetime_on')));
+		return utf8_encode(strftime('%A %d %B', strtotime($this->get_attribute('datetime_on'))));
 	}
 
 	public function get_datetime_on()
 	{
-		return date(GET_DATETIME(), strtotime($this->get_attribute('datetime_on')));
+		return utf8_encode(date(GET_DATETIME(), strtotime($this->get_attribute('datetime_on'))));
 	}
 
 	public function get_datetime_off()
 	{
-		return date(GET_DATETIME(), strtotime($this->get_attribute('datetime_off')));
+		return utf8_encode(date(GET_DATETIME(), strtotime($this->get_attribute('datetime_off'))));
 	}
 
 	public function get_dt_on()
 	{
-		return strftime('%d %b %Y - %H:%M', strtotime($this->get_attribute('datetime_on')));
+		return utf8_encode(strftime('%d %b %Y - %H:%M', strtotime($this->get_attribute('datetime_on'))));
 	}
 
 	public function get_dt_off()
 	{
-		return strftime('%d %b %Y - %H:%M', strtotime($this->get_attribute('datetime_off')));
+		return utf8_encode(strftime('%d %b %Y - %H:%M', strtotime($this->get_attribute('datetime_off'))));
 	}
 
 }
