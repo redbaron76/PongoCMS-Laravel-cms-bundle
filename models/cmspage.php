@@ -436,15 +436,26 @@ class CmsPage extends Eloquent {
 			'div' => 'div rel="preview"',
 			'container' => 'container percent100',
 			'row' => 'row-fluid top10',
-			// '{{' => '<span>',
-			// '}}' => '</span>'
 			'{{' => '',
 			'}}' => ''
 		);
 
+		// Match markers
 		preg_match_all('/\{\{\$([^\$]*)\}\}/i', $preview_layout, $matches);
 
 		$clear_array = $matches[1];
+
+		// Match Marker Helper
+		preg_match_all('/MARKER\(.*?\)/i', $preview_layout, $matches);
+
+		$clear_marker = $matches[0];
+
+		foreach ($clear_marker as $value) {
+
+			// LOOP REPLACE LAYOUT TAGS
+			$preview_layout = str_replace($value, '', $preview_layout);
+
+		}
 
 		// LAYOUT TEMPLATE ARRAY
 		$layout_array = Config::get('cms::theme.layout_'.$layout);
