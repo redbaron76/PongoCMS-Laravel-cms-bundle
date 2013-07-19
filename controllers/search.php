@@ -158,7 +158,8 @@ class Cms_Search_Controller extends Cms_Searchbase_Controller {
 						->paginate(Config::get('cms::settings.pag'));
 				
 				$this->layout->content = View::make('cms::interface.pages.file_list')
-				->with('data', $data);
+				->with('data', $data)
+				->with('page', 0);
 
 			} else {
 
@@ -179,7 +180,8 @@ class Cms_Search_Controller extends Cms_Searchbase_Controller {
 						->paginate(Config::get('cms::settings.pag'));
 
 				$this->layout->content = View::make('cms::interface.pages.file_list')
-				->with('data', $data);
+				->with('data', $data)
+				->with('page', 0);
 
 			}
 
