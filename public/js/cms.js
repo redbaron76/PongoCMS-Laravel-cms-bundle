@@ -1,4 +1,4 @@
-//PongoCMS v2.0  jQuery Library
+//PongoCMS v1.3  jQuery Library
 //2012-04-20 - copyright Fabio Fumis - Pongoweb.it
 
 	

@@ -12,7 +12,7 @@ class Cms_File_Controller extends Cms_Base_Controller {
 	}
 
 	//LIST ALL FILES
-	public function get_index($page = 0)
+	public function get_index($page_id = 0, $ext = null)
 	{
 
 		//LOAD FANCYBOX LIBS
@@ -32,34 +32,39 @@ class Cms_File_Controller extends Cms_Base_Controller {
 			'q' => ''
 		);
 
+		//ALLOWED EXTENSIONS
+		$ext_str = str_replace(' ', '', Config::get('cms::settings.mimes'));
+
+		$extensions = explode(',', $ext_str);
+
+		$extensions_selected = (!is_null($ext)) ? explode('-', $ext) : array();
+
 		//GET DATA
 
-		if($page == 0) {
+		$sign = ($page_id == 0) ? '<>' : '=';
 
-			$data = CmsFile::with(array('pages'))
-					->order_by('name', 'asc')
-					->order_by('ext', 'asc')
-					->order_by('size', 'desc')
-					->paginate(Config::get('cms::settings.pag'));
-
-		} else {
-
-			$data = DB::table('files')
-					->join('files_pages', 'files.id', '=', 'files_pages.cmsfile_id')
-					->where('files_pages.cmspage_id', '=', $page)
-					->order_by('name', 'asc')
-					->order_by('ext', 'asc')
-					->order_by('size', 'desc')
-					->paginate(Config::get('cms::settings.pag'));
-
-
+		$files = DB::table('files');
+		$files->join('files_pages', 'files.id', '=', 'files_pages.cmsfile_id');
+		$files->where('files_pages.cmspage_id', $sign, $page_id);
+		foreach ($extensions_selected as $key => $exte) {
+			if($key === 0) {
+				$files->where('ext', '=', $exte);
+			} else {
+				$files->or_where('ext', '=', $exte);
+			}
 		}
-
-		// D($data);
+		$files->group_by('name');
+		$files->order_by('name', 'asc');
+		$files->order_by('ext', 'asc');
+		$files->order_by('size', 'desc');
+		$data = $files->paginate(Config::get('cms::settings.pag'));
 
 		$this->layout->content = View::make('cms::interface.pages.file_list')
 		->with('data', $data)
-		->with('page', $page);
+		->with('page', $page_id)
+		->with('ext', $ext)
+		->with('extensions_selected', $extensions_selected)
+		->with('extensions', $extensions);
 
 	}
 

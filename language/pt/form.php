@@ -168,6 +168,7 @@ return array(
 	"owned_by" => "Owned by",
 	"any_page" => "ANY PAGE",
 	"modal_title_file" => "Eliminar este ficheiro?",
+	"with_ext" => "Extension",
 	"texts" => "Descrição",
 	"filename" => "Nome do ficheiro",
 	"file_texts_legend" => "Gerir descrições dos ficheiros",

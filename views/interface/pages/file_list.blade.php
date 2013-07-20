@@ -1,11 +1,25 @@
 <div class="row">
-	<div class="span6">
+	<div class="span5">
 		<h2>{{LL('cms::title.files', CMSLANG)}}</h2>
 	</div>
-	<div class="span6 toright">
-		<div class="input-prepend">
-			<span class="add-on">{{LL('cms::form.owned_by', CMSLANG)}}:</span>
-			{{Form::select('file_path', CmsPage::select_top_slug(LANG, 0, true, 'form.any_page'), $page, array('id' => 'change_file_path', 'class' => 'span5'))}}
+	<div class="span7 toright">		
+		<div class="row">
+			<div class="input-prepend">
+				<span class="add-on">{{LL('cms::form.with_ext', CMSLANG)}}:</span>
+				<span class="add-on ext" rel="{{$ext}}">
+				@foreach($extensions as $ext)
+					<label class="checkbox inline">
+						{{Form::checkbox($ext, 1, in_array($ext, $extensions_selected)).$ext}}
+					</label>
+				@endforeach
+				</span>
+			</div>
+		</div>
+		<div class="row">
+			<div class="input-prepend">
+				<span class="add-on">{{LL('cms::form.owned_by', CMSLANG)}}:</span>
+				{{Form::select('file_path', CmsPage::select_top_slug(LANG, 0, true, 'form.any_page'), $page, array('id' => 'change_file_path', 'class' => 'span6'))}}
+			</div>
 		</div>
 	</div>
 </div>
@@ -38,7 +52,7 @@
 						@endif
 					</td>
 					<td class="v-middle">
-					{{HTML::span($file->name, array('class' => 'pop-over', 'rel' => $file->id, 'data-original-title' => LL('cms::title.popover_title_media', CMSLANG)))}}
+					{{HTML::span($file->name, array('class' => 'pop-over', 'rel' => $file->cmsfile_id, 'data-original-title' => LL('cms::title.popover_title_media', CMSLANG)))}}
 					</td>
                     <td>                    	
 

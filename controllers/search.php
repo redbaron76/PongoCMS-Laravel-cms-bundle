@@ -149,6 +149,11 @@ class Cms_Search_Controller extends Cms_Searchbase_Controller {
 					'q' => $q
 				);
 
+				//ALLOWED EXTENSIONS
+				$ext_str = str_replace(' ', '', Config::get('cms::settings.mimes'));
+
+				$extensions = explode(',', $ext_str);
+
 				//GET PAGE DATA
 				$data = CmsFile::where('name', 'LIKE', '%'.$q.'%')
 						->or_where('ext', 'LIKE', '%'.$q.'%')
@@ -159,7 +164,9 @@ class Cms_Search_Controller extends Cms_Searchbase_Controller {
 				
 				$this->layout->content = View::make('cms::interface.pages.file_list')
 				->with('data', $data)
-				->with('page', 0);
+				->with('page', 0)
+				->with('extensions_selected', '')
+				->with('extensions', $extensions);
 
 			} else {
 
@@ -172,6 +179,11 @@ class Cms_Search_Controller extends Cms_Searchbase_Controller {
 					'q' => ''
 				);
 
+				//ALLOWED EXTENSIONS
+				$ext_str = str_replace(' ', '', Config::get('cms::settings.mimes'));
+
+				$extensions = explode(',', $ext_str);
+
 				//GET DATA
 				$data = CmsFile::with('pages')
 						->order_by('ext', 'asc')
@@ -181,7 +193,10 @@ class Cms_Search_Controller extends Cms_Searchbase_Controller {
 
 				$this->layout->content = View::make('cms::interface.pages.file_list')
 				->with('data', $data)
-				->with('page', 0);
+				->with('page', 0)
+				->with('ext', '')
+				->with('extensions_selected', '')
+				->with('extensions', $extensions);
 
 			}
 

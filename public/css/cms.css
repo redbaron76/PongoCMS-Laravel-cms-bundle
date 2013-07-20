@@ -344,6 +344,33 @@ form.form-vertical .input-append .btn {
     margin-bottom: 10px;
 }
 
+.input-prepend .add-on.ext,
+.input-append .add-on.ext {
+    background: #ffffff;
+    
+    -webkit-border-bottom-right-radius: 4px;
+    -webkit-border-bottom-left-radius: 0;
+    -webkit-border-top-right-radius: 4px;
+    -webkit-border-top-left-radius: 0;
+
+    border-bottom-right-radius: 4px;
+    border-bottom-left-radius: 0;
+    border-top-right-radius: 4px;
+    border-top-left-radius: 0;
+
+    -moz-border-bottom-right-radius: 4px;
+    -moz-border-bottom-left-radius: 0;
+    -moz-border-top-right-radius: 4px;
+    -moz-border-top-left-radius: 0;
+
+    width: 449px;
+}
+
+.input-prepend .add-on.ext .checkbox.inline,
+.input-append .add-on.ext .checkbox.inline {
+    padding-top: 0;
+}
+
 form.form-vertical .input-prepend .add-on {
     margin-right: 3px;
 }
@@ -540,7 +567,3 @@ table .wrap_name {
 .media-box-block {
     height: 70px;
 }*/
-
-.row-fluid [class*="span"] {
-    margin-left: 0;
-}

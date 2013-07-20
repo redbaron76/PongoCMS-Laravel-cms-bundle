@@ -167,6 +167,7 @@ return array(
 	//FILES
 
 	"owned_by" => "Owned by",
+	"with_ext" => "Extension",
 	"any_page" => "ANY PAGE",
 	"modal_title_file" => "Delete this file?",
 	"texts" => "Descriptions",

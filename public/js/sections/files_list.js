@@ -5,6 +5,9 @@ $(function() {
 	//FANCYBOX
 	$.cms.fancyBox();
 
+	//CHANGE EXTENSION
+	$.cms.fileChangeExtension();
+
 	//CHANGE PATH
 	$.cms.fileChangePath();
 
