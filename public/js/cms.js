@@ -523,15 +523,51 @@ $.cms = {
 
 	//FILES
 
-	fileChangePath:
+	fileChangeExtension:
 	function() {
-		$('#change_file_path').live('change', function() {
-			var id = $(this).val();
-			if(id != 0) {
-				window.location = BASE+'/cms/file/'+id;
+
+		var extensions = $('.ext').attr('rel');
+
+		$('.ext input[type=checkbox]').live('change', function() {
+
+			var pid = $('#change_file_path').val();			
+			var ext = $(this).attr('name');
+
+			if(extensions.indexOf(ext) > -1) {
+				extensions = extensions.replace('-'+ext, '');
+				extensions = extensions.replace(ext, '');
+			} else {
+				extensions = extensions + '-' + ext;
+			}
+
+			if(extensions.substr(0,1) == '-') {
+				extensions = extensions.substring(1);
+			}
+
+			if(extensions.length > 0) {
+				window.location = BASE+'/cms/file/'+pid+'/'+extensions;
 			} else {
 				window.location = BASE+'/cms/file';
 			}
+		});
+	},
+
+	fileChangePath:
+	function() {
+		$('#change_file_path').live('change', function() {
+			
+			var location, id = $(this).val();
+			var extensions = $('.ext').attr('rel');
+
+			if(id != 0) {
+				location = BASE+'/cms/file/'+id+'/'+extensions;
+			} else {
+				location = BASE+'/cms/file';
+				if(extensions.length > 0) location = location + '/0/' + extensions;
+			}
+
+			window.location = location;
+
 		});
 	},
 
