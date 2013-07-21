@@ -66,16 +66,16 @@
 
                     	<div class="btn-toolbar">
 							<div class="btn-group">
-								<a href="{{action('cms::file@edit', array($file->id))}}" class="btn btn-mini">{{LL('cms::button.edit', CMSLANG)}}</a>
+								<a href="{{action('cms::file@edit', array($file_id))}}" class="btn btn-mini">{{LL('cms::button.edit', CMSLANG)}}</a>
 							</div>
 							<div class="btn-group">
-								<a href="#modal-delete-{{$file->id}}" class="btn btn-mini btn-danger" data-toggle="modal">{{LL('cms::button.delete', CMSLANG)}}</a>
+								<a href="#modal-delete-{{$file_id}}" class="btn btn-mini btn-danger" data-toggle="modal">{{LL('cms::button.delete', CMSLANG)}}</a>
 							</div>
 						</div>
 
-						<div class="modal hide" id="modal-delete-{{$file->id}}">
+						<div class="modal hide" id="modal-delete-{{$file_id}}">
 							{{Form::open(action('cms::file@delete'), 'POST')}}
-							{{Form::hidden('file_id', $file->id)}}
+							{{Form::hidden('file_id', $file_id)}}
 							<div class="modal-header">
 								<button class="close" data-dismiss="modal">×</button>
 								<h3>{{LL('cms::form.modal_title_file', CMSLANG)}}</h3>
