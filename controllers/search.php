@@ -165,7 +165,8 @@ class Cms_Search_Controller extends Cms_Searchbase_Controller {
 				$this->layout->content = View::make('cms::interface.pages.file_list')
 				->with('data', $data)
 				->with('page', 0)
-				->with('extensions_selected', '')
+				->with('ext', '')
+				->with('extensions_selected', array())
 				->with('extensions', $extensions);
 
 			} else {
@@ -195,7 +196,7 @@ class Cms_Search_Controller extends Cms_Searchbase_Controller {
 				->with('data', $data)
 				->with('page', 0)
 				->with('ext', '')
-				->with('extensions_selected', '')
+				->with('extensions_selected', array())
 				->with('extensions', $extensions);
 
 			}
