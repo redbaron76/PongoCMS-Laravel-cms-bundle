@@ -39,6 +39,13 @@
 			</thead>
 			<tbody class="listing">
 				@forelse ($data->results as $file)
+
+				<?php
+
+					$file_id = (isset($file->cmsfile_id)) ? $file->cmsfile_id : $file->id;
+
+				?>
+
 				<tr class="post">
 					<td>
 						@if (MEDIA_TYPE($file->ext) == 'img')
@@ -52,7 +59,8 @@
 						@endif
 					</td>
 					<td class="v-middle">
-					{{HTML::span($file->name, array('class' => 'pop-over', 'rel' => $file->cmsfile_id, 'data-original-title' => LL('cms::title.popover_title_media', CMSLANG)))}}
+						{{--D($file)--}}
+					{{HTML::span($file->name, array('class' => 'pop-over', 'rel' => $file_id, 'data-original-title' => LL('cms::title.popover_title_media', CMSLANG)))}}
 					</td>
                     <td>                    	
 

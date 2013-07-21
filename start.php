@@ -170,7 +170,6 @@ Validator::register('valid_datetime', function($attribute, $value, $parameters)
 
 	return false;
 
-
 });
 
 Validator::register('valid_date', function($attribute, $value, $parameters)
@@ -187,7 +186,6 @@ Validator::register('valid_date', function($attribute, $value, $parameters)
 	}
 
 	return false;
-
 
 });
 

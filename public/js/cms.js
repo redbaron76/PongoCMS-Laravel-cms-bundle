@@ -530,7 +530,7 @@ $.cms = {
 
 		$('.ext input[type=checkbox]').live('change', function() {
 
-			var pid = $('#change_file_path').val();			
+			var location, pid = $('#change_file_path').val();			
 			var ext = $(this).attr('name');
 
 			if(extensions.indexOf(ext) > -1) {
@@ -545,10 +545,14 @@ $.cms = {
 			}
 
 			if(extensions.length > 0) {
-				window.location = BASE+'/cms/file/'+pid+'/'+extensions;
+				location = BASE+'/cms/file/filter/'+pid+'/'+extensions;
 			} else {
-				window.location = BASE+'/cms/file';
+				location = BASE+'/cms/file';
+				if(pid > 0) location = location + '/filter/' + pid;
 			}
+
+			window.location = location;
+
 		});
 	},
 
@@ -560,10 +564,11 @@ $.cms = {
 			var extensions = $('.ext').attr('rel');
 
 			if(id != 0) {
-				location = BASE+'/cms/file/'+id+'/'+extensions;
+				location = BASE+'/cms/file/filter/'+id;
+				if(extensions.length > 0) location = location + '/' + extensions;
 			} else {
 				location = BASE+'/cms/file';
-				if(extensions.length > 0) location = location + '/0/' + extensions;
+				if(extensions.length > 0) location = location + '/filter/0/' + extensions;
 			}
 
 			window.location = location;

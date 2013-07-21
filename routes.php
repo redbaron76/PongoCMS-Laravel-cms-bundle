@@ -100,7 +100,7 @@ Route::get('(:bundle)/page/sitemap', 'cms::page@sitemap');
 //ROUTE /cms/page|blog/(:any?)
 Route::get('(:bundle)/blog/(:any?)', 'cms::blog@index');
 Route::get('(:bundle)/banner/(:any?)', 'cms::banner@index');
-Route::get('(:bundle)/file/(:any?)/(:any?)', 'cms::file@index');
+Route::get('(:bundle)/file/(:any?)', 'cms::file@index');
 Route::get('(:bundle)/menu/(:any?)', 'cms::menu@index');
 Route::get('(:bundle)/page/(:any?)', 'cms::page@index');
 Route::get('(:bundle)/tag/(:any?)', 'cms::tag@index');
@@ -158,10 +158,6 @@ Route::any('(:bundle)/page/search', 'cms::search@search_page');
 Route::any('(:bundle)/role/search', 'cms::search@search_role');
 Route::any('(:bundle)/tag/search', 'cms::search@search_tag');
 Route::any('(:bundle)/user/search', 'cms::search@search_user');
-
-/*// CALENDAR SEARCH
-Route::any('(:bundle)/calendar/search', 'cms::search@search_calendar');*/
-
 
 //CMS CONTROLLERS
 
