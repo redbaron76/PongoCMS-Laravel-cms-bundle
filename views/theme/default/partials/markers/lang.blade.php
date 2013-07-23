@@ -4,8 +4,14 @@
 
 		$c = 0;
 
-		if(array_key_exists($exclude, $langs)) {
-			unset($langs[$exclude]);
+		if(!empty($exclude)) {
+
+			$exclude_list = explode('-', $exclude);
+
+			foreach ($exclude_list as $excl) {
+				unset($langs[$excl]);
+			}
+
 		}
 
 	?>
