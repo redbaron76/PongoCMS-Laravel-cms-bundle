@@ -44,7 +44,7 @@ class CmsBlog extends Eloquent {
 
 	public function get_updated_date()
 	{
-		return utf8_encode(strftime('%d %b %Y - %H:%M', strtotime($this->get_attribute('updated_at')))));
+		return utf8_encode(strftime('%d %b %Y - %H:%M', strtotime($this->get_attribute('updated_at'))));
 	}
 
 	public function get_created_date()
