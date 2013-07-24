@@ -753,7 +753,7 @@ class Marker extends CustomMarker {
 			//CACHE DATA
 			if(CACHE) {
 
-				$query = Cache::remember('page_element_'.$_el, function() {
+				$query = Cache::remember('page_element_'.$_el, function() use ($_el) {
 
 					return $menu = CmsElement::find($_el);
 
