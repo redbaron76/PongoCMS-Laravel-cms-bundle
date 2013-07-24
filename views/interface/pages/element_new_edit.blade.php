@@ -3,10 +3,43 @@
 		<h2>{{$title}}</h2>
 	</div>
 	<div class="span2">
-		<a href="{{action('cms::page')}}" class="btn btn-inverse pull-right">
-			<i class="icon-arrow-left icon-white"></i>
-			{{LL('cms::button.back', CMSLANG)}}
-		</a>
+
+		<div class="btn-group pull-right">
+			<a href="{{action('cms::page')}}" class="btn btn-inverse">
+				<i class="icon-arrow-left icon-white"></i>
+				{{LL('cms::button.back', CMSLANG)}}
+			</a>
+			<button class="btn btn-primary dropdown-toggle" data-toggle="dropdown">
+				<span class="caret"></span>
+			</button>
+			<ul class="dropdown-menu">
+				<li>
+					<span>
+						<i class="icon-edit"></i>
+						{{LL('cms::form.page_edit_elements', CMSLANG)}}
+					</span>
+				</li>
+				<li class="divider"></li>
+				@if (!is_null($elements))
+					@forelse ($elements as $element)
+						@if($element_id != $element->id)
+						<li>
+							<a href="{{action('cms::page@edit_element', array($page_id, $element->id))}}">
+								<i class="icon-star<?php if($element->is_valid == 0) echo '-empty'; ?>"></i>
+								<span class="label label-info">{{strtoupper($element->zone)}}</span>
+								{{$element->label}}
+							</a>
+						</li>
+						@endif
+					@empty
+					<li><a href="#">{{LL('cms::alert.element_empty', CMSLANG)}}</a></li>
+					@endforelse
+				@else
+				<li><a href="#">{{LL('cms::alert.element_empty', CMSLANG)}}</a></li>
+				@endif
+			</ul>
+		</div>
+
 	</div>
 </div>
 <div class="row space">
