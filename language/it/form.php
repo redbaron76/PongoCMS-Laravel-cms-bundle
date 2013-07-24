@@ -94,6 +94,7 @@ return array(
 	"modal_title_media" => "Inserisci Media",
 	"modal_title_marker" => "Inserisci Marker",
 	"modal_title_sample" => "Inserisci Esempio",
+	"modal_title_image" => "Inserisci Immagini",
 
 	//MODAL CLONE PAGE
 

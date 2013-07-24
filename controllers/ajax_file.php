@@ -323,4 +323,89 @@ class Cms_Ajax_File_Controller extends Cms_Base_Controller {
 
 	}
 
+	//IMAGE LIST
+
+	public function post_image_list()
+	{
+
+		$where = Input::get('where');
+		$list_id = Input::get('lid');
+
+		//GET FILE DATA
+		$files = CmsFile::with(array($where => function($query) use ($where, $list_id) {
+
+			$singular = Str::singular($where);
+
+			$query->where('files_'.$where.'.cms'.$singular.'_id', '=', $list_id);
+		}))
+			->where_is_image(1)
+			->order_by('name', 'asc')
+			->get();
+
+		return View::make('cms::interface.partials.image_list')
+		->with('rel', $where)
+		->with('lid', $list_id)
+		->with('media', $files);
+		
+	}
+
+	public function post_image_list_add()
+	{
+		if(Input::has('rel') and Input::has('lid') and Input::has('fid')) {
+
+			$where = Input::get('rel');
+			$list_id = Input::get('lid');
+			$file_id = Input::get('fid');
+			$singular = Str::singular($where);
+
+			$inser_arr = array(
+				'cmsfile_id' => $file_id,
+				'cms'.$singular.'_id' => $list_id,
+				'order_id' => Config::get('cms::settings.order')
+			);
+
+			DB::table('files_'.$where)->insert($inser_arr);
+
+			$file = CmsFile::find($file_id);
+
+			if($where == 'galleries') {
+
+				$data = View::make('cms::interface.partials.gallery_new_item')
+						->with('file', $file)
+						->with('list_id', $list_id);
+
+			} else if($where == 'banners') {
+
+			}
+
+			return $data;
+
+		}
+
+		return false;
+	}
+
+	public function post_image_list_delete()
+	{
+
+		if(Input::has('rel') and Input::has('lid') and Input::has('fid')) {
+
+			$where = Input::get('rel');
+			$list_id = Input::get('lid');
+			$file_id = Input::get('fid');
+			$singular = Str::singular($where);
+
+			DB::table('files_'.$where)
+				->where_cmsfile_id($file_id)
+				->where('cms'.$singular.'_id', '=', $list_id)
+				->delete();
+
+			return true;
+
+		}
+
+		return false;
+
+	}
+
 }

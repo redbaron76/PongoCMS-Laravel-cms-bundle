@@ -112,7 +112,7 @@ return array(
 
 	"gallery_new" => "New gallery",
 	"gallery_edit" => "Edit gallery",
-	"gallery_files" => "Available pics",
+	"gallery_files" => "Pics in gallery",
 
 	//BLOG
 

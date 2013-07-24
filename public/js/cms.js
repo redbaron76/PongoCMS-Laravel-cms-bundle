@@ -336,6 +336,7 @@ $.cms = {
 				//Remove .disabled from tabs
 				if(data.id) {
 					$('.nav').find('li.disabled').removeClass('disabled');
+					$('.hide.disabled').removeClass('disabled').show();
 					$('a[data-toggle="tab"], a[data-toggle="pill"]').click(function(e) {
 						e.preventDefault();
 						$(this).tab('show');
@@ -518,6 +519,75 @@ $.cms = {
 
 			return false;
 		});		
+
+	},
+
+	openImageModal:
+	function(where) {
+		
+		$('.open-media-modal').live('click', function() {
+
+				var lid = $(this).attr('rel');
+				var $wrapper = $('#modal-image-list');
+				
+				$.post(BASE+'/cms/ajax/image/list', {
+					lid: lid,
+					where: where
+				}, function(data) {
+					$wrapper.empty().html(data);
+					$('#modal-media').modal();
+				});
+
+			return false;
+		});		
+
+	},
+
+	addImageList:
+	function() {
+
+		$('.list-insert').live('click', function() {
+
+			var lid = $(this).attr('data-list');
+			var fid = $(this).attr('data-file');
+			var rel = $(this).attr('data-rel');
+
+			$.post(BASE+'/cms/ajax/image/list/add', {
+				lid: lid,
+				fid: fid,
+				rel: rel
+			}, function(data) {
+				if(data) {
+					$('table.listing').find('tbody').append(data);
+					$('#modal-image-list').find('tr[rel='+fid+']').remove();
+				};
+				
+			});
+
+			return false;
+		});
+
+	},
+
+	deleteImageList:
+	function() {
+
+		$('.list-delete').live('click', function() {
+
+			var lid = $(this).attr('data-list');
+			var fid = $(this).attr('data-file');
+			var rel = $(this).attr('data-rel');
+
+			$.post(BASE+'/cms/ajax/image/list/del', {
+				lid: lid,
+				fid: fid,
+				rel: rel
+			}, function(status) {
+				if(status) $('tr[rel='+fid+']').remove();
+			});
+
+			return false;
+		});
 
 	},
 

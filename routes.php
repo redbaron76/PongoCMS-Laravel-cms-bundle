@@ -130,6 +130,9 @@ Route::post('(:bundle)/ajax/upload/media', 'cms::ajax_page@upload_media');
 
 //MEDIA LIST (cms.js)
 Route::post('(:bundle)/ajax/media/list', 'cms::ajax_page@media_list');
+Route::post('(:bundle)/ajax/image/list', 'cms::ajax_file@image_list');
+Route::post('(:bundle)/ajax/image/list/add', 'cms::ajax_file@image_list_add');
+Route::post('(:bundle)/ajax/image/list/del', 'cms::ajax_file@image_list_delete');
 
 //FILE TEXT (cms.js)
 Route::post('(:bundle)/ajax/file/text/lang', 'cms::ajax_file@file_text_lang');

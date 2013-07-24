@@ -10,6 +10,15 @@ $(function() {
 	
 	//FANCYBOX
 	$.cms.fancyBox();
+
+	//OPEN MEDIA
+	$.cms.openImageModal('galleries');
+
+	//DELETE MEDIA
+	$.cms.addImageList();
+
+	//DELETE MEDIA
+	$.cms.deleteImageList();
 	
 	//SORTABLE
 	$.cms.sortableListGallery();

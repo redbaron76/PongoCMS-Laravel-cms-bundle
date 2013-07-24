@@ -58,7 +58,8 @@
 							<div class="span6">
 								<h4>
 									{{LL('cms::title.gallery_files', CMSLANG)}}
-									{{HTML::link_to_action('cms::file@index', LL('cms::button.add_pic', CMSLANG), false, array('class' => 'btn btn-mini btn-primary pull-right'))}}
+									<?php $hide = is_numeric($gallery_id) ? '' : ' hide disabled'; ?>
+									{{HTML::link('#', LL('cms::button.add_pic', CMSLANG), array('rel' => $gallery_id, 'class' => 'btn btn-mini btn-primary pull-right open-media-modal' . $hide))}}
 								</h4>
 								<div class="trans-box hspace loading">
 									<table class="table table-striped fixed v-middle listing">
@@ -67,7 +68,7 @@
 										<col width="20%">
 										<tbody>
 											@forelse($files as $file)
-											<tr>
+											<tr rel="{{$file->id}}">
 												<td>
 													<a href="{{BASE.$file->path}}" class="thumbnail fancy" rel="tooltip" data-original-title="{{$file->name}}">							
 														<img src="{{BASE.$file->thumb}}">							
@@ -75,7 +76,7 @@
 												</td>
 												<td class="v-middle"><small>{{$file->name}}</small></td>
 												<td>
-													{{HTML::link_to_action('cms::file@edit', LL('cms::button.delete', CMSLANG), array($file->id), array('class' => 'btn btn-mini pull-right'))}}
+													{{HTML::link('#', LL('cms::button.delete', CMSLANG), array('class' => 'btn btn-mini btn-danger pull-right list-delete', 'data-file' => $file->id, 'data-list' => $gallery_id, 'data-rel' => 'galleries'))}}
 												</td>
 											</tr>
 											@empty
@@ -146,4 +147,24 @@
 
 	</div>
 
+</div>
+
+<div class="modal hide" id="modal-media">
+	<div class="modal-header">
+		<button class="close" data-dismiss="modal">×</button>
+		<h3>{{LL('cms::form.modal_title_image', CMSLANG)}}</h3>
+	</div>
+	<div class="modal-body">
+		<table class="table fixed v-middle">
+			<col width="12%">
+			<col width="68%">
+			<col width="20%">
+			<tbody id="modal-image-list">
+				
+			</tbody>
+		</table>
+	</div>
+	<div class="modal-footer">
+		<a href="#" class="btn" data-dismiss="modal">{{LL('cms::button.close', CMSLANG)}}</a>
+	</div>
 </div>

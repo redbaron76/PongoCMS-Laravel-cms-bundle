@@ -24,7 +24,6 @@ return array(
 	"roles" => "Gestione ruoli",
 	"menus" => "Gestione menu",
 	"tags" => "Gestione tag",
-	"calendar" => "Calendario corsi",
 	"translations" => "Gestione traduzioni",
 	"orders" => "Gestione ordini",
 	"products" => "Gestione prodotti",
@@ -113,7 +112,7 @@ return array(
 
 	"gallery_new" => "Nuova galleria",
 	"gallery_edit" => "Modifica galleria",
-	"gallery_files" => "Immagini disponibili",
+	"gallery_files" => "Immagini nella galleria",
 
 	//BLOG
 
