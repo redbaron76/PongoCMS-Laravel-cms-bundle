@@ -803,7 +803,7 @@ class Cms_Page_Controller extends Cms_Base_Controller {
 
 			$now = date('Y-m-d H:i:s');
 
-			if(Input::has('to_clone')) {
+			if(Input::has('to_clone') or $pid == $nid) {
 
 				//CREATE NEW ELEMENT
 
