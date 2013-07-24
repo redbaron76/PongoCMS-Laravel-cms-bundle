@@ -370,15 +370,17 @@ class Cms_Ajax_File_Controller extends Cms_Base_Controller {
 
 			if($where == 'galleries') {
 
-				$data = View::make('cms::interface.partials.gallery_new_item')
-						->with('file', $file)
-						->with('list_id', $list_id);
+				$data = array(
+					'file' => $file->to_array(),
+					'list_id' => $list_id,
+					'del_btn' => LL('cms::button.delete', CMSLANG)->get()
+				);
 
 			} else if($where == 'banners') {
 
 			}
 
-			return $data;
+			return json_encode($data);
 
 		}
 

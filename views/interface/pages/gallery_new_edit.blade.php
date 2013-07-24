@@ -80,7 +80,7 @@
 												</td>
 											</tr>
 											@empty
-											<tr>
+											<tr rel="empty">
 												<td colspan="3" class="toleft">
 													{{LL('cms::alert.list_empty', CMSLANG)}}
 												</td>
@@ -124,13 +124,13 @@
 						<ul class="thumbnails sortable">
 
 						@forelse ($files as $file)
-							<li class="span1" id="{{$gallery_id}}_{{$file->id}}">
+							<li class="span1" id="{{$gallery_id}}_{{$file->id}}" rel="{{$file->id}}">
 								<a href="{{BASE.$file->path}}" class="thumbnail" data-original-title="{{$file->name}}" rel="tooltip">
 									<img src="{{BASE.$file->thumb}}" />
 								</a>
 							</li>
 						@empty
-							<li>
+							<li rel="empty">
 								{{LL('cms::alert.list_empty', CMSLANG)}}
 							</li>
 						@endforelse

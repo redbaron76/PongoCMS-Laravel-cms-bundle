@@ -558,11 +558,34 @@ $.cms = {
 				rel: rel
 			}, function(data) {
 				if(data) {
-					$('table.listing').find('tbody').append(data);
-					$('#modal-image-list').find('tr[rel='+fid+']').remove();
+
+					var list_tpl = 	'<tr rel="'+ data.file.id +'">' +
+										'<td>' +
+											'<a href="'+ BASE+data.file.path +'" class="thumbnail fancy" rel="tooltip" data-original-title="'+data.file.name+'">' +
+												'<img src="'+BASE+data.file.thumb+'">' +
+											'</a>' +
+										'</td>' +
+										'<td class="v-middle"><small>'+data.file.name+'</small></td>' +
+										'<td>' +
+											'<a href="#" class="btn btn-mini btn-danger pull-right list-delete" data-file="'+data.file.id+'" data-list="'+data.list_id+'" data-rel="galleries">'+data.del_btn+'</a>' +
+										'</td>' +
+									'</tr>';
+
+					var order_tpl = '<li class="span1" id="'+data.list_id+'_'+data.file.id+'" rel="'+data.file.id+'">' +
+										'<a href="'+ BASE+data.file.path +'" class="thumbnail" data-original-title="'+data.file.name+'" rel="tooltip">' +
+											'<img src="'+BASE+data.file.thumb+'" />' +
+										'</a>' +
+									'</li>';
+
+					$('table.listing > tbody').append(list_tpl);
+					$('ul.thumbnails').append(order_tpl);
+
+					$('*[rel=empty]').remove();
+					$('#modal-media tr[rel='+fid+']').remove();
+
 				};
 				
-			});
+			}, 'json');
 
 			return false;
 		});
@@ -578,13 +601,23 @@ $.cms = {
 			var fid = $(this).attr('data-file');
 			var rel = $(this).attr('data-rel');
 
-			$.post(BASE+'/cms/ajax/image/list/del', {
-				lid: lid,
-				fid: fid,
-				rel: rel
-			}, function(status) {
-				if(status) $('tr[rel='+fid+']').remove();
-			});
+			if(lid && fid && rel) {
+
+				$.post(BASE+'/cms/ajax/image/list/del', {
+					lid: lid,
+					fid: fid,
+					rel: rel
+				}, function(status) {
+
+					if(status) {
+
+						$('tr[rel='+fid+']').remove();
+						$('li[rel='+fid+']').remove();
+						
+					}
+				});
+
+			}
 
 			return false;
 		});
